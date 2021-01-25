@@ -12,8 +12,8 @@ class User(db.Model, UserMixin):
   bio = db.Column(db.Text, nullable=True)
   url = db.Column(db.Text, nullable=False)
 
-  ownPosts = db.relationship('Post', foreign_keys='Post.userId')
-  taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
+  # ownPosts = db.relationship('Post', foreign_keys='Post.userId')
+  # taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
 
 
   @property
@@ -34,8 +34,8 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
+      "email": self.email,
+      "bio": self.bio,
       "url": self.url
     }
 
@@ -43,7 +43,7 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
+      "email": self.email,
+      "bio": self.bio,
       "url": self.url
     }
