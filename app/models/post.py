@@ -11,6 +11,10 @@ class Post(db.Model):
 
     user = db.relationship('User', foreign_keys='User.id')  #owner of the post
     taggedUsers = db.relationship('User', secondary='taggedposts', foreign_key='User.id')
+    comments = db.relationship('Comments', foreign_keys='Comments.id')
+    
+
+
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
