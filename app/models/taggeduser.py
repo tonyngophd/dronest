@@ -5,8 +5,8 @@ class TaggedUser(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    postId = db.Column(db.Integer, nullable=False)
-    userId = db.Column(db.Integer, nullable=False)
+    postId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     viewStatus = db.Column(db.Boolean, nullable=True, default=False)
 
 
