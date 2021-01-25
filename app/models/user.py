@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')
   taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
-  
+
 
   @property
   def password(self):
@@ -31,6 +31,15 @@ class User(db.Model, UserMixin):
 
 
   def to_dict(self):
+    return {
+      "id": self.id,
+      "username": self.username,
+      "email": self.email
+      "bio": self.bio
+      "url": self.url
+    }
+
+  def to_dict_for_self(self):
     return {
       "id": self.id,
       "username": self.username,
