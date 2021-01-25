@@ -14,6 +14,8 @@ class User(db.Model, UserMixin):
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')
   taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
+  sentMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.senderId')
+  receivedMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.receiverId')
 
 
   @property
@@ -34,16 +36,17 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
-      "url": self.url
+      "email": self.email,
+      "bio": self.bio,
+      "url": self.url,
     }
 
   def to_dict_for_self(self):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
-      "url": self.url
+      "email": self.email,
+      "bio": self.bio,
+      "url": self.url,
+      "messages": [sentMsg.to_dict() for sentMsg in self.sentMessages] + [recvdMsg.to_dict() for recvdMsg in self.receivedMessages]
     }
