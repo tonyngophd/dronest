@@ -1,9 +1,13 @@
 import React from "react";
-import { logout } from "../../services/auth";
+// import { logout } from "../../services/auth";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/session";
 
-const LogoutButton = ({setAuthenticated}) => {
+const LogoutButton = ({ setAuthenticated }) => {
+  const dispatch = useDispatch();
   const onLogout = async (e) => {
-    await logout();
+    e.preventDefault();
+    dispatch(logoutUser());
     setAuthenticated(false);
   };
 
