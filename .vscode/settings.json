@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/echo/dev/appacademy/starters/python-project-starter/.venv/bin/python",
+    "python.pythonPath": "C:\\Users\\Tony\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
     "python.linting.pycodestyleEnabled": true

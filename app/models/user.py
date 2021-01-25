@@ -9,7 +9,12 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(40), nullable = False, unique = True)
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
+  bio = db.Column(db.Text, nullable=True)
+  url = db.Column(db.Text, nullable=False)
 
+  ownPosts = db.relationship('Post', foreign_keys='Post.userId')
+  taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
+  
 
   @property
   def password(self):
@@ -30,4 +35,6 @@ class User(db.Model, UserMixin):
       "id": self.id,
       "username": self.username,
       "email": self.email
+      "bio": self.bio
+      "url": self.url
     }
