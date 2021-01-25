@@ -12,8 +12,8 @@ class User(db.Model, UserMixin):
   bio = db.Column(db.Text, nullable=True)
   url = db.Column(db.Text, nullable=False)
 
-  ownPosts = db.relationship('Post', foreign_keys='Post.userId')
-  taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
+  # ownPosts = db.relationship('Post', foreign_keys='Post.userId')
+  # taggedPosts = db.relationship('Post', secondary='taggedposts', foreign_keys='Post.userId')
 
 
   @property
