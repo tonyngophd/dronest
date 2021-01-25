@@ -1,0 +1,5 @@
+ id | username |   email    |                                        hashed_password                                         | bio  |   websiteUrl   | profilePicUrl 
+----+----------+------------+------------------------------------------------------------------------------------------------+------+----------------+---------------
+  1 | Demo     | demo@aa.io | pbkdf2:sha256:150000$ENqG5STQ$e8ac858685f24e46dacaa69acefc1daa35f37fc6e4b59aa5a94ecb2b970408ef | demo | www.google.com | 
+(1 row)
+

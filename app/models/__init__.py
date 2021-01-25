@@ -8,7 +8,8 @@ from .post import Post
 from .taggeduser import TaggedUser
 from .hashtag import Hashtag
 from .location import Location
-from .hashtaggedpost import HashtaggedPost
+from .hashtagpost import HashtagPost
 from .userfollower import UserFollower
 from .likedpost import LikedPost
+from .directmessage import DirectMessage
 

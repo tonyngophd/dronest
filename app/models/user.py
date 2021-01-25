@@ -16,13 +16,13 @@ class User(db.Model, UserMixin):
   profilePicUrl = db.Column(db.Text, nullable=True)
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')
-  taggedPosts = db.relationship('Post', secondary='taggedusers', foreign_keys='TaggedUser.postId')
-  likedPosts = db.relationship('Post', secondary='likedposts', foreign_keys='LikedPost.postId')
+  # taggedPosts = db.relationship('Post', secondary='taggedusers', foreign_keys='TaggedUser.postId')
+  # likedPosts = db.relationship('Post', secondary='likedposts', foreign_keys='LikedPost.postId')
   sentMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.senderId')
   receivedMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.receiverId')
-  commentLikes = db.relationship('CommentLike', secondary='commentlikes' foreign_keys='CommentLike.commentId')
-  commentTaggedUser = db.relationship('CommentLike' secondary='commenttaggedusers', foreign_keys='CommentTaggedUser.userId')
-  followers = db.relationship('User', secondary='userfollowers')
+  # commentLikes = db.relationship('CommentLike', secondary='commentlikes', foreign_keys='CommentLike.commentId')
+  # commentTaggedUser = db.relationship('CommentLike', secondary='commenttaggedusers', foreign_keys='CommentTaggedUser.userId')
+  # followers = db.relationship('User', secondary='userfollowers')
 
 
   @property

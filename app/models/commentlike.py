@@ -6,7 +6,7 @@ class CommentLike(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     commentId = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
-    userId = db.column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
 
 

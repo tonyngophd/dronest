@@ -1,7 +1,7 @@
 from .db import db
 
-class HashtaggedPost(db.Model):
-    __tablename__ = 'hashtaggedposts'
+class HashtagPost(db.Model):
+    __tablename__ = 'hashtagposts'
 
 
     id = db.Column(db.Integer, primary_key=True)

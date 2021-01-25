@@ -1,7 +1,7 @@
 from .db import db
 
 class Hashtag(db.Model):
-    __tablename__ = 'Hashtags'
+    __tablename__ = 'hashtags'
 
     id = db.Column(db.Integer, primary_key=True)
     tagInfo = db.Column(db.Integer, nullable=False)

@@ -10,11 +10,11 @@ class Post(db.Model):
     captionRawData = db.Column(db.Text, nullable=False)
  
     # Model name is title case and singular
-    user = db.relationship('User', foreign_keys=userId)  #owner of the post
-    taggedUsers = db.relationship('User', secondary='taggedposts', foreign_keys='User.id')
-    comments = db.relationship('Comment', foreign_keys='Comment.id')
+    # user = db.relationship('User', foreign_keys=userId)  #owner of the post
+    # taggedUsers = db.relationship('User', secondary='taggedposts', foreign_keys='User.id')
+    # comments = db.relationship('Comment', foreign_keys='Comment.id')
     # likedPosts = db.relationship('LikedPost', foreign_keys='LikedPost.id')
-    images = db.relationship('Images', foreign_keys='Image.id')
+    # images = db.relationship('Images', foreign_keys='Image.id')
 
 
 
@@ -25,6 +25,6 @@ class Post(db.Model):
             "userId": self.userId,
             "locationId": self.locationId,
             "captionRawData": self.captionRawData,
-            "user": user.to_dict(),
-            "taggedUsers": [user.to_dict() for user in taggedUsers]
+            # "user": user.to_dict(),
+            # "taggedUsers": [user.to_dict() for user in taggedUsers]
         }
