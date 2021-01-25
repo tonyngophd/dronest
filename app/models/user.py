@@ -34,16 +34,16 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
-      "url": self.url
+      "email": self.email,
+      "bio": self.bio,
+      "url": self.url,
     }
 
   def to_dict_for_self(self):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
-      "bio": self.bio
-      "url": self.url
+      "email": self.email,
+      "bio": self.bio,
+      "url": self.url,
     }
