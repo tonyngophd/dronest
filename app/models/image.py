@@ -4,7 +4,7 @@ class Image(db.Model):
     __tablename__ = 'images'
 
     id = db.Column(db.Integer, primary_key=True)
-    postId = db.Column(db.Integer, nullable=False)
+    postId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     imgUrl = db.Column(db.Text, nullable=False)
 
 

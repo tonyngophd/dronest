@@ -1,12 +1,12 @@
 from .db import db
 
-class CommentLikes(db.Model):
+class CommentLike(db.Model):
     __tablename__ = 'commentlikes'
 
 
     id = db.Column(db.Integer, primary_key=True)
-    commentId = db.Column(db.Integer, nullable=False)
-    userId = db.column(db.Integer, nullable=False)
+    commentId = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
 
 
