@@ -5,8 +5,8 @@ class DirectMessage(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    senderId = db.Column(db.Integer, nullable=False)
-    receiverId = db.Column(db.Integer, nullable=False)
+    senderId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    receiverId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     message = db.Column(db.Text, nullable=False)
     viewStatus = db.Column(db.Boolean, nullable=False, default=False)
 
@@ -16,7 +16,9 @@ class DirectMessage(db.Model):
         return {
           "id": self.id,
           "senderId": self.senderId,
-          "receiverId": self.receiverId,        
+          "receiverId": self.receiverId,
+          "message": self.message,
+          "viewStatus": self.viewStatus  
         }
         
 
