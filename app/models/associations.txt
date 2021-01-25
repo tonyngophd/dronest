@@ -1,0 +1,33 @@
+Our Associations:
+
+User:
+    - Posts 
+        - Images
+        - savedPosts
+        - likedPosts
+        - Comments
+        - HashtagPosts
+            - Hashtags
+        ownPosts:
+        taggedPosts:
+    - Comments
+        - commentlikes
+    - Like
+        - Comments
+    - Likedposts
+    - Commentlikes
+    - Followers
+    - TaggedUsers
+    - DirectMessages
+    - Locations
+        - Posts
+
+
+User can have their own posts. Their own posts. Can be tagged in a post ( other posts )
+
+ownPosts: posts that they created themselves
+taggedPosts: the posts in which they are tagged (TaggedUser joined table)
+
+
+
+API/Routes
