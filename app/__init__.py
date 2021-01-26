@@ -89,13 +89,12 @@ def react_root(path):
 
 @app.route("/s3_upload", methods=["POST"])
 def upload_file():
-
 	# A
     if "user_file" not in request.files:
         return "No user_file key in request.files"
 
 	# B
-    file    = request.files["user_file"]
+    file = request.files["user_file"]
 
     """
         These attributes are also available
@@ -115,9 +114,9 @@ def upload_file():
         return "Please select a file"
 
 	# D.
-    if file and allowed_file(file.filename):
+    if file:
         file.filename = secure_filename(file.filename)
-        output   	  = upload_file_to_s3(file, app.config["S3_BUCKET"])
+        output = upload_file_to_s3(file, app.config["S3_BUCKET"])
         return str(output)
 
     else:
