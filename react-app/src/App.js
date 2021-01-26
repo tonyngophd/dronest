@@ -46,15 +46,15 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true}>
           <h1>My Home Page</h1>
+          <div className="main_body">
+            <Feed />
+            <Suggestions />
+          </div>
         </ProtectedRoute>
         <ProtectedRoute path="/:username">
           <ProfilePage />
         </ProtectedRoute>
       </Switch>
-      <div className="main_body">
-        <Feed />
-        <Suggestions />
-      </div>
     </BrowserRouter>
   );
 }

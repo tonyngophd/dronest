@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fab4f6534be5
+Revision ID: b0906eab345e
 Revises: 
-Create Date: 2021-01-25 17:50:07.356292
+Create Date: 2021-01-25 22:01:38.864863
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fab4f6534be5'
+revision = 'b0906eab345e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,6 +33,7 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('bio', sa.Text(), nullable=True),
@@ -41,6 +42,16 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
+    )
+    op.create_table('directmessages',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('senderId', sa.Integer(), nullable=False),
+    sa.Column('receiverId', sa.Integer(), nullable=False),
+    sa.Column('message', sa.Text(), nullable=False),
+    sa.Column('viewStatus', sa.Boolean(), nullable=False),
+    sa.ForeignKeyConstraint(['receiverId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['senderId'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -103,7 +114,7 @@ def upgrade():
     sa.Column('commentId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['posts.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('commenttaggedusers',
@@ -129,6 +140,7 @@ def downgrade():
     op.drop_table('comments')
     op.drop_table('userfollowers')
     op.drop_table('posts')
+    op.drop_table('directmessages')
     op.drop_table('users')
     op.drop_table('locations')
     op.drop_table('hashtags')

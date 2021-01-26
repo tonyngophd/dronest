@@ -1,12 +1,18 @@
 from werkzeug.security import generate_password_hash
+
 from app.models import db, Location
+from faker import Faker
+fake = Faker()
 
 # Adds a demo location, you can add other locations here if you want
 def seed_locations():
 
-    demo = Location(city="Seattle", state='Washington', country='US')
-
-    db.session.add(demo)
+    for i in range(30):
+      add = fake.address()
+      city = add.split('\n')[1]
+      city = city[:-10]
+      demo = Location(city=city, state=add[-8:-6], country="US")
+      db.session.add(demo)
 
     db.session.commit()
 
