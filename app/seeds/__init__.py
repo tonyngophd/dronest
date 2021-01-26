@@ -1,4 +1,5 @@
 from flask.cli import AppGroup
+
 from .users import seed_users, undo_users
 from .posts import seed_posts, undo_posts
 from .locations import seed_locations, undo_locations
