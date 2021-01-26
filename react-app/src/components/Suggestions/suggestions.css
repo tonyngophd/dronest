@@ -3,5 +3,7 @@
     width: 250px;
     height: 400px;
     position: fixed;
-    left: 830px
+    left: 830px;
+    top: 187px;
+    border-radius: 5px;
 }
