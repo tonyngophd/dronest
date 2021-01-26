@@ -1,10 +1,37 @@
-.profile-post-pic {
-  width: 294px;
-  height: 294px;
-  margin-bottom: 30px;
+.profile-post-pic-wrapper {
+  position: relative;
   cursor: pointer;
 }
 
-.profile-post-pic:hover {
+.profile-post-pic {
+  width: 294px;
+  height: 294px;
+  margin-bottom: 25px;
+}
+
+.profile-post-pic.hovered {
   filter: brightness(80%);
+}
+
+.profile-post-pic-overlay {
+  visibility: hidden;
+  font-size: 19px;
+  color: white;
+  font-weight: 600;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  padding: 0px 30px;
+  justify-content: space-evenly;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile-post-pic-overlay.hovered {
+  visibility: visible;
+}
+
+.profile-post-pic-overlay-inner > i {
+  padding-right: 5px;
 }

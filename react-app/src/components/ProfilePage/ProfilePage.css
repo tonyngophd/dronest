@@ -24,7 +24,7 @@
 
 .profile-username-and-button {
   display: flex;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .profile-username {
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .profile-follower-numbers {
@@ -68,11 +68,11 @@
 
 .profile-display-name {
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .profile-bio {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .profile-website-url {

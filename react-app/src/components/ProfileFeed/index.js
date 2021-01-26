@@ -13,8 +13,8 @@ const ProfileFeed = () => {
     {
       url:
         "https://i.picsum.photos/id/406/600/600.jpg?hmac=IMDaXEom3Ox8j-x6UR0-wDjygrCsFg-952Uef8k9U2Q",
-      likes: 9,
-      comments: 56,
+      likes: "9,598",
+      comments: "5,699",
     },
     {
       url:
