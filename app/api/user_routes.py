@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask_login import login_required, current_user
+from app.models import User, UserFollower
 
 user_routes = Blueprint('users', __name__)
 
@@ -25,6 +25,15 @@ def fetch_user(username):
     user = User.query.filter_by(username=username).first()
     return user.to_dict()
 
+
+@user_routes.route('/<string:username>/followers')
+@login_required
+def fetch_user_followers(username):
+    # user = User.query.filter_by(username=username).first()
+    followers = UserFollower.query.filter(UserFollower.userId==current_user.id).all()
+    following = UserFollower.query.filter(UserFollower.followerId==current_user.id).all()
+    return {"followers": [user.follower.to_dict() for user in followers], 
+        "following": [user.person.to_dict() for user in following]}
 
 
 # @user_routes.route('')

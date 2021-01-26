@@ -1,0 +1,24 @@
+.image-placeholder {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background-color: rgb(219, 219, 219);
+}
+
+.image-preview {
+  width: 400px;
+}
+
+#image-input {
+  display: none;
+}
+
+.image-upload {
+  font-size: 50px;
+  color: rgb(190, 190, 190);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}

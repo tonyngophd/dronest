@@ -5,6 +5,7 @@ from .posts import seed_posts, undo_posts
 from .locations import seed_locations, undo_locations
 from .images import seed_images, undo_images
 
+from .userfollowers import seed_followers, undo_followers
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
@@ -16,6 +17,7 @@ def seed():
     seed_locations()
     seed_posts()
     seed_images()
+    seed_followers()
     # Add other seed functions here
 
 # Creates the `flask seed undo` command
@@ -23,6 +25,7 @@ def seed():
 def undo():
     undo_locations()
     undo_posts()
+    undo_followers()
     undo_users()
     undo_images()
     # Add other undo functions here
