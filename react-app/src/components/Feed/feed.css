@@ -1,5 +1,4 @@
 .feed_container {
-    /* background-color: lightgreen; */
     width: 560px;
     margin-left: 250px;
 }
@@ -14,6 +13,8 @@
     border-style: solid;
     border-width: 1px;
     border-color: #E9E9E9;
+    margin-bottom: 55px;
+    margin-top: 20px;
 }
 
 .feed_post-header {
@@ -25,7 +26,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-style: ;
 }
 
 .feed_post-header > img {
@@ -38,7 +38,7 @@
 
 .feed_post-header p {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .feed_post-image {
@@ -58,4 +58,27 @@
     border-bottom-right-radius: 5px;
     position: relative;
     bottom: 0px;
+}
+
+.post-icon {
+    height: 22px;
+    width: 22px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.feed_post-info-comments {
+    display: flex;
+    flex-direction: row;
+}
+
+.info-user {
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.info-caption {
+    font-size: 13px;
 }
