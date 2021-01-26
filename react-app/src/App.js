@@ -32,32 +32,34 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <NewPostTab />
-      <Switch>
-        <Route path="/login" exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path="/users" exact={true}>
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
-          <div className="main_body">
-            <Feed />
-            <Suggestions />
-          </div>
-        </ProtectedRoute>
-        <ProtectedRoute path="/:username">
-          <ProfilePage />
-        </ProtectedRoute>
-      </Switch>
+      <div className="homepage">
+        <NavBar />
+        <Switch>
+          <Route path="/login" exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path="/sign-up" exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path="/users" exact={true}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId" exact={true}>
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute path="/" exact={true}>
+            <div className="main_body">
+              <div className="body_container">
+                <Feed />
+                <Suggestions />
+              </div>
+            </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/:username">
+            <ProfilePage />
+          </ProtectedRoute>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }
