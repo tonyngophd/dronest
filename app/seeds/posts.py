@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash
 from app.models import db, Post
 from faker import Faker
+import random
 fake = Faker()
 
 
@@ -10,13 +11,15 @@ def seed_posts():
     demo = Post(userId=1, locationId=1, captionRawData="Raw post data")
 
     db.session.add(demo)
+
+
     for i in range(30):
-        p = fake.profile()
-        user = User(username=p['username'], email=p['mail'],
-            password=f'password{i+1}', bio=p['job'], websiteUrl=p['website'][0],
-            name=p['name'],profilePicUrl="https://placeimg.com/200/200"
-            )
-        db.session.add(user)
+        userId = random.randint(1, 30)
+        locationId = random.randint(1, 30)
+        captionRawData = fake.text()
+        fakePost = Post(userId=userId, locationId=locationId , captionRawData=captionRawData )
+        db.session.add(fakePost)
+
 
     db.session.commit()
 
