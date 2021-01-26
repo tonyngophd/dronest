@@ -24,7 +24,7 @@
 
 .profile-username-and-button {
   display: flex;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .profile-username {
@@ -45,12 +45,25 @@
   background-color: rgb(0, 149, 246);
 }
 
+.profile-edit-button {
+  margin-left: 30px;
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 3px;
+  padding: 0px 30px;
+  color: rgb(38, 38, 38);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  background-color: rgb(249, 249, 249);
+}
+
 .profile-numbers {
   width: 350px;
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .profile-follower-numbers {
@@ -68,11 +81,11 @@
 
 .profile-display-name {
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .profile-bio {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .profile-website-url {

@@ -19,6 +19,13 @@ def user(id):
     return user.to_dict()
 
 
+@user_routes.route('/<string:username>')
+@login_required
+def fetch_user(username):
+    user = User.query.filter_by(username=username).first()
+    return user.to_dict()
+
+
 
 # @user_routes.route('')
 

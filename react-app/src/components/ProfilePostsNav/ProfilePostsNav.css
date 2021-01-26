@@ -5,6 +5,10 @@
   justify-content: space-between;
 }
 
+.profile-posts-nav.three {
+  width: 330px;
+}
+
 .profile-posts-nav-option {
   text-decoration: none;
   letter-spacing: 2px;
