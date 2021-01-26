@@ -1,0 +1,33 @@
+.post-tab-container {
+  position: fixed;
+  width: 60px;
+  height: 120px;
+  left: -1px;
+  top: 200px;
+  border: 2px solid rgb(200, 200, 200);
+  box-shadow: -1px -1px 4px 1px rgb(225, 225, 225);
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.post-tab-new-post {
+  height: 50%;
+  color: rgb(190, 190, 190);
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-top: 4px;
+}
+
+.post-tab-new-story {
+  height: 50%;
+  color: rgb(190, 190, 190);
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-bottom: 4px;
+}
