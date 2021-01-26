@@ -1,11 +1,13 @@
 // react-app/src/store/index.js
 import session from "./session.js";
+import profile from "./profile.js";
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   session,
+  profile,
 });
 
 let enhancer;

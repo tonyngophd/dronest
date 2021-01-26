@@ -26,7 +26,7 @@ const ProfilePost = ({ pic }) => {
           {pic.likes}
         </div>
         <div className="profile-post-pic-overlay-inner">
-          <i class="fas fa-comment"></i>
+          <i className="fas fa-comment"></i>
           {pic.comments}
         </div>
       </div>
