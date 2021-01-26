@@ -1,0 +1,26 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    align-items: flex-end;
+    padding: 0px 600px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E9E9E9;
+}
+
+.navbar-content {
+
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    padding-left: 25px;
+}
+
+li {
+    margin: 0px 8px;
+    list-style-type: none;
+}

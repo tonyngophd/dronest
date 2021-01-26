@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import "./NewPost.css";
 import { EditorState, convertToRaw } from "draft-js";
-import Editor from "draft-js-plugins-editor";
+import Editor from "@draft-js-plugins/editor";
 import createMentionPlugin, {
   defaultSuggestionsFilter,
-} from "draft-js-mention-plugin";
+} from "@draft-js-plugins/mention";
 import "draft-js/dist/Draft.css";
 
 const UserTag = (props) => {
