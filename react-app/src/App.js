@@ -34,6 +34,7 @@ function App() {
     <BrowserRouter>
       <div className="homepage">
         <NavBar />
+        <NewPostTab />
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />

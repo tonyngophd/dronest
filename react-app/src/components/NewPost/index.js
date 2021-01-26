@@ -48,9 +48,16 @@ const NewPost = () => {
     }
   };
 
-  const submitImage = (image) => {
+  // const submitImage = async (image) => {
+  //   const files = new FormData();
+  //   files.append("user_file", image);
+  //   const res = await fetch("/api/s3_upload", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "multipart/form-data" },
+  //     body: files,
+  //   });
+  // };
 
-  }
 
   const focus = () => {
     ref.current.focus();
@@ -79,7 +86,9 @@ const NewPost = () => {
             ref={(event) => (ref.current = event)}
           />
         </div>
+        
       </div>
+      
     </div>
   );
 };
