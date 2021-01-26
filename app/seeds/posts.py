@@ -1,5 +1,8 @@
 from werkzeug.security import generate_password_hash
 from app.models import db, Post
+from faker import Faker
+fake = Faker()
+
 
 # Adds a demo post, you can add other posts here if you want
 def seed_posts():
