@@ -23,7 +23,7 @@ def user(id):
 @login_required
 def fetch_user(username):
     user = User.query.filter_by(username=username).first()
-    return user.to_dict()
+    return user.to_dict_as_generic_profile()
 
 
 @user_routes.route('/<string:username>/followers')

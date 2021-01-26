@@ -1,4 +1,5 @@
 from .db import db
+from .userfollower import UserFollower
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Table, Column, Integer, ForeignKey
@@ -23,8 +24,8 @@ class User(db.Model, UserMixin):
   receivedMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.receiverId')
   likedComments = db.relationship('Comment', secondary='commentlikes')
   taggedInComments = db.relationship('Comment', secondary='commenttaggedusers')
-  followers = db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
-  following = db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
+  followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
+  following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
 
 
   @property
@@ -39,6 +40,16 @@ class User(db.Model, UserMixin):
 
   def check_password(self, password):
     return check_password_hash(self.password, password)
+
+
+  def get_followers(self):
+    ufs = UserFollower.query.filter(UserFollower.userId == self.id).all()
+    self.followers = [uf.follower for uf in ufs]
+
+
+  def get_following(self):
+    ufs = UserFollower.query.filter(UserFollower.followerId == self.id).all()
+    self.following = [uf.person for uf in ufs]
 
 
   def to_dict(self):
@@ -64,6 +75,8 @@ class User(db.Model, UserMixin):
     }
 
   def to_dict_for_self(self):
+    self.get_followers()
+    self.get_following()
     return {
       "id": self.id,
       "username": self.username,
@@ -71,7 +84,7 @@ class User(db.Model, UserMixin):
       "bio": self.bio,
       "websiteUrl": self.websiteUrl,
       "profilePicUrl": self.profilePicUrl,
-      "ownPosts": [post.to_dict() for post in self.ownPosts],
+      "ownPosts": [post.to_dict_for_self() for post in self.ownPosts],
       "likedPosts": [post.to_dict() for post in self.likedPosts],
       "taggedInPosts": [post.to_dict() for post in self.taggedInPosts],
       "messages": [sentMsg.to_dict() for sentMsg in self.sentMessages] + [recvdMsg.to_dict() for recvdMsg in self.receivedMessages],
@@ -80,3 +93,48 @@ class User(db.Model, UserMixin):
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
     }
+
+  def to_dict_as_generic_profile(self): 
+    '''
+    compared to "for_self" this does not include:
+      - messages
+      and more later
+    '''
+    self.get_followers()
+    self.get_following()
+    return {
+      "id": self.id,
+      "username": self.username,
+      "email": self.email,
+      "bio": self.bio,
+      "websiteUrl": self.websiteUrl,
+      "profilePicUrl": self.profilePicUrl,
+      "ownPosts": [post.to_dict_for_self() for post in self.ownPosts],
+      "likedPosts": [post.to_dict() for post in self.likedPosts],
+      "taggedInPosts": [post.to_dict() for post in self.taggedInPosts],
+      "followers": [user.to_dict() for user in self.followers],
+      "following": [user.to_dict() for user in self.following],
+      "likedComments": [comment.to_dict() for comment in self.likedComments],
+      "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
+    }
+
+
+'''
+mapper(
+    User, t_users,
+    properties={
+        'followers': relation(
+            User,
+            secondary=t_follows,
+            primaryjoin=(t_follows.c.followee_id==t_users.c.id),
+            secondaryjoin=(t_follows.c.follower_id==t_users.c.id),
+        ),
+        'followees': relation(
+            User,
+            secondary=t_follows,
+            primaryjoin=(t_follows.c.follower_id==t_users.c.id),
+            secondaryjoin=(t_follows.c.followee_id==t_users.c.id),
+        ),
+    },
+)
+'''
