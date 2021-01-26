@@ -10,11 +10,11 @@ class Post(db.Model):
     captionRawData = db.Column(db.Text, nullable=False)
  
     # Model name is title case and singular
-    # user = db.relationship('User', foreign_keys=userId)  #owner of the post
-    # taggedUsers = db.relationship('User', secondary='taggedposts', foreign_keys='User.id')
-    # comments = db.relationship('Comment', foreign_keys='Comment.id')
-    # likedPosts = db.relationship('LikedPost', foreign_keys='LikedPost.id')
-    # images = db.relationship('Images', foreign_keys='Image.id')
+    user = db.relationship('User', foreign_keys=userId)  #owner of the post
+    taggedUsers = db.relationship('User', secondary='taggedusers')
+    comments = db.relationship('Comment', foreign_keys='Comment.parentPostId')
+    images = db.relationship('Image', foreign_keys='Image.postId')
+    likingUsers = db.relationship('User', secondary='likedposts')
 
 
 
@@ -25,6 +25,9 @@ class Post(db.Model):
             "userId": self.userId,
             "locationId": self.locationId,
             "captionRawData": self.captionRawData,
-            # "user": user.to_dict(),
-            # "taggedUsers": [user.to_dict() for user in taggedUsers]
+            "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
+            "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
+            "comments": [comment.to_dict() for comment in self.comments],
+            "images": [image.to_dict() for image in self.images],
+            "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
         }
