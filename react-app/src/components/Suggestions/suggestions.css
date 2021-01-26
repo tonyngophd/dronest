@@ -1,0 +1,7 @@
+.suggestions_container {
+    background-color: salmon;
+    width: 250px;
+    height: 400px;
+    position: fixed;
+    left: 830px
+}
