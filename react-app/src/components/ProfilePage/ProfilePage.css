@@ -1,0 +1,82 @@
+.profile-page-container {
+  width: 940px;
+  /* border: 1px solid black; */
+  margin: auto;
+}
+
+.profile-info {
+  display: flex;
+  margin-top: 25px;
+  color: rgb(38, 38, 38);
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding-bottom: 50px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-left: 85px;
+  margin-right: 85px;
+  object-fit: cover;
+  user-select: none;
+}
+
+.profile-username-and-button {
+  display: flex;
+  margin-bottom: 22px;
+}
+
+.profile-username {
+  font-size: 26px;
+  font-weight: 300;
+}
+
+.profile-follow-button {
+  margin-left: 30px;
+  border: none;
+  border-radius: 3px;
+  padding: 0px 30px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  background-color: rgb(0, 149, 246);
+}
+
+.profile-numbers {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+.profile-follower-numbers {
+  text-decoration: none;
+  color: rgb(38, 38, 38);
+}
+
+.profile-number {
+  font-weight: 600;
+}
+
+.profile-number-text {
+  font-weight: 350;
+}
+
+.profile-display-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.profile-bio {
+  margin-bottom: 4px;
+}
+
+.profile-website-url {
+  text-decoration: none;
+  color: rgb(0, 55, 107);
+  font-weight: 600;
+}

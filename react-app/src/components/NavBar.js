@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import LogoutButton from './auth/LogoutButton';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import LogoutButton from "./auth/LogoutButton";
+import { useSelector } from "react-redux";
 
-const NavBar = ({ setAuthenticated, authenticated }) => {
-  useEffect(() => {
-    console.log('authenticated', authenticated);
-  }, [authenticated]);
+const NavBar = () => {
+  const user = useSelector((state) => state.session.user);
+
   return (
     <nav>
       <ul>
@@ -14,34 +14,34 @@ const NavBar = ({ setAuthenticated, authenticated }) => {
             Home
           </NavLink>
         </li>
-        {!authenticated &&
+        {!user && (
           <>
             <li>
               <NavLink to="/login" exact={true} activeClassName="active">
                 Login
-          </NavLink>
+              </NavLink>
             </li>
 
             <li>
               <NavLink to="/sign-up" exact={true} activeClassName="active">
                 Sign Up
-          </NavLink>
+              </NavLink>
             </li>
           </>
-        }
+        )}
         <li>
           <NavLink to="/users" exact={true} activeClassName="active">
             Users
           </NavLink>
         </li>
-        {
-          authenticated && <li>
-            <LogoutButton setAuthenticated={setAuthenticated} />
+        {user && (
+          <li>
+            <LogoutButton />
           </li>
-        }
+        )}
       </ul>
     </nav>
   );
-}
+};
 
 export default NavBar;

@@ -5,8 +5,8 @@ class UserFollower(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, nullable=False)
-    followerId = db.Column(db.Integer, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    followerId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
    
 
 
