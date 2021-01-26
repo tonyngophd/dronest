@@ -48,6 +48,10 @@ const NewPost = () => {
     }
   };
 
+  const submitImage = (image) => {
+
+  }
+
   const focus = () => {
     ref.current.focus();
   };
