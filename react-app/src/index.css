@@ -14,13 +14,21 @@ body {
   background-color: #fafafa;
 }
 
+.homepage {
+  display: flex;
+  flex-direction: column;
+}
+
 .main_body {
   height: 2000px;
   background-color: #fafafa;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
-.test {
-    background-color: red;
+.body_container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
