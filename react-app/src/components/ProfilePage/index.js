@@ -1,6 +1,7 @@
 import "./ProfilePage.css";
 import React, { useState } from "react";
 import { useParams, Link, NavLink } from "react-router-dom";
+import ProfilePostsNav from "../ProfilePostsNav";
 
 const ProfilePage = () => {
   const { username } = useParams();
@@ -48,6 +49,7 @@ const ProfilePage = () => {
         </div>
       </div>
       {/* )} */}
+      <ProfilePostsNav />
     </div>
   );
 };
