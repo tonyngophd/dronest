@@ -31,3 +31,15 @@ class Post(db.Model):
             "images": [image.to_dict() for image in self.images],
             "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
         }
+
+    def to_dict_for_self(self):       
+        return {
+            "id": self.id,
+            "userId": self.userId,
+            "locationId": self.locationId,
+            "captionRawData": self.captionRawData,
+            "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
+            "comments": [comment.to_dict() for comment in self.comments],
+            "images": [image.to_dict() for image in self.images],
+            "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
+        }

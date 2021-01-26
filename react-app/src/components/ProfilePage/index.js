@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.session.user);
   const [numberOfFollowers, setNumberOfFollowers] = useState(0)
   const [numberOfFollowing, setNumberOfFollowing] = useState(0)
+  const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0)
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -22,11 +23,12 @@ const ProfilePage = () => {
     if(!profile.user) return;
     if(profile.user.followers && Array.isArray(profile.user.followers)){
       setNumberOfFollowers(profile.user.followers.length)
-      console.log(profile.user.followers)
     }
     if(profile.user.following && Array.isArray(profile.user.following)){
       setNumberOfFollowing(profile.user.following.length)
-      console.log(profile.user.following)
+    }
+    if(profile.user.ownPosts && Array.isArray(profile.user.ownPosts)){
+      setNumberOfOwnPosts(profile.user.ownPosts.length)
     }
   }, [profile]);
 
@@ -51,7 +53,7 @@ const ProfilePage = () => {
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">
-                <span className="profile-number">300</span>
+                <span className="profile-number">{numberOfOwnPosts}</span>
                 <span className="profile-number-text"> posts</span>
               </div>
               <Link
