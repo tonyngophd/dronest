@@ -5,11 +5,13 @@ import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar/index";
 import Feed from "./components/Feed/index";
-import Suggestions from './components/Suggestions/index'
+import Suggestions from "./components/Suggestions/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import ProfilePage from "./components/ProfilePage";
+import NewPostModal from "./components/NewPostModal";
+import NewPostTab from "./components/NewPostTab";
 import { restoreUser } from "./store/session";
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <NewPostTab />
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm />
