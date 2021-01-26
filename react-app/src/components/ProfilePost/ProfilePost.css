@@ -1,0 +1,10 @@
+.profile-post-pic {
+  width: 294px;
+  height: 294px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.profile-post-pic:hover {
+  filter: brightness(80%);
+}
