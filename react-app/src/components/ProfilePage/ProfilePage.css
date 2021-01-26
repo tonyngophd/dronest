@@ -45,6 +45,19 @@
   background-color: rgb(0, 149, 246);
 }
 
+.profile-edit-button {
+  margin-left: 30px;
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 3px;
+  padding: 0px 30px;
+  color: rgb(38, 38, 38);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  background-color: rgb(249, 249, 249);
+}
+
 .profile-numbers {
   width: 350px;
   display: flex;

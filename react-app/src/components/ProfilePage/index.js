@@ -26,7 +26,12 @@ const ProfilePage = () => {
           <div className="profile-text">
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
-              <button className="profile-follow-button">Follow</button>
+              {user.id !== profile.user.id && (
+                <button className="profile-follow-button">Follow</button>
+              )}
+              {user.id === profile.user.id && (
+                <button className="profile-edit-button">Edit Profile</button>
+              )}
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">
