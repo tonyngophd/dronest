@@ -50,7 +50,8 @@ const ProfilePage = () => {
 
   const hideModal = e => {
     e.preventDefault();
-    if (e.target.className === 'modal') {
+    if ((e.target.className === 'modal') || 
+      (e.target.className.animVal !== undefined)) {
       setShowFollowersModal(false);
       setShowFollowingModal(false);
     }
@@ -64,7 +65,7 @@ const ProfilePage = () => {
         <div className='modal-content'>
           <div className='follow-modal-top-div'>
             <div className='follow-modal-title-div'>{title}</div>
-            <GrClose className='navbar-icon' />
+            <GrClose className='modal-close' onClick={hideModal}/>
           </div>
           <hr className='hr' />
           <div className='modal-content-scroll'>

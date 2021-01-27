@@ -174,8 +174,8 @@
 }
 
 .user-row-profile-img{
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -213,13 +213,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0px 10px;
+  margin: 0px;
+  height: 20px;
+  width: 100%;
 }
 .follow-modal-title-div{
   font-weight: bold;
 }
 
+.modal-close{
+  z-index: 100;
+  margin: 0px;
+  padding: 0px;
+  font-size: 26px;
+}
+
 .hr {
-  width: 98%;
+  width: 100%;
 }
 
 .modal-content-spot-creation {
