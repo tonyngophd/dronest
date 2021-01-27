@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { nanoid } from 'nanoid';
+
 import { loginUser } from "../../store/session";
 
 const LoginForm = () => {
@@ -34,7 +36,7 @@ const LoginForm = () => {
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
-          <div>{error}</div>
+          <div key={nanoid()}>{error}</div>
         ))}
       </div>
       <div>

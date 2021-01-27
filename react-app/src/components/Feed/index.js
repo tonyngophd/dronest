@@ -4,6 +4,7 @@ import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomeFeed } from '../../store/posts'
 import Post from '../Post'
+import { nanoid } from "nanoid";
 
 const Feed = () => {
   const dispatch = useDispatch()
@@ -67,9 +68,9 @@ const Feed = () => {
   return (
     <>
       {feed && (<div className="feed_container">
-        {feed.map((post) => {
-          return <Post post={post} />
-        })}
+        {feed.map((post) =>
+          <Post post={post} key={nanoid()}/>
+        )}
       </div>)}
     </>
     // <div className="feed_container">
