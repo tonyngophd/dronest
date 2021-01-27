@@ -11,6 +11,14 @@ import UserRow from './UserRow';
 import { fetchUserProfile } from "../../store/profile";
 import fetchAFollowing from '../../store/follow';
 
+export const notFollowedYet = (userId, myself) => {
+  if (userId === myself.id) return false; //I'm not going to follow myself!
+  if (myself.following) {
+    return !myself.following.some(fl => fl.id === userId)
+  }
+  return true;
+}
+
 const ProfilePage = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -58,14 +66,6 @@ const ProfilePage = () => {
     }
   }
 
-  const notFollowedYet = (userId, myself = user) => {
-    if (userId === myself.id) return false; //I'm not going to follow myself!
-    if (myself.following) {
-      return !myself.following.some(fl => fl.id === userId)
-    }
-    return true;
-  }
-
   const handleFollowClick = (e, myId, personToFollowId, do_follow = true) => {
     e.preventDefault();
     // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
@@ -111,7 +111,7 @@ const ProfilePage = () => {
           <div className="profile-text">
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
-              {notFollowedYet(profile.user.id) ?
+              {notFollowedYet(profile.user.id, user) ?
                 <button
                   className="profile-follow-button"
                   onClick={e => handleFollowClick(e, user.id, profile.user.id, true)}
