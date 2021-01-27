@@ -14,7 +14,7 @@ post_routes = Blueprint('posts', __name__)
 @post_routes.route('/')
 # @login_required
 def allPosts():
-    # query to grab all posts 
+    # query to grab all posts
     posts = Post.query.all()
     return {
       "posts": [post.to_dict() for post in posts]
@@ -24,7 +24,7 @@ def allPosts():
 @post_routes.route("/", methods=["POST"])
 @login_required
 def create_post():
-    
+
     image = request.files["image"]
     user_id = request.form["userId"]
     mentioned_users = request.form["mentionedUsers"]
@@ -32,7 +32,7 @@ def create_post():
     hashtags = request.form["hashtags"]
     hashtags = json.loads(hashtags)
     raw_data = request.form["rawData"]
-    
+
     post = Post(
       userId=user_id,
       captionRawData = raw_data
@@ -56,7 +56,7 @@ def create_post():
         viewStatus = False
       )
       db.session.add(user_mention)
-    
+
     for i in range(len(hashtags)):
       if "id" not in hashtags[i]:
         new_hashtag = Hashtag(
@@ -78,3 +78,12 @@ def create_post():
 
     db.session.commit()
     return post.to_dict()
+
+@post_routes.route("/<int:userId>/feed")
+@login_required
+def homeFeed(userId):
+  user = User.query.get(userId)
+  following = user.to_dict_feed()
+  feed = Post.query.filter(Post.userId.in_(following)).all()
+  print(feed)
+  return feed

@@ -69,16 +69,35 @@
 
 .feed_post-info-comments {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.info-user {
+.info-likes {
+  margin-left: 15px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.info-caption {
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 5px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #e9e9e9;
+}
+
+.caption-user {
   font-size: 13px;
   font-weight: 600;
   margin-left: 15px;
   margin-right: 5px;
 }
 
-.info-caption {
+.caption-bio {
   font-size: 13px;
 }

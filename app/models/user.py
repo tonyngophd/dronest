@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
   bio = db.Column(db.Text, nullable=True)
-  websiteUrl = db.Column(db.Text, nullable=False)
+  websiteUrl = db.Column(db.Text, nullable=False, default="www.google.com")
   profilePicUrl = db.Column(db.Text, nullable=True)
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')
@@ -63,6 +63,12 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
     }
 
+  def to_dict_feed(self):
+    self.get_following()
+    return {
+      "followingIds": [follow.id for follow in self.following()]
+    }
+
   def to_dict_for_mentions(self):
     return {
       "id": self.id,
@@ -71,7 +77,7 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
     }
 
-  def to_dict_no_posts(self): 
+  def to_dict_no_posts(self):
   #no posts so if a post has this user, there is no infinite circular references
     return {
       "id": self.id,
@@ -103,7 +109,7 @@ class User(db.Model, UserMixin):
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
     }
 
-  def to_dict_as_generic_profile(self): 
+  def to_dict_as_generic_profile(self):
     '''
     compared to "for_self" this does not include:
       - messages
