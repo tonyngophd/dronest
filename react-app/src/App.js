@@ -51,7 +51,7 @@ function App() {
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">
               <div className="body_container">
-                <Feed />
+                <Feed user={user} />
                 <Suggestions />
               </div>
             </div>

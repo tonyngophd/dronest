@@ -4,6 +4,9 @@ import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import "./feed.css";
 
 const Feed = () => {
+
+
+
   return (
     <div className="feed_container">
       <div className="feed_post-container">
