@@ -14,6 +14,7 @@ from .api import user_routes
 from .api import auth_routes
 from .api import post_routes
 from .api import comment_routes
+from .api import hashtag_routes
 
 from .seeds import seed_commands
 
@@ -42,6 +43,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
+app.register_blueprint(hashtag_routes, url_prefix='/api/hashtags')
 db.init_app(app)
 Migrate(app, db)
 

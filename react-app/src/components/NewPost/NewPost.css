@@ -1,12 +1,14 @@
 .image-placeholder {
-  width: 400px;
-  height: 400px;
+  width: 460px;
+  height: 460px;
   position: relative;
   background-color: rgb(219, 219, 219);
 }
 
 .image-preview {
-  width: 400px;
+  width: 460px;
+  border-top: 1px solid rgb(235, 238, 240);
+  border-bottom: 1px solid rgb(235, 238, 240);
 }
 
 #image-input {
@@ -21,4 +23,163 @@
   top: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+}
+
+.image-upload:hover {
+  color: rgb(205, 205, 205);
+}
+
+.editor {
+  box-sizing: border-box;
+  cursor: text;
+  font-size: 14px;
+  color: rgb(34, 34, 34);
+  padding: 0px 12px 5px 12px;
+  background-color: rgb(249, 249, 249);
+  width: 460px;
+}
+
+.mention {
+  color: rgb(0, 70, 180);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mentionSuggestions {
+  border-top: 1px solid #eee;
+  background: rgb(249, 249, 249);
+  border-radius: 2px;
+  width: 280px;
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 1px solid rgb(235, 238, 240);
+  transform: none !important;
+  position: absolute !important;
+  z-index: 5;
+}
+
+.mentionSuggestionsEntryContainer {
+  display: table;
+  width: 100%;
+}
+
+.mentionSuggestionsEntryContainerLeft,
+.mentionSuggestionsEntryContainerRight {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.mentionSuggestionsEntryContainerRight {
+  width: 100%;
+  padding-left: 8px;
+}
+
+.mentionSuggestionsEntry {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid rgb(235, 238, 240);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.mentionSuggestionsEntry:active {
+  background-color: rgb(237, 237, 237);
+}
+
+.mentionSuggestionsEntryFocused {
+  background-color: rgb(237, 237, 237);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.mentionSuggestionsEntryDisplayName,
+.mentionSuggestionsEntryUsername {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentionSuggestionsEntryDisplayName {
+  color: rgb(38, 38, 38);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mentionSuggestionsEntryUsername {
+  font-size: 14px;
+  color: rgb(91, 112, 131);
+  font-weight: 350;
+}
+
+.mentionSuggestionsEntryHashtag {
+  margin-left: 15px;
+  color: rgb(38, 38, 38);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mentionSuggestionsEntryProfilePic {
+  width: 35px;
+  height: 35px;
+  background-color: rgb(225, 228, 230);
+  border-radius: 50%;
+  margin-top: 2px;
+  margin-right: 8px;
+  margin-left: 12px;
+}
+
+.new-post-username {
+  margin-top: 8px;
+  margin-left: 12px;
+}
+
+.new-post-username a {
+  text-decoration: none;
+  color: rgba(38, 38, 38, 0.9);
+  font-weight: 620;
+  font-size: 14px;
+}
+
+.new-post-username a:hover {
+  text-decoration: underline;
+}
+
+.new-post-buttons {
+  border-top: 1px solid rgb(235, 238, 240);
+  display: flex;
+  height: 45px;
+}
+
+.new-post-cancel,
+.new-post-submit {
+  line-height: 45px;
+  width: 230px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.new-post-cancel:hover {
+  background-color: rgb(237, 237, 237);
+  color: rgb(172, 0, 0);
+}
+
+.new-post-submit:hover {
+  background-color: rgb(237, 237, 237);
+  color: rgb(0, 0, 216);
+}
+
+.new-post-cancel {
+  border-bottom-left-radius: 10px;
+  color: rgb(150, 150, 150);
+}
+.new-post-submit {
+  border-bottom-right-radius: 10px;
+  color: rgb(38, 38, 38);
 }

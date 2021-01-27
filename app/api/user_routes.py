@@ -35,6 +35,11 @@ def fetch_user_followers(username):
     return {"followers": [user.follower.to_dict() for user in followers], 
         "following": [user.person.to_dict() for user in following]}
 
+@user_routes.route('/mentions/<string:query>')
+@login_required
+def fetch_users_for_mentions(query):
+    users = User.query.filter(User.username.ilike(f"%{query}%")).limit(5)
+    return {"users": [user.to_dict_for_mentions() for user in users]}
 
 # @user_routes.route('')
 
