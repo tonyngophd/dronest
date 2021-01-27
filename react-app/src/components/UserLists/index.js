@@ -1,3 +1,4 @@
-import UsersList from './UserList'
+import UserList, { MinimalUserList } from './UserList'
 
-export default UsersList;
+export const BareUserList = MinimalUserList;
+export default UserList;
