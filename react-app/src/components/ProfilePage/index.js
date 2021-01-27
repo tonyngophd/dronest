@@ -9,6 +9,7 @@ import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
 import UserRow from './UserRow';
 import { fetchUserProfile } from "../../store/profile";
+import fetchAFollowing from '../../store/follow';
 
 const ProfilePage = () => {
   const { username } = useParams();
@@ -57,12 +58,18 @@ const ProfilePage = () => {
     }
   }
 
-  const notFollowedYet = (userId, myself=user) => {
+  const notFollowedYet = (userId, myself = user) => {
     if (userId === myself.id) return false; //I'm not going to follow myself!
     if (myself.following) {
       return !myself.following.some(fl => fl.id === userId)
     }
     return true;
+  }
+
+  const handleFollowClick = (e, myId, personToFollowId) => {
+    e.preventDefault();
+    console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
+    fetchAFollowing(personToFollowId, profile.user.id, dispatch);
   }
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
@@ -79,7 +86,10 @@ const ProfilePage = () => {
           <div className='modal-content-scroll'>
             {
               listOfUsers.map(u => <div key={nanoid()}>
-                <UserRow user={u} myId={u.id} notFollowedYet={notFollowedYet(u.id, user)}/>
+                <UserRow user={u} myId={user.id}
+                  notFollowedYet={notFollowedYet(u.id, user)}
+                  handleFollowClick={handleFollowClick}
+                />
               </div>
               )
             }
@@ -91,8 +101,6 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page-container">
-      { showFollowersModal && <FollowModal listOfUsers={profile.user.followers} title="Followers" />}
-      { showFollowingModal && <FollowModal listOfUsers={profile.user.following} title="Following" />}
       {profile.user && (
         <div className="profile-info">
           <img
@@ -104,7 +112,10 @@ const ProfilePage = () => {
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
               {notFollowedYet(profile.user.id) ?
-                <button className="profile-follow-button">Follow</button>
+                <button
+                  className="profile-follow-button"
+                  onClick={e => handleFollowClick(e, user.id, profile.user.id)}
+                >Follow</button>
                 : (user.id === profile.user.id ?
                   <button className="profile-edit-button">Edit Profile</button>
                   : <button className="profile-edit-button">Message</button>
@@ -156,8 +167,10 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
-      {profile && <ProfilePostsNav />}
-      {profile && <ProfileFeed />}
+      { profile && <ProfilePostsNav />}
+      { profile && <ProfileFeed />}
+      { showFollowersModal && <FollowModal listOfUsers={profile.user.followers} title="Followers" />}
+      { showFollowingModal && <FollowModal listOfUsers={profile.user.following} title="Following" />}
     </div>
   );
 };

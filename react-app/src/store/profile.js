@@ -1,6 +1,6 @@
 const FETCH_PROFILE = "profile/FETCH_PROFILE";
 
-const loadProfileBasicInfo = (user) => ({
+export const loadProfileBasicInfoPOJO = (user) => ({
   type: FETCH_PROFILE,
   payload: user,
 });
@@ -8,7 +8,7 @@ const loadProfileBasicInfo = (user) => ({
 export const fetchUserProfile = (username) => async (dispatch) => {
   const res = await fetch(`/api/users/${username}`);
   const user = await res.json();
-  dispatch(loadProfileBasicInfo(user));
+  dispatch(loadProfileBasicInfoPOJO(user));
 };
 
 const initialState = {
