@@ -19,6 +19,7 @@
   /* left: 830px;
     top: 187px; */
   overflow-y: scroll;
+  overscroll-behavior: contain ; /* Prevent SCROLL-CHAINING to parent elements. */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */  
 }
