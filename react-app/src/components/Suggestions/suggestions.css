@@ -13,6 +13,7 @@
   margin-top: 20px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 h3 {

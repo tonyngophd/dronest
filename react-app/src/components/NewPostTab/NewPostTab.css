@@ -8,6 +8,8 @@
   box-shadow: -1px -1px 4px 1px rgb(225, 225, 225);
   border-bottom-right-radius: 7px;
   border-top-right-radius: 7px;
+  background: #2b5876; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4e4376, #2b5876);
 }
 
 .post-tab-new-post {
