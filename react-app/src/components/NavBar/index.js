@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FcHome } from 'react-icons/fc'
 import { IoPaperPlaneOutline } from 'react-icons/io5'
 import { FaWpexplorer, FaUsers } from 'react-icons/fa'
@@ -23,10 +23,10 @@ const NavBar = () => {
         </NavLink>
         {!user && (
           <>
-            <NavLink to="/login" exact={true} activeClassName="active" className='navbar-icon'  style={{width: '60px'}}>
+            <NavLink to="/login" exact={true} activeClassName="active" className='navbar-icon' style={{ width: '60px' }}>
               Login
               </NavLink>
-            <NavLink to="/sign-up" exact={true} activeClassName="active"  className='navbar-icon' style={{width: '60px'}}>
+            <NavLink to="/sign-up" exact={true} activeClassName="active" className='navbar-icon' style={{ width: '60px' }}>
               Sign Up
               </NavLink>
           </>
@@ -34,12 +34,14 @@ const NavBar = () => {
         {user && <>
           <IoPaperPlaneOutline className="navbar-icon" />
           <FaWpexplorer className='navbar-icon' />
-          <CgProfile className='navbar-icon' />
-          <LogoutButton className='navbar-icon'/>
+          <NavLink to={`/${user.username}`}>
+            <CgProfile className='navbar-icon' />
+          </NavLink>
+          <LogoutButton className='navbar-icon' />
         </>}
         <NavLink to="/users" exact={true} activeClassName="active">
           <FaUsers className='navbar-icon' />
-          </NavLink>
+        </NavLink>
       </div>
     </nav>
   );

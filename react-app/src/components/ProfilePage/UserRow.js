@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 function UserRow({ user = {}, myId = undefined, notFollowedYet = true, handleFollowClick }) {
   return (
     user &&
     <div className='user-row-main-div'>
       <div className='user-row-left-div'>
-        <img className='user-row-profile-img' src={user.profilePicUrl} alt={`${user.username}-profile-picture`} />
+        <Link to={`/${user.username}`}>
+          <img className='user-row-profile-img' src={user.profilePicUrl} alt={`${user.username}-profile-picture`} />
+        </Link>
         <div className='user-row-info-div'>
           <div className='user-row-username'>{user.username}</div>
           <div>{user.name}</div>

@@ -2,6 +2,7 @@
 import session from "./session.js";
 import profile from "./profile.js";
 import mentions from "./mentions.js";
+import users from './users';
 import posts from './posts.js';
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   session,
   profile,
   mentions,
+  users,
   posts,
 });
 
