@@ -2,6 +2,8 @@ import "./ProfilePage.css";
 import React, { useEffect, useState } from "react";
 import { useParams, Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from 'nanoid';
+
 import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
 import { fetchUserProfile } from "../../store/profile";
@@ -55,13 +57,19 @@ const ProfilePage = () => {
     setShowFollowingModal(false);
   }
 
-  const FollowModal = ({ listOfUsers }) => {
+  const FollowModal = ({ listOfUsers = [] }) => {
     return (
       <div className='modal'
         onClick={hideModal}
       >
         <div className='modal-content'>
           <h1>Followers</h1>
+          {
+            listOfUsers.map(user => <div key={nanoid()}>
+              {user.username}
+              </div>
+            )
+          }
         </div>
       </div>
     );
@@ -69,8 +77,8 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page-container">
-      { showFollowersModal && <FollowModal /> }
-      { showFollowingModal && <FollowModal /> }
+      { showFollowersModal && <FollowModal listOfUsers={profile.user.followers}/> }
+      { showFollowingModal && <FollowModal  listOfUsers={profile.user.following}/> }
       {profile.user && (
         <div className="profile-info">
           <img
