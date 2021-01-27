@@ -1,9 +1,16 @@
 const CREATE_POST = "posts/CREATE_POST";
+const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
+
 
 const createNewPost = (post) => ({
   type: CREATE_POST,
   payload: post,
 });
+
+const loadHomeFeed = (feed) => ({
+  type: FETCH_HOME_FEED,
+  payload: feed,
+})
 
 export const uploadPost = (
   userId,
@@ -29,6 +36,13 @@ export const uploadPost = (
   const newPost = res.json();
 };
 
+export const fetchHomeFeed = (userId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${userId}/feed`)
+  let feed = await res.json()
+  feed = feed["posts"]
+  dispatch(loadHomeFeed(feed))
+}
+
 const initialState = {};
 
 const reducer = (state = initialState, action) => {
@@ -38,7 +52,13 @@ const reducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.postTest = action.payload;
       return newState;
+    case FETCH_HOME_FEED:
+      newState = Object.assign({}, state);
+      newState.homeFeed = action.payload;
+      return newState
     default:
       return state;
   }
 };
+
+export default reducer;
