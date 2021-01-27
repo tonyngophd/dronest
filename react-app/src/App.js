@@ -13,7 +13,7 @@ import ProfilePage from "./components/ProfilePage";
 import NewPostModal from "./components/NewPostModal";
 import NewPostTab from "./components/NewPostTab";
 import { restoreUser } from "./store/session";
-
+import Footer from "./components/footer/Footer";
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ function App() {
       <div className="homepage">
         <NavBar />
         <NewPostTab />
+        <Footer />
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />
