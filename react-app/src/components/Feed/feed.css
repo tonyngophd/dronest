@@ -27,7 +27,7 @@
   flex-direction: row;
   align-items: center;
 }
-.feed_post-header > img {
+.post-header-pic > img {
   height: 33px;
   width: 33px;
   border-radius: 20px;
@@ -36,8 +36,17 @@
 }
 
 .feed_post-header p {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
+}
+
+.feed_post-header a {
+  text-decoration: none;
+  color: black;
+}
+
+.feed_post-header a:hover {
+  text-decoration: underline;
 }
 
 .feed_post-image {
