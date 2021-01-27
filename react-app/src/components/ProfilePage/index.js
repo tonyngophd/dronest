@@ -50,11 +50,19 @@ const ProfilePage = () => {
 
   const hideModal = e => {
     e.preventDefault();
-    if ((e.target.className === 'modal') || 
+    if ((e.target.className === 'modal') ||
       (e.target.className.animVal !== undefined)) {
       setShowFollowersModal(false);
       setShowFollowingModal(false);
     }
+  }
+
+  const notFollowedYet = (userId, myself=user) => {
+    if (userId === myself.id) return false; //I'm not going to follow myself!
+    if (myself.following) {
+      return !myself.following.some(fl => fl.id === userId)
+    }
+    return true;
   }
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
@@ -65,13 +73,13 @@ const ProfilePage = () => {
         <div className='modal-content'>
           <div className='follow-modal-top-div'>
             <div className='follow-modal-title-div'>{title}</div>
-            <GrClose className='modal-close' onClick={hideModal}/>
+            <GrClose className='modal-close' onClick={hideModal} />
           </div>
           <hr className='hr' />
           <div className='modal-content-scroll'>
             {
-              listOfUsers.map(user => <div key={nanoid()}>
-                <UserRow user={user} myId={user.id} />
+              listOfUsers.map(u => <div key={nanoid()}>
+                <UserRow user={u} myId={u.id} notFollowedYet={notFollowedYet(u.id, user)}/>
               </div>
               )
             }
@@ -95,12 +103,13 @@ const ProfilePage = () => {
           <div className="profile-text">
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
-              {user.id !== profile.user.id && (
+              {notFollowedYet(profile.user.id) ?
                 <button className="profile-follow-button">Follow</button>
-              )}
-              {user.id === profile.user.id && (
-                <button className="profile-edit-button">Edit Profile</button>
-              )}
+                : (user.id === profile.user.id ?
+                  <button className="profile-edit-button">Edit Profile</button>
+                  : <button className="profile-edit-button">Message</button>
+                )
+              }
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">

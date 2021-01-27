@@ -165,7 +165,8 @@
 }
 
 .modal-content-scroll{
-  max-height: 200px;
+  max-height: 30vh;
+  min-height: 50px;
   overflow-y: scroll;
   border-radius: 10px;
   width: 100%;

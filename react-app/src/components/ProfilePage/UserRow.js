@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UserRow({ user = {}, myId = undefined }) {
+function UserRow({ user = {}, myId = undefined, notFollowedYet=true }) {
   return (
     user &&
     <div className='user-row-main-div'>
@@ -12,7 +12,7 @@ function UserRow({ user = {}, myId = undefined }) {
         </div>
       </div>
       {/* TODO check if the user is already in my following list or not to show this button*/}
-      <button className="profile-follow-button user-row-button">Follow</button>
+      {notFollowedYet && <button className="profile-follow-button user-row-button">Follow</button>}
     </div>
   )
 }
