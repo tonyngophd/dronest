@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import "./feed.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHomeFeed } from '../../store/posts'
+import Post from '../Post'
 
 const Feed = () => {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.session.user)
+  const feed = useSelector(state => state.posts.homeFeed)
 
+  useEffect(() => {
+    dispatch(fetchHomeFeed(user.id))
+  }, [dispatch, user])
   const posts = [
     {
       user: {
@@ -57,32 +65,39 @@ const Feed = () => {
   ]
 
   return (
-    <div className="feed_container">
-      {posts.map((post) => {
-        return <div className="feed_post-container">
-          <div className="feed_post-header">
-            <img src={post.user.profilePicUrl} alt="user-icon" />
-            <p>{post.user.username}</p>
-          </div>
-          <div className="feed_post-image">
-            <img src={post.images.imgUrl} alt="user-icon" />
-          </div>
-          <div className="feed_post-info">
-            <div className="feed_post-info-icons">
-              <FaRegHeart className="post-icon" />
-              <FaRegCommentDots className="post-icon" />
-            </div>
-            <div className="feed_post-info-comments">
-              <p className="info-likes"> 100 Likes</p>
-              <div className="info-caption">
-                <p className="caption-user">{post.user.username}</p>
-                <p className="caption-bio">{post.posts.captionRawData}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      })}
-    </div>
+    <>
+      {feed && (<div className="feed_container">
+        {feed.map((post) => {
+          return <Post post={post} />
+        })}
+      </div>)}
+    </>
+    // <div className="feed_container">
+    //   {posts.map((post) => {
+    //     return <div className="feed_post-container">
+    //       <div className="feed_post-header">
+    //         <img src={post.user.profilePicUrl} alt="user-icon" />
+    //         <p>{post.user.username}</p>
+    //       </div>
+    //       <div className="feed_post-image">
+    //         <img src={post.images.imgUrl} alt="user-icon" />
+    //       </div>
+    //       <div className="feed_post-info">
+    //         <div className="feed_post-info-icons">
+    //           <FaRegHeart className="post-icon" />
+    //           <FaRegCommentDots className="post-icon" />
+    //         </div>
+    //         <div className="feed_post-info-comments">
+    //           <p className="info-likes"> 100 Likes</p>
+    //           <div className="info-caption">
+    //             <p className="caption-user">{post.user.username}</p>
+    //             <p className="caption-bio">{post.posts.captionRawData}</p>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   })}
+    // </div>
   );
 };
 

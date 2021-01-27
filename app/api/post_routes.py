@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, redirect, request
+from sqlalchemy import any_
 from flask_login import login_required
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost
+from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User
 from ..helpers import *
 from ..config import Config
 import json
@@ -80,10 +81,9 @@ def create_post():
     return post.to_dict()
 
 @post_routes.route("/<int:userId>/feed")
-@login_required
 def homeFeed(userId):
   user = User.query.get(userId)
   following = user.to_dict_feed()
-  feed = Post.query.filter(Post.userId.in_(following)).all()
-  print(feed)
-  return feed
+  following_list = following["followingIds"]
+  feed = Post.query.filter(Post.userId.in_(following_list)).all()
+  return {'posts': [post.to_dict() for post in feed]}

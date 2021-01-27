@@ -66,7 +66,7 @@ class User(db.Model, UserMixin):
   def to_dict_feed(self):
     self.get_following()
     return {
-      "followingIds": [follow.id for follow in self.following()]
+      "followingIds": [int(follow.id) for follow in self.following]
     }
 
   def to_dict_for_mentions(self):
