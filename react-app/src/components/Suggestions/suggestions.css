@@ -1,11 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+
 .suggestions_container {
-    background-color: salmon;
-    width: 250px;
-    height: 400px;
-    /* position: fixed; */
-    /* left: 830px;
+  background-color: white;
+  width: 250px;
+  height: 400px;
+  /* position: fixed; */
+  /* left: 830px;
     top: 187px; */
-    border-radius: 5px;
-    margin-left: 25px;
-    margin-top: 20px;
+  border-radius: 5px;
+  margin-left: 25px;
+  margin-top: 20px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+
+h3 {
+  font-family: "Open Sans", sans-serif;
 }
