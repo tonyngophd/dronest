@@ -11,7 +11,7 @@ import { notFollowedYet } from '../ProfilePage';
 
 import './UserLists.css';
 
-export function MinimalUserList() {
+export function MinimalUserList({ includeMyself = true}) {
   const allUsers = useSelector((state) => state.users.allUsers);
   const myself = useSelector((state) => state.session.user);
   // const [users, setUsers] = useState([]);
@@ -30,9 +30,12 @@ export function MinimalUserList() {
     );
   });
 
+  const allUsersWithoutMyself = allUsers.filter(user => user.id !== myself.id);
+
   return (
     <div className='all-users-div'>
-      {allUsers.map(user => <UserRow user={user} myId={myself.id} notFollowedYet={notFollowedYet(user.id, myself)} key={nanoid()} />)}
+      {includeMyself && <UserRow user={myself} myId={myself.id} notFollowedYet={false} />}
+      {allUsersWithoutMyself.map(user => <UserRow user={user} myId={myself.id} notFollowedYet={notFollowedYet(user.id, myself)} key={nanoid()} />)}
     </div>
   );
 }

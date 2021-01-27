@@ -29,6 +29,8 @@
 .suggestions-for-you-title{
   font-weight: bold;
   font-size: 14px;
+  display: flex;
+  justify-content: space-around;
 }
 
 h3 {

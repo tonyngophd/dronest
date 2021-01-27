@@ -23,7 +23,7 @@ const ProfilePage = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
-  const user = useSelector((state) => state.session.user);
+  const myself = useSelector((state) => state.session.user);
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
@@ -73,6 +73,9 @@ const ProfilePage = () => {
   }
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
+
+    const listOfUsersWithoutMe = listOfUsers.filter(user => user.id !== myself.id);
+
     return (
       <div className='modal'
         onClick={hideModal}
@@ -84,10 +87,14 @@ const ProfilePage = () => {
           </div>
           <hr className='hr' />
           <div className='modal-content-scroll'>
+            <UserRow user={myself} myId={myself.id}
+              notFollowedYet={false}
+              handleFollowClick={handleFollowClick}
+            />
             {
-              listOfUsers.map(u => <div key={nanoid()}>
-                <UserRow user={u} myId={user.id}
-                  notFollowedYet={notFollowedYet(u.id, user)}
+              listOfUsersWithoutMe.map(u => <div key={nanoid()}>
+                <UserRow user={u} myId={myself.id}
+                  notFollowedYet={notFollowedYet(u.id, myself)}
                   handleFollowClick={handleFollowClick}
                 />
               </div>
@@ -111,18 +118,18 @@ const ProfilePage = () => {
           <div className="profile-text">
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
-              {notFollowedYet(profile.user.id, user) ?
+              {notFollowedYet(profile.user.id, myself) ?
                 <button
                   className="profile-follow-button"
-                  onClick={e => handleFollowClick(e, user.id, profile.user.id, true)}
+                  onClick={e => handleFollowClick(e, myself.id, profile.user.id, true)}
                 >Follow</button>
-                : (user.id === profile.user.id ?
+                : (myself.id === profile.user.id ?
                   <button className="profile-edit-button">Edit Profile</button>
                   : <>
                     <button className="profile-edit-button">Message</button>
                     <button
                       className="profile-following-button"
-                      onClick={e => handleFollowClick(e, user.id, profile.user.id, false)}
+                      onClick={e => handleFollowClick(e, myself.id, profile.user.id, false)}
                     >Unfollow</button>
                   </>
                 )

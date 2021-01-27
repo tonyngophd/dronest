@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 
@@ -13,9 +13,12 @@ const Suggestions = () => {
     return (
         <div className="mini-profile-and-suggestions">
             <UserRow user={myself} myId={myself.id} notFollowedYet={false} imageSize="50px"/>
-            <span className="suggestions-for-you-title">Suggestions for you</span>
+            <div className='suggestions-for-you-title'>
+                <span>Suggestions for you</span>
+                <Link to='/users'>See all</Link>
+            </div>
             <div className="suggestions_container">
-                <BareUserList />
+                <BareUserList includeMyself={false}/>
             </div>
         </div>
     )
