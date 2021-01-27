@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, UserFollower
 
@@ -41,14 +41,18 @@ def fetch_users_for_mentions(query):
     users = User.query.filter(User.username.ilike(f"%{query}%")).limit(5)
     return {"users": [user.to_dict_for_mentions() for user in users]}
 
-@user_routes.route('/follow/<int:userId>')
+@user_routes.route('/follow/<int:userId>', methods=['GET', 'POST'])
 @login_required
 def follow_user(userId):
     user = User.query.get(userId)
-    if not user:
+    if not user or request.method == 'GET':
         return {"errors": "No user with this id exists"}
-    followship = UserFollower(userId=userId, followerId = current_user.id)
-    db.session.add(followship)
+    do_follow = request.json['do_follow']
+    if do_follow:
+        followship = UserFollower(userId=userId, followerId = current_user.id)
+        db.session.add(followship)
+    else:
+        UserFollower(userId=userId, followerId = current_user.id).delete()
     db.session.commit()
     # re-query to update the following just added => May not be needed, but maybe doesn't hurt to do. Need to test    
     myself = User.query.get(current_user.id)

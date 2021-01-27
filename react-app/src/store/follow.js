@@ -4,7 +4,13 @@ import { loadProfileBasicInfoPOJO } from './profile';
 import { setUserPOJO } from './session';
 //(personToFollowId, myId, profile.user.id
 const fetchAFollowing = async (personToFollowId, profilePersonId, dispatch) => {
-  const res1 = await fetch(`/api/users/follow/${personToFollowId}`);
+  const res1 = await fetch(`/api/users/follow/${personToFollowId}`, {
+    method: 'POST',
+    headers: {
+
+    },
+    
+  });
   const res2 = await res1.json();
   // console.log('\n\n\nres2', res2, '\ndispatch', dispatch);
   // dispatch(loadProfileBasicInfoPOJO(user));
