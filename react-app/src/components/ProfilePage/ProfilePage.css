@@ -32,7 +32,8 @@
   font-weight: 300;
 }
 
-.profile-follow-button {
+.profile-follow-button,
+.profile-following-button {
   margin-left: 30px;
   border: none;
   border-radius: 3px;
@@ -43,6 +44,10 @@
   font-weight: 600;
   outline: none;
   background-color: rgb(0, 149, 246);
+}
+.profile-following-button {
+  color: gray;
+  background-color: rgb(241, 241, 241);
 }
 
 .profile-edit-button {

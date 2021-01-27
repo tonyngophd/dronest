@@ -47,12 +47,11 @@ def follow_user(userId):
     user = User.query.get(userId)
     if not user or request.method == 'GET':
         return {"errors": "No user with this id exists"}
-    do_follow = request.json['do_follow']
-    if do_follow:
+    if request.json['do_follow']:
         followship = UserFollower(userId=userId, followerId = current_user.id)
         db.session.add(followship)
     else:
-        UserFollower(userId=userId, followerId = current_user.id).delete()
+        UserFollower.query.filter(UserFollower.userId==userId, UserFollower.followerId==current_user.id).delete()
     db.session.commit()
     # re-query to update the following just added => May not be needed, but maybe doesn't hurt to do. Need to test    
     myself = User.query.get(current_user.id)

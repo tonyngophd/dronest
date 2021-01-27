@@ -66,10 +66,10 @@ const ProfilePage = () => {
     return true;
   }
 
-  const handleFollowClick = (e, myId, personToFollowId) => {
+  const handleFollowClick = (e, myId, personToFollowId, do_follow = true) => {
     e.preventDefault();
-    console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
-    fetchAFollowing(personToFollowId, profile.user.id, dispatch);
+    // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
+    fetchAFollowing(personToFollowId, profile.user.id, do_follow, dispatch);
   }
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
@@ -114,11 +114,17 @@ const ProfilePage = () => {
               {notFollowedYet(profile.user.id) ?
                 <button
                   className="profile-follow-button"
-                  onClick={e => handleFollowClick(e, user.id, profile.user.id)}
+                  onClick={e => handleFollowClick(e, user.id, profile.user.id, true)}
                 >Follow</button>
                 : (user.id === profile.user.id ?
                   <button className="profile-edit-button">Edit Profile</button>
-                  : <button className="profile-edit-button">Message</button>
+                  : <>
+                    <button className="profile-edit-button">Message</button>
+                    <button
+                      className="profile-following-button"
+                      onClick={e => handleFollowClick(e, user.id, profile.user.id, false)}
+                    >Unfollow</button>
+                  </>
                 )
               }
             </div>

@@ -12,11 +12,16 @@ function UserRow({ user = {}, myId = undefined, notFollowedYet = true, handleFol
         </div>
       </div>
       {/* TODO check if the user is already in my following list or not to show this button*/}
-      {notFollowedYet &&
+      {notFollowedYet ?
         <button
           className="profile-follow-button user-row-button"
-          onClick={e => handleFollowClick(e, myId, user.id)}
-        >Follow</button>}
+          onClick={e => handleFollowClick(e, myId, user.id, true)}
+        >Follow</button>
+        : <button
+          className="profile-following-button user-row-button"
+          onClick={e => handleFollowClick(e, myId, user.id, false)}
+        >Following</button>
+      }
     </div>
   )
 }
