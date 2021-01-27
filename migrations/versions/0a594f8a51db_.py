@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d19fb737c86a
+Revision ID: 0a594f8a51db
 Revises: 
-Create Date: 2021-01-26 20:33:08.810002
+Create Date: 2021-01-27 11:38:23.057390
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd19fb737c86a'
+revision = '0a594f8a51db'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,7 +41,7 @@ def upgrade():
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('locationId', sa.Integer(), nullable=False),
+    sa.Column('locationId', sa.Integer(), nullable=True),
     sa.Column('captionRawData', sa.Text(), nullable=False),
     sa.ForeignKeyConstraint(['locationId'], ['locations.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
@@ -74,11 +74,11 @@ def upgrade():
     op.create_foreign_key(None, 'commentlikes', 'users', ['userId'], ['id'])
     op.create_foreign_key(None, 'comments', 'posts', ['parentPostId'], ['id'])
     op.create_foreign_key(None, 'commenttaggedusers', 'users', ['userId'], ['id'])
-    op.create_foreign_key(None, 'directmessages', 'users', ['senderId'], ['id'])
     op.create_foreign_key(None, 'directmessages', 'users', ['receiverId'], ['id'])
+    op.create_foreign_key(None, 'directmessages', 'users', ['senderId'], ['id'])
     op.create_foreign_key(None, 'hashtagposts', 'posts', ['postId'], ['id'])
-    op.create_foreign_key(None, 'likedposts', 'users', ['userId'], ['id'])
     op.create_foreign_key(None, 'likedposts', 'posts', ['postId'], ['id'])
+    op.create_foreign_key(None, 'likedposts', 'users', ['userId'], ['id'])
     # ### end Alembic commands ###
 
 
