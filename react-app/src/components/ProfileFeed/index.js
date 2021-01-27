@@ -1,4 +1,5 @@
 import React from "react";
+import { nanoid } from 'nanoid';
 import "./ProfileFeed.css";
 import ProfilePost from "../ProfilePost";
 
@@ -53,7 +54,7 @@ const ProfileFeed = () => {
   return (
     <div className="profile-feed">
       {pics.map((pic) => {
-        return <ProfilePost pic={pic} />;
+        return <ProfilePost pic={pic} key={nanoid()}/>;
       })}
     </div>
   );

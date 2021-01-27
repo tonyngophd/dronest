@@ -153,10 +153,73 @@
   border-radius: 10px;
   width: fit-content;
   min-width: 400px;
+  /* min-height: 100px;
+  max-height: 600px; */
   margin-left: 35vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* z-index: 10; */
+  overflow: hidden;
+  /* position: relative; */
+}
+
+.modal-content-scroll{
+  max-height: 200px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.user-row-profile-img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-row-main-div{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* margin-right: 0px; */
+  padding-right: 0px;
+  margin: 5px 0px;
+}
+
+.user-row-left-div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.user-row-info-div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.user-row-button{
+  max-height: 30px;
+  padding: 5px 15px;
+}
+
+.user-row-username{
+  font-weight: bold;
+  font-size: small;
+}
+
+.follow-modal-top-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.follow-modal-title-div{
+  font-weight: bold;
+}
+
+.hr {
+  width: 98%;
 }
 
 .modal-content-spot-creation {

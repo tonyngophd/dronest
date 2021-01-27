@@ -8,14 +8,14 @@ fake = Faker()
 def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password', bio='demo', websiteUrl="www.google.com")
+                password='password', bio='demo', websiteUrl="www.google.com",
+                name="Klark Kent",profilePicUrl="https://placeimg.com/200/200")
     db.session.add(demo)
     for i in range(30):
         p = fake.profile()
         user = User(username=p['username'], email=p['mail'],
             password=f'password{i+1}', bio=p['job'], websiteUrl=p['website'][0],
-            name=p['name'],profilePicUrl="https://placeimg.com/200/200"
-            )
+            name=p['name'],profilePicUrl="https://placeimg.com/200/200")
         db.session.add(user)
 
     db.session.commit()
