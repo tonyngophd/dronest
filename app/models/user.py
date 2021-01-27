@@ -63,6 +63,14 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
     }
 
+  def to_dict_for_mentions(self):
+    return {
+      "id": self.id,
+      "displayName": self.name,
+      "name": self.username,
+      "profilePicUrl": self.profilePicUrl,
+    }
+
   def to_dict_no_posts(self): 
   #no posts so if a post has this user, there is no infinite circular references
     return {

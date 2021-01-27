@@ -6,7 +6,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=False)
+    locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
     captionRawData = db.Column(db.Text, nullable=False)
  
     # Model name is title case and singular

@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import NewPostModal from "../NewPostModal";
 import NewPostModalNav from "../NewPostModalNav";
 import NewPost from "../NewPost";
+import { useDispatch } from "react-redux";
+import { clearMentions } from "../../store/mentions";
 
 const NewPostTab = () => {
+  const dispatch = useDispatch();
   const [isPostOpen, setIsPostOpen] = useState(false);
   return (
     <div className="post-tab-container">
@@ -14,9 +17,20 @@ const NewPostTab = () => {
       <div onClick={() => setIsPostOpen(true)} className="post-tab-new-story">
         <i className="las la-user-clock"></i>
       </div>
-      <NewPostModal open={isPostOpen} onClose={() => setIsPostOpen(false)}>
+      <NewPostModal
+        open={isPostOpen}
+        onClose={() => {
+          dispatch(clearMentions());
+          setIsPostOpen(false);
+        }}
+      >
         <NewPostModalNav />
-        <NewPost />
+        <NewPost
+          onPost={() => {
+            dispatch(clearMentions());
+            setIsPostOpen(false);
+          }}
+        />
       </NewPostModal>
     </div>
   );
