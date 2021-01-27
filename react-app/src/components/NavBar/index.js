@@ -1,5 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { FcHome } from 'react-icons/fc'
+import { IoPaperPlaneOutline } from 'react-icons/io5'
+import { FaWpexplorer, FaUsers } from 'react-icons/fa'
+import { CgProfile } from 'react-icons/cg'
+
+
 import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
 import './NavBar.css'
@@ -8,41 +14,33 @@ const NavBar = () => {
   const user = useSelector((state) => state.session.user);
 
   return (
-    <nav>
+    <nav className="top-navbar">
       <p className="navbar-content">InstaVibes</p>
       <input className="navbar-content" type="text" placeholder="Search.."></input>
-      <ul className="navbar-content">
-        <li className="navbar-link">
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
-        </li>
+      <div className="navbar-content">
+        <NavLink to="/" exact={true} activeClassName="active">
+          <FcHome className='navbar-icon' />
+        </NavLink>
         {!user && (
           <>
-            <li className="navbar-link">
-              <NavLink to="/login" exact={true} activeClassName="active">
-                Login
+            <NavLink to="/login" exact={true} activeClassName="active" className='navbar-icon'  style={{width: '60px'}}>
+              Login
               </NavLink>
-            </li>
-
-            <li className="navbar-link">
-              <NavLink to="/sign-up" exact={true} activeClassName="active">
-                Sign Up
+            <NavLink to="/sign-up" exact={true} activeClassName="active"  className='navbar-icon' style={{width: '60px'}}>
+              Sign Up
               </NavLink>
-            </li>
           </>
         )}
-        <li className="navbar-link">
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
+        {user && <>
+          <IoPaperPlaneOutline className="navbar-icon" />
+          <FaWpexplorer className='navbar-icon' />
+          <CgProfile className='navbar-icon' />
+          <LogoutButton className='navbar-icon'/>
+        </>}
+        <NavLink to="/users" exact={true} activeClassName="active">
+          <FaUsers className='navbar-icon' />
           </NavLink>
-        </li>
-        {user && (
-          <li className="navbar-link">
-            <LogoutButton />
-          </li>
-        )}
-      </ul>
+      </div>
     </nav>
   );
 };

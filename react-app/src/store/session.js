@@ -4,7 +4,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 // const RESTORE_USER = 'user/RESTORE_USER';
 
-const setUserPOJO = (user) => ({
+export const setUserPOJO = (user) => ({
   type: SET_USER,
   user,
 });

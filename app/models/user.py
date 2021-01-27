@@ -88,6 +88,7 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
+      "name": self.name,
       "email": self.email,
       "bio": self.bio,
       "websiteUrl": self.websiteUrl,
@@ -113,6 +114,7 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
+      "name": self.name,
       "email": self.email,
       "bio": self.bio,
       "websiteUrl": self.websiteUrl,

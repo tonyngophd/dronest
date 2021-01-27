@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "draft-js": "^0.11.7",
     "http-proxy-middleware": "^1.0.5",
+    "nanoid": "^3.1.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
