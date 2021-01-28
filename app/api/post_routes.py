@@ -96,3 +96,8 @@ def hashtagFeed(hashtag):
   hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).all()
   hashtag_posts = [post.to_dict() for post in hashtag_posts]
   return {'posts': [post["post"].to_dict() for post in hashtag_posts]}
+
+@post_routes.route("/<int:postId>")
+def single_post(postId):
+  post = Post.query.get(postId)
+  return {'post': post.to_dict()}

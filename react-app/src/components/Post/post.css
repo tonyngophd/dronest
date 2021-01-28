@@ -63,8 +63,9 @@
 }
 
 .post-icon {
-  height: 22px;
-  width: 22px;
+  /* height: 22px;
+  width: 22px; */
+  font-size: 25px;
   margin-top: 10px;
   margin-left: 15px;
 }
