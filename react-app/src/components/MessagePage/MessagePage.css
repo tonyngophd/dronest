@@ -1,0 +1,23 @@
+.message-page-main-div{
+  width: 70vw;
+  min-height: 80vh;
+  margin: 10px 0px 50px;
+  display: flex;
+}
+
+.message-page-left-panel,
+.message-page-right-panel {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  height: 100%;
+  min-height: 80vh;  
+}
+.message-page-left-panel{
+  width: 40%;
+}
+.message-page-right-panel{
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;  
+  width: 60%;
+}
