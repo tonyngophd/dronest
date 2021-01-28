@@ -35,8 +35,8 @@ export const logoutUser = () => async (dispatch) => {
   return res;
 };
 
-export const signupUser = (username, email, password) => async (dispatch) => {
-  const res = await signup(username, email, password);
+export const signupUser = (username, name, email, password, bio, websiteUrl, profilePicUrl) => async (dispatch) => {
+  const res = await signup(username, name, email, password, bio, websiteUrl, profilePicUrl);
   if (!res.errors) {
     dispatch(setUserPOJO(res));
   }

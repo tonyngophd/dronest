@@ -33,7 +33,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <form className="login-form" onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
           <div key={nanoid()}>{error}</div>

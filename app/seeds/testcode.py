@@ -23,4 +23,3 @@ for i in range(number_of_users):
       pass
     following.add(userid)
   print(followers, following)
-  

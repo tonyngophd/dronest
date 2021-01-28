@@ -14,6 +14,8 @@ import NewPostTab from "./components/NewPostTab";
 import HashtagPage from "./components/HashtagPage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
+import MessagePage from './components/MessagePage';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ function App() {
       <div className="homepage">
         <NavBar />
         <NewPostTab />
-        <Footer />
+        {/* <Footer /> */}
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />
@@ -48,6 +50,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/users/:userId" exact={true}>
             <User />
+          </ProtectedRoute>
+          <ProtectedRoute path="/messages" exact={true}>
+            <MessagePage />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">

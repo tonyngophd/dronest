@@ -12,6 +12,7 @@
   height: 40px;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
   /* background: #2b5876; fallback for old browsers */
   background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
   background: linear-gradient(
@@ -54,5 +55,5 @@ li {
 .top-navbar p {
   font-family: "Open Sans", sans-serif;
   font-weight: 20px;
-  color: white;
+  /* color: white; */
 }
