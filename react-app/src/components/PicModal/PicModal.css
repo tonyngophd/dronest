@@ -1,0 +1,123 @@
+.pic-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.pic-modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  max-height: 600px;
+  min-height: 400px;
+  transform: translate(-50%, -30%);
+  background-color: white;
+  padding: 0px;
+  z-index: 100;
+}
+
+.pic-modal-container {
+  display: flex;
+}
+
+.pic-modal-right {
+  position: relative;
+  width: 350px;
+}
+.pic-modal-right a {
+  text-decoration: none;
+  color: rgb(38, 38, 38);
+  font-weight: 600;
+}
+
+.modal-img {
+  max-height: 600px;
+}
+
+.caption-user-modal {
+  margin-right: 4px;
+}
+
+.pic-modal-header {
+  display: flex;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  padding: 15px 15px;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(38, 38, 38);
+}
+
+.pic-modal-header img {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  margin-right: 15px;
+}
+
+.pic-modal-comments {
+  margin-left: 15px;
+}
+
+.caption-and-comments {
+  max-height: 410px;
+  overflow: scroll;
+}
+
+.caption-and-comments {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.caption-and-comments::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.modal-comment {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.modal-comment a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(38, 38, 38);
+}
+
+.pic-modal-caption-wrapper {
+  display: flex;
+  font-size: 14px;
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.commenter-pic {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  margin-right: 15px;
+}
+
+.pic-modal-utils {
+  border-top: 1px solid rgb(235, 235, 235);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.modal-comment-input {
+  border-top: 1px solid rgb(235, 235, 235);
+  width: 350px;
+}
+
+.comment-pic-modal {
+  width: 290px;
+}
