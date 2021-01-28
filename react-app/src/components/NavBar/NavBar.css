@@ -27,11 +27,28 @@
   justify-content: space-around;
   font-family: "Open Sans", sans-serif;
   font-size: 20px;
+  color: white;
 }
 
+.search-navbar-content {
+  display: flex;
+  justify-content: space-around;
+  font-family: "Open Sans", sans-serif;
+  border: 1px solid black;
+  border-radius: 40px;
+}
+
+input[type="text"] {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+input[type="text"]:focus {
+  width: 40%;
+}
 .navbar-content:hover {
-  box-shadow: rgba(248, 248, 248, 0.19) 0px 10px 20px,
-    rgba(255, 255, 255, 0.23) 0px 6px 6px;
+  background-color: #6a2c70 0px 10px 10px, #b83b5e 0px 6px 6px;
 }
 
 ul {
@@ -50,7 +67,7 @@ li {
   width: 22px;
   margin-top: 5px;
   margin-left: 15px;
-  color: black;
+  color: #bebebe;
 }
 
 .top-navbar p {
@@ -93,4 +110,8 @@ li {
 .hvr-shrink:active {
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
+}
+
+.der {
+  color: #bebebe;
 }

@@ -188,7 +188,28 @@
   border-radius: 50%;
   margin-right: 10px;
   cursor: pointer;
+  background-image: conic-gradient(#00aeef, #fff, #00aeef, #fff, #00aeef);
+  animation: spin 5s linear infinite;
 }
+
+/* display: block;
+  border-radius: 9999px;
+  content: '';
+  width: 108%;
+  height: 108%;
+  position: absolute;
+  z-index: -1;
+  left: -4%;
+  top: -4%;
+  background-image: conic-gradient(#00AEEF, #fff, #00AEEF, #fff, #00AEEF);
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg);
+  }
+} */
 
 .user-row-main-div {
   display: flex;
