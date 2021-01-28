@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import Editor from "draft-js-plugins-editor";
-import { EditorState, convertFromRaw, Modifier } from "draft-js";
+import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "draft-js-mention-plugin";
 import { useHistory, Link } from "react-router-dom";
+import CommentInput from "../CommentInput";
 import "./post.css";
 
 function Post({ post }) {
@@ -54,14 +55,6 @@ function Post({ post }) {
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(data)
   );
-  const contentState = editorState.getCurrentContent();
-  const selection = editorState.getSelection();
-  let newContentState = Modifier.insertText(
-      contentState,
-      selection,
-      
-
-  )
 
   return (
     <div className="feed_post-container">
@@ -73,7 +66,13 @@ function Post({ post }) {
       </Link>
 
       <div className="feed_post-image">
-        <img src={(post.images[0] && post.images[0].imgUrl) || "https://placeimg.com/500/500"} alt="user-icon" />
+        <img
+          src={
+            (post.images[0] && post.images[0].imgUrl) ||
+            "https://placeimg.com/500/500"
+          }
+          alt="user-icon"
+        />
       </div>
       <div className="feed_post-info">
         <div className="feed_post-info-icons">
@@ -84,16 +83,22 @@ function Post({ post }) {
           <p className="info-likes"> 100 Likes</p>
           <div className="info-caption">
             <Link to={`/${post.user.username}`}>
-              <p className="caption-user">{post.user.username}</p>
+              <div className="caption-user">{post.user.username}</div>
             </Link>
             <div className="caption-bio">
-              <Editor
-                editorState={editorState}
-                readOnly={true}
-                plugins={plugins}
-                onChange={(editorState) => setEditorState(editorState)}
-              />
+              <div className="post-caption">
+                <Editor
+                  editorState={editorState}
+                  readOnly={true}
+                  plugins={plugins}
+                  onChange={(editorState) => setEditorState(editorState)}
+                />
+              </div>
             </div>
+          </div>
+          <div className="post-comments-container">PLACEHOLDER</div>
+          <div className="post-new-comment">
+            <CommentInput />
           </div>
         </div>
       </div>

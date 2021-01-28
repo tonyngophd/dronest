@@ -48,7 +48,7 @@
 }
 
 .feed_post-image {
-  height: 80%;
+  /* height: 80%; */
 }
 
 .feed_post-image > img {
@@ -80,21 +80,19 @@
 
 .info-likes {
   margin-left: 15px;
-  margin-bottom: 0px;
+  margin-bottom: 2px;
   margin-top: 0px;
   font-size: 14px;
   font-weight: 600;
+  color: rgb(38, 38, 38);
 }
 
 .info-caption {
   font-size: 14px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   background-color: white;
-  border-radius: 5px;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: #e9e9e9;
 }
 
 .caption-user {
@@ -102,6 +100,7 @@
   font-weight: 600;
   margin-left: 15px;
   margin-right: 5px;
+  margin-bottom: 2px;
 }
 
 .caption-bio {
@@ -111,3 +110,18 @@
 .post-mention {
   cursor: pointer;
 }
+
+.post-caption {
+  width: 470px;
+}
+
+.post-comments-container {
+  border-bottom: 1px solid #e9e9e9;
+  padding-left: 15px;
+  padding-bottom: 5px;
+}
+
+.post-new-comment {
+  min-height: 55px;
+}
+
