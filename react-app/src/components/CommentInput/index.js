@@ -6,7 +6,12 @@ import createMentionPlugin, {
   defaultSuggestionsFilter,
 } from "draft-js-mention-plugin";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
+import {
+  fetchUserMentionsComments,
+  fetchHashtagMentionsComments,
+  clearMentions,
+} from "../../store/mentions";
+import { uploadComment, fetchHomeFeed } from "../../store/posts";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -54,10 +59,12 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = () => {
+const CommentInput = ({ post }) => {
   const user = useSelector((state) => state.session.user);
-  const userMentions = useSelector((state) => state.mentions.users);
-  const hashtagMentions = useSelector((state) => state.mentions.hashtags);
+  const userMentions = useSelector((state) => state.mentions.usersComments);
+  const hashtagMentions = useSelector(
+    (state) => state.mentions.hashtagsComments
+  );
   const ref = useRef();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
@@ -66,12 +73,15 @@ const CommentInput = () => {
     ref.current.focus();
   };
 
+  useEffect(() => {
+    dispatch(clearMentions());
+  }, [ref]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
     setButtonDisabled(!editorState.getCurrentContent().hasText());
   }, [editorState]);
-  
+
   const [userMentionPlugin] = useState(
     createMentionPlugin({
       userMentions,
@@ -119,7 +129,7 @@ const CommentInput = () => {
   const [hashtagQuery, setHashtagQuery] = useState(null);
   const [hashtagSuggestions, setHashtagSuggestions] = useState([]);
   useEffect(() => {
-    if (query) dispatch(fetchUserMentions(query));
+    if (query) dispatch(fetchUserMentionsComments(query));
   }, [dispatch, query]);
 
   useEffect(() => {
@@ -127,7 +137,7 @@ const CommentInput = () => {
   }, [userMentions]);
 
   useEffect(() => {
-    if (hashtagQuery) dispatch(fetchHashtagMentions(hashtagQuery));
+    if (hashtagQuery) dispatch(fetchHashtagMentionsComments(hashtagQuery));
   }, [dispatch, hashtagQuery]);
 
   useEffect(() => {
@@ -148,7 +158,7 @@ const CommentInput = () => {
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
-  const submitComment = () => {
+  const submitComment = async () => {
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
     setEditorState(EditorState.createEmpty());
@@ -163,7 +173,8 @@ const CommentInput = () => {
           break;
       }
     }
-    dispatch();
+    await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
+    dispatch(fetchHomeFeed(user.id));
   };
 
   return (

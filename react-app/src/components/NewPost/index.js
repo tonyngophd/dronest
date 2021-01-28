@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
+import { fetchHomeFeed } from "../../store/posts";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -156,7 +157,7 @@ const NewPost = ({ onPost }) => {
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
-  const submitPost = () => {
+  const submitPost = async () => {
     if (!image) return;
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
@@ -176,10 +177,13 @@ const NewPost = ({ onPost }) => {
           break;
       }
     }
-    dispatch(uploadPost(user.id, mentionedUsers, hashtags, rawData, image));
     setImage(null);
     setImgSrc(null);
     onPost();
+    await dispatch(
+      uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
+    );
+    dispatch(fetchHomeFeed(user.id));
   };
 
   return (

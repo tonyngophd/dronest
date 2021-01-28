@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
   profilePicUrl = db.Column(db.Text, nullable=True)
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')
+  ownComments = db.relationship('Comment', foreign_keys='Comment.userId')
   taggedInPosts = db.relationship('Post', secondary='taggedusers')
   likedPosts = db.relationship('Post', secondary='likedposts')
   sentMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.senderId')

@@ -85,5 +85,6 @@ def homeFeed(userId):
   user = User.query.get(userId)
   following = user.to_dict_feed()
   following_list = following["followingIds"]
+  following_list.append(userId)
   feed = Post.query.filter(Post.userId.in_(following_list)).all()
   return {'posts': [post.to_dict() for post in feed]}

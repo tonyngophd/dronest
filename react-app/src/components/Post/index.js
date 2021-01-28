@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import Editor from "draft-js-plugins-editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "draft-js-mention-plugin";
 import { useHistory, Link } from "react-router-dom";
 import CommentInput from "../CommentInput";
+import Comment from "../Comment";
 import "./post.css";
 
 function Post({ post }) {
@@ -85,20 +86,24 @@ function Post({ post }) {
             <Link to={`/${post.user.username}`}>
               <div className="caption-user">{post.user.username}</div>
             </Link>
-            <div className="caption-bio">
-              <div className="post-caption">
-                <Editor
-                  editorState={editorState}
-                  readOnly={true}
-                  plugins={plugins}
-                  onChange={(editorState) => setEditorState(editorState)}
-                />
-              </div>
+
+            <div className="post-caption">
+              <Editor
+                editorState={editorState}
+                readOnly={true}
+                plugins={plugins}
+                onChange={(editorState) => setEditorState(editorState)}
+              />
             </div>
           </div>
-          <div className="post-comments-container">PLACEHOLDER</div>
+          <div className="post-comments-container">
+            {post.comments &&
+              post.comments.map((comment) => {
+                return <Comment comment={comment} />;
+              })}
+          </div>
           <div className="post-new-comment">
-            <CommentInput />
+            <CommentInput post={post} />
           </div>
         </div>
       </div>

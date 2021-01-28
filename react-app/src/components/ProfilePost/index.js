@@ -13,6 +13,7 @@ const ProfilePost = ({ pic }) => {
         draggable="false"
         className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
         src={pic.url}
+        alt="pic"
       />
       <div
         className={
