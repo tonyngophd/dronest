@@ -22,15 +22,9 @@ const NavBar = () => {
         type="text"
         placeholder="Search.."
       ></input>
-<<<<<<< HEAD
-      <div className="navbar-content ">
-        <NavLink to="/" exact={true} activeClassName="active">
-          <FcHome className="navbar-icon" />
-=======
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome className="navbar-icon" activeclassname='active'/>
->>>>>>> df38aaf0fe791b55164d48a8e5f224ce0a313d1e
         </NavLink>
         {!user && (
           <>
