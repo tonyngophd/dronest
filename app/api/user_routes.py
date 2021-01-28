@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, UserFollower
+from app.models import db, User, UserFollower, DirectMessage
 
 user_routes = Blueprint('users', __name__)
 
@@ -58,7 +58,23 @@ def follow_user(userId):
     user = User.query.get(userId) 
     return {"follower": myself.to_dict_for_self(), "followee": user.to_dict_as_generic_profile()}
 
-# @user_routes.route('')
+@user_routes.route('/messages/receivers/<int:receiverId>', methods=['POST'])
+@login_required
+def message_index(receiverId):
+    senderId = request.json['senderId']
+    message = request.json['messageBody']
+    dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
+    db.session.add(dm)
+    db.session.commit()
+
+    myself = User.query.get(senderId) 
+
+    return {"user": myself.to_dict_for_self()}
+        
+
+
+    
+
 
 
 
