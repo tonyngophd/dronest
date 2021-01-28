@@ -2,6 +2,7 @@ const CREATE_POST = "posts/CREATE_POST";
 const CREATE_COMMENT = "posts/CREATE_COMMENT";
 
 const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
+const FETCH_HASHTAG_FEED = "posts/FETCH_HASHTAG_FEED";
 
 const createNewPost = (post) => ({
   type: CREATE_POST,
@@ -15,6 +16,11 @@ const createNewComment = (comment) => ({
 
 const loadHomeFeed = (feed) => ({
   type: FETCH_HOME_FEED,
+  payload: feed,
+});
+
+const loadHashtagFeed = (feed) => ({
+  type: FETCH_HASHTAG_FEED,
   payload: feed,
 });
 
@@ -70,6 +76,13 @@ export const fetchHomeFeed = (userId) => async (dispatch) => {
   dispatch(loadHomeFeed(feed));
 };
 
+export const fetchHashtagFeed = (hashtag) => async (dispatch) => {
+  const res = await fetch(`/api/posts/tag/${hashtag}`);
+  let feed = await res.json();
+  feed = feed["posts"];
+  dispatch(loadHashtagFeed(feed));
+};
+
 const initialState = {};
 
 const reducer = (state = initialState, action) => {
@@ -82,6 +95,10 @@ const reducer = (state = initialState, action) => {
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
       newState.homeFeed = action.payload;
+      return newState;
+    case FETCH_HASHTAG_FEED:
+      newState = Object.assign({}, state);
+      newState.hashtagFeed = action.payload;
       return newState;
     default:
       return state;

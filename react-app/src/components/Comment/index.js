@@ -33,7 +33,7 @@ function Comment({ comment }) {
           className={`${mentionProps.className} post-mention`}
           onClick={(event) => {
             event.stopPropagation();
-            history.push(`/hashtags/${mentionProps.mention.name}/`);
+            history.push(`/explore/tags/${mentionProps.mention.name}/`);
           }}
         >
           {mentionProps.children}

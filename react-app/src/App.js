@@ -11,6 +11,7 @@ import User from "./components/User";
 import UsersList from "./components/UserLists";
 import ProfilePage from "./components/ProfilePage";
 import NewPostTab from "./components/NewPostTab";
+import HashtagPage from "./components/HashtagPage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 function App() {
@@ -55,6 +56,9 @@ function App() {
                 <Suggestions />
               </div>
             </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/explore/tags/:hashtag">
+            <HashtagPage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/:username">
             <ProfilePage tagged={false} />

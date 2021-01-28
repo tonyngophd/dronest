@@ -36,7 +36,7 @@ function Post({ post }) {
           className={`${mentionProps.className} post-mention`}
           onClick={(event) => {
             event.stopPropagation();
-            history.push(`/hashtags/${mentionProps.mention.name}/`);
+            history.push(`/explore/tags/${mentionProps.mention.name}/`);
           }}
         >
           {mentionProps.children}
@@ -81,7 +81,7 @@ function Post({ post }) {
           <FaRegCommentDots className="post-icon" />
         </div>
         <div className="feed_post-info-comments">
-          <p className="info-likes">{post.likingUsers.length} Likes</p>
+          <p className="info-likes">{post.likingUsers.length} likes</p>
           <div className="info-caption">
             <Link to={`/${post.user.username}`}>
               <div className="caption-user">{post.user.username}</div>

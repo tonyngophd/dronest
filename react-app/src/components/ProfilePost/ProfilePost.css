@@ -16,6 +16,7 @@
 }
 
 .profile-post-pic-overlay {
+  margin-left: -15px;
   visibility: hidden;
   font-size: 19px;
   color: white;
@@ -27,7 +28,7 @@
   justify-content: space-evenly;
   left: 50%;
   bottom: 48%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -48%);
 }
 
 .profile-post-pic-overlay.hovered {

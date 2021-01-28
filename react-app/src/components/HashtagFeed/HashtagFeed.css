@@ -1,0 +1,6 @@
+.hashtag-feed {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -30px;
+  margin-top: 30px;
+}
