@@ -9,14 +9,7 @@
   border-bottom-right-radius: 7px;
   border-top-right-radius: 7px;
   /* background: linear-gradient(to right, #6a2c70, #b83b5e); */
-  background: linear-gradient(
-    to right,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
+  background: linear-gradient(to right, #4e4376, #2b5876);
 }
 
 .post-tab-new-post {

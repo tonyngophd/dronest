@@ -6,11 +6,12 @@
   border-radius: 5px;
   margin-left: 25px;
   margin-top: 20px;
+  max-height: 600px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-  overflow: hidden;
-  -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
+  overflow: scroll;
+  /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
+  box-shadow: 5px 5px 10px 8px rgba(0.1, 0.1, 0.1, 0.1);
   border: 1px solid black;
 }
 
@@ -28,3 +29,13 @@ h3 {
 .suggest {
   font-family: "Open Sans", sans-serif;
 }
+
+.mini-profile-and-suggestions {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.mini-profile-and-suggestions::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* mini-profile-and-suggestions */

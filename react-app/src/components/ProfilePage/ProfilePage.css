@@ -203,13 +203,13 @@
   top: -4%;
   background-image: conic-gradient(#00AEEF, #fff, #00AEEF, #fff, #00AEEF);
   animation: spin 5s linear infinite;
-}
+} */
 
-@keyframes spin { 
-  100% { 
+@keyframes spin {
+  100% {
     transform: rotate(360deg);
   }
-} */
+}
 
 .user-row-main-div {
   display: flex;
