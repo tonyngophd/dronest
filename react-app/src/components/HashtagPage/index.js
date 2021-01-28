@@ -20,7 +20,7 @@ const HashtagPage = () => {
 
   return (
     <div className="hashtag-page-container">
-      {feed && (
+      {feed && feed.length > 0 && (
         <>
           <div className="hashtag-info">
             <img

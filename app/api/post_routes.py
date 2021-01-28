@@ -92,6 +92,7 @@ def homeFeed(userId):
 @post_routes.route("/tag/<string:hashtag>")
 def hashtagFeed(hashtag):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
+  if not hashtag_obj: return {'posts': []}
   hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).all()
   hashtag_posts = [post.to_dict() for post in hashtag_posts]
   return {'posts': [post["post"].to_dict() for post in hashtag_posts]}
