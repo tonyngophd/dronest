@@ -15,8 +15,8 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     seed_locations()
-    seed_posts()
-    seed_images()
+    # seed_posts()
+    # seed_images()
     seed_followers()
     # Add other seed functions here
 
@@ -24,8 +24,8 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_locations()
-    undo_posts()
+    # undo_posts()
     undo_followers()
     undo_users()
-    undo_images()
+    # undo_images()
     # Add other undo functions here

@@ -12,10 +12,10 @@ const NewPostTab = () => {
   return (
     <div className="post-tab-container">
       <div onClick={() => setIsPostOpen(true)} className="post-tab-new-post">
-        <i className="las la-plus-square"></i>
+        <i className="las la-plus-square hvr-grow"></i>
       </div>
       <div onClick={() => setIsPostOpen(true)} className="post-tab-new-story">
-        <i className="las la-user-clock"></i>
+        <i className="las la-user-clock hvr-grow"></i>
       </div>
       <NewPostModal
         open={isPostOpen}

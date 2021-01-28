@@ -12,6 +12,12 @@ def seed_users():
                 password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
                 name="Klark Kent",profilePicUrl="https://placeimg.com/200/200")
     db.session.add(demo)
+    for i in range(26):
+        p = fake.profile()
+        user = User(username=p['username'], email=p['mail'],
+            password=f'password', bio=p['job'], websiteUrl=p['website'][0],
+            name=p['name'],profilePicUrl="https://placeimg.com/200/200")
+        db.session.add(user)
 
     michael = User(username='MichaelJensen24', email='michael@gmail.com',
                 password='password', bio='Michael is my name and coding is my game!', websiteUrl="www.google.com",

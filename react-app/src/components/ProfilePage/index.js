@@ -33,6 +33,7 @@ const ProfilePage = ({ tagged }) => {
   useEffect(() => {
     dispatch(fetchUserProfile(username));
   }, [dispatch, username]);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);

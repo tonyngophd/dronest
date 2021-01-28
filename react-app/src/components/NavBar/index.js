@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
-import { AiOutlineHome } from 'react-icons/ai'
+import { AiOutlineHome } from "react-icons/ai";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { FaWpexplorer, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -16,15 +16,20 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <p className="navbar-content">InstaVibes</p>
+      <p className="navbar-content hvr-pulse hvr-underline-from-center">
+        InstaVibes
+      </p>
       <input
-        className="navbar-content"
+        className="search-navbar-content"
         type="text"
         placeholder="Search.."
       ></input>
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeclassname="active">
-          <AiOutlineHome className="navbar-icon" activeclassname='active'/>
+          <AiOutlineHome
+            className="navbar-icon hvr-shrink hvr-float-shadow "
+            activeclassname="active"
+          />
         </NavLink>
         {!user && (
           <>
@@ -51,18 +56,18 @@ const NavBar = () => {
         {user && (
           <>
             <NavLink to="/messages" exact={true} activeclassname="active">
-              <IoPaperPlaneOutline className="navbar-icon" />
+              <IoPaperPlaneOutline className="navbar-icon hvr-shrink hvr-float-shadow " />
             </NavLink>
             <NavLink to="/explore" exact={true} activeclassname="active">
-              <FaWpexplorer className="navbar-icon" />
+              <FaWpexplorer className="navbar-icon hvr-shrink hvr-float-shadow" />
             </NavLink>
             <NavLink to="/likes" exact={true} activeclassname="active">
-              <BsHeart className="navbar-icon" />
+              <BsHeart className="navbar-icon hvr-shrink hvr-float-shadow" />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon" />
+              <CgProfile className="navbar-icon hvr-shrink hvr-float-shadow" />
             </NavLink>
-            <LogoutButton className="navbar-icon" />
+            <LogoutButton className="navbar-icon der  hvr-grow" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">
