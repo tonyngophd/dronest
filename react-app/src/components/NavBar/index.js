@@ -50,16 +50,6 @@ const NavBar = () => {
         )}
         {user && (
           <>
-<<<<<<< HEAD
-            <NavLink to="/messages" exact={true} activeClassName="active">
-              <IoPaperPlaneOutline className="navbar-icon hvr-shrink" />
-            </NavLink>
-            <NavLink to="/explore" exact={true} activeClassName="active">
-              <FaWpexplorer className="navbar-icon hvr-shrink" />
-            </NavLink>
-            <NavLink to="/likes" exact={true} activeClassName="active">
-              <BsHeart className="navbar-icon hvr-shrink" />
-=======
             <NavLink to="/messages" exact={true} activeclassname="active">
               <IoPaperPlaneOutline className="navbar-icon" />
             </NavLink>
@@ -68,7 +58,6 @@ const NavBar = () => {
             </NavLink>
             <NavLink to="/likes" exact={true} activeclassname="active">
               <BsHeart className="navbar-icon" />
->>>>>>> df38aaf0fe791b55164d48a8e5f224ce0a313d1e
             </NavLink>
             <NavLink to={`/${user.username}`}>
               <CgProfile className="navbar-icon hvr-shrink" />
