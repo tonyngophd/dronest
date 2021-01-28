@@ -81,7 +81,7 @@ function Post({ post }) {
           <FaRegCommentDots className="post-icon" />
         </div>
         <div className="feed_post-info-comments">
-          <p className="info-likes"> 100 Likes</p>
+          <p className="info-likes">{post.likingUsers.length} Likes</p>
           <div className="info-caption">
             <Link to={`/${post.user.username}`}>
               <div className="caption-user">{post.user.username}</div>
