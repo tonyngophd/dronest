@@ -8,15 +8,30 @@ fake = Faker()
 def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password', bio='demo', websiteUrl="www.google.com",
+                password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
                 name="Klark Kent",profilePicUrl="https://placeimg.com/200/200")
     db.session.add(demo)
-    for i in range(30):
-        p = fake.profile()
-        user = User(username=p['username'], email=p['mail'],
-            password=f'password{i+1}', bio=p['job'], websiteUrl=p['website'][0],
-            name=p['name'],profilePicUrl="https://placeimg.com/200/200")
-        db.session.add(user)
+
+    michael = User(username='MichaelJensen24', email='michael@gmail.com',
+                password='password', bio='Michael is my name and coding is my game!', websiteUrl="www.google.com",
+                name="Michael",profilePicUrl="https://placeimg.com/201/201")
+    db.session.add(michael)
+
+    tony = User(username='TonyRox', email='tony@gmail.com',
+                password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
+                name="Tony ",profilePicUrl="https://placeimg.com/202/202")
+    db.session.add(tony)
+
+    Daniel = User(username='DanielIzKewl', email='Daniel@gmail.com',
+                password='password', bio='Daniel is my name and coding is my game!', websiteUrl="www.google.com",
+                name="Daniel ",profilePicUrl="https://placeimg.com/203/203")
+    db.session.add(Daniel)
+
+    adam = User(username='AdamDaMan', email='adam@gmail.com',
+                password='password', bio='adam is my name and coding is my game!', websiteUrl="www.google.com",
+                name="Adam ",profilePicUrl="https://placeimg.com/204/204")
+    db.session.add(adam)
+
 
     db.session.commit()
 
