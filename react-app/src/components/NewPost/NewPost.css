@@ -62,6 +62,8 @@
   z-index: 5;
 }
 
+
+
 .mentionSuggestionsEntryContainer {
   display: table;
   width: 100%;
@@ -172,7 +174,7 @@
 
 .new-post-submit:hover {
   background-color: rgb(237, 237, 237);
-  color: rgb(0, 0, 216);
+  color: rgb(0, 149, 246);
 }
 
 .new-post-cancel {

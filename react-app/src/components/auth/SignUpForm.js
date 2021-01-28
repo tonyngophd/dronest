@@ -59,7 +59,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <form className="signup-form" onSubmit={onSignUp}>
       <div>
         <label>User Name</label>
         <input

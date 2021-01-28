@@ -1,11 +1,11 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import "./ProfileFeed.css";
+import "./HashtagFeed.css";
 import ProfilePost from "../ProfilePost";
 
-const ProfileFeed = ({ posts }) => {
+const HashtagFeed = ({ posts }) => {
   return (
-    <div className="profile-feed">
+    <div className="hashtag-feed">
       {posts.map((post) => (
         <ProfilePost post={post} key={nanoid()} />
       ))}
@@ -13,4 +13,4 @@ const ProfileFeed = ({ posts }) => {
   );
 };
 
-export default ProfileFeed;
+export default HashtagFeed;

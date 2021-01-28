@@ -20,9 +20,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  /* align-content: center; */
   align-items: center;
-  margin-top: 100%;
+  margin-top: 200px;
   background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
   background: linear-gradient(to right, #6a2c70,
     #b83b5e);
@@ -42,7 +42,7 @@
 
 .footer-logo {
   text-align: center;
-  width: 100%;
+  /* width: 100%; */
   margin: 0;
   width: 100vw;
   font-family: "Open Sans", sans-serif;
@@ -53,14 +53,15 @@
 }
 
 .footer-div {
+  position: absolute;
   height: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: none;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   bottom: 0;
-  align-content: center;
+  /* align-content: center; */
   margin-bottom: 20px;
 }

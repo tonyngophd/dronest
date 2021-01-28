@@ -5,7 +5,7 @@ function Footer() {
     <div className="footer-div">
       <div className="footer-wrapper">
         <h1 className="footer-logo" href="/">
-          Instavibe
+          Instavibes
         </h1>
         <ul className="footer-ul">
           <li>

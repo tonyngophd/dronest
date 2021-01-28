@@ -18,10 +18,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .main_body {
-  height: 2000px;
+  /* height: 2000px; */
   background-color: #fafafa;
   display: flex;
   flex-direction: row;
@@ -33,4 +34,13 @@ body {
   justify-content: center;
   align-items: baseline;
   margin-top: 40px;
+  /* align-items: flex-start; */
+}
+
+.login-form {
+  margin-top: 50px;
+}
+
+.signup-form {
+  margin-top: 50px;
 }

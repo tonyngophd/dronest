@@ -5,13 +5,18 @@ class Comment(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     parentPostId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     captionRawData = db.Column(db.Text, nullable=False)
+
+    commenter = db.relationship('User', foreign_keys=userId)
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
         return {
         "id": self.id,
+        "userId": self.userId,
         "parentPostId": self.parentPostId,
-        "captionRawData": self.captionRawData
+        "captionRawData": self.captionRawData,
+        "commenter": self.commenter.username
         }

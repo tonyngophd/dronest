@@ -1,5 +1,5 @@
 .profile-page-container {
-  width: 940px;
+  width: 942px;
   /* border: 1px solid black; */
   margin: auto;
   margin-top: 40px;
@@ -100,8 +100,6 @@
   font-weight: 600;
 }
 
-
-
 .modal {
   display: block;
   /* Hidden by default */
@@ -170,25 +168,25 @@
   /* position: relative; */
 }
 
-.modal-content-scroll{
+.modal-content-scroll {
   max-height: 30vh;
   min-height: 50px;
   overflow-y: scroll;
-  overscroll-behavior: contain ; /* Prevent SCROLL-CHAINING to parent elements. */
+  overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
   border-radius: 10px;
   width: 100%;
   padding: 0px;
   margin: 0px;
 }
 
-.user-row-profile-img{
+.user-row-profile-img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.user-row-main-div{
+.user-row-main-div {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -197,27 +195,27 @@
   margin: 5px 0px;
 }
 
-.user-row-left-div{
+.user-row-left-div {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-.user-row-info-div{
+.user-row-info-div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.user-row-button{
+.user-row-button {
   max-height: 30px;
   padding: 5px 15px;
 }
 
-.user-row-username{
+.user-row-username {
   font-weight: bold;
   font-size: small;
 }
 
-.follow-modal-top-div{
+.follow-modal-top-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -226,11 +224,11 @@
   height: 20px;
   width: 100%;
 }
-.follow-modal-title-div{
+.follow-modal-title-div {
   font-weight: bold;
 }
 
-.modal-close{
+.modal-close {
   z-index: 100;
   margin: 0px;
   padding: 0px;
@@ -256,7 +254,6 @@
   flex-direction: column;
   justify-content: center;
 }
-
 
 .modal-content-center-items {
   align-items: center;
