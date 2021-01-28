@@ -11,24 +11,10 @@
   overflow: hidden;
   -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-}
-.suggestions_container {
-  background-color: white;
-  width: 100%;
-  height: 400px;
-  /* position: fixed; */
-  /* left: 830px;
-    top: 187px; */
-  overflow-y: scroll;
-  overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.suggestions_container::-webkit-scrollbar {
-  display: none;
+  border: 1px solid black;
 }
 
-.suggestions-for-you-title {
+s.suggestions-for-you-title {
   font-weight: bold;
   font-size: 14px;
   display: flex;
@@ -36,5 +22,9 @@
 }
 
 h3 {
+  font-family: "Open Sans", sans-serif;
+}
+
+.suggest {
   font-family: "Open Sans", sans-serif;
 }

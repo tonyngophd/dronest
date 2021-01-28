@@ -8,19 +8,19 @@ fake = Faker()
 # Adds a demo post, you can add other posts here if you want
 def seed_posts():
 
-    demo = Post(userId=1, locationId=1, captionRawData='{"blocks":[{"key":"6h23d","text":"test","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+    demo = Post(userId=1, locationId=1, captionRawData='{"blocks":[{"key":"a12d1","text":"A cup of Joe and Java Script","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     db.session.add(demo)
 
-    demo1 = Post(userId=2, locationId=1, captionRawData='{"blocks":[{"key":"6h23d","text":"test","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+    demo1 = Post(userId=2, locationId=1, captionRawData='{"blocks":[{"key":"br8hm","text":"Congrats my friends!","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     db.session.add(demo1)
 
-    demo2 = Post(userId=3, locationId=1, captionRawData='{"blocks":[{"key":"b71t8","text":"cool stuff","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+    demo2 = Post(userId=3, locationId=1, captionRawData='{"blocks":[{"key":"3q4gs","text":"Neon signs are only cool if they are red","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     db.session.add(demo2)
 
-    demo3 = Post(userId=4, locationId=1, captionRawData='{"blocks":[{"key":"c50jn","text":"I like this place","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+    demo3 = Post(userId=4, locationId=1, captionRawData='{"blocks":[{"key":"d0qlp","text":"Me at a party! ","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     db.session.add(demo3)
 
-    demo4 = Post(userId=5, locationId=1, captionRawData='{"blocks":[{"key":"5tq4t","text":"What a weird group of guys","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+    demo4 = Post(userId=5, locationId=1, captionRawData='{"blocks":[{"key":"7ahvi","text":"Just a couple of friends!","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     db.session.add(demo4)
 
 
