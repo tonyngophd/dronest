@@ -1,5 +1,6 @@
 .all-users-div{
-  width: 400px;
+  max-width: 500px;
+  width: fit-content;
   padding: 10px;
 }
 
