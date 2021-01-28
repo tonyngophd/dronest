@@ -14,12 +14,8 @@
   justify-content: space-between;
   position: fixed;
   /* background: #2b5876; fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
-  background: linear-gradient(
-    to right,
-    #6a2c70,
-    #b83b5e
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: -webkit-linear-gradient(to right, #4e4376, #2b5876); */
+  background: linear-gradient(to right, #4e4376, #2b5876);
 }
 
 .navbar-content {
