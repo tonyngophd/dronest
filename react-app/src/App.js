@@ -8,10 +8,10 @@ import Feed from "./components/Feed/index";
 import Suggestions from "./components/Suggestions/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import User from "./components/User";
-import UsersList from './components/UserLists'
+import UsersList from "./components/UserLists";
 import ProfilePage from "./components/ProfilePage";
-import NewPostModal from "./components/NewPostModal";
 import NewPostTab from "./components/NewPostTab";
+import HashtagPage from "./components/HashtagPage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 function App() {
@@ -57,8 +57,14 @@ function App() {
               </div>
             </div>
           </ProtectedRoute>
-          <ProtectedRoute path="/:username">
-            <ProfilePage />
+          <ProtectedRoute path="/explore/tags/:hashtag">
+            <HashtagPage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/:username">
+            <ProfilePage tagged={false} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/:username/tagged">
+            <ProfilePage tagged={true} />
           </ProtectedRoute>
         </Switch>
       </div>

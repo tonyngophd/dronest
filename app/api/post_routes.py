@@ -85,5 +85,14 @@ def homeFeed(userId):
   user = User.query.get(userId)
   following = user.to_dict_feed()
   following_list = following["followingIds"]
+  following_list.append(userId)
   feed = Post.query.filter(Post.userId.in_(following_list)).all()
   return {'posts': [post.to_dict() for post in feed]}
+
+@post_routes.route("/tag/<string:hashtag>")
+def hashtagFeed(hashtag):
+  hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
+  if not hashtag_obj: return {'posts': []}
+  hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).all()
+  hashtag_posts = [post.to_dict() for post in hashtag_posts]
+  return {'posts': [post["post"].to_dict() for post in hashtag_posts]}

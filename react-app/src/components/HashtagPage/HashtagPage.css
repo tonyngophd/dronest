@@ -1,0 +1,49 @@
+.hashtag-page-container {
+  width: 942px;
+  margin: auto;
+}
+
+.hashtag-info {
+  display: flex;
+  margin-top: 25px;
+  color: rgb(38, 38, 38);
+  padding-bottom: 50px;
+}
+
+.hashtag-header-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-left: 5px;
+  margin-right: 60px;
+  object-fit: cover;
+  user-select: none;
+}
+
+.hashtag-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.hashtag-name {
+  font-size: 28px;
+  font-weight: 380;
+}
+
+.hashtag-number {
+  font-weight: 500;
+  margin-bottom: 2px;
+  margin-left: 4px;
+}
+
+.hashtag-number-posts {
+  font-weight: 600;
+}
+
+.hashtag-most-recent {
+  margin-bottom: -15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(131, 131, 131);
+}

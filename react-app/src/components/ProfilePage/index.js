@@ -2,24 +2,24 @@ import "./ProfilePage.css";
 import React, { useEffect, useState } from "react";
 import { useParams, Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { nanoid } from 'nanoid';
-import { GrClose } from 'react-icons/gr';
+import { nanoid } from "nanoid";
+import { GrClose } from "react-icons/gr";
 
 import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
-import UserRow from './UserRow';
+import UserRow from "./UserRow";
 import { fetchUserProfile } from "../../store/profile";
-import fetchAFollowing from '../../store/follow';
+import fetchAFollowing from "../../store/follow";
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
   if (myself.following) {
-    return !myself.following.some(fl => fl.id === userId)
+    return !myself.following.some((fl) => fl.id === userId);
   }
   return true;
-}
+};
 
-const ProfilePage = () => {
+const ProfilePage = ({ tagged }) => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -35,76 +35,84 @@ const ProfilePage = () => {
   }, [dispatch, username]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (!profile.user) return;
     if (profile.user.followers && Array.isArray(profile.user.followers)) {
-      setNumberOfFollowers(profile.user.followers.length)
+      setNumberOfFollowers(profile.user.followers.length);
     }
     if (profile.user.following && Array.isArray(profile.user.following)) {
-      setNumberOfFollowing(profile.user.following.length)
+      setNumberOfFollowing(profile.user.following.length);
     }
     if (profile.user.ownPosts && Array.isArray(profile.user.ownPosts)) {
-      setNumberOfOwnPosts(profile.user.ownPosts.length)
+      setNumberOfOwnPosts(profile.user.ownPosts.length);
     }
   }, [profile]);
 
-  const handleFollowersClick = e => {
+  const handleFollowersClick = (e) => {
     e.preventDefault();
     setShowFollowersModal(true);
-  }
+  };
 
-  const handleFollowingClick = e => {
+  const handleFollowingClick = (e) => {
     e.preventDefault();
     setShowFollowingModal(true);
-  }
+  };
 
-  const hideModal = e => {
+  const hideModal = (e) => {
     e.preventDefault();
-    if ((e.target.className === 'modal') ||
-      (e.target.className.animVal !== undefined)) {
+    if (
+      e.target.className === "modal" ||
+      e.target.className.animVal !== undefined
+    ) {
       setShowFollowersModal(false);
       setShowFollowingModal(false);
     }
-  }
+  };
 
   const handleFollowClick = (e, myId, personToFollowId, do_follow = true) => {
     e.preventDefault();
     // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
     fetchAFollowing(personToFollowId, profile.user.id, do_follow, dispatch);
-  }
+  };
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
-
-    const listOfUsersWithoutMe = listOfUsers.filter(user => user.id !== myself.id);
+    const listOfUsersWithoutMe = listOfUsers.filter(
+      (user) => user.id !== myself.id
+    );
 
     return (
-      <div className='modal'
-        onClick={hideModal}
-      >
-        <div className='modal-content'>
-          <div className='follow-modal-top-div'>
-            <div className='follow-modal-title-div'>{title}</div>
-            <GrClose className='modal-close' onClick={hideModal} />
+      <div className="modal" onClick={hideModal}>
+        <div className="modal-content">
+          <div className="follow-modal-top-div">
+            <div className="follow-modal-title-div">{title}</div>
+            <GrClose className="modal-close" onClick={hideModal} />
           </div>
-          <hr className='hr' />
-          <div className='modal-content-scroll'>
-            <UserRow user={myself} myId={myself.id}
+          <hr className="hr" />
+          <div className="modal-content-scroll">
+            <UserRow
+              user={myself}
+              myId={myself.id}
               notFollowedYet={false}
               handleFollowClick={handleFollowClick}
             />
-            {
-              listOfUsersWithoutMe.map(u => <div key={nanoid()}>
-                <UserRow user={u} myId={myself.id}
+            {listOfUsersWithoutMe.map((u) => (
+              <div key={nanoid()}>
+                <UserRow
+                  user={u}
+                  myId={myself.id}
                   notFollowedYet={notFollowedYet(u.id, myself)}
                   handleFollowClick={handleFollowClick}
                 />
               </div>
-              )
-            }
+            ))}
           </div>
         </div>
       </div>
     );
-  }
+  };
 
   return (
     <div className="profile-page-container">
@@ -118,22 +126,30 @@ const ProfilePage = () => {
           <div className="profile-text">
             <div className="profile-username-and-button">
               <span className="profile-username">{profile.user.username}</span>
-              {notFollowedYet(profile.user.id, myself) ?
+              {notFollowedYet(profile.user.id, myself) ? (
                 <button
                   className="profile-follow-button"
-                  onClick={e => handleFollowClick(e, myself.id, profile.user.id, true)}
-                >Follow</button>
-                : (myself.id === profile.user.id ?
-                  <button className="profile-edit-button">Edit Profile</button>
-                  : <>
-                    <button className="profile-edit-button">Message</button>
-                    <button
-                      className="profile-following-button"
-                      onClick={e => handleFollowClick(e, myself.id, profile.user.id, false)}
-                    >Unfollow</button>
-                  </>
-                )
-              }
+                  onClick={(e) =>
+                    handleFollowClick(e, myself.id, profile.user.id, true)
+                  }
+                >
+                  Follow
+                </button>
+              ) : myself.id === profile.user.id ? (
+                <button className="profile-edit-button">Edit Profile</button>
+              ) : (
+                <>
+                  <button className="profile-edit-button">Message</button>
+                  <button
+                    className="profile-following-button"
+                    onClick={(e) =>
+                      handleFollowClick(e, myself.id, profile.user.id, false)
+                    }
+                  >
+                    Unfollow
+                  </button>
+                </>
+              )}
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">
@@ -180,10 +196,17 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
-      { profile && <ProfilePostsNav />}
-      { profile && <ProfileFeed />}
-      { showFollowersModal && <FollowModal listOfUsers={profile.user.followers} title="Followers" />}
-      { showFollowingModal && <FollowModal listOfUsers={profile.user.following} title="Following" />}
+      {profile && <ProfilePostsNav />}
+      {profile.user && !tagged && <ProfileFeed posts={profile.user.ownPosts} />}
+      {profile.user && tagged && (
+        <ProfileFeed posts={profile.user.taggedInPosts} />
+      )}
+      {showFollowersModal && (
+        <FollowModal listOfUsers={profile.user.followers} title="Followers" />
+      )}
+      {showFollowingModal && (
+        <FollowModal listOfUsers={profile.user.following} title="Following" />
+      )}
     </div>
   );
 };

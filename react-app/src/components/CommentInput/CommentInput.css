@@ -1,0 +1,32 @@
+.comment-editor-wrapper {
+  display: flex;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.comment-editor {
+  padding-top: 18px;
+  padding-left: 15px;
+  font-size: 14px;
+  width: 460px;
+}
+
+.post-new-comment {
+  border-radius: 5px;
+}
+
+.comment-submit {
+  background-color: white;
+  border: none;
+  border-bottom-right-radius: 5px;
+  margin-right: 15px;
+  font-size: 14px;
+  color: rgb(0, 149, 246);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.comment-submit:disabled {
+  color: rgb(179, 223, 252);
+  cursor: default;
+}

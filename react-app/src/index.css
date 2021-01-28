@@ -32,5 +32,5 @@ body {
 .body_container {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: flex-start;
 }

@@ -1,0 +1,16 @@
+.comment-wrapper {
+  font-size: 14px;
+}
+
+.comment {
+  display: flex;
+
+  margin-bottom: 4px;
+}
+
+.comment a {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(38, 38, 38);
+  margin-right: 5px;
+}

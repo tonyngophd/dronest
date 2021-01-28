@@ -1,16 +1,17 @@
+import "./CommentInput.css";
 import React, { useState, useRef, useEffect } from "react";
-import "./NewPost.css";
-import { EditorState, convertToRaw } from "draft-js";
 import Editor from "draft-js-plugins-editor";
+import { EditorState, convertToRaw } from "draft-js";
 import createMentionPlugin, {
   defaultSuggestionsFilter,
 } from "draft-js-mention-plugin";
-import "draft-js/dist/Draft.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
-import { uploadPost } from "../../store/posts";
-import { fetchHomeFeed } from "../../store/posts";
+import {
+  fetchUserMentionsComments,
+  fetchHashtagMentionsComments,
+  clearMentions,
+} from "../../store/mentions";
+import { uploadComment, fetchHomeFeed } from "../../store/posts";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -58,28 +59,30 @@ const Hashtag = (props) => {
   );
 };
 
-const NewPost = ({ onPost }) => {
-  const [image, setImage] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
+const CommentInput = ({ post }) => {
   const user = useSelector((state) => state.session.user);
-  const userMentions = useSelector((state) => state.mentions.users);
-  const hashtagMentions = useSelector((state) => state.mentions.hashtags);
+  const userMentions = useSelector((state) => state.mentions.usersComments);
+  const hashtagMentions = useSelector(
+    (state) => state.mentions.hashtagsComments
+  );
   const ref = useRef();
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
-
-  const updateFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setImgSrc(URL.createObjectURL(file));
-    }
-  };
+  const [focused, setFocused] = useState(null);
 
   const focus = () => {
     ref.current.focus();
+    setFocused(true);
   };
 
+  useEffect(() => {
+    dispatch(clearMentions());
+  }, [ref]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  useEffect(() => {
+    setButtonDisabled(!editorState.getCurrentContent().hasText());
+  }, [editorState]);
 
   const [userMentionPlugin] = useState(
     createMentionPlugin({
@@ -122,21 +125,20 @@ const NewPost = ({ onPost }) => {
       supportWhitespace: false,
     })
   );
-
   const [query, setQuery] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [hashtagQuery, setHashtagQuery] = useState(null);
   const [hashtagSuggestions, setHashtagSuggestions] = useState([]);
   useEffect(() => {
-    if (query) dispatch(fetchUserMentions(query));
+    if (query) dispatch(fetchUserMentionsComments(query));
   }, [dispatch, query]);
 
   useEffect(() => {
-    setSuggestions(userMentions);
+    focused && setSuggestions(userMentions);
   }, [userMentions]);
 
   useEffect(() => {
-    if (hashtagQuery) dispatch(fetchHashtagMentions(hashtagQuery));
+    if (hashtagQuery) dispatch(fetchHashtagMentionsComments(hashtagQuery));
   }, [dispatch, hashtagQuery]);
 
   useEffect(() => {
@@ -146,9 +148,9 @@ const NewPost = ({ onPost }) => {
       hashtagMentions.forEach((mention) => {
         if (mention.name == hashtagQuery) exists = true;
       });
-    if (hashtagQuery && !exists) {
+    if (hashtagQuery && !exists && focused) {
       setHashtagSuggestions([...hashtagMentions, ...newSuggestion]);
-    } else if (hashtagQuery && exists) {
+    } else if (hashtagQuery && exists && focused) {
       setHashtagSuggestions(hashtagMentions);
     }
   }, [hashtagMentions]);
@@ -157,88 +159,65 @@ const NewPost = ({ onPost }) => {
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
-  const submitPost = async () => {
-    if (!image) return;
+  const submitComment = async () => {
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
     setEditorState(EditorState.createEmpty());
     let mentionedUsers = [];
-    let hashtags = [];
     for (let key in rawData.entityMap) {
       const ent = rawData.entityMap[key];
       switch (ent.type) {
         case "mention":
           mentionedUsers.push(ent.data.mention);
           break;
-        case "#mention":
-          hashtags.push(ent.data.mention);
-          break;
         default:
           break;
       }
     }
-    setImage(null);
-    setImgSrc(null);
-    onPost();
-    await dispatch(
-      uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
-    );
+    await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
     dispatch(fetchHomeFeed(user.id));
   };
 
   return (
-    <div className="new-post-input-container">
-      {!imgSrc && (
-        <>
-          <div className="image-placeholder">
-            <label htmlFor={"image-input"} className="image-upload">
-              <i className="las la-plus-square image-upload-plus"></i>
-            </label>
-            <input id={"image-input"} type="file" onChange={updateFile}></input>
-          </div>
-        </>
-      )}
-      {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
-      {user && (
-        <div className="new-post-username">
-          <Link to={`/${user.username}`}>{user.username}</Link>
-        </div>
-      )}
-      <div className="editor-wrapper">
-        <div className="editor" onFocus={focus}>
-          <Editor
-            editorState={editorState}
-            plugins={plugins}
-            placeholder="Enter a caption..."
-            onChange={(editorState) => setEditorState(editorState)}
-            ref={(event) => (ref.current = event)}
-          />
-          <MentionSuggestions
-            onSearchChange={({ value }) => {
-              setQuery(value);
-            }}
-            suggestions={suggestions}
-            entryComponent={UserTag}
-          />
-          <HashtagMentionSuggestions
-            onSearchChange={({ value }) => {
-              setHashtagQuery(value);
-            }}
-            suggestions={hashtagSuggestions}
-            entryComponent={Hashtag}
-          />
-        </div>
+    <div className="comment-editor-wrapper">
+      <div
+        className="comment-editor"
+        onBlur={() => setFocused(false)}
+        onFocus={focus}
+      >
+        <Editor
+          editorState={editorState}
+          plugins={plugins}
+          placeholder="Add a comment..."
+          onChange={(editorState) => {
+            return setEditorState(editorState);
+          }}
+          ref={(event) => (ref.current = event)}
+        />
+        <MentionSuggestions
+          onSearchChange={({ value }) => {
+            setQuery(value);
+          }}
+          suggestions={suggestions}
+          entryComponent={UserTag}
+        />
+        <HashtagMentionSuggestions
+          onSearchChange={({ value }) => {
+            setHashtagQuery(value);
+          }}
+          suggestions={hashtagSuggestions}
+          entryComponent={Hashtag}
+        />
       </div>
-      <div className="new-post-buttons">
-        <div className="new-post-cancel" onClick={onPost}>
-          Cancel
-        </div>
-        <div className="new-post-submit" onClick={submitPost}>
-          Post
-        </div>
-      </div>
+      <button
+        disabled={buttonDisabled}
+        onClick={submitComment}
+        className="comment-submit"
+      >
+        Post
+      </button>
     </div>
   );
 };
 
-export default NewPost;
+export default CommentInput;
