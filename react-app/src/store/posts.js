@@ -96,6 +96,14 @@ export const fetchSinglePost = (postId) => async (dispatch) => {
   dispatch(loadSinglePost(post));
 };
 
+export const likePost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${postId}/like`);
+};
+
+export const unlikePost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${postId}/unlike`);
+};
+
 const initialState = {};
 
 const reducer = (state = initialState, action) => {
