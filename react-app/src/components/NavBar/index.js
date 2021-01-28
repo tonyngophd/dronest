@@ -23,15 +23,15 @@ const NavBar = () => {
         placeholder="Search.."
       ></input>
       <div className="navbar-content">
-        <NavLink to="/" exact={true} activeClassName="active">
-          <AiOutlineHome className="navbar-icon" activeClassName='active'/>
+        <NavLink to="/" exact={true} activeclassname="active">
+          <AiOutlineHome className="navbar-icon" activeclassname='active'/>
         </NavLink>
         {!user && (
           <>
             <NavLink
               to="/login"
               exact={true}
-              activeClassName="active"
+              activeclassname="active"
               className="navbar-icon"
               style={{ width: "60px" }}
             >
@@ -40,7 +40,7 @@ const NavBar = () => {
             <NavLink
               to="/sign-up"
               exact={true}
-              activeClassName="active"
+              activeclassname="active"
               className="navbar-icon"
               style={{ width: "60px" }}
             >
@@ -50,13 +50,13 @@ const NavBar = () => {
         )}
         {user && (
           <>
-            <NavLink to="/messages" exact={true} activeClassName="active">
+            <NavLink to="/messages" exact={true} activeclassname="active">
               <IoPaperPlaneOutline className="navbar-icon" />
             </NavLink>
-            <NavLink to="/explore" exact={true} activeClassName="active">
+            <NavLink to="/explore" exact={true} activeclassname="active">
               <FaWpexplorer className="navbar-icon" />
             </NavLink>
-            <NavLink to="/likes" exact={true} activeClassName="active">
+            <NavLink to="/likes" exact={true} activeclassname="active">
               <BsHeart className="navbar-icon" />
             </NavLink>
             <NavLink to={`/${user.username}`}>
@@ -65,7 +65,7 @@ const NavBar = () => {
             <LogoutButton className="navbar-icon" />
           </>
         )}
-        {/* <NavLink to="/users" exact={true} activeClassName="active">
+        {/* <NavLink to="/users" exact={true} activeclassname="active">
           <FaUsers className='navbar-icon' />
         </NavLink> */}
       </div>
