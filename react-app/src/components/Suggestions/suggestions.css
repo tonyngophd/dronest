@@ -11,6 +11,7 @@
   overflow: hidden;
   -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
 }
 
 s.suggestions-for-you-title {

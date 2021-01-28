@@ -30,12 +30,8 @@ function MessagePage() {
     myself.followers.concat(myself.following)
   );
 
-<<<<<<< HEAD
-  const receiverClick = (e) => {
-=======
 
   const receiverClick = e => {
->>>>>>> 5d6a867c0d621d5a132bebe35767c76b45dd7d4c
     e.preventDefault();
     const receiverId = Number(e.target.id.split("-")[0]);
     setCurrentReceiver(allReceivers.filter((u) => u.id === receiverId)[0]);
@@ -79,31 +75,6 @@ function MessagePage() {
           )}
           <h1 className="top-right hvr-wobble-bottom">Inbox</h1>
         </div>
-<<<<<<< HEAD
-        <div className="main-right-div">
-          <div className="message-pannel-div">
-            <div className="messages-div">
-              {myself.messages &&
-                myself.messages.map((msg) => (
-                  <div key={nanoid()}>{msg.message}</div>
-                ))}
-            </div>
-            <div className="message-typing-box-div">
-              <form className="message-input-form">
-                <input
-                  type="text"
-                  className="message-input-box"
-                  value={currentMsg}
-                  onChange={(e) => setCurrentMsg(e.target.value)}
-                />
-                {/* <textarea className='message-input-box'></textarea> */}
-                <button type="submit" onClick={msgClick}>
-                  Send
-                </button>
-              </form>
-            </div>
-          </div>
-=======
         <div className='main-right-div'>
           {currentReceiver ?
             <div className='message-pannel-div'>
@@ -139,7 +110,6 @@ function MessagePage() {
               </div>
             </div>
           }
->>>>>>> 5d6a867c0d621d5a132bebe35767c76b45dd7d4c
         </div>
       </div>
     </div>

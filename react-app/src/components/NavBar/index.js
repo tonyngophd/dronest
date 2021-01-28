@@ -16,7 +16,9 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <p className="navbar-content hvr-hang">InstaVibes</p>
+      <p className="navbar-content hvr-pulse hvr-underline-from-center">
+        InstaVibes
+      </p>
       <input
         className="search-navbar-content"
         type="text"
@@ -25,7 +27,7 @@ const NavBar = () => {
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome
-            className="navbar-icon hvr-shrink hvr-float-shadow"
+            className="navbar-icon hvr-shrink hvr-float-shadow "
             activeclassname="active"
           />
         </NavLink>
@@ -54,7 +56,7 @@ const NavBar = () => {
         {user && (
           <>
             <NavLink to="/messages" exact={true} activeclassname="active">
-              <IoPaperPlaneOutline className="navbar-icon hvr-shrink hvr-float-shadow" />
+              <IoPaperPlaneOutline className="navbar-icon hvr-shrink hvr-float-shadow " />
             </NavLink>
             <NavLink to="/explore" exact={true} activeclassname="active">
               <FaWpexplorer className="navbar-icon hvr-shrink hvr-float-shadow" />
