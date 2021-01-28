@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function UserRow({
   user = {},
@@ -7,43 +7,57 @@ function UserRow({
   notFollowedYet = true,
   handleFollowClick,
   imageSize = "35px",
+  followAsButton = true,
+  showFollowButtonOrText = true,
+  gotoUserPage = true
 }) {
+
+  const history = useHistory();
+  const handleClick = e => {
+    e.preventDefault();
+    if (gotoUserPage) {
+      history.push(`/${user.username}`);
+    }
+  }
   return (
     user && (
       <div className="user-row-main-div">
         <div className="user-row-left-div">
-          <Link to={`/${user.username}`}>
-            <img
-              className="user-row-profile-img"
-              src={user.profilePicUrl}
-              alt={`${user.username}-profile-pic`}
-              style={{ width: imageSize, height: imageSize }}
-            />
-          </Link>
+          <img
+            className="user-row-profile-img"
+            src={user.profilePicUrl}
+            alt={`${user.username}-profile-pic`}
+            style={{ width: imageSize, height: imageSize }}
+            onClick={handleClick}
+            id={`${user.id}-userProfileImg`}
+          />
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
             <div>{user.name}</div>
           </div>
         </div>
-        {/* TODO check if the user is already in my following list or not to show this button*/}
-        {notFollowedYet ? (
-          <button
-            className="profile-follow-button user-row-button"
-            onClick={(e) => handleFollowClick(e, myId, user.id, true)}
-          >
-            Follow
-          </button>
-        ) : user.id !== myId ? (
-          <button
-            className="profile-following-button user-row-button"
-            onClick={(e) => handleFollowClick(e, myId, user.id, false)}
-          >
-            Following
-          </button>
-        ) : (
-          <span className=" user-row-button">Myself</span>
-        )}
-      </div>
+        {showFollowButtonOrText &&
+          (
+            notFollowedYet ? (
+              <button
+                className="profile-follow-button user-row-button"
+                onClick={(e) => handleFollowClick(e, myId, user.id, true)}
+              >
+                Follow
+              </button>
+            ) : user.id !== myId ? (
+              <button
+                className="profile-following-button user-row-button"
+                onClick={(e) => handleFollowClick(e, myId, user.id, false)}
+              >
+                Following
+              </button>
+            ) : (
+                  <span className=" user-row-button">Myself</span>
+                )
+          )
+        }
+      </div >
     )
   );
 }
