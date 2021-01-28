@@ -232,9 +232,7 @@ const NewPost = ({ onPost }) => {
         <div className="new-post-submit" onClick={submitPost}>
           Post
         </div>
-        
       </div>
-      
     </div>
   );
 };
