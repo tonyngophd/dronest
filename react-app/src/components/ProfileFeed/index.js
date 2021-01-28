@@ -53,9 +53,7 @@ const ProfileFeed = () => {
   ];
   return (
     <div className="profile-feed">
-      {pics.map((pic) => {
-        return <ProfilePost pic={pic} key={nanoid()}/>;
-      })}
+      {pics.map((pic) => <ProfilePost pic={pic} key={nanoid()} />)}
     </div>
   );
 };

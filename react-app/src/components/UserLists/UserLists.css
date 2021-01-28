@@ -1,0 +1,14 @@
+.all-users-div{
+  max-width: 500px;
+  width: fit-content;
+  padding: 10px;
+}
+
+.users-page-main-div{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 800px;
+  padding: 10px;
+}

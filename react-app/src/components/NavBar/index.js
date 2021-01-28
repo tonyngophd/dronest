@@ -1,9 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FcHome } from 'react-icons/fc'
 import { IoPaperPlaneOutline } from 'react-icons/io5'
 import { FaWpexplorer, FaUsers } from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
+import { BsHeart } from 'react-icons/bs'
 
 
 import LogoutButton from "../auth/LogoutButton";
@@ -23,23 +24,32 @@ const NavBar = () => {
         </NavLink>
         {!user && (
           <>
-            <NavLink to="/login" exact={true} activeClassName="active" className='navbar-icon'  style={{width: '60px'}}>
+            <NavLink to="/login" exact={true} activeClassName="active" className='navbar-icon' style={{ width: '60px' }}>
               Login
               </NavLink>
-            <NavLink to="/sign-up" exact={true} activeClassName="active"  className='navbar-icon' style={{width: '60px'}}>
+            <NavLink to="/sign-up" exact={true} activeClassName="active" className='navbar-icon' style={{ width: '60px' }}>
               Sign Up
               </NavLink>
           </>
         )}
         {user && <>
-          <IoPaperPlaneOutline className="navbar-icon" />
-          <FaWpexplorer className='navbar-icon' />
-          <CgProfile className='navbar-icon' />
-          <LogoutButton className='navbar-icon'/>
-        </>}
-        <NavLink to="/users" exact={true} activeClassName="active">
-          <FaUsers className='navbar-icon' />
+          <NavLink to="/messages" exact={true} activeClassName="active">
+            <IoPaperPlaneOutline className="navbar-icon" />
           </NavLink>
+          <NavLink to="/explore" exact={true} activeClassName="active">
+            <FaWpexplorer className='navbar-icon' />
+          </NavLink>
+          <NavLink to="/likes" exact={true} activeClassName="active">
+            <BsHeart className='navbar-icon' />
+          </NavLink>
+          <NavLink to={`/${user.username}`}>
+            <CgProfile className='navbar-icon' />
+          </NavLink>
+          <LogoutButton className='navbar-icon' />
+        </>}
+        {/* <NavLink to="/users" exact={true} activeClassName="active">
+          <FaUsers className='navbar-icon' />
+        </NavLink> */}
       </div>
     </nav>
   );

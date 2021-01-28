@@ -14,7 +14,7 @@ function Post({ post }) {
                 </Link>
             </div>
             <div className="feed_post-image">
-                <img src={post.images[0].imgUrl} alt="user-icon" />
+                <img src={(post.images[0] && post.images[0].imgUrl) || "https://placeimg.com/500/500"} alt="user-icon" />
             </div>
             <div className="feed_post-info">
                 <div className="feed_post-info-icons">
