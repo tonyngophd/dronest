@@ -50,6 +50,7 @@
   flex-direction: column;
   align-items: flex-start;
   overflow-y: scroll;
+  margin: 5px 0px 10px 10px;
 }
 
 .main-right-div {
@@ -57,7 +58,8 @@
   flex-direction: column;
   justify-content: flex-end;
   /* height: 40vh; */
-  height: fit-content;
+  max-height: fit-content;
+  height: 90%;
 }
 .message-pannel-div {
   margin: 5px;
@@ -91,6 +93,7 @@
   align-items: flex-end;
 }
 
+<<<<<<< HEAD
 .top-right {
   display: flex;
   text-align: center;
@@ -185,3 +188,33 @@ h1 {
   text-align: center;
   justify-content: center;
 }
+=======
+.empty-message-box-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.title-and-button-message-box-div{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+.title-message-box-div{
+  font-weight: bold;
+  font-size: 30px;
+  margin: 5px;
+}
+.subtitle-message-box-div{
+  font-size: 18px;
+  margin: 5px;  
+}
+.button-message-box-div{
+  font-weight: bold;
+  font-size: 16px;
+  margin: 5px;  
+}
+>>>>>>> 5d6a867c0d621d5a132bebe35767c76b45dd7d4c
