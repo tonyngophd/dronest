@@ -25,13 +25,13 @@ def seed_images():
   db.session.commit()
 
 
-    for i in range(30):
-      postId = random.randint(1, 30)
-      imgUrl = fake.image_url()
-      fakeImages = Image(postId=postId, imgUrl=imgUrl)
-      db.session.add(fakeImages)
+  for i in range(30):
+    postId = random.randint(1, 30)
+    imgUrl = fake.image_url()
+    fakeImages = Image(postId=postId, imgUrl=imgUrl)
+    db.session.add(fakeImages)
 
-    db.session.commit()
+  db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the locations table.
 # SQLAlchemy doesn't have a built in function to do this
