@@ -14,7 +14,7 @@ def seed_users():
     for i in range(30):
         p = fake.profile()
         user = User(username=p['username'], email=p['mail'],
-            password=f'password{i+1}', bio=p['job'], websiteUrl=p['website'][0],
+            password=f'password', bio=p['job'], websiteUrl=p['website'][0],
             name=p['name'],profilePicUrl="https://placeimg.com/200/200")
         db.session.add(user)
 

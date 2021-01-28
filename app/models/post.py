@@ -8,6 +8,9 @@ class Post(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
     captionRawData = db.Column(db.Text, nullable=False)
+    createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
+    updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+
  
     # Model name is title case and singular
     user = db.relationship('User', foreign_keys=userId)  #owner of the post

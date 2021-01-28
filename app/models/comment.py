@@ -8,6 +8,11 @@ class Comment(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     parentPostId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     captionRawData = db.Column(db.Text, nullable=False)
+    createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
+    updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+
+
+
 
     commenter = db.relationship('User', foreign_keys=userId)
 
