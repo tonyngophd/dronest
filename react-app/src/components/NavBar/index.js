@@ -15,13 +15,13 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <p className="navbar-content">InstaVibes</p>
+      <p className="navbar-content hvr-shrink">InstaVibes</p>
       <input
         className="navbar-content"
         type="text"
         placeholder="Search.."
       ></input>
-      <div className="navbar-content">
+      <div className="navbar-content ">
         <NavLink to="/" exact={true} activeClassName="active">
           <FcHome className="navbar-icon" />
         </NavLink>
@@ -50,18 +50,18 @@ const NavBar = () => {
         {user && (
           <>
             <NavLink to="/messages" exact={true} activeClassName="active">
-              <IoPaperPlaneOutline className="navbar-icon" />
+              <IoPaperPlaneOutline className="navbar-icon hvr-shrink" />
             </NavLink>
             <NavLink to="/explore" exact={true} activeClassName="active">
-              <FaWpexplorer className="navbar-icon" />
+              <FaWpexplorer className="navbar-icon hvr-shrink" />
             </NavLink>
             <NavLink to="/likes" exact={true} activeClassName="active">
-              <BsHeart className="navbar-icon" />
+              <BsHeart className="navbar-icon hvr-shrink" />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon" />
+              <CgProfile className="navbar-icon hvr-shrink" />
             </NavLink>
-            <LogoutButton className="navbar-icon" />
+            <LogoutButton className="navbar-icon  hvr-shrink" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeClassName="active">
