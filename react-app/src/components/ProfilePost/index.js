@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ProfilePost.css";
 
-const ProfilePost = ({ pic }) => {
+const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
   return (
     <div
@@ -12,7 +12,7 @@ const ProfilePost = ({ pic }) => {
       <img
         draggable="false"
         className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-        src={pic.url}
+        src={post.images[0].imgUrl}
         alt="pic"
       />
       <div
@@ -24,11 +24,11 @@ const ProfilePost = ({ pic }) => {
       >
         <div className="profile-post-pic-overlay-inner">
           <i className="fas fa-heart"></i>
-          {pic.likes}
+          {post.likingUsers.length}
         </div>
         <div className="profile-post-pic-overlay-inner">
           <i className="fas fa-comment"></i>
-          {pic.comments}
+          {post.comments.length}
         </div>
       </div>
     </div>

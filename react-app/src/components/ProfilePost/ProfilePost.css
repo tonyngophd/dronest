@@ -6,7 +6,9 @@
 .profile-post-pic {
   width: 294px;
   height: 294px;
-  margin-bottom: 25px;
+  object-fit: cover;
+  margin-right: 30px;
+  margin-bottom: 30px;
 }
 
 .profile-post-pic.hovered {
