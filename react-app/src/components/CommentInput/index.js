@@ -68,9 +68,11 @@ const CommentInput = ({ post }) => {
   const ref = useRef();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
+  const [focused, setFocused] = useState(null);
 
   const focus = () => {
     ref.current.focus();
+    setFocused(true);
   };
 
   useEffect(() => {
@@ -123,7 +125,6 @@ const CommentInput = ({ post }) => {
       supportWhitespace: false,
     })
   );
-
   const [query, setQuery] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [hashtagQuery, setHashtagQuery] = useState(null);
@@ -133,7 +134,7 @@ const CommentInput = ({ post }) => {
   }, [dispatch, query]);
 
   useEffect(() => {
-    setSuggestions(userMentions);
+    focused && setSuggestions(userMentions);
   }, [userMentions]);
 
   useEffect(() => {
@@ -147,9 +148,9 @@ const CommentInput = ({ post }) => {
       hashtagMentions.forEach((mention) => {
         if (mention.name == hashtagQuery) exists = true;
       });
-    if (hashtagQuery && !exists) {
+    if (hashtagQuery && !exists && focused) {
       setHashtagSuggestions([...hashtagMentions, ...newSuggestion]);
-    } else if (hashtagQuery && exists) {
+    } else if (hashtagQuery && exists && focused) {
       setHashtagSuggestions(hashtagMentions);
     }
   }, [hashtagMentions]);
@@ -179,7 +180,11 @@ const CommentInput = ({ post }) => {
 
   return (
     <div className="comment-editor-wrapper">
-      <div className="comment-editor" onFocus={focus}>
+      <div
+        className="comment-editor"
+        onBlur={() => setFocused(false)}
+        onFocus={focus}
+      >
         <Editor
           editorState={editorState}
           plugins={plugins}
