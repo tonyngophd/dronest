@@ -34,13 +34,14 @@
 }
 .middle-left-div {
   height: 40px;
-    border-bottom: 1px solid gray;
+  border-bottom: 1px solid gray;
 }
 .main-left-div{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   overflow-y: scroll;
+  margin: 5px 0px 10px 10px;
 }
 
 .main-right-div{
@@ -48,7 +49,8 @@
   flex-direction: column;
   justify-content: flex-end;
   /* height: 40vh; */
-  height: fit-content;
+  max-height: fit-content;
+  height: 90%;
 }
 .message-pannel-div{
   margin: 5px;
@@ -80,4 +82,33 @@
 .message-input-form{
   display: flex;
   align-items: flex-end;
+}
+
+.empty-message-box-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.title-and-button-message-box-div{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+.title-message-box-div{
+  font-weight: bold;
+  font-size: 30px;
+  margin: 5px;
+}
+.subtitle-message-box-div{
+  font-size: 18px;
+  margin: 5px;  
+}
+.button-message-box-div{
+  font-weight: bold;
+  font-size: 16px;
+  margin: 5px;  
 }
