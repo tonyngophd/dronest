@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
+import { AiOutlineHome } from 'react-icons/ai'
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { FaWpexplorer, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -23,7 +24,7 @@ const NavBar = () => {
       ></input>
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeClassName="active">
-          <FcHome className="navbar-icon" />
+          <AiOutlineHome className="navbar-icon" activeClassName='active'/>
         </NavLink>
         {!user && (
           <>

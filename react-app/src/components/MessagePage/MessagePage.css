@@ -1,0 +1,82 @@
+.message-page-main-div{
+  width: 70vw;
+  height: 80vh;
+  margin: 10px 0px 50px;
+  display: flex;
+}
+
+.message-page-left-panel,
+.message-page-right-panel {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-radius: 5px;
+  height: 100%;
+}
+.message-page-left-panel{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.message-page-right-panel{
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;  
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-left-div,
+.top-right-div {
+  height: 50px;
+  border-bottom: 1px solid gray;
+}
+.middle-left-div {
+  height: 40px;
+    border-bottom: 1px solid gray;
+}
+.main-left-div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-right-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* height: 40vh; */
+  height: fit-content;
+}
+.message-pannel-div{
+  margin: 5px;
+  padding: 5px;
+  /* position: relative; */
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.messages-div{
+  display: flex;
+  flex-direction: column;
+  /* position: fixed; */
+  /* bottom: 60px; */
+}
+.message-typing-box-div{
+  height: 50px;
+  /* position: fixed; */
+  /* bottom: 5px; */
+  width: 100%;
+}
+.message-input-box{
+  width: 80%;
+  resize: none;
+}
+.message-input-form{
+  display: flex;
+  align-items: flex-end;
+}
