@@ -26,33 +26,56 @@ function MessagePage() {
   const dispatch = useDispatch();
   const [allReceivers, setAllReceivers] = useState(myself.followers.concat(myself.following));
 
+  
+  const receiverClick = e => {
+    e.preventDefault();
+    const receiverId = Number(e.target.id.split('-')[0]);
+    setCurrentReceiver(allReceivers.filter(u => u.id === receiverId)[0]);
+  }
+
   const msgClick = e => {
     e.preventDefault();
     sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
     setCurrentMsg('');
   }
+
   return (
     <div className='message-page-main-div'>
       <div className='message-page-left-panel'>
         <div className='top-left-div'></div>
         <div className='middle-left-div'></div>
         <div className='main-left-div'>
-          {allReceivers.map(u => <UserRow
+          {allReceivers.map(u => <div
             key={nanoid()}
-            user={u}
-            myId={myself.id}
-            showFollowButtonOrText={false}
-            gotoUserPage={false}
-          />)}
+            id={`${u.id}-receiver`}
+            onClick={receiverClick}
+          >
+            <UserRow
+              user={u}
+              myId={myself.id}
+              showFollowButtonOrText={false}
+              gotoUserPage={false}
+            />
+          </div>
+          )}
         </div>
       </div>
       <div className='message-page-right-panel'>
-        <div className='top-right-div'></div>
+        <div className='top-right-div'>
+          {
+            currentReceiver && <UserRow
+              user={currentReceiver}
+              myId={myself.id}
+              showFollowButtonOrText={false}
+              gotoUserPage={false}
+            />
+          }
+        </div>
         <div className='main-right-div'>
           <div className='message-pannel-div'>
             <div className='messages-div'>
               {
-                myself.messages && myself.messages.map(msg => <div key={nanoid()}>msg</div>)
+                myself.messages && myself.messages.map(msg => <div key={nanoid()}>{msg.message}</div>)
               }
             </div>
             <div className='message-typing-box-div'>

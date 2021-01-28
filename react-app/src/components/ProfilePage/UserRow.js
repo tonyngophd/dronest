@@ -29,6 +29,7 @@ function UserRow({
             alt={`${user.username}-profile-pic`}
             style={{ width: imageSize, height: imageSize }}
             onClick={handleClick}
+            id={`${user.id}-userProfileImg`}
           />
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>

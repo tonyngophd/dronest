@@ -37,7 +37,7 @@ function App() {
       <div className="homepage">
         <NavBar />
         <NewPostTab />
-        <Footer />
+        {/* <Footer /> */}
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />

@@ -13,7 +13,8 @@ const sendAMessage = async (senderId, receiverId, messageBody, dispatch) => {
   const res2 = await res1.json();
 
   if(!res2.errors){
-    dispatch(setUserPOJO(res2.follower));
+    // console.log("\n\n\nres2", res2);
+    dispatch(setUserPOJO(res2.user));
     // if(receiverId === profilePersonId)
     //   dispatch(loadProfileBasicInfoPOJO(res2.followee))
   }
