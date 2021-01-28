@@ -32,5 +32,16 @@ body {
 .body_container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: baseline;
+  margin-top: 40px;
+  /* align-items: flex-start; */
 }
+
+.login-form {
+  margin-top: 50px;
+}
+
+.signup-form {
+  margin-top: 50px;
+}
+

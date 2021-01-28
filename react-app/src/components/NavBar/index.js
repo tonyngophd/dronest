@@ -16,7 +16,7 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <p className="navbar-content">InstaVibes</p>
+      <p className="navbar-content hvr-shrink">InstaVibes</p>
       <input
         className="navbar-content"
         type="text"
@@ -60,9 +60,9 @@ const NavBar = () => {
               <BsHeart className="navbar-icon" />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon" />
+              <CgProfile className="navbar-icon hvr-shrink" />
             </NavLink>
-            <LogoutButton className="navbar-icon" />
+            <LogoutButton className="navbar-icon  hvr-shrink" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">

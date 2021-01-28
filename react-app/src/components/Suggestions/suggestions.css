@@ -1,15 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 
-.mini-profile-and-suggestions{
+.mini-profile-and-suggestions {
   width: 320px;
   border-radius: 5px;
   margin-left: 25px;
   margin-top: 20px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   overflow: hidden;
+  -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
 }
 .suggestions_container {
   background-color: white;
@@ -19,15 +20,15 @@
   /* left: 830px;
     top: 187px; */
   overflow-y: scroll;
-  overscroll-behavior: contain ; /* Prevent SCROLL-CHAINING to parent elements. */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */  
+  overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .suggestions_container::-webkit-scrollbar {
   display: none;
 }
 
-.suggestions-for-you-title{
+.suggestions-for-you-title {
   font-weight: bold;
   font-size: 14px;
   display: flex;

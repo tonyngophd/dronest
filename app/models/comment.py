@@ -23,5 +23,6 @@ class Comment(db.Model):
         "userId": self.userId,
         "parentPostId": self.parentPostId,
         "captionRawData": self.captionRawData,
-        "commenter": self.commenter.username
+        "commenter": self.commenter.username,
+        "commenterPic": self.commenter.profilePicUrl
         }

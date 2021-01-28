@@ -11,7 +11,11 @@ import {
   fetchHashtagMentionsComments,
   clearMentions,
 } from "../../store/mentions";
-import { uploadComment, fetchHomeFeed } from "../../store/posts";
+import {
+  uploadComment,
+  fetchHomeFeed,
+  fetchSinglePost,
+} from "../../store/posts";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -59,7 +63,7 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = ({ post }) => {
+const CommentInput = ({ post, modal }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
   const hashtagMentions = useSelector(
@@ -175,13 +179,16 @@ const CommentInput = ({ post }) => {
       }
     }
     await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
-    dispatch(fetchHomeFeed(user.id));
+    !modal && dispatch(fetchHomeFeed(user.id));
+    modal && dispatch(fetchSinglePost(post.id));
   };
 
   return (
     <div className="comment-editor-wrapper">
       <div
-        className="comment-editor"
+        className={
+          modal ? "comment-editor comment-pic-modal" : "comment-editor"
+        }
         onBlur={() => setFocused(false)}
         onFocus={focus}
       >
