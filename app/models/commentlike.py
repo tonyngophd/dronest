@@ -7,6 +7,9 @@ class CommentLike(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     commentId = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
+    updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+
 
     # comments = db.relationship('Comment')
 
