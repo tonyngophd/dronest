@@ -35,9 +35,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="homepage">
+        <Footer />
         <NavBar />
         <NewPostTab />
-        {/* <Footer /> */}
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />
