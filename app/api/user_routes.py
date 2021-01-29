@@ -1,12 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-<<<<<<< HEAD
 from app.models import db, User, UserFollower, DirectMessage, TaggedUser, CommentTaggedUser
-=======
-from app.models import db, User, UserFollower, DirectMessage, MessageTaggedUser
 import json
->>>>>>> master
-
 user_routes = Blueprint('users', __name__)
 
 
@@ -92,9 +87,6 @@ def message_index(receiverId):
 
     return {"user": myself.to_dict_for_self()}
 
-<<<<<<< HEAD
-
-=======
 @user_routes.route('/messages', methods=['POST'])
 @login_required
 def create_message():
@@ -124,7 +116,6 @@ def create_message():
 #   return message.to_dict()
     myself = User.query.get(senderId) 
     return {"user": myself.to_dict_for_self()}
->>>>>>> master
 
         
 
