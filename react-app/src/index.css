@@ -19,6 +19,8 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
+  background-color: #fafafa;
+
 }
 
 .main_body {
@@ -44,4 +46,3 @@ body {
 .signup-form {
   margin-top: 50px;
 }
-

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { nanoid } from 'nanoid';
+import { Route } from 'react'
+import SignUpForm from './SignUpForm'
+import './LoginForm.css'
 
 import { loginUser } from "../../store/session";
 
@@ -33,34 +36,51 @@ const LoginForm = () => {
   }
 
   return (
-    <form className="login-form" onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div key={nanoid()}>{error}</div>
-        ))}
+    <div className="login_container">
+      <div className="login-img">
+        <img src="../images/computer.png"></img>
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
+      <div className="login_form-container">
+        <form className="login-form" onSubmit={onLogin}>
+          <div className="login-form_header">
+            <h1>Instavibes</h1>
+          </div>
+          <div>
+            {errors.map((error) => (
+              <div key={nanoid()}>{error}</div>
+            ))}
+          </div>
+          <div className="login-form-element">
+            <label htmlFor="email"></label>
+            <input
+              name="email"
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div className="login-form-element">
+            <label htmlFor="password"></label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+          <button className="login-form-element" type="submit">Log in</button>
+          <p className="OR">OR</p>
+          <div className="login-form-footer">
+            <p>Don't have an account?</p>
+            <Link to="/sign-up">
+              sign up
+            </Link>
+          </div>
+        </form>
       </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    </div>
   );
 };
 
