@@ -14,6 +14,7 @@ import { BiChat } from 'react-icons/bi';
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
 import UserRow from "../ProfilePage/UserRow";
+import Comment from '../Comment';
 
 import sendAMessage from '../../store/messages';
 
@@ -22,7 +23,6 @@ import { nanoid } from 'nanoid';
 import User from '../User';
 import { GrUp } from 'react-icons/gr';
 import CommentInput from "../CommentInput";
-import Comment from "../Comment";
 
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
@@ -101,7 +101,8 @@ function MessagePage() {
           <div className='message-and-profileimg-bubble'>
             <div className={divClass2}>
               {msg.message.map(m => <div key={nanoid()}>
-                {m}
+                {/* {m} */}
+                <Comment message={m} />
               </div>)}
             </div>
             <img className="user-row-profile-img" src={myself.profilePicUrl} alt={myself.profilePicUrl} />
@@ -114,7 +115,8 @@ function MessagePage() {
             />
             <div className={divClass2}>
               {msg.message.map(m => <div key={nanoid()}>
-                {m}
+                {/* {m} */}
+                <Comment message={m} />
               </div>)}
             </div>
           </div>
