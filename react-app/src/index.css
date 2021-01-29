@@ -27,6 +27,9 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: absolute;
+  left: 40%;
+  margin-left: -350px;
 }
 
 .body_container {
@@ -45,3 +48,33 @@ body {
   margin-top: 50px;
 }
 
+@media (max-width: 1180px) {
+  .mini-profile-and-suggestions {
+    display: none;
+  }
+  .main_body {
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 650px) {
+  body {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feed_post-container {
+    width: 90vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 10px !important;
+    transition-property: margin-bottom;
+    transition-duration: 0.5s;
+  }
+}
