@@ -45,5 +45,5 @@ class Post(db.Model):
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
-            "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
+            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
         }
