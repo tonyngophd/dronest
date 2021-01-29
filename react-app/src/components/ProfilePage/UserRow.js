@@ -43,7 +43,7 @@ function UserRow({
           />
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
-            <div>{user.name}</div>
+            <div className="user-row-display-name">{user.name}</div>
           </div>
         </div>
         {showFollowButtonOrText &&

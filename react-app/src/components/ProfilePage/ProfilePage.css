@@ -6,7 +6,6 @@
   /* border: 1px solid black; */
   margin: auto;
   margin-top: 40px;
-  
 }
 
 .profile-info {
@@ -237,9 +236,14 @@
 }
 
 .user-row-username {
-  font-weight: bold;
-  font-size: small;
+  font-weight: 600;
+  font-size: 14px;
   font-family: "Open Sans", sans-serif;
+}
+
+.user-row-display-name {
+  font-size: 13px;
+  color: rgb(131, 131, 131);
 }
 
 .follow-modal-top-div {

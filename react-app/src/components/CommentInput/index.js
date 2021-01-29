@@ -67,6 +67,7 @@ const Hashtag = (props) => {
 };
 
 const CommentInput = ({ post, modal,
+  increaseNumComments,
   className = 'comment-editor-wrapper',
   insideCN = "",
   action = "Post",
@@ -88,9 +89,9 @@ const CommentInput = ({ post, modal,
     setFocused(true);
   };
 
-  useEffect(() => {
-    dispatch(clearMentions());
-  }, [ref]);
+  // useEffect(() => {
+  //   dispatch(clearMentions());
+  // }, [ref]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
@@ -188,6 +189,7 @@ const CommentInput = ({ post, modal,
       }
     }
     if (action === 'Post') {
+      increaseNumComments();
       await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
       !modal && dispatch(fetchHomeFeed(user.id));
       modal && dispatch(fetchSinglePost(post.id));
