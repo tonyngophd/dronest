@@ -12,6 +12,7 @@
   background: linear-gradient(to right, #4e4376, #2b5876);
   transition-duration: 0.7s;
   overflow: hidden;
+  z-index: 10;
 }
 
 .post-tab-container.notif-hover {
