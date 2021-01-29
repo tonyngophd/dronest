@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, UserFollower, DirectMessage, TaggedUser, CommentTaggedUser
+from app.models import (db, User, UserFollower, DirectMessage, 
+    TaggedUser, CommentTaggedUser,
+    MessageTaggedUser
+)
 import json
 user_routes = Blueprint('users', __name__)
 

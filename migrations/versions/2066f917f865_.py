@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e80089039845
+Revision ID: 2066f917f865
 Revises: 
-Create Date: 2021-01-28 16:22:55.476023
+Create Date: 2021-01-29 12:55:01.692286
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e80089039845'
+revision = '2066f917f865'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,8 +21,8 @@ def upgrade():
     op.create_table('hashtags',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('tagInfo', sa.String(length=40), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('locations',
@@ -30,8 +30,8 @@ def upgrade():
     sa.Column('city', sa.Text(), nullable=False),
     sa.Column('state', sa.Text(), nullable=False),
     sa.Column('country', sa.Text(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -43,8 +43,8 @@ def upgrade():
     sa.Column('bio', sa.Text(), nullable=True),
     sa.Column('websiteUrl', sa.Text(), nullable=False),
     sa.Column('profilePicUrl', sa.Text(), nullable=True),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -55,8 +55,8 @@ def upgrade():
     sa.Column('receiverId', sa.Integer(), nullable=False),
     sa.Column('message', sa.Text(), nullable=False),
     sa.Column('viewStatus', sa.Boolean(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['receiverId'], ['users.id'], ),
     sa.ForeignKeyConstraint(['senderId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -66,8 +66,8 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('locationId', sa.Integer(), nullable=True),
     sa.Column('captionRawData', sa.Text(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['locationId'], ['locations.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -76,8 +76,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('followerId', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('viewStatus', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['followerId'], ['users.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -87,8 +88,8 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('parentPostId', sa.Integer(), nullable=False),
     sa.Column('captionRawData', sa.Text(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['parentPostId'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -97,8 +98,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('hashtagId', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['hashtagId'], ['hashtags.id'], ),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -107,8 +108,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('imgUrl', sa.Text(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -116,9 +117,20 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('messagetaggedusers',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('messageId', sa.Integer(), nullable=False),
+    sa.Column('viewStatus', sa.Boolean(), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.ForeignKeyConstraint(['messageId'], ['directmessages.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -127,8 +139,8 @@ def upgrade():
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('viewStatus', sa.Boolean(), nullable=True),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -137,8 +149,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('commentId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -148,8 +160,8 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('commentId', sa.Integer(), nullable=False),
     sa.Column('viewStatus', sa.Boolean(), nullable=True),
-    sa.Column('createdAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updatedAt', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -162,6 +174,7 @@ def downgrade():
     op.drop_table('commenttaggedusers')
     op.drop_table('commentlikes')
     op.drop_table('taggedusers')
+    op.drop_table('messagetaggedusers')
     op.drop_table('likedposts')
     op.drop_table('images')
     op.drop_table('hashtagposts')
