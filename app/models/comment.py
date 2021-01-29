@@ -11,9 +11,6 @@ class Comment(db.Model):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
-
-
-
     commenter = db.relationship('User', foreign_keys=userId)
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter

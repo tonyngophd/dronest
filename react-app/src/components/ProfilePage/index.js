@@ -31,8 +31,7 @@ const ProfilePage = ({ tagged }) => {
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
-  }, [dispatch, username]);
-
+  }, [dispatch, profile.ownPosts, username]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,11 +85,7 @@ const ProfilePage = ({ tagged }) => {
           </div>
           <hr className="hr" />
           <div className="modal-content-scroll">
-            <UserRow
-              user={myself}
-              myId={myself.id}
-              notFollowedYet={false}
-            />
+            <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
@@ -122,7 +117,13 @@ const ProfilePage = ({ tagged }) => {
                 <button
                   className="profile-follow-button"
                   onClick={(e) =>
-                    handleFollowClick(e, myself.id, profile.user.id, true, dispatch)
+                    handleFollowClick(
+                      e,
+                      myself.id,
+                      profile.user.id,
+                      true,
+                      dispatch
+                    )
                   }
                 >
                   Follow
@@ -130,18 +131,24 @@ const ProfilePage = ({ tagged }) => {
               ) : myself.id === profile.user.id ? (
                 <button className="profile-edit-button">Edit Profile</button>
               ) : (
-                    <>
-                      <button className="profile-edit-button">Message</button>
-                      <button
-                        className="profile-following-button"
-                        onClick={(e) =>
-                          handleFollowClick(e, myself.id, profile.user.id, false, dispatch)
-                        }
-                      >
-                        Unfollow
+                <>
+                  <button className="profile-edit-button">Message</button>
+                  <button
+                    className="profile-following-button"
+                    onClick={(e) =>
+                      handleFollowClick(
+                        e,
+                        myself.id,
+                        profile.user.id,
+                        false,
+                        dispatch
+                      )
+                    }
+                  >
+                    Unfollow
                   </button>
-                    </>
-                  )}
+                </>
+              )}
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">

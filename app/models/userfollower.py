@@ -9,7 +9,7 @@ class UserFollower(db.Model):
     followerId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
-
+    viewStatus = db.Column(db.Boolean, nullable=False, default=False)
    
     person = db.relationship('User', foreign_keys=userId)
     follower = db.relationship('User', foreign_keys=followerId)
@@ -22,4 +22,14 @@ class UserFollower(db.Model):
           "userId": self.userId,
           "followerId": self.followerId,           
         }
+    
+    def to_dict_notif(self):
+      return {
+        "id": self.id,
+        "viewStatus": self.viewStatus,
+        "createdAt": self.createdAt,
+        "userId": self.userId,
+        "followerId": self.followerId,
+        "follower": self.follower.to_dict()
+      }
         

@@ -1,18 +1,23 @@
 import React, { useEffect } from "react";
 import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHomeFeed } from '../../store/posts'
-import Post from '../Post'
+import { fetchHomeFeed } from "../../store/posts";
+import Post from "../Post";
 import { nanoid } from "nanoid";
+import { fetchNotifications } from "../../store/notifications";
 
 const Feed = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.session.user)
-  const feed = useSelector(state => state.posts.homeFeed)
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const feed = useSelector((state) => state.posts.homeFeed);
 
   useEffect(() => {
-    dispatch(fetchHomeFeed(user.id))
-  }, [dispatch, user])
+    dispatch(fetchNotifications());
+  }, []);
+  useEffect(() => {
+    dispatch(fetchNotifications());
+    dispatch(fetchHomeFeed(user.id));
+  }, [dispatch, user]);
   // const posts = [
   //   {
   //     user: {
@@ -66,11 +71,13 @@ const Feed = () => {
 
   return (
     <>
-      {feed && (<div className="feed_container">
-        {feed.map((post) =>
-          <Post post={post} key={nanoid()} />
-        )}
-      </div>)}
+      {feed && (
+        <div className="feed_container">
+          {feed.map((post) => (
+            <Post post={post} key={nanoid()} />
+          ))}
+        </div>
+      )}
     </>
   );
 };
