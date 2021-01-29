@@ -63,7 +63,7 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = ({ post, modal }) => {
+const CommentInput = ({ post, modal, increaseNumComments }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
   const hashtagMentions = useSelector(
@@ -79,9 +79,9 @@ const CommentInput = ({ post, modal }) => {
     setFocused(true);
   };
 
-  useEffect(() => {
-    dispatch(clearMentions());
-  }, [ref]);
+  // useEffect(() => {
+  //   dispatch(clearMentions());
+  // }, [ref]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
@@ -178,6 +178,7 @@ const CommentInput = ({ post, modal }) => {
           break;
       }
     }
+    increaseNumComments();
     await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
     !modal && dispatch(fetchHomeFeed(user.id));
     modal && dispatch(fetchSinglePost(post.id));

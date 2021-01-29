@@ -23,10 +23,6 @@ import User from '../User';
 import { GrUp } from 'react-icons/gr';
 
 
-import "./MessagePage.css";
-import { nanoid } from "nanoid";
-import User from "../User";
-
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");

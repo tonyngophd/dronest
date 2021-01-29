@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   position: fixed;
+  z-index: 10;
   /* background: #2b5876; fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #4e4376, #2b5876); */
   background: linear-gradient(to right, #4e4376, #2b5876);
@@ -42,7 +43,12 @@
 }
 
 input[type="text"] {
-  width: 130px;
+  height: 80%;
+  background-color: rgb(240, 240, 249);
+  border: none;
+  padding-left: 15px;
+  outline: none;
+  width: 200px;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }
