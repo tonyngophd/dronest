@@ -33,34 +33,34 @@ def seed_users():
                 name="Adam ",profilePicUrl="https://avatars.githubusercontent.com/u/62448980?s=460&u=06f0b035e68e71b1b36f8ba3bf565ae68081609b&v=4")
     db.session.add(adam)
 
-F = 1
-M = 1
-i = 0
-while i < 26:
-    while (p := fake.profile()) and p['sex'] not in ['F', 'M']:    
-        continue
-    if M > 11 and p['sex'] == 'M':
-        continue
-    if F > 15 and p['sex'] == 'F':
-        continue
+    F = 1
+    M = 1
+    i = 0
+    while i < 26:
+        while (p := fake.profile()) and p['sex'] not in ['F', 'M']:    
+            continue
+        if M > 11 and p['sex'] == 'M':
+            continue
+        if F > 15 and p['sex'] == 'F':
+            continue
 
-    i += 1
+        i += 1
 
-    fl = ''
-    url = ''
-    fl = ''
-    url = ''
-    if p['sex'] == 'F':
-        fl = f'f{F}.jpg'
-        F += 1
-    else:
-        fl = f'm{M}.jpg'
-        M += 1
-    url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
-    user = User(username=p['username'], email=p['mail'],
-        password=f'password', bio=p['job'], websiteUrl=p['website'][0],
-        name=p['name'],profilePicUrl=url)
-    db.session.add(user)
+        fl = ''
+        url = ''
+        fl = ''
+        url = ''
+        if p['sex'] == 'F':
+            fl = f'f{F}.jpg'
+            F += 1
+        else:
+            fl = f'm{M}.jpg'
+            M += 1
+        url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
+        user = User(username=p['username'], email=p['mail'],
+            password=f'password', bio=p['job'], websiteUrl=p['website'][0],
+            name=p['name'],profilePicUrl=url)
+        db.session.add(user)
 
     # for i in range(25):
     #     p = fake.profile()
