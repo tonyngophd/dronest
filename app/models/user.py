@@ -2,7 +2,8 @@ from .db import db
 from .userfollower import UserFollower
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey, or_
+from .directmessage import DirectMessage
 
 
 class User(db.Model, UserMixin):
@@ -30,6 +31,7 @@ class User(db.Model, UserMixin):
   taggedInComments = db.relationship('Comment', secondary='commenttaggedusers')
   followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
+  allMessages = []
 
 
   @property
@@ -54,6 +56,12 @@ class User(db.Model, UserMixin):
   def get_following(self):
     ufs = UserFollower.query.filter(UserFollower.followerId == self.id).all()
     self.following = [uf.person for uf in ufs]
+
+  def get_messages(self):
+    msgs = DirectMessage.query\
+      .filter(or_(DirectMessage.senderId == self.id, \
+        DirectMessage.receiverId == self.id)).order_by(DirectMessage.id).all()
+    self.allMessages = msgs
 
 
   def to_dict(self):
@@ -95,6 +103,7 @@ class User(db.Model, UserMixin):
   def to_dict_for_self(self):
     self.get_followers()
     self.get_following()
+    self.get_messages()
     return {
       "id": self.id,
       "username": self.username,
@@ -106,7 +115,7 @@ class User(db.Model, UserMixin):
       "ownPosts": [post.to_dict_for_self() for post in self.ownPosts],
       "likedPosts": [post.to_dict() for post in self.likedPosts],
       "taggedInPosts": [post.to_dict() for post in self.taggedInPosts],
-      "messages": [sentMsg.to_dict() for sentMsg in self.sentMessages] + [recvdMsg.to_dict() for recvdMsg in self.receivedMessages],
+      "messages": [m.to_dict() for m in self.allMessages], #[sentMsg.to_dict() for sentMsg in self.sentMessages] + [recvdMsg.to_dict() for recvdMsg in self.receivedMessages],
       "followers": [user.to_dict() for user in self.followers],
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
