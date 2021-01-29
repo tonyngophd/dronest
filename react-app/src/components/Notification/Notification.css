@@ -1,0 +1,36 @@
+.notif-wrapper {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+.notif-pic {
+  width: 33px;
+  height: 33px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.notif-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.notif-middle {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.notif-username {
+  margin-right: 5px;
+  color: rgb(38, 38, 38);
+  font-weight: 600;
+}
+
+.notif-bottom {
+  color: rgb(137, 137, 137);
+  font-size: 11px;
+}

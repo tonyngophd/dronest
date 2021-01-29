@@ -7,7 +7,6 @@ import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import Comment from "../Comment";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSinglePost } from "../../store/posts";
 import {
   BsHeart,
   BsChat,
@@ -26,11 +25,7 @@ const ProfilePost = ({ post }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const [isPicOpen, setIsPicOpen] = useState(false);
-  const singlePost = useSelector((state) => state.posts.singlePost);
-  useEffect(() => {
-    dispatch(fetchSinglePost(post.id));
-  }, [dispatch, post]);
-
+ 
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(post.id));
@@ -94,8 +89,8 @@ const ProfilePost = ({ post }) => {
                 <PicModalCaption post={post} />
               </div>
               <div className="pic-modal-comments">
-                {singlePost &&
-                  singlePost.comments.map((comment) => {
+                {post &&
+                  post.comments.map((comment) => {
                     return (
                       <div className="modal-comment">
                         <img

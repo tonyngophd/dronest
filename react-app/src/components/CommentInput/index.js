@@ -17,8 +17,7 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
-import sendAMessage, { uploadMessage } from '../../store/messages';
-
+import sendAMessage, { uploadMessage } from "../../store/messages";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -66,13 +65,15 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = ({ post, modal,
+const CommentInput = ({
+  post,
+  modal,
   increaseNumComments,
-  className = 'comment-editor-wrapper',
+  className = "comment-editor-wrapper",
   insideCN = "",
   action = "Post",
   placeHolder = "Add a comment...",
-  receiverId
+  receiverId,
 }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
@@ -188,14 +189,20 @@ const CommentInput = ({ post, modal,
           break;
       }
     }
-    if (action === 'Post') {
-      // increaseNumComments();
+    if (action === "Post") {
+      increaseNumComments && increaseNumComments();
       await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
       !modal && dispatch(fetchHomeFeed(user.id));
       modal && dispatch(fetchSinglePost(post.id));
     } else {
       // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
-      await uploadMessage(user.id, receiverId, mentionedUsers, rawData, dispatch);
+      await uploadMessage(
+        user.id,
+        receiverId,
+        mentionedUsers,
+        rawData,
+        dispatch
+      );
     }
   };
 
@@ -203,8 +210,11 @@ const CommentInput = ({ post, modal,
     <div className={className}>
       <div
         className={
-          insideCN ? insideCN :
-            (modal ? "comment-editor comment-pic-modal" : "comment-editor")
+          insideCN
+            ? insideCN
+            : modal
+            ? "comment-editor comment-pic-modal"
+            : "comment-editor"
         }
         onBlur={() => setFocused(false)}
         onFocus={focus}

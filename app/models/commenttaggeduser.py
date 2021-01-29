@@ -11,7 +11,7 @@ class CommentTaggedUser(db.Model):
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
-
+    comment = db.relationship('Comment', foreign_keys=commentId)
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
@@ -20,6 +20,17 @@ class CommentTaggedUser(db.Model):
           "postId": self.postId,
           "commentId": self.commentId,        
           "viewStatus": self.viewStatus,        
+        }
+
+    def to_dict_notif(self):
+      return {
+          "id": self.id,
+          "postId": self.comment.parentPostId,
+          "commentId": self.commentId,        
+          "viewStatus": self.viewStatus,
+          "createdAt": self.createdAt,
+          "comment": self.comment.to_dict(),
+          "type": "comment"
         }
         
 
