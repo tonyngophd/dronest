@@ -70,7 +70,10 @@ const LoginForm = () => {
               onChange={updatePassword}
             />
           </div>
-          <button className="login-form-element" type="submit">Log in</button>
+          <div className="buttons">
+            <button type="submit">Log in</button>
+            <button type="submit">Demo</button>
+          </div>
           <p className="OR">OR</p>
           <div className="login-form-footer">
             <p>Don't have an account?</p>

@@ -1,0 +1,13 @@
+.signup-form_container {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background-color: red;
+}
+
+.signup-form {
+    margin: 0;
+}
