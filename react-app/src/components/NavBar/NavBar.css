@@ -42,7 +42,7 @@
   border-radius: 40px;
 }
 
-input[type="text"] {
+.top-navbar input[type="text"] {
   height: 80%;
   background-color: rgb(240, 240, 249);
   border: none;
@@ -53,7 +53,7 @@ input[type="text"] {
   transition: width 0.4s ease-in-out;
 }
 
-input[type="text"]:focus {
+.top-navbar input[type="text"]:focus {
   width: 40%;
 }
 .navbar-content:hover {
