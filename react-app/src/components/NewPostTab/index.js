@@ -47,7 +47,7 @@ const NewPostTab = () => {
           className="hvr-grow post-tab-notifications all-notifs"
         >
           <BsBell />
-          {notifications && (
+          {notifications.total > 0 && (
             <div className="all-notifs-count notifs-count">
               {notifications.total}
             </div>
@@ -63,7 +63,7 @@ const NewPostTab = () => {
             className="hvr-grow post-tab-notifications follow-notifs"
           >
             <AiOutlineUserAdd />
-            {notifications && (
+            {notifications.num_follows > 0 && (
               <div className="follow-notifs-count notifs-count">
                 {notifications.num_follows}
               </div>
@@ -77,7 +77,7 @@ const NewPostTab = () => {
             className="hvr-grow post-tab-notifications tag-notifs"
           >
             <BsTag />
-            {notifications && (
+            {notifications.num_post_tags > 0 && (
               <div className="tag-notifs-count notifs-count">
                 {notifications.num_post_tags}
               </div>
@@ -91,7 +91,7 @@ const NewPostTab = () => {
             className="hvr-grow post-tab-notifications comment-notifs"
           >
             <BsChat />
-            {notifications && (
+            {notifications.num_comment_tags > 0 && (
               <div className="comment-notifs-count notifs-count">
                 {notifications.num_comment_tags}
               </div>
