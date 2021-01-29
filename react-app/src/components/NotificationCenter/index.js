@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NotificationCenter.css";
-import { BsBell, BsTag, BsChatDots } from "react-icons/bs";
+import { BsBell, BsTag, BsChat } from "react-icons/bs";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import Notification from "../Notification";
@@ -89,7 +89,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 : "notif-center-nav-option"
             }
           >
-            <BsChatDots />
+            <BsChat />
           </div>
         </div>
         <div className="notif-center-content">

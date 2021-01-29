@@ -10,7 +10,7 @@ import {
   BsClockHistory,
   BsPlusSquare,
   BsTag,
-  BsChatDots,
+  BsChat,
 } from "react-icons/bs";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import NotificationCenter from "../NotificationCenter";
@@ -90,7 +90,7 @@ const NewPostTab = () => {
             }}
             className="hvr-grow post-tab-notifications comment-notifs"
           >
-            <BsChatDots />
+            <BsChat />
             {notifications && (
               <div className="comment-notifs-count notifs-count">
                 {notifications.num_comment_tags}
