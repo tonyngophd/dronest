@@ -22,18 +22,13 @@ import { nanoid } from 'nanoid';
 import User from '../User';
 import { GrUp } from 'react-icons/gr';
 
-
-import "./MessagePage.css";
-import { nanoid } from "nanoid";
-import User from "../User";
-
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceiver, setCurrentReceiver] = useState(null);
   const dispatch = useDispatch();
   const [allReceiverIds, setAllReceiverIds] = useState(Array.from(new Set(myself.followers.concat(myself.following).map(u => u.id))));
-  const [allReceivers, setAllReceivers] = useState([]);
+  const [allUniqueReceivers, setAllUniqueReceivers] = useState([]);
   const [currentGroupedMsgs, setCurrentGroupedMsgs] = useState([]);
 
 
@@ -47,7 +42,7 @@ function MessagePage() {
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
         let j = 0;
-        groupedMsgs.push(Object.assign({},msgs[0]));
+        groupedMsgs.push(Object.assign({}, msgs[0]));
         delete groupedMsgs[0].message;
         groupedMsgs[0].message = [msgs[0].message];
         for (let i = 1; i < msgs.length; i++) {
@@ -56,7 +51,7 @@ function MessagePage() {
           } else {
             currentSenderId = msgs[i].senderId;
             j++;
-            groupedMsgs.push(Object.assign({},msgs[i]));
+            groupedMsgs.push(Object.assign({}, msgs[i]));
             delete groupedMsgs[j].message;
             groupedMsgs[j].message = [msgs[i].message];
           }
@@ -69,17 +64,17 @@ function MessagePage() {
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
-    setAllReceivers(allReceiverIds.map(id => all.filter(u => u.id === id)[0]));
+    setAllUniqueReceivers(allReceiverIds.map(id => all.find(u => u.id === id)));
   }, [allReceiverIds]);
   // useEffect(() => {
-  //   console.log("allReceivers", allReceivers);
-  // }, [allReceivers]);
+  //   console.log("allUniqueReceivers", allUniqueReceivers);
+  // }, [allUniqueReceivers]);
 
   const receiverClick = e => {
     e.preventDefault();
     const receiverId = Number(e.target.id.split('-')[0]);
-    setCurrentReceiver(allReceivers.filter(u => u.id === receiverId)[0]);
-    // console.log('receiverId', receiverId, allReceivers.filter(u => u.id === receiverId)[0]);
+    setCurrentReceiver(allUniqueReceivers.find(u => u.id === receiverId));
+    // console.log('receiverId', receiverId, allUniqueReceivers.filter(u => u.id === receiverId)[0]);
   }
 
   const msgClick = (e) => {
@@ -90,17 +85,38 @@ function MessagePage() {
   };
 
   const MessageBubble = ({ msg }) => {
+    let divClass1, divClass2;
+    if (msg.senderId === myself.id) {
+      divClass1 = 'message-bubble-container-me-right';
+      divClass2 = "message-bubble-me-right";
+    } else {
+      divClass1 = "message-bubble-container-them-left";
+      divClass2 = "message-bubble-them-left";
+    }
     return (
-      <div className={msg.senderId === myself.id ?
-        'message-bubble-container-me-right' : "message-bubble-container-them-left"}>
-        <div className={msg.senderId === myself.id ?
-          "message-bubble-me-right" : "message-bubble-them-left"}>
-          {
-            msg.message.map(m => <div key={nanoid()} id={nanoid()}>
-              {m}
-            </div>)
-          }
-        </div>
+      <div className={divClass1}>
+        {msg.senderId === myself.id ?
+          <div className='message-and-profileimg-bubble'>
+            <div className={divClass2}>
+              {msg.message.map(m => <div key={nanoid()}>
+                {m}
+              </div>)}
+            </div>
+            <img className="user-row-profile-img" src={myself.profilePicUrl} alt={myself.profilePicUrl} />
+          </div> :
+          <div className='message-and-profileimg-bubble'>
+            <img className="user-row-profile-img"
+              src={currentReceiver.profilePicUrl}
+              alt={currentReceiver.profilePicUrl}
+              style={{ marginRight: "0px" }}
+            />
+            <div className={divClass2}>
+              {msg.message.map(m => <div key={nanoid()}>
+                {m}
+              </div>)}
+            </div>
+          </div>
+        }
       </div>
     );
   };
@@ -109,11 +125,13 @@ function MessagePage() {
     <div className='message-page-main-div'>
       <div className='message-page-left-panel'>
         <div className='top-left-div'>
-          {myself.username}
+          <div>
+            {myself.username}
+          </div>
         </div>
         <div className='middle-left-div'></div>
         <div className='main-left-div'>
-          {allReceivers.map(u => <div
+          {allUniqueReceivers.map(u => <div
             key={nanoid()}
             id={`${u.id}-receiver`}
             onClick={receiverClick}
@@ -129,50 +147,51 @@ function MessagePage() {
         </div>
       </div>
       <div className="message-page-right-panel">
-        <div className="top-right-div">
-          {currentReceiver && (
-            <UserRow
-              user={currentReceiver}
-              myId={myself.id}
-              showFollowButtonOrText={false}
-              gotoUserPage={false}
-            />
-          )}
-          <h1 className="top-right hvr-wobble-bottom">Inbox</h1>
-        </div>
-        <div className='main-right-div'>
-          {currentReceiver ?
-            <div className='message-pannel-div'>
-              <div className='messages-div'>
-                {currentGroupedMsgs.map(msg =>
-                  <MessageBubble key={nanoid()} msg={msg} />)}
-              </div>
-              <div className='message-typing-box-div'>
-                <form className='message-input-form'>
-                  <input
-                    type='text'
-                    className='message-input-box'
-                    value={currentMsg}
-                    onChange={e => setCurrentMsg(e.target.value)}
-                    autoFocus={true}
-                  />
-                  {/* <textarea className='message-input-box'></textarea> */}
-                  <button type='submit' onClick={msgClick}>Send</button>
-                </form>
-              </div>
-            </div> :
-            <div className='empty-message-box-div'>
-              <div>
-                <BiChat fontSize={'120px'} />
-              </div>
-              <div className='title-and-button-message-box-div'>
-                <span className='title-message-box-div'>Your Messages</span>
-                <span className='subtitle-message-box-div'>Send private photos and messages to a friend or group.</span>
-                <button className='button-message-box-div'>Send Messages</button>
+        {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
+        {currentReceiver ?
+          <>
+            <div className="top-right-div">
+
+              <UserRow
+                user={currentReceiver}
+                myId={myself.id}
+                showFollowButtonOrText={false}
+                gotoUserPage={false}
+              />
+            </div>
+            <div className='main-right-div'>
+              <div className='message-pannel-div'>
+                <div className='messages-div'>
+                  {currentGroupedMsgs.map(msg =>
+                    <MessageBubble key={nanoid()} msg={msg} />)}
+                </div>
+                <div className='message-typing-box-div'>
+                  <form className='message-input-form'>
+                    <input
+                      type='text'
+                      className='message-input-box'
+                      value={currentMsg}
+                      onChange={e => setCurrentMsg(e.target.value)}
+                      autoFocus={true}
+                    />
+                    {/* <textarea className='message-input-box'></textarea> */}
+                    <button type='submit' onClick={msgClick}>Send</button>
+                  </form>
+                </div>
               </div>
             </div>
-          }
-        </div>
+          </> :
+          <div className='empty-message-box-div'>
+            <div>
+              <BiChat fontSize={'120px'} />
+            </div>
+            <div className='title-and-button-message-box-div'>
+              <span className='title-message-box-div'>Your Messages</span>
+              <span className='subtitle-message-box-div'>Send private photos and messages to a friend or group.</span>
+              <button className='button-message-box-div'>Send Messages</button>
+            </div>
+          </div>
+        }
       </div>
     </div>
   );
