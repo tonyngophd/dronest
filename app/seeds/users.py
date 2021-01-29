@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash
 from app.models import db, User
 from faker import Faker
+import random
 fake = Faker()
 
 
@@ -38,6 +39,19 @@ def seed_users():
                 name="Adam ",profilePicUrl="https://placeimg.com/204/204")
     db.session.add(adam)
 
+    for i in range(25):
+        p = fake.profile()
+        num1 = random.randint(200, 600)
+        num2 = random.randint(200, 600)
+        username = p["username"]
+        email = fake.email()
+        password = "password"
+        bio = fake.text(max_nb_chars=25)
+        websiteUrl = "www.google.com"
+        name = fake.name()
+        profilePicUrl = f"https://placeimg.com/{num1}/{num2}"
+        fakeUser = User(username=username, email=email, password=password, bio=bio, websiteUrl=websiteUrl, name=name, profilePicUrl=profilePicUrl)
+        db.session.add(fakeUser)
 
     db.session.commit()
 

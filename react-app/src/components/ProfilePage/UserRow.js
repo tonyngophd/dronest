@@ -9,16 +9,15 @@ function UserRow({
   imageSize = "35px",
   followAsButton = true,
   showFollowButtonOrText = true,
-  gotoUserPage = true
+  gotoUserPage = true,
 }) {
-
   const history = useHistory();
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault();
     if (gotoUserPage) {
       history.push(`/${user.username}`);
     }
-  }
+  };
   return (
     user && (
       <div className="user-row-main-div">
@@ -37,27 +36,24 @@ function UserRow({
           </div>
         </div>
         {showFollowButtonOrText &&
-          (
-            notFollowedYet ? (
-              <button
-                className="profile-follow-button user-row-button"
-                onClick={(e) => handleFollowClick(e, myId, user.id, true)}
-              >
-                Follow
-              </button>
-            ) : user.id !== myId ? (
-              <button
-                className="profile-following-button user-row-button"
-                onClick={(e) => handleFollowClick(e, myId, user.id, false)}
-              >
-                Following
-              </button>
-            ) : (
-                  <span className=" user-row-button">Myself</span>
-                )
-          )
-        }
-      </div >
+          (notFollowedYet ? (
+            <button
+              className="profile-follow-button user-row-button"
+              onClick={(e) => handleFollowClick(e, myId, user.id, true)}
+            >
+              Follow
+            </button>
+          ) : user.id !== myId ? (
+            <button
+              className="profile-following-button user-row-button"
+              onClick={(e) => handleFollowClick(e, myId, user.id, false)}
+            >
+              Following
+            </button>
+          ) : (
+            <span className=" user-row-button"></span>
+          ))}
+      </div>
     )
   );
 }

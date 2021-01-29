@@ -9,8 +9,8 @@ class DirectMessage(db.Model):
     receiverId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     message = db.Column(db.Text, nullable=False)
     viewStatus = db.Column(db.Boolean, nullable=False, default=False)
-    createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
-    updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
+    updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
 
 

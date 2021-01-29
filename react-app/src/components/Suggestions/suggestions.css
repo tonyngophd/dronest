@@ -6,29 +6,18 @@
   border-radius: 5px;
   margin-left: 25px;
   margin-top: 20px;
+  max-height: 600px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-  overflow: hidden;
-  -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-}
-.suggestions_container {
-  background-color: white;
-  width: 100%;
-  height: 400px;
-  /* position: fixed; */
-  /* left: 830px;
-    top: 187px; */
-  overflow-y: scroll;
-  overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.suggestions_container::-webkit-scrollbar {
-  display: none;
+  overflow: scroll;
+  /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
 }
 
-.suggestions-for-you-title {
+/* .mini-profile-and-suggestions:hover {
+  background: linear-gradient(to right, #4e4376, #2b5876);
+} */
+
+s.suggestions-for-you-title {
   font-weight: bold;
   font-size: 14px;
   display: flex;
@@ -38,3 +27,17 @@
 h3 {
   font-family: "Open Sans", sans-serif;
 }
+
+.suggest {
+  font-family: "Open Sans", sans-serif;
+}
+
+.mini-profile-and-suggestions {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.mini-profile-and-suggestions::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* mini-profile-and-suggestions */

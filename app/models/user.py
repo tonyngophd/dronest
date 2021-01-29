@@ -17,8 +17,8 @@ class User(db.Model, UserMixin):
   bio = db.Column(db.Text, nullable=True)
   websiteUrl = db.Column(db.Text, nullable=False, default="www.google.com")
   profilePicUrl = db.Column(db.Text, nullable=True)
-  createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
-  updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+  createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
+  updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
 
   ownPosts = db.relationship('Post', foreign_keys='Post.userId')

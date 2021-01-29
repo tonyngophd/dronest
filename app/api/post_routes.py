@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, redirect, request
 from sqlalchemy import any_
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User
+from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost
 from ..helpers import *
 from ..config import Config
 import json
@@ -86,7 +86,7 @@ def homeFeed(userId):
   following = user.to_dict_feed()
   following_list = following["followingIds"]
   following_list.append(userId)
-  feed = Post.query.filter(Post.userId.in_(following_list)).all()
+  feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).all()
   return {'posts': [post.to_dict() for post in feed]}
 
 @post_routes.route("/tag/<string:hashtag>")
@@ -101,3 +101,21 @@ def hashtagFeed(hashtag):
 def single_post(postId):
   post = Post.query.get(postId)
   return {'post': post.to_dict()}
+
+@post_routes.route("/<int:postId>/like")
+def like_post(postId):
+  postLike = LikedPost(
+    postId=postId,
+    userId=current_user.id
+  )
+  db.session.add(postLike)
+  db.session.commit()
+  return {'message': "Success"}
+
+@post_routes.route("/<int:postId>/unlike")
+def unlike_post(postId):
+  postLike = LikedPost.query.filter(LikedPost.postId==postId,LikedPost.userId==current_user.id).first()
+  db.session.delete(postLike)
+  db.session.commit()
+  return {'message': "Success"}
+

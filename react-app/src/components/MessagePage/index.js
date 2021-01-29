@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { EditorState, convertToRaw } from "draft-js";
@@ -13,7 +13,7 @@ import { BiChat } from 'react-icons/bi';
 
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
-import UserRow from '../ProfilePage/UserRow';
+import UserRow from "../ProfilePage/UserRow";
 
 import sendAMessage from '../../store/messages';
 
@@ -23,14 +23,19 @@ import User from '../User';
 import { GrUp } from 'react-icons/gr';
 
 
+import "./MessagePage.css";
+import { nanoid } from "nanoid";
+import User from "../User";
+
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
-  const [currentMsg, setCurrentMsg] = useState('');
+  const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceiver, setCurrentReceiver] = useState(null);
   const dispatch = useDispatch();
   const [allReceiverIds, setAllReceiverIds] = useState(Array.from(new Set(myself.followers.concat(myself.following).map(u => u.id))));
   const [allReceivers, setAllReceivers] = useState([]);
   const [currentGroupedMsgs, setCurrentGroupedMsgs] = useState([]);
+
 
   useEffect(() => {
     const groupedMsgs = [];
@@ -77,12 +82,12 @@ function MessagePage() {
     // console.log('receiverId', receiverId, allReceivers.filter(u => u.id === receiverId)[0]);
   }
 
-  const msgClick = e => {
+  const msgClick = (e) => {
     e.preventDefault();
     // console.log(myself.id, currentReceiver.id, currentMsg);
     sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
-    setCurrentMsg('');
-  }
+    setCurrentMsg("");
+  };
 
   const MessageBubble = ({ msg }) => {
     return (
@@ -123,16 +128,17 @@ function MessagePage() {
           )}
         </div>
       </div>
-      <div className='message-page-right-panel'>
-        <div className='top-right-div'>
-          {
-            currentReceiver && <UserRow
+      <div className="message-page-right-panel">
+        <div className="top-right-div">
+          {currentReceiver && (
+            <UserRow
               user={currentReceiver}
               myId={myself.id}
               showFollowButtonOrText={false}
               gotoUserPage={false}
             />
-          }
+          )}
+          <h1 className="top-right hvr-wobble-bottom">Inbox</h1>
         </div>
         <div className='main-right-div'>
           {currentReceiver ?
@@ -169,7 +175,7 @@ function MessagePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default MessagePage;
