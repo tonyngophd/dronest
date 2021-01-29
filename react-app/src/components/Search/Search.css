@@ -1,0 +1,69 @@
+.search-over-banner-div {
+  /* position: -webkit-sticky;
+  position: sticky; */
+  margin-top: 0px;
+  /* top: 30vh; */
+  /* width: 40vw; */
+  /* left: 30vw; */
+  /* height: 5vh; */
+  background-color: rgba(255, 255, 255, 1.5);
+  border: 1px solid rgba(255, 255, 255, 0.0);
+  border-radius: 2.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.search-over-banner-div:hover {
+  background-color: rgb(255, 255, 255);
+}
+/* .search-box-home-fixed{
+  position: absolute;
+  top: -20px;
+} */
+
+.search-spots-page{
+  top: 0px;
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.main-search-bar {
+  border: 1px solid green;
+  height: 100%;
+  border-radius: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.0);
+  border: none;
+  font-size: 2.3vh;
+}
+
+.main-search-bar:focus {
+  /* outline: none; */
+  outline-width: 0;
+  /* background-color: rgba(255, 255, 255, 1.0); */
+}
+
+.search-icon-class {
+  font-size: 3vh;
+  color: #008CBA;
+  opacity: 0.5;
+  padding: 1vh;
+  z-index: 5;
+}
+/* .search-icon-class:hover{
+  color: red;
+} */
+
+.search-and-dropdown-display-main-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.search-dropdown{
+  position: absolute;
+  /*ADAM: Here is where you can style the search box*/
+  top: 20px;
+}

@@ -5,6 +5,7 @@ import mentions from "./mentions.js";
 import users from "./users";
 import posts from "./posts.js";
 import notifications from "./notifications.js";
+import searchReducer from './search';
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   users,
   posts,
   notifications,
+  search: searchReducer,
 });
 
 let enhancer;

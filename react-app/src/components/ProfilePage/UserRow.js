@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import fetchAFollowing from "../../store/follow";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
-export const handleFollowClick = (e, myId, personToFollowId, do_follow = true, dispatch) => {
+export const handleFollowClick = (e, personToFollowId, profilePersonId, do_follow = true, dispatch) => {
   e.preventDefault();
   // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
-  fetchAFollowing(personToFollowId, myId, do_follow, dispatch);
+  fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
 };
 
 function UserRow({
@@ -21,6 +21,7 @@ function UserRow({
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const profilePerson = useSelector(state => state.profile.user);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -49,21 +50,21 @@ function UserRow({
         {showFollowButtonOrText &&
           (notFollowedYet ? (
             <button
-              className="profile-follow-button user-row-button"
-              onClick={(e) => handleFollowClick(e, myId, user.id, true, dispatch)}
+              className={followAsButton ? "profile-follow-button user-row-button" : "user-row-minial-button-to-follow"}
+              onClick={(e) => handleFollowClick(e, user.id, profilePerson && profilePerson.id, true, dispatch)}
             >
               Follow
             </button>
           ) : user.id !== myId ? (
             <button
-              className="profile-following-button user-row-button"
-              onClick={(e) => handleFollowClick(e, myId, user.id, false, dispatch)}
+              className={followAsButton ? "profile-following-button user-row-button" : "user-row-minial-button"}
+              onClick={(e) => handleFollowClick(e, user.id, profilePerson && profilePerson.id, false, dispatch)}
             >
               Following
             </button>
           ) : (
-            <span className=" user-row-button"></span>
-          ))}
+                <span className=" user-row-button">Myself</span>
+              ))}
       </div>
     )
   );
