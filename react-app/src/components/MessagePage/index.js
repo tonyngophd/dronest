@@ -14,6 +14,7 @@ import { BiChat } from 'react-icons/bi';
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
 import UserRow from "../ProfilePage/UserRow";
+import Comment from '../Comment';
 
 import sendAMessage from '../../store/messages';
 
@@ -21,6 +22,7 @@ import './MessagePage.css'
 import { nanoid } from 'nanoid';
 import User from '../User';
 import { GrUp } from 'react-icons/gr';
+import CommentInput from "../CommentInput";
 
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
@@ -99,7 +101,8 @@ function MessagePage() {
           <div className='message-and-profileimg-bubble'>
             <div className={divClass2}>
               {msg.message.map(m => <div key={nanoid()}>
-                {m}
+                {/* {m} */}
+                <Comment message={m} />
               </div>)}
             </div>
             <img className="user-row-profile-img" src={myself.profilePicUrl} alt={myself.profilePicUrl} />
@@ -112,7 +115,8 @@ function MessagePage() {
             />
             <div className={divClass2}>
               {msg.message.map(m => <div key={nanoid()}>
-                {m}
+                {/* {m} */}
+                <Comment message={m} />
               </div>)}
             </div>
           </div>
@@ -166,7 +170,7 @@ function MessagePage() {
                     <MessageBubble key={nanoid()} msg={msg} />)}
                 </div>
                 <div className='message-typing-box-div'>
-                  <form className='message-input-form'>
+                  {/* <form className='message-input-form'>
                     <input
                       type='text'
                       className='message-input-box'
@@ -174,9 +178,15 @@ function MessagePage() {
                       onChange={e => setCurrentMsg(e.target.value)}
                       autoFocus={true}
                     />
-                    {/* <textarea className='message-input-box'></textarea> */}
                     <button type='submit' onClick={msgClick}>Send</button>
-                  </form>
+                  </form> */}
+                  <CommentInput 
+                    className='message-input-box-draftjs' 
+                    insideCN="innner-message-input-box-draftjs"
+                    action="Send"
+                    placeHolder="Type your message"
+                    receiverId={currentReceiver.id}
+                    />
                 </div>
               </div>
             </div>

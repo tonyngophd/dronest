@@ -5,7 +5,7 @@ import Editor from "draft-js-plugins-editor";
 import createMentionPlugin from "draft-js-mention-plugin";
 import { useHistory, Link } from "react-router-dom";
 
-function Comment({ comment }) {
+function Comment({ comment, message = undefined }) {
   const history = useHistory();
   const [userMentionPlugin] = useState(
     createMentionPlugin({
@@ -48,23 +48,31 @@ function Comment({ comment }) {
   );
 
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
-  let data = JSON.parse(comment.captionRawData);
-  data = convertFromRaw(data);
+  let data;
+  let messageIsPlainText = false;
+  try {
+    data = JSON.parse(message ? message : comment.captionRawData);
+    data = convertFromRaw(data);
+  } catch (e) {
+    data = message;
+    messageIsPlainText = true;
+  }
+
   const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(data)
+    messageIsPlainText ? undefined : EditorState.createWithContent(data)
   );
   return (
     <div className="comment-wrapper">
       <div className="comment">
-        <Link to={`/${comment.commenter}`}>
+        {(!message && comment) && <Link to={`/${comment.commenter}`}>
           <div className="comment-user">{comment.commenter}</div>
-        </Link>
-        <Editor
+        </Link>}
+        {messageIsPlainText ? <>{data}</> : <Editor
           editorState={editorState}
           readOnly={true}
           plugins={plugins}
           onChange={(editorState) => setEditorState(editorState)}
-        />
+        />}
       </div>
     </div>
   );

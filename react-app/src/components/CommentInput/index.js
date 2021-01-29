@@ -17,6 +17,8 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
+import sendAMessage, { uploadMessage } from "../../store/messages";
+
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
 
@@ -63,7 +65,16 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = ({ post, modal, increaseNumComments }) => {
+const CommentInput = ({
+  post,
+  modal,
+  increaseNumComments,
+  className = "comment-editor-wrapper",
+  insideCN = "",
+  action = "Post",
+  placeHolder = "Add a comment...",
+  receiverId,
+}) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
   const hashtagMentions = useSelector(
@@ -178,17 +189,32 @@ const CommentInput = ({ post, modal, increaseNumComments }) => {
           break;
       }
     }
-    increaseNumComments && increaseNumComments();
-    await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
-    !modal && dispatch(fetchHomeFeed(user.id));
-    modal && dispatch(fetchSinglePost(post.id));
+    if (action === "Post") {
+      increaseNumComments && increaseNumComments();
+      await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
+      !modal && dispatch(fetchHomeFeed(user.id));
+      modal && dispatch(fetchSinglePost(post.id));
+    } else {
+      // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+      await uploadMessage(
+        user.id,
+        receiverId,
+        mentionedUsers,
+        rawData,
+        dispatch
+      );
+    }
   };
 
   return (
-    <div className="comment-editor-wrapper">
+    <div className={className}>
       <div
         className={
-          modal ? "comment-editor comment-pic-modal" : "comment-editor"
+          insideCN
+            ? insideCN
+            : modal
+            ? "comment-editor comment-pic-modal"
+            : "comment-editor"
         }
         onBlur={() => setFocused(false)}
         onFocus={focus}
@@ -196,7 +222,7 @@ const CommentInput = ({ post, modal, increaseNumComments }) => {
         <Editor
           editorState={editorState}
           plugins={plugins}
-          placeholder="Add a comment..."
+          placeholder={placeHolder}
           onChange={(editorState) => {
             return setEditorState(editorState);
           }}
@@ -219,10 +245,11 @@ const CommentInput = ({ post, modal, increaseNumComments }) => {
       </div>
       <button
         disabled={buttonDisabled}
+        // onClick={submitAction ? submitAction : submitComment}
         onClick={submitComment}
         className="comment-submit"
       >
-        Post
+        {action}
       </button>
     </div>
   );
