@@ -9,6 +9,8 @@ import { BsHeart } from "react-icons/bs";
 
 import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
+
+import MainSearchBar from '../Search';
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -22,11 +24,12 @@ const NavBar = () => {
           InstaVibes
         </p>
       </NavLink>
-      <input
+      <MainSearchBar />
+      {/* <input
         className="search-navbar-content"
         type="text"
         placeholder="Search.."
-      ></input>
+      ></input> */}
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome

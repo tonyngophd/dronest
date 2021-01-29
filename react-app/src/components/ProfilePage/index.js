@@ -72,9 +72,11 @@ const ProfilePage = ({ tagged }) => {
   };
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
-    const listOfUsersWithoutMe = listOfUsers.filter(
-      (user) => user.id !== myself.id
-    );
+    const [listOfUsersWithoutMe] = useState(
+      listOfUsers.filter(
+      user => user.id !== myself.id)
+    )
+    const [amIIntheList] = useState(listOfUsers.length !== listOfUsersWithoutMe.length);
 
     return (
       <div className="modal" onClick={hideModal}>
@@ -85,7 +87,7 @@ const ProfilePage = ({ tagged }) => {
           </div>
           <hr className="hr" />
           <div className="modal-content-scroll">
-            <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
+            {amIIntheList && <UserRow user={myself} myId={myself.id} notFollowedYet={false} />}
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
@@ -119,7 +121,7 @@ const ProfilePage = ({ tagged }) => {
                   onClick={(e) =>
                     handleFollowClick(
                       e,
-                      myself.id,
+                      profile.user.id,
                       profile.user.id,
                       true,
                       dispatch
@@ -138,7 +140,7 @@ const ProfilePage = ({ tagged }) => {
                     onClick={(e) =>
                       handleFollowClick(
                         e,
-                        myself.id,
+                        profile.user.id,
                         profile.user.id,
                         false,
                         dispatch
