@@ -31,7 +31,7 @@ def fetch_notifications():
     comment_mentions_list = [mention.to_dict_notif() for mention in comment_mentions_list]
     comment_mentions = {mention["id"]: mention for mention in comment_mentions_list}
     total = len(post_mentions) + len(comment_mentions) + len(follows)
-    return {"notifications": {"total": total, "num_follows": len(follows_list), "num_post_tags": len(post_mentions_list), "num_comment_tags": len(comment_mentions_list), "follows": follows,  "post_mentions": post_mentions, "comment_mentions": comment_mentions}}
+    return {"notifications": {"total": total, "num_follows": len(follows_list), "num_post_tags": len(post_mentions_list), "num_comment_tags": len(comment_mentions_list), "follows": follows,  "posts": post_mentions, "comments": comment_mentions}}
 
 
 @user_routes.route('/<string:username>')

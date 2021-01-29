@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./NotificationCenter.css";
+import { BsBell, BsTag, BsChatDots } from "react-icons/bs";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
 
 const NotificationCenter = ({ initialTab }) => {
   const [current, setCurrent] = useState(initialTab);
@@ -7,6 +10,7 @@ const NotificationCenter = ({ initialTab }) => {
   const [followActive, setFollowActive] = useState(current === 2);
   const [postActive, setPostActive] = useState(current === 3);
   const [commentActive, setCommentActive] = useState(current === 4);
+  const notifications = useSelector((state) => state.notifications)
   return (
     <div className="notif-center-container">
       <div className="notif-center-header">
@@ -28,7 +32,9 @@ const NotificationCenter = ({ initialTab }) => {
                 ? "notif-center-nav-option active"
                 : "notif-center-nav-option"
             }
-          ></div>
+          >
+            <BsBell />
+          </div>
           <div
             onClick={() => {
               setAllActive(false);
@@ -42,7 +48,9 @@ const NotificationCenter = ({ initialTab }) => {
                 ? "notif-center-nav-option active"
                 : "notif-center-nav-option"
             }
-          ></div>
+          >
+            <AiOutlineUserAdd />
+          </div>
           <div
             onClick={() => {
               setAllActive(false);
@@ -56,7 +64,9 @@ const NotificationCenter = ({ initialTab }) => {
                 ? "notif-center-nav-option active"
                 : "notif-center-nav-option"
             }
-          ></div>
+          >
+            <BsTag />
+          </div>
           <div
             onClick={() => {
               setAllActive(false);
@@ -70,7 +80,9 @@ const NotificationCenter = ({ initialTab }) => {
                 ? "notif-center-nav-option active"
                 : "notif-center-nav-option"
             }
-          ></div>
+          >
+            <BsChatDots />
+          </div>
         </div>
         <div className="notif-center-content"></div>
       </div>

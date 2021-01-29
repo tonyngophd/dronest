@@ -29,6 +29,7 @@
   align-items: center;
   cursor: pointer;
   padding-top: 4px;
+  padding-right: 2px;
 }
 
 .post-tab-new-story {
@@ -85,7 +86,7 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  right: 4px;
+  right: 2px;
 }
 
 .hvr-float-shadow {
