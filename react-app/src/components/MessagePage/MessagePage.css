@@ -6,7 +6,7 @@
   height: 80vh;
   margin: 70px 0px 50px;
   display: flex;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   margin-top: 100px;
 }
 
@@ -38,12 +38,15 @@
 
 .top-left-div,
 .top-right-div {
-  height: 80px;
+  height: 65px;
   border-bottom: 1px solid gray;
 }
 .top-left-div{
   padding: 5px 0px;
-  height: 69px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .middle-left-div {
   height: 60px;
@@ -91,12 +94,13 @@
 }
 
 .message-input-box{
-  width: 90%;
-  resize: none;
+  width: 70%;
+  /* resize: none; */
 }
 .message-input-form {
   display: flex;
   align-items: flex-end;
+  width: 100%;
 }
 
 .empty-message-box-div {
@@ -147,3 +151,11 @@
   margin: 2px 0px;
 }
 
+.message-and-profileimg-bubble{
+  display: flex;
+  /* justify-content: r; */
+  align-items: center;
+}
+.reverse{
+  flex-direction: row-reverse;
+}
