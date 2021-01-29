@@ -18,6 +18,13 @@
   background: linear-gradient(to right, #4e4376, #2b5876);
 }
 
+.lioness {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  top: 12px;
+}
 .navbar-content {
   display: flex;
   justify-content: space-around;

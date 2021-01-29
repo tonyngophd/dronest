@@ -6,6 +6,7 @@
   /* border: 1px solid black; */
   margin: auto;
   margin-top: 40px;
+  
 }
 
 .profile-info {
@@ -205,11 +206,11 @@
   animation: spin 5s linear infinite;
 } */
 
-@keyframes spin {
+/* @keyframes spin {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 .user-row-main-div {
   display: flex;
@@ -222,7 +223,7 @@
 
 .user-row-left-div {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 .user-row-info-div {
