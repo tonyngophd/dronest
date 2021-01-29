@@ -10,7 +10,7 @@ def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
                 password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
-                name="Klark Kent",profilePicUrl="https://placeimg.com/200/200")
+                name="Klark Kent",profilePicUrl="https://placeimg.com/200/200/people")
     db.session.add(demo)
     # for i in range(26):
     #     p = fake.profile()
@@ -21,35 +21,35 @@ def seed_users():
 
     michael = User(username='MichaelJensen24', email='michael@gmail.com',
                 password='password', bio='Michael is my name and coding is my game!', websiteUrl="www.google.com",
-                name="Michael",profilePicUrl="https://placeimg.com/201/201")
+                name="Michael",profilePicUrl="https://placeimg.com/201/201/people")
     db.session.add(michael)
 
     tony = User(username='TonyRox', email='tony@gmail.com',
                 password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
-                name="Tony ",profilePicUrl="https://placeimg.com/202/202")
+                name="Tony ",profilePicUrl="https://placeimg.com/202/202/people")
     db.session.add(tony)
 
     daniel = User(username='danielIzKewl', email='Daniel@gmail.com',
                 password='password', bio='Daniel is my name and coding is my game!', websiteUrl="www.google.com",
-                name="Daniel ",profilePicUrl="https://placeimg.com/203/203")
+                name="Daniel ",profilePicUrl="https://placeimg.com/203/203/people")
     db.session.add(daniel)
 
     adam = User(username='AdamDaMan', email='adam@gmail.com',
                 password='password', bio='adam is my name and coding is my game!', websiteUrl="www.google.com",
-                name="Adam ",profilePicUrl="https://placeimg.com/204/204")
+                name="Adam ",profilePicUrl="https://placeimg.com/204/204/people")
     db.session.add(adam)
 
     for i in range(25):
         p = fake.profile()
-        num1 = random.randint(200, 600)
-        num2 = random.randint(200, 600)
+        num1 = random.randint(200, 300)
+        num2 = random.randint(200, 300)
         username = p["username"]
         email = fake.email()
         password = "password"
         bio = fake.text(max_nb_chars=25)
         websiteUrl = "www.google.com"
         name = fake.name()
-        profilePicUrl = f"https://placeimg.com/{num1}/{num2}"
+        profilePicUrl = f"https://placeimg.com/{num1}/{num2}/people"
         fakeUser = User(username=username, email=email, password=password, bio=bio, websiteUrl=websiteUrl, name=name, profilePicUrl=profilePicUrl)
         db.session.add(fakeUser)
 
