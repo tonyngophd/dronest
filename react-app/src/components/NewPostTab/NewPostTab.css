@@ -1,37 +1,54 @@
 .post-tab-container {
   position: fixed;
   width: 60px;
-  height: 120px;
-  left: -1px;
-  top: 300px;
+  left: -2px;
+  top: 200px;
+  height: 182px;
   border: 2px solid rgb(200, 200, 200);
   box-shadow: -1px -1px 4px 1px rgb(225, 225, 225);
   border-bottom-right-radius: 7px;
   border-top-right-radius: 7px;
   /* background: linear-gradient(to right, #6a2c70, #b83b5e); */
-  background: linear-gradient(
-    to right,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
+  background: linear-gradient(to right, #4e4376, #2b5876);
+  transition-duration: 0.7s;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.post-tab-container.notif-hover {
+  transition-property: height;
+  transition-duration: 0.9s;
+  height: 362px;
 }
 
 .post-tab-new-post {
-  height: 50%;
+  height: 60px;
   color: rgb(190, 190, 190);
-  font-size: 40px;
+  font-size: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   padding-top: 4px;
+  padding-right: 2px;
 }
 
 .post-tab-new-story {
-  height: 50%;
+  margin-top: -2px;
+  height: 60px;
+  color: rgb(190, 190, 190);
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.notification-buttons {
+}
+
+.post-tab-notifications {
+  height: 60px;
   color: rgb(190, 190, 190);
   font-size: 40px;
   display: flex;
@@ -39,6 +56,38 @@
   align-items: center;
   cursor: pointer;
   padding-bottom: 4px;
+}
+
+.all-notifs {
+  position: relative;
+}
+
+.tag-notifs {
+  font-size: 38px;
+  position: relative;
+}
+
+.follow-notifs {
+  position: relative;
+}
+
+.notifs-count {
+  padding: 0px;
+  width: 19px;
+  height: 19px;
+  line-height: 19px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(199, 0, 0);
+  border-radius: 50%;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 2px;
 }
 
 .hvr-float-shadow {
@@ -169,8 +218,6 @@
 }
 
 .hvr-grow {
-  display: inline-block;
-  vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);

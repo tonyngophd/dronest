@@ -203,10 +203,10 @@
   top: -4%;
   background-image: conic-gradient(#00AEEF, #fff, #00AEEF, #fff, #00AEEF);
   animation: spin 5s linear infinite;
-}
+} */
 
-@keyframes spin { 
-  100% { 
+/* @keyframes spin {
+  100% {
     transform: rotate(360deg);
   }
 } */
@@ -222,7 +222,7 @@
 
 .user-row-left-div {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 .user-row-info-div {
@@ -236,9 +236,14 @@
 }
 
 .user-row-username {
-  font-weight: bold;
-  font-size: small;
+  font-weight: 600;
+  font-size: 14px;
   font-family: "Open Sans", sans-serif;
+}
+
+.user-row-display-name {
+  font-size: 13px;
+  color: rgb(131, 131, 131);
 }
 
 .follow-modal-top-div {

@@ -4,9 +4,9 @@
 .message-page-main-div {
   width: 70vw;
   height: 80vh;
-  /* margin: 10px 0px 50px; */
+  margin: 70px 0px 50px;
   display: flex;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   margin-top: 100px;
 }
 
@@ -38,11 +38,18 @@
 
 .top-left-div,
 .top-right-div {
-  height: 80px;
+  height: 65px;
   border-bottom: 1px solid gray;
 }
+.top-left-div{
+  padding: 5px 0px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .middle-left-div {
-  height: 40px;
+  height: 60px;
   border-bottom: 1px solid gray;
 }
 .main-left-div {
@@ -65,7 +72,7 @@
   margin: 5px;
   padding: 5px;
   /* position: relative; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -75,6 +82,7 @@
 .messages-div {
   display: flex;
   flex-direction: column;
+  padding: 5px 5px 10px;
   /* position: fixed; */
   /* bottom: 60px; */
 }
@@ -84,13 +92,34 @@
   /* bottom: 5px; */
   width: 100%;
 }
-.message-input-box {
-  width: 80%;
-  resize: none;
+
+.message-input-box{
+  width: 70%;
+  background-color: white;
+  /* padding: 0px;
+  height: 50px; */
+  /* resize: none; */
+}
+.message-input-box-draftjs{
+  width: 100%;
+  background-color: white;
+  padding: 0px;
+  height: 50px;
+  /* resize: none; */
+  /* display: flex;
+  flex-direction: row; */
+}
+.inner-message-input-box-draftjs{
+  width: 100%;
+  background-color: white;
+  padding: 0px;
+  height: 100%;
+  /* resize: none; */
 }
 .message-input-form {
   display: flex;
   align-items: flex-end;
+  width: 100%;
 }
 
 .empty-message-box-div {
@@ -119,5 +148,33 @@
 .button-message-box-div {
   font-weight: bold;
   font-size: 16px;
-  margin: 5px;
+  margin: 5px;  
+}
+
+.message-bubble-container-me-right{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.message-bubble-container-them-left{
+  width: 100%;
+  display: flex;
+}
+.message-bubble-me-right,
+.message-bubble-them-left{
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: fit-content;
+  max-width: 90%;
+  padding: 5px;
+  margin: 2px 0px;
+}
+
+.message-and-profileimg-bubble{
+  display: flex;
+  /* justify-content: r; */
+  align-items: center;
+}
+.reverse{
+  flex-direction: row-reverse;
 }

@@ -2,23 +2,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 
 .mini-profile-and-suggestions {
+  position: fixed;
   width: 320px;
   border-radius: 5px;
-  margin-left: 25px;
+  box-sizing: border-box;
+  margin-left: 1100px;
   margin-top: 20px;
+  max-height: 600px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-  overflow: hidden;
-  -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1);
-  border: 1px solid black;
+  /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
 }
 
-s.suggestions-for-you-title {
+/* .mini-profile-and-suggestions:hover {
+  background: linear-gradient(to right, #4e4376, #2b5876);
+} */
+
+.suggestions-for-you-title {
   font-weight: bold;
   font-size: 14px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.see-all {
+  text-decoration: none;
+  font-weight: 600;
+  color: rgb(38, 38, 38);
+  font-size: 13px;
+}
+
+.suggestions_container {
+  max-height: 522px;
+  overflow: scroll;
 }
 
 h3 {
@@ -27,4 +46,20 @@ h3 {
 
 .suggest {
   font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: rgb(131, 131, 131);
 }
+
+.suggestions_container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.suggestions_container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.mini-profile-and-suggestions .user-row-main-div {
+  margin-bottom: 10px;
+}
+
+/* mini-profile-and-suggestions */

@@ -85,6 +85,9 @@ def seed_followers():
     #   following.add(userid)
     # print(followers, following)
     for k in followers:
+      userfollower = UserFollower.query.filter(UserFollower.userId==myUserId + 1, UserFollower.followerId == k + 1).all()
+      if userfollower:
+        pass
       userfollower = UserFollower(userId=myUserId + 1, followerId= k + 1)
       db.session.add(userfollower)
 

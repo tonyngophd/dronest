@@ -14,7 +14,7 @@ import NewPostTab from "./components/NewPostTab";
 import HashtagPage from "./components/HashtagPage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
-import MessagePage from './components/MessagePage';
+import MessagePage from "./components/MessagePage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);

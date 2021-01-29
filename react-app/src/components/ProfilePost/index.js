@@ -7,17 +7,36 @@ import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import Comment from "../Comment";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSinglePost } from "../../store/posts";
+import {
+  BsHeart,
+  BsChat,
+  BsBookmark,
+  BsHeartFill,
+  BsBookmarkFill,
+} from "react-icons/bs";
+import { likePost, unlikePost } from "../../store/posts";
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
+  const user = useSelector((state) => state.session.user);
+  const [liked, setLiked] = useState(post.likingUsers[user.id]);
+  const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
+  const [numComments, setNumComments] = useState(post.comments.length);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const [isPicOpen, setIsPicOpen] = useState(false);
-  const singlePost = useSelector((state) => state.posts.singlePost);
-  useEffect(() => {
-    dispatch(fetchSinglePost(post.id));
-  }, [dispatch, post]);
+ 
+  const likeHandler = () => {
+    if (liked) {
+      dispatch(unlikePost(post.id));
+      setLiked(false);
+      setLikes(likes - 1);
+    } else {
+      dispatch(likePost(post.id));
+      setLiked(true);
+      setLikes(likes + 1);
+    }
+  };
   return (
     <>
       <div
@@ -41,11 +60,11 @@ const ProfilePost = ({ post }) => {
         >
           <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-heart"></i>
-            {post.likingUsers.length}
+            {likes}
           </div>
           <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-comment"></i>
-            {post.comments.length}
+            {numComments}
           </div>
         </div>
       </div>
@@ -53,29 +72,25 @@ const ProfilePost = ({ post }) => {
         <div className="pic-modal-container">
           <img className="modal-img" src={post.images[0].imgUrl} />
           <div className="pic-modal-right">
-            <Link className="pic-modal-header" to={`/${profile.user.username}`}>
-              <img src={profile.user.profilePicUrl} alt="user-icon" />
-              <span className="feed_post-username">
-                {profile.user.username}
-              </span>
+            <Link className="pic-modal-header" to={`/${post.user.username}`}>
+              <img src={post.user.profilePicUrl} alt="user-icon" />
+              <span className="feed_post-username">{post.user.username}</span>
             </Link>
             <div className="caption-and-comments">
               <div className="pic-modal-caption-wrapper">
                 <img
                   className="commenter-pic"
-                  src={profile.user.profilePicUrl}
+                  src={post.user.profilePicUrl}
                   alt="pic"
                 />
-                <Link to={`/${profile.user.username}`}>
-                  <div className="caption-user-modal">
-                    {profile.user.username}
-                  </div>
+                <Link to={`/${post.user.username}`}>
+                  <div className="caption-user-modal">{post.user.username}</div>
                 </Link>
                 <PicModalCaption post={post} />
               </div>
               <div className="pic-modal-comments">
-                {singlePost &&
-                  singlePost.comments.map((comment) => {
+                {post &&
+                  post.comments.map((comment) => {
                     return (
                       <div className="modal-comment">
                         <img
@@ -90,12 +105,30 @@ const ProfilePost = ({ post }) => {
             </div>
             <div className="pic-modal-utils">
               <div className="feed_post-info-icons">
-                <FaRegHeart className="post-icon" />
-                <FaRegCommentDots className="post-icon" />
+                <div className="feed_post-info-icons-left">
+                  {liked ? (
+                    <BsHeartFill
+                      onClick={likeHandler}
+                      className="post-icon heart-full"
+                    />
+                  ) : (
+                    <BsHeart onClick={likeHandler} className="post-icon" />
+                  )}
+                  <BsChat className="post-icon-comment" />
+                </div>
+                <div className="feed_post-info-icons-right">
+                  <BsBookmark className="post-icon-bk" />
+                </div>
               </div>
-              <p className="info-likes">{post.likingUsers.length} likes</p>
+              <p className="info-likes">
+                {likes} {likes === 1 ? "like" : "likes"}
+              </p>
               <div className="modal-comment-input">
-                <CommentInput modal={true} post={post} />
+                <CommentInput
+                  modal={true}
+                  post={post}
+                  increaseNumComments={() => setNumComments(numComments + 1)}
+                />
               </div>
             </div>
           </div>

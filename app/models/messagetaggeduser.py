@@ -1,11 +1,13 @@
 from .db import db
 
-class Image(db.Model):
-    __tablename__ = 'images'
+class MessageTaggedUser(db.Model):
+    __tablename__ = 'messagetaggedusers'
+
 
     id = db.Column(db.Integer, primary_key=True)
-    postId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
-    imgUrl = db.Column(db.Text, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    messageId = db.Column(db.Integer, db.ForeignKey('directmessages.id'), nullable=False)
+    viewStatus = db.Column(db.Boolean, nullable=True, default=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -14,9 +16,10 @@ class Image(db.Model):
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
         return {
-        "id": self.id,
-        "postId": self.postId,
-        "imgUrl": self.imgUrl
+          "id": self.id,
+          "postId": self.postId,
+          "messageId": self.messageId,        
+          "viewStatus": self.viewStatus,        
         }
         
 

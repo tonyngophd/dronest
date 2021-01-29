@@ -8,8 +8,8 @@ class Post(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
     captionRawData = db.Column(db.Text, nullable=False)
-    createdAt = db.Column(db.DateTime, server_default=db.func.now()) #func.sysdate())
-    updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
+    updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
  
     # Model name is title case and singular
@@ -28,11 +28,12 @@ class Post(db.Model):
             "userId": self.userId,
             "locationId": self.locationId,
             "captionRawData": self.captionRawData,
+            "createdAt": self.createdAt,
             "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
-            "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
+            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
         }
 
     def to_dict_for_self(self):       
@@ -44,5 +45,5 @@ class Post(db.Model):
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
-            "likingUsers": [user.to_dict_no_posts() for user in self.likingUsers]
+            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
         }

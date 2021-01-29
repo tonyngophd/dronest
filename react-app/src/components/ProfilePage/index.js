@@ -7,9 +7,8 @@ import { GrClose } from "react-icons/gr";
 
 import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
-import UserRow from "./UserRow";
+import UserRow, { handleFollowClick } from "./UserRow";
 import { fetchUserProfile } from "../../store/profile";
-import fetchAFollowing from "../../store/follow";
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -32,8 +31,7 @@ const ProfilePage = ({ tagged }) => {
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
-  }, [dispatch, username]);
-  
+  }, [dispatch, profile.ownPosts, username]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,12 +71,6 @@ const ProfilePage = ({ tagged }) => {
     }
   };
 
-  const handleFollowClick = (e, myId, personToFollowId, do_follow = true) => {
-    e.preventDefault();
-    // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
-    fetchAFollowing(personToFollowId, profile.user.id, do_follow, dispatch);
-  };
-
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
     const listOfUsersWithoutMe = listOfUsers.filter(
       (user) => user.id !== myself.id
@@ -93,19 +85,13 @@ const ProfilePage = ({ tagged }) => {
           </div>
           <hr className="hr" />
           <div className="modal-content-scroll">
-            <UserRow
-              user={myself}
-              myId={myself.id}
-              notFollowedYet={false}
-              handleFollowClick={handleFollowClick}
-            />
+            <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
                   user={u}
                   myId={myself.id}
                   notFollowedYet={notFollowedYet(u.id, myself)}
-                  handleFollowClick={handleFollowClick}
                 />
               </div>
             ))}
@@ -131,7 +117,13 @@ const ProfilePage = ({ tagged }) => {
                 <button
                   className="profile-follow-button"
                   onClick={(e) =>
-                    handleFollowClick(e, myself.id, profile.user.id, true)
+                    handleFollowClick(
+                      e,
+                      myself.id,
+                      profile.user.id,
+                      true,
+                      dispatch
+                    )
                   }
                 >
                   Follow
@@ -144,7 +136,13 @@ const ProfilePage = ({ tagged }) => {
                   <button
                     className="profile-following-button"
                     onClick={(e) =>
-                      handleFollowClick(e, myself.id, profile.user.id, false)
+                      handleFollowClick(
+                        e,
+                        myself.id,
+                        profile.user.id,
+                        false,
+                        dispatch
+                      )
                     }
                   >
                     Unfollow

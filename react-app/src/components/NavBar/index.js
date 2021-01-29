@@ -16,9 +16,12 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <p className="navbar-content hvr-pulse hvr-underline-from-center">
-        InstaVibes
-      </p>
+      <NavLink to="/" exact={true} activeclassname="active">
+        <img className="lioness hvr-grow" src={require("./insta.png")} />
+        <p className="navbar-content hvr-pulse hvr-underline-from-center">
+          InstaVibes
+        </p>
+      </NavLink>
       <input
         className="search-navbar-content"
         type="text"
@@ -27,7 +30,7 @@ const NavBar = () => {
       <div className="navbar-content">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome
-            className="navbar-icon hvr-shrink hvr-float-shadow "
+            className="navbar-icon hvr-shrink  "
             activeclassname="active"
           />
         </NavLink>
@@ -56,18 +59,18 @@ const NavBar = () => {
         {user && (
           <>
             <NavLink to="/messages" exact={true} activeclassname="active">
-              <IoPaperPlaneOutline className="navbar-icon hvr-shrink hvr-float-shadow " />
+              <IoPaperPlaneOutline className="navbar-icon hvr-shrink  " />
             </NavLink>
             <NavLink to="/explore" exact={true} activeclassname="active">
-              <FaWpexplorer className="navbar-icon hvr-shrink hvr-float-shadow" />
+              <FaWpexplorer className="navbar-icon hvr-shrink " />
             </NavLink>
             <NavLink to="/likes" exact={true} activeclassname="active">
-              <BsHeart className="navbar-icon hvr-shrink hvr-float-shadow" />
+              <BsHeart className="navbar-icon hvr-shrink " />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon hvr-shrink hvr-float-shadow" />
+              <CgProfile className="navbar-icon hvr-shrink " />
             </NavLink>
-            <LogoutButton className="navbar-icon der  hvr-grow" />
+            <LogoutButton className="navbar-icon der  hvr-grow " />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">
