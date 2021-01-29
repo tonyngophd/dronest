@@ -93,8 +93,8 @@ body {
     margin-top: -1px;
   }
 
-  .top-navbar input[type="text"] {
-    display: none;
+  .search-and-dropdown-display-main-box {
+    display: none !important;
   }
 
   .top-navbar p {
