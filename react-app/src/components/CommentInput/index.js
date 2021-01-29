@@ -189,7 +189,7 @@ const CommentInput = ({ post, modal,
       }
     }
     if (action === 'Post') {
-      increaseNumComments();
+      // increaseNumComments();
       await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
       !modal && dispatch(fetchHomeFeed(user.id));
       modal && dispatch(fetchSinglePost(post.id));
