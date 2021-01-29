@@ -155,7 +155,6 @@ function Post({ post }) {
               />
             </div>
           </div>
-          <div className="post-timestamp">{timestamp}</div>
 
           <div className="post-comments-container">
             {post.comments &&
@@ -163,6 +162,7 @@ function Post({ post }) {
                 return <Comment comment={comment} />;
               })}
           </div>
+          <div className="post-timestamp">{timestamp}</div>
           <div className="post-new-comment">
             <CommentInput post={post} />
           </div>
