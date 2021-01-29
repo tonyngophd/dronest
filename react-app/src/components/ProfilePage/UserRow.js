@@ -50,21 +50,21 @@ function UserRow({
         {showFollowButtonOrText &&
           (notFollowedYet ? (
             <button
-              className="profile-follow-button user-row-button"
-              onClick={(e) => handleFollowClick(e, user.id, profilePerson.id, true, dispatch)}
+              className={followAsButton ? "profile-follow-button user-row-button" : "user-row-minial-button-to-follow"}
+              onClick={(e) => handleFollowClick(e, user.id, profilePerson && profilePerson.id, true, dispatch)}
             >
               Follow
             </button>
           ) : user.id !== myId ? (
             <button
-              className="profile-following-button user-row-button"
-              onClick={(e) => handleFollowClick(e, user.id, profilePerson.id, false, dispatch)}
+              className={followAsButton ? "profile-following-button user-row-button" : "user-row-minial-button"}
+              onClick={(e) => handleFollowClick(e, user.id, profilePerson && profilePerson.id, false, dispatch)}
             >
               Following
             </button>
           ) : (
-            <span className=" user-row-button">Myself</span>
-          ))}
+                <span className=" user-row-button">Myself</span>
+              ))}
       </div>
     )
   );
