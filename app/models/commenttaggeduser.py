@@ -28,7 +28,9 @@ class CommentTaggedUser(db.Model):
           "postId": self.comment.parentPostId,
           "commentId": self.commentId,        
           "viewStatus": self.viewStatus,
+          "createdAt": self.createdAt,
           "comment": self.comment.to_dict(),
+          "type": "comment"
         }
         
 

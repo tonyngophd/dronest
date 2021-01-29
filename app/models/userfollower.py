@@ -30,6 +30,7 @@ class UserFollower(db.Model):
         "createdAt": self.createdAt,
         "userId": self.userId,
         "followerId": self.followerId,
-        "follower": self.follower.to_dict()
+        "follower": self.follower.to_dict(),
+        "type": "follow"
       }
         

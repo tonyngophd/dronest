@@ -3,19 +3,27 @@ import "./NotificationCenter.css";
 import { BsBell, BsTag, BsChatDots } from "react-icons/bs";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import Notification from "../Notification";
 
-const NotificationCenter = ({ initialTab }) => {
+const NotificationCenter = ({ initialTab, onClose }) => {
   const [current, setCurrent] = useState(initialTab);
   const [allActive, setAllActive] = useState(current === 1);
   const [followActive, setFollowActive] = useState(current === 2);
   const [postActive, setPostActive] = useState(current === 3);
   const [commentActive, setCommentActive] = useState(current === 4);
-  const notifications = useSelector((state) => state.notifications)
+  const notifications = useSelector((state) => state.notifications);
   return (
     <div className="notif-center-container">
       <div className="notif-center-header">
         <span className="notif-center-header-text">Notifications</span>
-        <button className="clear-all-button">Clear all</button>
+        <button
+          className="clear-all-button"
+          onClick={() => {
+            onClose();
+          }}
+        >
+          Clear all
+        </button>
       </div>
       <div className="notif-center-body">
         <div className="notif-center-nav">
@@ -73,7 +81,7 @@ const NotificationCenter = ({ initialTab }) => {
               setFollowActive(false);
               setPostActive(false);
               setCommentActive(true);
-              setCurrent(1);
+              setCurrent(4);
             }}
             className={
               commentActive
@@ -84,7 +92,44 @@ const NotificationCenter = ({ initialTab }) => {
             <BsChatDots />
           </div>
         </div>
-        <div className="notif-center-content"></div>
+        <div className="notif-center-content">
+          {current === 1 &&
+            [
+              ...Object.values(notifications.follows),
+              ...Object.values(notifications.posts),
+              ...Object.values(notifications.comments),
+            ]
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .map((notif) => {
+                return <Notification notif={notif} />;
+              })}
+          {current === 2 &&
+            Object.values(notifications.follows)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .map((notif) => {
+                return <Notification notif={notif} />;
+              })}
+          {current === 3 &&
+            Object.values(notifications.posts)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .map((notif) => {
+                return <Notification notif={notif} />;
+              })}
+          {current === 4 &&
+            Object.values(notifications.comments)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .map((notif) => {
+                return <Notification notif={notif} />;
+              })}
+        </div>
       </div>
     </div>
   );

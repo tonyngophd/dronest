@@ -16,8 +16,8 @@
 
 .post-tab-container.notif-hover {
   transition-property: height;
-  transition-duration: 0.7s;
-  height: 302px;
+  transition-duration: 0.9s;
+  height: 362px;
 }
 
 .post-tab-new-post {
@@ -72,10 +72,10 @@
 
 .notifs-count {
   padding: 0px;
-  width: 22px;
-  height: 22px;
-  line-height: 22px;
-  font-size: 14px;
+  width: 19px;
+  height: 19px;
+  line-height: 19px;
+  font-size: 12px;
   font-weight: 600;
   color: white;
   background-color: rgb(199, 0, 0);

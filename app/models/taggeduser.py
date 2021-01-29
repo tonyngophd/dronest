@@ -20,6 +20,8 @@ class TaggedUser(db.Model):
           "postId": self.postId,
           "userId": self.userId,        
           "viewStatus": self.viewStatus,
-          "tagger": self.post.to_dict(),        
+          "createdAt": self.createdAt,
+          "tagger": self.post.to_dict(), 
+          "type": "post"       
         }
         

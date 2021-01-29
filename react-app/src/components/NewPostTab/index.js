@@ -5,7 +5,13 @@ import NewPostModalNav from "../NewPostModalNav";
 import NewPost from "../NewPost";
 import { useDispatch, useSelector } from "react-redux";
 import { clearMentions } from "../../store/mentions";
-import { BsBell, BsClockHistory, BsPlusSquare, BsTag } from "react-icons/bs";
+import {
+  BsBell,
+  BsClockHistory,
+  BsPlusSquare,
+  BsTag,
+  BsChatDots,
+} from "react-icons/bs";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import NotificationCenter from "../NotificationCenter";
 
@@ -40,7 +46,7 @@ const NewPostTab = () => {
           }}
           className="hvr-grow post-tab-notifications all-notifs"
         >
-          <BsBell className="" />
+          <BsBell />
           {notifications && (
             <div className="all-notifs-count notifs-count">
               {notifications.total}
@@ -56,7 +62,7 @@ const NewPostTab = () => {
             }}
             className="hvr-grow post-tab-notifications follow-notifs"
           >
-            <AiOutlineUserAdd className="" />
+            <AiOutlineUserAdd />
             {notifications && (
               <div className="follow-notifs-count notifs-count">
                 {notifications.num_follows}
@@ -70,10 +76,24 @@ const NewPostTab = () => {
             }}
             className="hvr-grow post-tab-notifications tag-notifs"
           >
-            <BsTag className="" />
+            <BsTag />
             {notifications && (
               <div className="tag-notifs-count notifs-count">
-                {notifications.num_post_tags + notifications.num_comment_tags}
+                {notifications.num_post_tags}
+              </div>
+            )}
+          </div>
+          <div
+            onClick={() => {
+              setInitial(4);
+              setIsNotifOpen(true);
+            }}
+            className="hvr-grow post-tab-notifications comment-notifs"
+          >
+            <BsChatDots />
+            {notifications && (
+              <div className="comment-notifs-count notifs-count">
+                {notifications.num_comment_tags}
               </div>
             )}
           </div>
@@ -84,7 +104,10 @@ const NewPostTab = () => {
         open={isNotifOpen}
         onClose={() => setIsNotifOpen(false)}
       >
-        <NotificationCenter initialTab={initial} />
+        <NotificationCenter
+          onClose={() => setIsNotifOpen(false)}
+          initialTab={initial}
+        />
       </NewPostModal>
 
       <NewPostModal
