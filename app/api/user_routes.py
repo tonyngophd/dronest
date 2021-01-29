@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, UserFollower, DirectMessage
+from app.models import db, User, UserFollower, DirectMessage, MessageTaggedUser
+import json
 
 user_routes = Blueprint('users', __name__)
 
@@ -62,15 +63,46 @@ def follow_user(userId):
 @login_required
 def message_index(receiverId):
     senderId = request.json['senderId']
-    print("\n\n\n\n\nrequest.json", request.json)
-    # message = request.json['messageBody']
-    # dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
-    # db.session.add(dm)
-    # db.session.commit()
+    # print("\n\n\n\n\nrequest.json", request.json)
+    message = request.json['messageBody']
+    dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
+    db.session.add(dm)
+    db.session.commit()
 
     myself = User.query.get(senderId) 
 
     return {"user": myself.to_dict_for_self()}
+
+@user_routes.route('/messages', methods=['POST'])
+@login_required
+def create_message():
+    senderId = request.form["senderId"]
+    receiverId = request.form["receiverId"]
+    message = request.form["rawData"]
+    mentioned_users = request.form["mentionedUsers"]
+    mentioned_users = json.loads(mentioned_users)
+
+    dm = DirectMessage(
+        senderId=senderId,
+        receiverId=receiverId,
+        message=message
+    )
+    db.session.add(dm)
+    db.session.flush()
+
+    # for i in range(len(mentioned_users)):
+    #     user_mention = MessageTaggedUser(
+    #         messageId = dm.id,
+    #         userId = int(mentioned_users[i]),
+    #         viewStatus = False
+    #     )
+    #     db.session.add(user_mention)
+
+    db.session.commit()
+#   return message.to_dict()
+    myself = User.query.get(senderId) 
+    return {"user": myself.to_dict_for_self()}
+
         
 
 

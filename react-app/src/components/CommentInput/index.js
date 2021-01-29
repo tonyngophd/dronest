@@ -17,7 +17,7 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
-import sendAMessage from '../../store/messages';
+import sendAMessage, { uploadMessage } from '../../store/messages';
 
 
 const UserTag = (props) => {
@@ -194,7 +194,8 @@ const CommentInput = ({ post, modal,
       !modal && dispatch(fetchHomeFeed(user.id));
       modal && dispatch(fetchSinglePost(post.id));
     } else {
-      await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+      // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+      await uploadMessage(user.id, receiverId, mentionedUsers, rawData, dispatch);
     }
   };
 
