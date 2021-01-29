@@ -17,6 +17,9 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
+import sendAMessage from '../../store/messages';
+
+
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
 
@@ -63,7 +66,13 @@ const Hashtag = (props) => {
   );
 };
 
-const CommentInput = ({ post, modal }) => {
+const CommentInput = ({ post, modal,
+  className = 'comment-editor-wrapper',
+  insideCN = "",
+  action = "Post",
+  placeHolder = "Add a comment...",
+  receiverId
+}) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
   const hashtagMentions = useSelector(
@@ -178,16 +187,21 @@ const CommentInput = ({ post, modal }) => {
           break;
       }
     }
-    await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
-    !modal && dispatch(fetchHomeFeed(user.id));
-    modal && dispatch(fetchSinglePost(post.id));
+    if (action === 'Post') {
+      await dispatch(uploadComment(user.id, mentionedUsers, rawData, post.id));
+      !modal && dispatch(fetchHomeFeed(user.id));
+      modal && dispatch(fetchSinglePost(post.id));
+    } else {
+      await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+    }
   };
 
   return (
-    <div className="comment-editor-wrapper">
+    <div className={className}>
       <div
         className={
-          modal ? "comment-editor comment-pic-modal" : "comment-editor"
+          insideCN ? insideCN :
+            (modal ? "comment-editor comment-pic-modal" : "comment-editor")
         }
         onBlur={() => setFocused(false)}
         onFocus={focus}
@@ -195,7 +209,7 @@ const CommentInput = ({ post, modal }) => {
         <Editor
           editorState={editorState}
           plugins={plugins}
-          placeholder="Add a comment..."
+          placeholder={placeHolder}
           onChange={(editorState) => {
             return setEditorState(editorState);
           }}
@@ -218,10 +232,11 @@ const CommentInput = ({ post, modal }) => {
       </div>
       <button
         disabled={buttonDisabled}
+        // onClick={submitAction ? submitAction : submitComment}
         onClick={submitComment}
         className="comment-submit"
       >
-        Post
+        {action}
       </button>
     </div>
   );

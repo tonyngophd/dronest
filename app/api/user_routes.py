@@ -62,10 +62,11 @@ def follow_user(userId):
 @login_required
 def message_index(receiverId):
     senderId = request.json['senderId']
-    message = request.json['messageBody']
-    dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
-    db.session.add(dm)
-    db.session.commit()
+    print("\n\n\n\n\nrequest.json", request.json)
+    # message = request.json['messageBody']
+    # dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
+    # db.session.add(dm)
+    # db.session.commit()
 
     myself = User.query.get(senderId) 
 

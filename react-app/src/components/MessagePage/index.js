@@ -21,6 +21,8 @@ import './MessagePage.css'
 import { nanoid } from 'nanoid';
 import User from '../User';
 import { GrUp } from 'react-icons/gr';
+import CommentInput from "../CommentInput";
+import Comment from "../Comment";
 
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
@@ -166,7 +168,7 @@ function MessagePage() {
                     <MessageBubble key={nanoid()} msg={msg} />)}
                 </div>
                 <div className='message-typing-box-div'>
-                  <form className='message-input-form'>
+                  {/* <form className='message-input-form'>
                     <input
                       type='text'
                       className='message-input-box'
@@ -174,9 +176,15 @@ function MessagePage() {
                       onChange={e => setCurrentMsg(e.target.value)}
                       autoFocus={true}
                     />
-                    {/* <textarea className='message-input-box'></textarea> */}
                     <button type='submit' onClick={msgClick}>Send</button>
-                  </form>
+                  </form> */}
+                  <CommentInput 
+                    className='message-input-box-draftjs' 
+                    insideCN="innner-message-input-box-draftjs"
+                    action="Send"
+                    placeHolder="Type your message"
+                    receiverId={currentReceiver.id}
+                    />
                 </div>
               </div>
             </div>
