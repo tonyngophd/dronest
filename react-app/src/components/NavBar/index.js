@@ -19,10 +19,11 @@ const NavBar = () => {
   return (
     <nav className="top-navbar">
       <NavLink to="/" exact={true} activeclassname="active">
-        <img className="lioness hvr-grow" src={require("./insta.png")} />
-        <p className="navbar-content hvr-pulse hvr-underline-from-center">
-          InstaVibes
-        </p>
+        <img
+          className="lioness hvr-grow hvr-pulse"
+          src={require("./insta.png")}
+        />
+        <p className="navbar-content hvr-grow ">InstaVibes</p>
       </NavLink>
       <MainSearchBar />
       {/* <input
