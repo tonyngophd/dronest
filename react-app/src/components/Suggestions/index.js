@@ -8,7 +8,7 @@ import "./suggestions.css";
 
 const Suggestions = ({ UserList = BareUserList, 
         followAsButton = false, searchable = false, 
-        searchText = "", style=undefined
+        searchText = "", style=undefined,
     }) => {
     const myself = useSelector((state) => state.session.user);
 

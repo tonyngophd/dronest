@@ -75,6 +75,22 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
     }
 
+  def to_dict_with_posts_and_follows(self):
+    self.get_followers()
+    self.get_following()    
+    return {
+      "id": self.id,
+      "name": self.name,
+      "username": self.username,
+      "email": self.email,
+      "bio": self.bio,
+      "websiteUrl": self.websiteUrl,
+      "profilePicUrl": self.profilePicUrl,
+      "followers": [user.to_dict() for user in self.followers],
+      "following": [user.to_dict() for user in self.following],
+      "ownPosts": [post.to_dict() for post in self.ownPosts],
+    }
+
   def to_dict_feed(self):
     self.get_following()
     return {

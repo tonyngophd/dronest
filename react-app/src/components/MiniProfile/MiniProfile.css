@@ -1,0 +1,33 @@
+
+.miniprofile-container-div{
+  position: fixed;
+  width: 400px;
+  height: 280px;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translate(160px, 150px);
+  /* left: 400px; */
+  background-color: rgba(206, 212, 216, 0.99);
+  box-shadow: 0 7px 13px rgba(0, 0, 0, 0.5);
+  /* z-index: 10000; */
+}
+hr{
+  color: lightgray;
+}
+
+.mini-profile-images-div{
+  display: flex;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */  
+}
+.mini-profile-images-div::-webkit-scrollbar {
+  display: none;
+}
+.mini-profile-image-preview{
+  width: 135px;
+  height: 120px;
+  overflow: hidden;
+  object-fit: cover;
+}
