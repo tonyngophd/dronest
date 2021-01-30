@@ -6,6 +6,7 @@ import Post from "../Post";
 import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "react-loader-spinner";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,15 @@ const Feed = () => {
           dataLength={feed.length}
           next={() => setPage(page + 1)}
           hasMore={true}
+          loader={
+            <Loader
+              type="Puff"
+              color="#00BFFF"
+              height={100}
+              width={100}
+              timeout={3000} //3 secs
+            />
+          }
         >
           {feed.map((post) => (
             <Post post={post} key={nanoid()} />
