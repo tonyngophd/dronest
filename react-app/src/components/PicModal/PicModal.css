@@ -65,8 +65,12 @@
 }
 
 .caption-and-comments {
-  max-height: 410px;
   overflow: scroll;
+  left: 0;
+  right: 0;
+  position: absolute;
+  bottom: 147px;
+  top: 65px;
 }
 
 .caption-and-comments {

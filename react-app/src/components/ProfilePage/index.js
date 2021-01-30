@@ -18,7 +18,7 @@ export const notFollowedYet = (userId, myself) => {
   return true;
 };
 
-const ProfilePage = ({ tagged }) => {
+const ProfilePage = ({ tagged, liked }) => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -73,10 +73,11 @@ const ProfilePage = ({ tagged }) => {
 
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
     const [listOfUsersWithoutMe] = useState(
-      listOfUsers.filter(
-      user => user.id !== myself.id)
-    )
-    const [amIIntheList] = useState(listOfUsers.length !== listOfUsersWithoutMe.length);
+      listOfUsers.filter((user) => user.id !== myself.id)
+    );
+    const [amIIntheList] = useState(
+      listOfUsers.length !== listOfUsersWithoutMe.length
+    );
 
     return (
       <div className="modal" onClick={hideModal}>
@@ -87,7 +88,9 @@ const ProfilePage = ({ tagged }) => {
           </div>
           <hr className="hr" />
           <div className="modal-content-scroll">
-            {amIIntheList && <UserRow user={myself} myId={myself.id} notFollowedYet={false} />}
+            {amIIntheList && (
+              <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
+            )}
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
@@ -198,10 +201,13 @@ const ProfilePage = ({ tagged }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      {profile.user && !tagged && <ProfileFeed posts={profile.user.ownPosts} />}
+      {profile.user && !tagged && !liked && (
+        <ProfileFeed posts={profile.user.ownPosts} />
+      )}
       {profile.user && tagged && (
         <ProfileFeed posts={profile.user.taggedInPosts} />
       )}
+      {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
       {showFollowersModal && (
         <FollowModal listOfUsers={profile.user.followers} title="Followers" />
       )}

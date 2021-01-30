@@ -5,7 +5,7 @@
   width: 942px;
   /* border: 1px solid black; */
   margin: auto;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .profile-info {
@@ -78,6 +78,7 @@
 .profile-follower-numbers {
   text-decoration: none;
   color: rgb(38, 38, 38);
+  cursor: pointer;
 }
 
 .profile-number {
@@ -217,7 +218,7 @@
   width: 100%;
   /* margin-right: 0px; */
   padding-right: 0px;
-  margin: 5px 0px;
+  margin: 8px 0px;
 }
 
 .user-row-left-div {
@@ -235,15 +236,24 @@
   padding: 5px 15px;
 }
 
-.user-row-minial-button,
-.user-row-minial-button-to-follow{
+.user-row-minimal-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(60, 60, 60);
+}
+
+.user-row-minimal-button,
+.user-row-minimal-button-to-follow {
   padding: 2px 5px;
   height: fit-content;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  margin-top: 8px;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
 }
-.user-row-minial-button-to-follow{
-  background-color: rgba(0, 149, 246, 0.3);
+.user-row-minimal-button-to-follow {
+  background-color: rgba(255, 255, 255, 0);
+  color: rgb(61, 112, 155);
 }
 
 .user-row-username {

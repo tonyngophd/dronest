@@ -21,17 +21,42 @@
 
 .lioness {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   right: 20px;
-  top: 3px;
+  top: 1px;
 }
+
+.nav-title {
+  margin-top: 18px !important;
+  letter-spacing: 2.5px;
+  font-weight: 360;
+  margin-left: -8px;
+  color: rgb(210, 210, 210) !important;
+}
+
+.nav-title:active:hover {
+  color: rgb(240, 240, 240) !important;
+}
+
+.nav-title-logo {
+  position: absolute;
+  left: 38.5%;
+  margin-left: -272px;
+}
+
 .navbar-content {
   display: flex;
-  justify-content: space-around;
+  align-items: center;
   font-family: "Open Sans", sans-serif;
   font-size: 20px;
   color: white;
+}
+
+.navbar-content.right-side {
+  position: absolute;
+  left: 38.5%;
+  margin-left: 425px;
 }
 
 .search-navbar-content {
@@ -43,19 +68,12 @@
 }
 
 .top-navbar input[type="text"] {
-  height: 80%;
-  background-color: rgb(240, 240, 249);
-  border: none;
-  padding-left: 15px;
   outline: none;
-  width: 200px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
 }
 
-.top-navbar input[type="text"]:focus {
+/* .top-navbar input[type="text"]:focus {
   width: 40%;
-}
+} */
 .navbar-content:hover {
   background-color: #6a2c70 0px 10px 10px, #b83b5e 0px 6px 6px;
 }
@@ -74,9 +92,18 @@ li {
 .navbar-icon {
   height: 22px;
   width: 22px;
-  margin-top: 5px;
+  margin-bottom: 3px;
   margin-left: 15px;
   color: #bebebe;
+}
+
+.heart-button {
+  margin-bottom: 2px !important;
+}
+
+.profile-button {
+  width: 24px;
+  height: 24px;
 }
 
 .navbar-icon:hover {
@@ -127,6 +154,10 @@ li {
 
 .der {
   color: #bebebe;
+  font-size: 30px;
+  margin-top: -10px;
+  margin-left: 14px;
+  cursor: pointer;
 }
 
 @-webkit-keyframes hvr-pulse {

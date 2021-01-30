@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./ProfilePostsNav.css";
+import { BsGrid3X3, BsTag, BsHeart, BsBookmark } from "react-icons/bs";
 
 const ProfilePostsNav = () => {
   const profile = useSelector((state) => state.profile);
@@ -11,7 +12,7 @@ const ProfilePostsNav = () => {
     <div
       className={
         profile.user && user.id === profile.user.id
-          ? "profile-posts-nav three"
+          ? "profile-posts-nav four"
           : "profile-posts-nav"
       }
     >
@@ -21,7 +22,7 @@ const ProfilePostsNav = () => {
         exact
         activeClassName="profile-posts-nav-option-active"
       >
-        <i className="fas fa-th" /> POSTS
+        <BsGrid3X3 /> POSTS
       </NavLink>
       {profile.user && user.id === profile.user.id && (
         <NavLink
@@ -30,7 +31,7 @@ const ProfilePostsNav = () => {
           exact
           activeClassName="profile-posts-nav-option-active"
         >
-          <i className="fas fa-th" /> SAVED
+          <BsBookmark /> SAVED
         </NavLink>
       )}
       <NavLink
@@ -39,8 +40,18 @@ const ProfilePostsNav = () => {
         exact
         activeClassName="profile-posts-nav-option-active"
       >
-        <i className="fas fa-user-tag"></i> TAGGED
+        <BsTag /> TAGGED
       </NavLink>
+      {profile.user && user.id === profile.user.id && (
+        <NavLink
+          to={`/${username}/liked`}
+          className="profile-posts-nav-option"
+          exact
+          activeClassName="profile-posts-nav-option-active"
+        >
+          <BsHeart /> LIKED
+        </NavLink>
+      )}
     </div>
   );
 };

@@ -1,82 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomeFeed } from "../../store/posts";
 import Post from "../Post";
 import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "react-loader-spinner";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const feed = useSelector((state) => state.posts.homeFeed);
-
+  const [page, setPage] = useState(0);
   useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
   useEffect(() => {
-    dispatch(fetchNotifications());
-    dispatch(fetchHomeFeed(user.id));
-  }, [dispatch, user]);
-  // const posts = [
-  //   {
-  //     user: {
-  //       username: "Michael",
-  //       profilePicUrl: "https://placeimg.com/498/498"
-  //     },
-  //     posts: {
-  //       captionRawData: "This is a cool test"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/500/500"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Daniel",
-  //       profilePicUrl: "https://placeimg.com/497/497"
-  //     },
-  //     posts: {
-  //       captionRawData: "I love Fruit"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/494/494"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Adam",
-  //       profilePicUrl: "https://placeimg.com/496/496"
-  //     },
-  //     posts: {
-  //       captionRawData: "Dubstep is cool"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/493/493"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Tony",
-  //       profilePicUrl: "https://placeimg.com/495/495"
-  //     },
-  //     posts: {
-  //       captionRawData: "Where am I right now?"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/500/500"
-  //     }
-  //   },
-  // ]
+    dispatch(fetchHomeFeed(user.id, page));
+  }, [dispatch, user, page]);
 
   return (
     <>
       {feed && (
-        <div className="feed_container">
-          {feed.map((post) => (
-            <Post post={post} key={nanoid()} />
-          ))}
-        </div>
+        <InfiniteScroll
+          className="feed_container"
+          dataLength={Object.values(feed).length}
+          next={() => setPage(page + 1)}
+          hasMore={true}
+          loader={
+            <Loader
+              className="three-dots"
+              type="ThreeDots"
+              color="rgb(58,66,105)"
+              height={100}
+              width={100}
+              timeout={1000}
+            />
+          }
+        >
+          {Object.values(feed)
+            .sort((a, b) =>
+              new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+            )
+            .map((post) => (
+              <Post post={post} key={nanoid()} />
+            ))}
+        </InfiniteScroll>
       )}
     </>
   );
