@@ -79,7 +79,7 @@ const NavBar = () => {
             <NavLink to={`/${user.username}`}>
               <CgProfile className="navbar-icon hvr-shrink profile-button " />
             </NavLink>
-            <LogoutButton className="navbar-icon der  hvr-grow " />
+            <LogoutButton className="navbar-icon der hvr-grow" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">
