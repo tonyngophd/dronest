@@ -23,7 +23,7 @@ def allPosts():
 
 @post_routes.route("/explore/<int:page>")
 def explore_infinite(page):
-  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*5).limit(12)
+  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
   return {'posts': [post.to_dict() for post in feed]}
 
 @post_routes.route("/", methods=["POST"])
@@ -82,7 +82,7 @@ def create_post():
         db.session.add(tagged_post)
 
     db.session.commit()
-    return post.to_dict()
+    return {post.id: post.to_dict()}
 
 @post_routes.route("/<int:userId>/feed")
 def homeFeed(userId):
@@ -107,7 +107,7 @@ def homeFeedInfinite(userId, page):
 def hashtagFeed(hashtag, page):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
   if not hashtag_obj: return {'posts': []}
-  hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).order_by(HashtagPost.createdAt.desc()).offset(page*5).limit(12)
+  hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).order_by(HashtagPost.createdAt.desc()).offset(page*24).limit(24)
   hashtag_posts = [post.to_dict() for post in hashtag_posts]
   return {'posts': [post["post"].to_dict() for post in hashtag_posts]}
 

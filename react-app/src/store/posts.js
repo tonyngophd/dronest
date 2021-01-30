@@ -142,7 +142,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_POST:
       newState = Object.assign({}, state);
-      newState.homeFeed = [action.payload, ...newState.homeFeed];
+      newState.homeFeed = {...action.payload, ...newState.homeFeed};
       return newState;
     case CREATE_COMMENT:
       newState = Object.assign({}, state);

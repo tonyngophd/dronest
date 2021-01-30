@@ -57,22 +57,21 @@
 }
 
 .search-icon {
-  font-size: 3.5vh;
+  font-size: 1.3em;
   color: rgb(65, 75, 118);
   opacity: 0.8;
-  padding: 1vh;
+
   z-index: 5;
   position: absolute;
-  left: 25px;
+  left: 36px;
 }
 
 .search-icon-x {
-  font-size: 4vh;
+  font-size: 1.7em;
   color: rgb(160, 160, 160);
-  padding: 1vh;
   z-index: 5;
   position: absolute;
-  right: 25px;
+  right: 30px;
 }
 /* .search-icon-class:hover{
   color: red;
