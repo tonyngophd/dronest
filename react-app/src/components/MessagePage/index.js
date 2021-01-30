@@ -146,7 +146,14 @@ function MessagePage() {
     <div className="message-page-main-div">
       <div className="message-page-left-panel durp">
         <div className="top-left-div">
-          <div className="user-name">{myself.username}</div>
+          {/* <div className="user-name">{myself.username}</div> */}
+          <UserRow
+                user={myself}
+                myId={myself.id}
+                showFollowButtonOrText={false}
+                gotoUserPage={false}
+                miniProfileEnabled={true}
+              />          
         </div>
 
         <div className="main-left-div">
@@ -157,6 +164,7 @@ function MessagePage() {
                 myId={myself.id}
                 showFollowButtonOrText={false}
                 gotoUserPage={false}
+                miniProfileEnabled={false}
               />
             </div>
           ))}

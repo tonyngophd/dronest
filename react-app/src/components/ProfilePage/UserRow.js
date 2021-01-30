@@ -20,6 +20,7 @@ function UserRow({
   followAsButton = true,
   showFollowButtonOrText = true,
   gotoUserPage = true,
+  miniProfileEnabled = true,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ function UserRow({
             id={`${user.id}-userProfileImg`}
           />
           {
-            showMiniProfile && <MiniProfile user={user}/>
+            miniProfileEnabled && showMiniProfile && <MiniProfile user={user}/>
           }
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>

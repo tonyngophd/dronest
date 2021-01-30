@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
+import { IoImagesOutline } from 'react-icons/io5';
 
 import './MiniProfile.css';
+import { nanoid } from 'nanoid';
 
-function MiniProfile({ user, imageSize = "60px" }) {
+function MiniProfile({ user, imageSize = "60px", notFollowedYet = false, handleClick }) {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
@@ -20,6 +22,22 @@ function MiniProfile({ user, imageSize = "60px" }) {
       setNumberOfOwnPosts(user.ownPosts.length);
     }
   }, [user]);
+
+  const PostPreview = () => {
+    return (
+      <div className='mini-profile-images-div'>
+        {
+          numberOfOwnPosts && user.ownPosts.map(post => <img
+            key={nanoid()}
+            src={post.images[0].imgUrl}
+            alt={post.images[0].imgUrl}
+            className='mini-profile-image-preview'
+          />)
+        }
+      </div>
+    )
+  }
+
   return (
     <div className='miniprofile-container-div'>
       <div className="user-row-left-div">
@@ -35,7 +53,8 @@ function MiniProfile({ user, imageSize = "60px" }) {
           <div className="user-row-display-name">{user.name}</div>
         </div>
       </div>
-      <div className="profile-numbers">
+      <hr />
+      <div className="profile-numbers" style={{ marginLeft: "20px" }}>
         <div className="profile-posts-numbers">
           <span className="profile-number">{numberOfOwnPosts}</span>
           <span className="profile-number-text"> posts</span>
@@ -55,6 +74,14 @@ function MiniProfile({ user, imageSize = "60px" }) {
           <span className="profile-number-text"> following</span>
         </div>
       </div>
+      <hr />
+      {
+        numberOfOwnPosts ? <PostPreview /> :
+          <div>
+            <IoImagesOutline style={{ fontSize: '60px' }} />
+            <div>No posts yet - posts will show here when user has</div>
+          </div>
+      }
     </div>
   )
 }
