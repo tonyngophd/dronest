@@ -158,6 +158,7 @@ const reducer = (state = initialState, action) => {
         ...newState.singlePost.comments,
         action.payload,
       ];
+      return newState;
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...newState.homeFeed, ...action.payload };
