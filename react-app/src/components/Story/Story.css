@@ -1,0 +1,17 @@
+.story-topbox-main-div{
+  display: flex;
+  flex-direction: row;
+}
+.story-topbox-user-div{
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 5px 5px;
+}
+.story-username-div{
+  font-size: 14px;
+}
+.story-profile-image{
+  width: 70px;
+  height: 70px;
+}
