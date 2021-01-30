@@ -17,7 +17,6 @@ const Feed = () => {
     dispatch(fetchNotifications());
   }, []);
   useEffect(() => {
-    dispatch(fetchNotifications());
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
 
@@ -26,7 +25,7 @@ const Feed = () => {
       {feed && (
         <InfiniteScroll
           className="feed_container"
-          dataLength={feed.length}
+          dataLength={Object.values(feed).length}
           next={() => setPage(page + 1)}
           hasMore={true}
           loader={
@@ -36,13 +35,17 @@ const Feed = () => {
               color="rgb(58,66,105)"
               height={100}
               width={100}
-              timeout={3000} //3 secs
+              timeout={1000}
             />
           }
         >
-          {feed.map((post) => (
-            <Post post={post} key={nanoid()} />
-          ))}
+          {Object.values(feed)
+            .sort((a, b) =>
+              new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+            )
+            .map((post) => (
+              <Post post={post} key={nanoid()} />
+            ))}
         </InfiniteScroll>
       )}
     </>

@@ -1,5 +1,6 @@
 const CREATE_POST = "posts/CREATE_POST";
 const CREATE_COMMENT = "posts/CREATE_COMMENT";
+const CREATE_MODAL_COMMENT = "posts/CREATE_MODAL_COMMENT";
 
 const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
 const FETCH_SINGLE_POST = "posts/FETCH_SINGLE_POST";
@@ -13,6 +14,10 @@ const createNewPost = (post) => ({
 
 const createNewComment = (comment) => ({
   type: CREATE_COMMENT,
+  payload: comment,
+});
+const createModalComment = (comment) => ({
+  type: CREATE_MODAL_COMMENT,
   payload: comment,
 });
 
@@ -57,14 +62,16 @@ export const uploadPost = (
     method: "POST",
     body: form,
   });
-  const newPost = res.json();
+  const newPost = await res.json();
+  dispatch(createNewPost(newPost));
 };
 
 export const uploadComment = (
   userId,
   mentionedUsers,
   rawData,
-  postId
+  postId,
+  modal
 ) => async (dispatch) => {
   mentionedUsers = mentionedUsers.map((user) => {
     return user.id;
@@ -78,13 +85,19 @@ export const uploadComment = (
     method: "POST",
     body: form,
   });
-  const newComment = res.json();
+  const newComment = await res.json();
+  if (!modal) {
+    dispatch(createNewComment(newComment));
+  } else {
+    dispatch(createModalComment(newComment));
+  }
 };
 
 export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   const res = await fetch(`/api/posts/${userId}/feed/${page}`);
   let feed = await res.json();
   feed = feed["posts"];
+  console.log(feed);
   dispatch(loadHomeFeed(feed));
 };
 
@@ -118,9 +131,10 @@ export const unlikePost = (postId) => async (dispatch) => {
 };
 
 const initialState = {
-  homeFeed: [],
+  homeFeed: {},
   exploreFeed: [],
   hashtagFeed: [],
+  singlePost: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -128,11 +142,25 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_POST:
       newState = Object.assign({}, state);
-      newState.postTest = action.payload;
+      newState.homeFeed = [action.payload, ...newState.homeFeed];
       return newState;
+    case CREATE_COMMENT:
+      newState = Object.assign({}, state);
+      const parentPostId = action.payload.parentPostId;
+      newState.homeFeed[parentPostId].comments = [
+        ...newState.homeFeed[parentPostId].comments,
+        action.payload,
+      ];
+      return newState;
+    case CREATE_MODAL_COMMENT:
+      newState = Object.assign({}, state);
+      newState.singlePost.comments = [
+        ...newState.singlePost.comments,
+        action.payload,
+      ];
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
-      newState.homeFeed = [...newState.homeFeed, ...action.payload];
+      newState.homeFeed = { ...newState.homeFeed, ...action.payload };
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);

@@ -185,7 +185,6 @@ const NewPost = ({ onPost }) => {
     await dispatch(
       uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
     );
-    dispatch(fetchHomeFeed(user.id));
     if (profile && profile.id === user.id) {
       dispatch(fetchUserProfile(profile.username));
     }

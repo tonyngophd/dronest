@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import {
   BsHeart,
@@ -21,6 +21,9 @@ function Post({ post }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const comments = useSelector(
+    (state) => state.posts.homeFeed[post.id].comments
+  );
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [userMentionPlugin] = useState(
@@ -157,8 +160,8 @@ function Post({ post }) {
           </div>
 
           <div className="post-comments-container">
-            {post.comments &&
-              post.comments.map((comment) => {
+            {comments &&
+              comments.map((comment) => {
                 return <Comment comment={comment} />;
               })}
           </div>

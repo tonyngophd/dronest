@@ -14,7 +14,7 @@ import {
   BsHeartFill,
   BsBookmarkFill,
 } from "react-icons/bs";
-import { likePost, unlikePost } from "../../store/posts";
+import { fetchSinglePost, likePost, unlikePost } from "../../store/posts";
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
@@ -23,9 +23,9 @@ const ProfilePost = ({ post }) => {
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [numComments, setNumComments] = useState(post.comments.length);
   const dispatch = useDispatch();
+  const singlePost = useSelector((state) => state.posts.singlePost);
   const profile = useSelector((state) => state.profile);
   const [isPicOpen, setIsPicOpen] = useState(false);
- 
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(post.id));
@@ -43,7 +43,10 @@ const ProfilePost = ({ post }) => {
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         className="profile-post-pic-wrapper"
-        onClick={() => setIsPicOpen(true)}
+        onClick={() => {
+          dispatch(fetchSinglePost(post.id));
+          setIsPicOpen(true);
+        }}
       >
         <img
           draggable="false"
@@ -89,8 +92,8 @@ const ProfilePost = ({ post }) => {
                 <PicModalCaption post={post} />
               </div>
               <div className="pic-modal-comments">
-                {post &&
-                  post.comments.map((comment) => {
+                {singlePost.comments &&
+                  singlePost.comments.map((comment) => {
                     return (
                       <div className="modal-comment">
                         <img

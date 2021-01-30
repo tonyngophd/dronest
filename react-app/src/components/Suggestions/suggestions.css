@@ -11,7 +11,7 @@
   max-height: 600px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-  background-color: rgba(255, 255, 255, 0.705);
+  background-color: rgb(249, 249, 249);
   overflow: hidden;
   /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
 }

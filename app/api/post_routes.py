@@ -99,8 +99,9 @@ def homeFeedInfinite(userId, page):
   following = user.to_dict_feed()
   following_list = following["followingIds"]
   following_list.append(userId)
-  feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).offset(page*5).limit(5)
-  return {'posts': [post.to_dict() for post in feed]}
+  feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).offset(page*8).limit(8)
+  feed_list = [post.to_dict() for post in feed]
+  return {'posts': {post["id"]: post for post in feed_list}}
 
 @post_routes.route("/tag/<string:hashtag>/<int:page>")
 def hashtagFeed(hashtag, page):
