@@ -6,36 +6,40 @@
   /* width: 40vw; */
   /* left: 30vw; */
   /* height: 5vh; */
-  background-color: rgba(255, 255, 255, 1.5);
-  border: 1px solid rgba(255, 255, 255, 0.0);
-  border-radius: 2.5vh;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
+  width: 500px;
 }
 
-.search-over-banner-div:hover {
-  background-color: rgb(255, 255, 255);
-}
 /* .search-box-home-fixed{
   position: absolute;
   top: -20px;
 } */
 
-.search-spots-page{
+.search-spots-page {
   top: 0px;
   background-color: rgba(200, 200, 200, 0.5);
 }
 
 .main-search-bar {
-  border: 1px solid green;
-  height: 100%;
+  height: 32px;
   border-radius: 50px;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.0);
   border: none;
-  font-size: 2.3vh;
+  font-size: 14px;
+  background-color: rgb(240, 240, 249);
+  padding-left: 40px;
+  width: 200px;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.main-search-bar:focus {
+  width: 400px;
 }
 
 .main-search-bar:focus {
@@ -45,24 +49,53 @@
 }
 
 .search-icon-class {
-  font-size: 3vh;
-  color: #008CBA;
+  font-size: 3.5vh;
+  color: rgb(190, 190, 190);
   opacity: 0.5;
   padding: 1vh;
   z-index: 5;
+}
+
+.search-icon {
+  font-size: 3.5vh;
+  color: rgb(65, 75, 118);
+  opacity: 0.8;
+  padding: 1vh;
+  z-index: 5;
+  position: absolute;
+  left: 25px;
+}
+
+.search-icon-x {
+  font-size: 4vh;
+  color: rgb(160, 160, 160);
+  padding: 1vh;
+  z-index: 5;
+  position: absolute;
+  right: 25px;
 }
 /* .search-icon-class:hover{
   color: red;
 } */
 
-.search-and-dropdown-display-main-box{
+.search-and-dropdown-display-main-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: absolute;
+  right: 60%;
+  margin-right: -320px;
+  width: 250px;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
 }
-.search-dropdown{
+
+.search-and-dropdown-display-main-box.focused-search {
+  width: 450px;
+}
+
+.search-dropdown {
   position: absolute;
   /*ADAM: Here is where you can style the search box*/
   top: 20px;
