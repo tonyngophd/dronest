@@ -21,6 +21,10 @@ def allPosts():
       "posts": [post.to_dict() for post in posts]
     }
 
+@post_routes.route("/explore/<int:page>")
+def explore_infinite(page):
+  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*5).limit(12)
+  return {'posts': [post.to_dict() for post in feed]}
 
 @post_routes.route("/", methods=["POST"])
 @login_required
@@ -98,11 +102,11 @@ def homeFeedInfinite(userId, page):
   feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).offset(page*5).limit(5)
   return {'posts': [post.to_dict() for post in feed]}
 
-@post_routes.route("/tag/<string:hashtag>")
-def hashtagFeed(hashtag):
+@post_routes.route("/tag/<string:hashtag>/<int:page>")
+def hashtagFeed(hashtag, page):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
   if not hashtag_obj: return {'posts': []}
-  hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).all()
+  hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).order_by(HashtagPost.createdAt.desc()).offset(page*5).limit(12)
   hashtag_posts = [post.to_dict() for post in hashtag_posts]
   return {'posts': [post["post"].to_dict() for post in hashtag_posts]}
 

@@ -4,6 +4,7 @@ const CREATE_COMMENT = "posts/CREATE_COMMENT";
 const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
 const FETCH_SINGLE_POST = "posts/FETCH_SINGLE_POST";
 const FETCH_HASHTAG_FEED = "posts/FETCH_HASHTAG_FEED";
+const FETCH_EXPLORE_FEED = "posts/FETCH_EXPLORE_FEED";
 
 const createNewPost = (post) => ({
   type: CREATE_POST,
@@ -22,6 +23,11 @@ const loadHomeFeed = (feed) => ({
 
 const loadHashtagFeed = (feed) => ({
   type: FETCH_HASHTAG_FEED,
+  payload: feed,
+});
+
+const loadExploreFeed = (feed) => ({
+  type: FETCH_EXPLORE_FEED,
   payload: feed,
 });
 
@@ -82,11 +88,18 @@ export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   dispatch(loadHomeFeed(feed));
 };
 
-export const fetchHashtagFeed = (hashtag) => async (dispatch) => {
-  const res = await fetch(`/api/posts/tag/${hashtag}`);
+export const fetchHashtagFeed = (hashtag, page) => async (dispatch) => {
+  const res = await fetch(`/api/posts/tag/${hashtag}/${page}`);
   let feed = await res.json();
   feed = feed["posts"];
   dispatch(loadHashtagFeed(feed));
+};
+
+export const fetchExploreFeed = (page) => async (dispatch) => {
+  const res = await fetch(`/api/posts/explore/${page}`);
+  let feed = await res.json();
+  feed = feed["posts"];
+  dispatch(loadExploreFeed(feed));
 };
 
 export const fetchSinglePost = (postId) => async (dispatch) => {
@@ -106,6 +119,8 @@ export const unlikePost = (postId) => async (dispatch) => {
 
 const initialState = {
   homeFeed: [],
+  exploreFeed: [],
+  hashtagFeed: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,7 +136,11 @@ const reducer = (state = initialState, action) => {
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);
-      newState.hashtagFeed = action.payload;
+      newState.hashtagFeed = [...newState.hashtagFeed, ...action.payload];
+      return newState;
+    case FETCH_EXPLORE_FEED:
+      newState = Object.assign({}, state);
+      newState.exploreFeed = [...newState.exploreFeed, ...action.payload];
       return newState;
     case FETCH_SINGLE_POST:
       newState = Object.assign({}, state);

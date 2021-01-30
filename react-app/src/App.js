@@ -12,6 +12,7 @@ import UsersList from "./components/UserLists";
 import ProfilePage from "./components/ProfilePage";
 import NewPostTab from "./components/NewPostTab";
 import HashtagPage from "./components/HashtagPage";
+import ExplorePage from "./components/ExplorePage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
@@ -53,6 +54,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/messages" exact={true}>
             <MessagePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/explore" exact={true}>
+            <ExplorePage />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">

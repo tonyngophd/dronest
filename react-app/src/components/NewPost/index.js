@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
 import { fetchHomeFeed } from "../../store/posts";
+import { fetchUserProfile } from "../../store/profile";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -62,6 +63,7 @@ const NewPost = ({ onPost }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
   const user = useSelector((state) => state.session.user);
+  const profile = useSelector((state) => state.profile.user);
   const userMentions = useSelector((state) => state.mentions.users);
   const hashtagMentions = useSelector((state) => state.mentions.hashtags);
   const ref = useRef();
@@ -184,6 +186,9 @@ const NewPost = ({ onPost }) => {
       uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
     );
     dispatch(fetchHomeFeed(user.id));
+    if (profile && profile.id === user.id) {
+      dispatch(fetchUserProfile(profile.username));
+    }
   };
 
   return (

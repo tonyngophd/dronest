@@ -17,7 +17,9 @@
 
 .post-tab-container.notif-hover {
   transition-property: height;
+  transition-delay: 0.4s;
   transition-duration: 0.9s;
+
   height: 362px;
 }
 

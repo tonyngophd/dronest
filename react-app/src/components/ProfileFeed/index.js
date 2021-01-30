@@ -6,9 +6,13 @@ import ProfilePost from "../ProfilePost";
 const ProfileFeed = ({ posts }) => {
   return (
     <div className="profile-feed">
-      {posts.map((post) => (
-        <ProfilePost post={post} key={nanoid()} />
-      ))}
+      {posts
+        .sort((a, b) =>
+          new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+        )
+        .map((post) => (
+          <ProfilePost post={post} key={nanoid()} />
+        ))}
     </div>
   );
 };

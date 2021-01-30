@@ -1,18 +1,22 @@
 import "./HashtagPage.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import HashtagFeed from "../HashtagFeed";
+import ProfilePost from "../ProfilePost";
 import { fetchHashtagFeed } from "../../store/posts";
+import { nanoid } from "nanoid";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "react-loader-spinner";
 
 const HashtagPage = () => {
   const { hashtag } = useParams();
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.posts.hashtagFeed);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchHashtagFeed(hashtag));
-  }, [dispatch, hashtag]);
+    dispatch(fetchHashtagFeed(hashtag, page));
+  }, [dispatch, hashtag, page]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,7 +43,28 @@ const HashtagPage = () => {
           <div className="hashtag-most-recent">Most recent</div>
         </>
       )}
-      {feed && <HashtagFeed posts={feed} />}
+      {feed && (
+        <InfiniteScroll
+          className="hashtag-feed"
+          dataLength={feed.length}
+          next={() => setPage(page + 1)}
+          hasMore={true}
+          loader={
+            <Loader
+              className="three-dots profile-style"
+              type="ThreeDots"
+              color="rgb(58,66,105)"
+              height={100}
+              width={100}
+              timeout={1000}
+            />
+          }
+        >
+          {feed.map((post) => (
+            <ProfilePost post={post} key={nanoid()} />
+          ))}
+        </InfiniteScroll>
+      )}
     </div>
   );
 };

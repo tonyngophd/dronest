@@ -1,52 +1,45 @@
+import "./ExplorePage.css";
 import React, { useEffect, useState } from "react";
-import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHomeFeed } from "../../store/posts";
-import Post from "../Post";
-import { nanoid } from "nanoid";
-import { fetchNotifications } from "../../store/notifications";
+import { fetchExploreFeed } from "../../store/posts";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
+import ProfilePost from "../ProfilePost";
+import { nanoid } from "nanoid";
 
-const Feed = () => {
+const ExplorePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
-  const feed = useSelector((state) => state.posts.homeFeed);
+  const feed = useSelector((state) => state.posts.exploreFeed);
   const [page, setPage] = useState(0);
   useEffect(() => {
-    dispatch(fetchNotifications());
-  }, []);
-  useEffect(() => {
-    dispatch(fetchNotifications());
-    dispatch(fetchHomeFeed(user.id, page));
-  }, [dispatch, user, page]);
-
+    dispatch(fetchExploreFeed(page));
+  }, [dispatch, page]);
   return (
-    <>
+    <div className="hashtag-page-container explore-page">
       {feed && (
         <InfiniteScroll
-          className="feed_container"
+          className="hashtag-feed"
           dataLength={feed.length}
           next={() => setPage(page + 1)}
           hasMore={true}
           loader={
             <Loader
-              className="three-dots"
+              className="three-dots profile-style"
               type="ThreeDots"
               color="rgb(58,66,105)"
               height={100}
               width={100}
-              timeout={3000} //3 secs
+              timeout={1000}
             />
           }
         >
           {feed.map((post) => (
-            <Post post={post} key={nanoid()} />
+            <ProfilePost post={post} key={nanoid()} />
           ))}
         </InfiniteScroll>
       )}
-    </>
+    </div>
   );
 };
 
-export default Feed;
+export default ExplorePage;

@@ -1,15 +1,21 @@
 .hashtag-page-container {
   width: 942px;
   margin: auto;
+  margin-top: 40px;
 }
 
 .hashtag-info {
   display: flex;
-  margin-top: 25px;
+  margin-top: 40px;
   color: rgb(38, 38, 38);
   padding-bottom: 50px;
 }
-
+.hashtag-feed {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -30px;
+  margin-top: 30px;
+}
 .hashtag-header-pic {
   border-radius: 50%;
   width: 150px;
@@ -46,4 +52,8 @@
   font-size: 14px;
   font-weight: 600;
   color: rgb(131, 131, 131);
+}
+
+.profile-style {
+  margin-left: 420px;
 }
