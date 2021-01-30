@@ -24,7 +24,8 @@ def allPosts():
 @post_routes.route("/explore/<int:page>")
 def explore_infinite(page):
   feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
-  return {'posts': [post.to_dict() for post in feed]}
+  feed_list = [post.to_dict() for post in feed]
+  return {'posts': {post["id"]: post for post in feed_list}}
 
 @post_routes.route("/", methods=["POST"])
 @login_required
@@ -106,10 +107,11 @@ def homeFeedInfinite(userId, page):
 @post_routes.route("/tag/<string:hashtag>/<int:page>")
 def hashtagFeed(hashtag, page):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
-  if not hashtag_obj: return {'posts': []}
+  if not hashtag_obj: return {'posts': {}}
   hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtagId==hashtag_obj.id).order_by(HashtagPost.createdAt.desc()).offset(page*24).limit(24)
   hashtag_posts = [post.to_dict() for post in hashtag_posts]
-  return {'posts': [post["post"].to_dict() for post in hashtag_posts]}
+  feed = [post["post"].to_dict() for post in hashtag_posts]
+  return {'posts': {post["id"]: post for post in feed}}
 
 @post_routes.route("/<int:postId>")
 def single_post(postId):
