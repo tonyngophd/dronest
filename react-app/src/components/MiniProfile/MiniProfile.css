@@ -1,0 +1,11 @@
+
+.miniprofile-container-div{
+  position: fixed;
+  width: 400px;
+  height: 300px;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translate(-280px, 160px);
+  background-color: aliceblue;
+}
