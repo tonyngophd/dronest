@@ -75,8 +75,8 @@ export const uploadComment = (
   const newComment = res.json();
 };
 
-export const fetchHomeFeed = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/posts/${userId}/feed`);
+export const fetchHomeFeed = (userId, page) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${userId}/feed/${page}`);
   let feed = await res.json();
   feed = feed["posts"];
   dispatch(loadHomeFeed(feed));
@@ -104,7 +104,9 @@ export const unlikePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unlike`);
 };
 
-const initialState = {};
+const initialState = {
+  homeFeed: [],
+};
 
 const reducer = (state = initialState, action) => {
   let newState;
@@ -115,7 +117,7 @@ const reducer = (state = initialState, action) => {
       return newState;
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
-      newState.homeFeed = action.payload;
+      newState.homeFeed = [...newState.homeFeed, ...action.payload];
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);

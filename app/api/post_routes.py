@@ -89,6 +89,15 @@ def homeFeed(userId):
   feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).all()
   return {'posts': [post.to_dict() for post in feed]}
 
+@post_routes.route("/<int:userId>/feed/<int:page>")
+def homeFeedInfinite(userId, page):
+  user = User.query.get(userId)
+  following = user.to_dict_feed()
+  following_list = following["followingIds"]
+  following_list.append(userId)
+  feed = Post.query.filter(Post.userId.in_(following_list)).order_by(Post.createdAt.desc()).offset(page*5).limit(5)
+  return {'posts': [post.to_dict() for post in feed]}
+
 @post_routes.route("/tag/<string:hashtag>")
 def hashtagFeed(hashtag):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()

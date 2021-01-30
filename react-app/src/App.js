@@ -35,7 +35,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="homepage">
-        <Footer />
+        {/* <Footer /> */}
         <NavBar />
         <NewPostTab />
         <Switch>
