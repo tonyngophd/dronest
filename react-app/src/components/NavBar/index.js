@@ -73,7 +73,11 @@ const NavBar = () => {
             <NavLink to="/explore" exact={true} activeclassname="active">
               <FaWpexplorer className="navbar-icon hvr-shrink " />
             </NavLink>
-            <NavLink to="/likes" exact={true} activeclassname="active">
+            <NavLink
+              to={`/${user.username}/liked`}
+              exact={true}
+              activeclassname="active"
+            >
               <BsHeart className="navbar-icon hvr-shrink heart-button " />
             </NavLink>
             <NavLink to={`/${user.username}`}>

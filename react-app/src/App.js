@@ -75,6 +75,9 @@ function App() {
           <ProtectedRoute path="/:username/tagged">
             <ProfilePage tagged={true} />
           </ProtectedRoute>
+          <ProtectedRoute path="/:username/liked">
+            <ProfilePage liked={true} />
+          </ProtectedRoute>
         </Switch>
       </div>
     </BrowserRouter>

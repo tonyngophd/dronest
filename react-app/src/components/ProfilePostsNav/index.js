@@ -44,7 +44,7 @@ const ProfilePostsNav = () => {
       </NavLink>
       {profile.user && user.id === profile.user.id && (
         <NavLink
-          to={`/${username}/likes`}
+          to={`/${username}/liked`}
           className="profile-posts-nav-option"
           exact
           activeClassName="profile-posts-nav-option-active"
