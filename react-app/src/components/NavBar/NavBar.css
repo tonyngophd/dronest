@@ -29,6 +29,9 @@
 
 .nav-title {
   margin-top: 18px !important;
+  letter-spacing: 2px;
+  font-weight: 300;
+  margin-left: -8px;
 }
 
 .nav-title-logo {
