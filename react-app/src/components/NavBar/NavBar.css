@@ -30,7 +30,7 @@
 .nav-title {
   margin-top: 18px !important;
   letter-spacing: 2.5px;
-  font-weight: 400;
+  font-weight: 360;
   margin-left: -8px;
   color: rgb(210, 210, 210) !important;
 }
@@ -42,7 +42,7 @@
 .nav-title-logo {
   position: absolute;
   left: 40%;
-  margin-left: -280px;
+  margin-left: -272px;
 }
 
 .navbar-content {

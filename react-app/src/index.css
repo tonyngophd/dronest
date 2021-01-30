@@ -63,9 +63,14 @@ body {
     margin-left: 0 !important;
     margin-right: 15px;
   }
+  .search-and-dropdown-display-main-box {
+    left: 50%;
+    right: auto !important;
+    margin-left: 75px !important;
+  }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1060px) {
   .search-and-dropdown-display-main-box {
     left: 50%;
     right: auto !important;
