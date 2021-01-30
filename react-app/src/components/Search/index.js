@@ -55,7 +55,7 @@ export default function MainSearchBar({
         {
           searchValue && <Suggestions UserList={BareUserList} 
             searchable={true} searchText={searchValue} 
-            style={{maxHeight: "300px", overflowY: "scroll"}}
+            style={{maxHeight: "300px", overflowY: "scroll", marginLeft:'-160px'}}
             />
         }
       </div>
