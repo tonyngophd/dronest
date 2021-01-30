@@ -8,4 +8,5 @@
   overflow: hidden;
   transform: translate(-280px, 160px);
   background-color: aliceblue;
+  box-shadow: 0 7px 13px rgba(0, 0, 0, 0.1);
 }
