@@ -35,6 +35,10 @@
   color: rgb(210, 210, 210) !important;
 }
 
+.nav-title:active:hover {
+  color: rgb(240, 240, 240) !important;
+}
+
 .nav-title-logo {
   position: absolute;
   left: 40%;
