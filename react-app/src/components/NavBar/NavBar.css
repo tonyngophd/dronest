@@ -29,9 +29,10 @@
 
 .nav-title {
   margin-top: 18px !important;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: 300;
   margin-left: -8px;
+  color: rgb(210, 210, 210) !important;
 }
 
 .nav-title-logo {
