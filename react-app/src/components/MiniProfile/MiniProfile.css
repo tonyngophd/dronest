@@ -78,3 +78,11 @@ hr {
 .user-row-left-div.myself-header {
   margin-left: 8px;
 }
+
+.user-row-profile-img {
+  border: 1px solid rgb(219, 219, 219);
+}
+
+.feed_post-header > img {
+  border: 1px solid rgb(219, 219, 219);
+}
