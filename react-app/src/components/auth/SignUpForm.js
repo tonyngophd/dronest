@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../../store/session";
 import './SignUpForm.css'
@@ -61,9 +61,12 @@ const SignUpForm = () => {
 
   return (
     <div className="signup-form_container">
-      <h1>InstaVibes</h1>
+      <div className="signup-form_header">
+        <img src="../images/InstaVibes2.png"></img>
+        <h5>Sign up to see photos from your friends</h5>
+      </div>
       <form className="signup-form" onSubmit={onSignUp}>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="username"
@@ -72,7 +75,7 @@ const SignUpForm = () => {
             value={username}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="name"
@@ -81,7 +84,7 @@ const SignUpForm = () => {
             value={name}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="email"
@@ -90,7 +93,7 @@ const SignUpForm = () => {
             value={email}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="password"
             name="password"
@@ -99,7 +102,7 @@ const SignUpForm = () => {
             value={password}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="password"
             name="repeat_password"
@@ -109,7 +112,7 @@ const SignUpForm = () => {
             required={true}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="bio"
@@ -118,7 +121,7 @@ const SignUpForm = () => {
             value={bio}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="bio"
@@ -127,7 +130,7 @@ const SignUpForm = () => {
             value={websiteUrl}
           ></input>
         </div>
-        <div>
+        <div className="login-form-element">
           <input
             type="text"
             name="bio"
@@ -137,6 +140,12 @@ const SignUpForm = () => {
           ></input>
         </div>
         <button type="submit">Sign Up</button>
+        <div className="signup-form-footer">
+          <p>Already have an account?</p>
+          <Link to="/login">
+            Log in
+          </Link>
+        </div>
       </form>
     </div>
   );

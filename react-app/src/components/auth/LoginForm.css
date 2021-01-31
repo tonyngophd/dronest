@@ -50,6 +50,18 @@ body {
     border-color: #e9e9e9;
 }
 
+.login-form_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85px;
+}
+
+.login-form_header img{
+    height: 50%;
+
+}
+
 .login-form-element {
     width: 240px;
     border-radius: 3px;
@@ -82,6 +94,12 @@ body {
     color: white;
     border: none;
     font-weight: 600;
+}
+
+.buttons > button:hover{
+    background-color: #39b0ff;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 

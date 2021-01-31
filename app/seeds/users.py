@@ -26,7 +26,7 @@ def seed_users():
     daniel = User(username='danielIzKewl', email='Daniel@gmail.com',
                 password='password', bio='Daniel is my name and coding is my game!', websiteUrl="www.google.com",
                 name="Daniel ",profilePicUrl="https://avatars.githubusercontent.com/u/70864617?s=460&v=4")
-    db.session.add(Daniel)
+    db.session.add(daniel)
 
     adam = User(username='AdamDaMan', email='adam@gmail.com',
                 password='password', bio='adam is my name and coding is my game!', websiteUrl="www.google.com",

@@ -5,12 +5,12 @@ import { fetchHomeFeed } from "../../store/posts";
 import Post from "../Post";
 import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
+import InfiniteScroll from "react-infinite-scroll-component"
 
 const Feed = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const feed = useSelector((state) => state.posts.homeFeed);
-
   useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
@@ -18,58 +18,29 @@ const Feed = () => {
     dispatch(fetchNotifications());
     dispatch(fetchHomeFeed(user.id));
   }, [dispatch, user]);
-  // const posts = [
-  //   {
-  //     user: {
-  //       username: "Michael",
-  //       profilePicUrl: "https://placeimg.com/498/498"
-  //     },
-  //     posts: {
-  //       captionRawData: "This is a cool test"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/500/500"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Daniel",
-  //       profilePicUrl: "https://placeimg.com/497/497"
-  //     },
-  //     posts: {
-  //       captionRawData: "I love Fruit"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/494/494"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Adam",
-  //       profilePicUrl: "https://placeimg.com/496/496"
-  //     },
-  //     posts: {
-  //       captionRawData: "Dubstep is cool"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/493/493"
-  //     }
-  //   },
-  //   {
-  //     user: {
-  //       username: "Tony",
-  //       profilePicUrl: "https://placeimg.com/495/495"
-  //     },
-  //     posts: {
-  //       captionRawData: "Where am I right now?"
-  //     },
-  //     images: {
-  //       imgUrl: "https://placeimg.com/500/500"
-  //     }
-  //   },
-  // ]
 
+  const setPost = (arr, num) => {
+    let newArr = []
+    for (let i = 0; i < num; i++) {
+      newArr.push(arr[i]);
+    }
+    return newArr;
+  }
+
+  let num = 5;
+  console.log('FEEED', feed)
   return (
+
+    // <>
+    //   {feed && (
+    //     <div className="feed_container">
+    //       {setPost(feed.map((post) => (
+    //         <Post post={post} key={nanoid()} />
+    //       )), 6)}
+    //     </div>
+    //   )}
+    // </>
+
     <>
       {feed && (
         <div className="feed_container">

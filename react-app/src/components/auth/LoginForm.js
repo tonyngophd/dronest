@@ -35,6 +35,11 @@ const LoginForm = () => {
     return <Redirect to="/" />;
   }
 
+  const demoUser = (event) => {
+    setEmail("demo@aa.io");
+    setPassword("password")
+  }
+
   return (
     <div className="login_container">
       <div className="login-img">
@@ -43,7 +48,8 @@ const LoginForm = () => {
       <div className="login_form-container">
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form_header">
-            <h1>Instavibes</h1>
+            {/* <h1>Instavibes</h1> */}
+            <img src="../images/InstaVibes2.png"></img>
           </div>
           <div>
             {errors.map((error) => (
@@ -72,7 +78,7 @@ const LoginForm = () => {
           </div>
           <div className="buttons">
             <button type="submit">Log in</button>
-            <button type="submit">Demo</button>
+            <button onClick={demoUser} type="submit">Demo</button>
           </div>
           <p className="OR">OR</p>
           <div className="login-form-footer">
