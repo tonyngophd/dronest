@@ -69,24 +69,10 @@
 .stories-lineup-div {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-around; */
   align-items: center;
-  margin: 0 20px;
-  padding: 20px;
 }
 
-.stories-lineup-inactive-user-div {
-  width: 200px;
-  height: 320px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(99, 99, 99);
-  border-radius: 10px;
-  color: white;
-  margin: 20px;
-}
+.stories-lineup-inactive-user-div,
 .stories-lineup-dummy-user-div{
   width: 200px;
   height: 320px;
@@ -97,8 +83,12 @@
   border-radius: 10px;
   color: white;
   margin: 20px;
+}
+.stories-lineup-inactive-user-div{
   background-color: rgb(99, 99, 99);
-  /* background-color: rgba(255, 255, 255, 0); */
+}
+.stories-lineup-dummy-user-div{
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .active-stories {
