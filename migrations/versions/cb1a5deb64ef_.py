@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4e1fae564f57
+Revision ID: cb1a5deb64ef
 Revises: 
-Create Date: 2021-01-29 15:37:43.926329
+Create Date: 2021-01-31 18:01:23.248690
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4e1fae564f57'
+revision = 'cb1a5deb64ef'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -134,6 +134,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('savedposts',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('postId', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('taggedusers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('postId', sa.Integer(), nullable=False),
@@ -174,6 +184,7 @@ def downgrade():
     op.drop_table('commenttaggedusers')
     op.drop_table('commentlikes')
     op.drop_table('taggedusers')
+    op.drop_table('savedposts')
     op.drop_table('messagetaggedusers')
     op.drop_table('likedposts')
     op.drop_table('images')

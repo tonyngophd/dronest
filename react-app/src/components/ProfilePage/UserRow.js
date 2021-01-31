@@ -27,12 +27,13 @@ function UserRow({
   gotoUserPage = true,
   miniProfileEnabled = true,
   searchable,
+  suggestionBox,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const profilePerson = useSelector((state) => state.profile.user);
   const [showMiniProfile, setShowMiniProfile] = useState(false);
-
+  const [hover, setHover] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
     if (gotoUserPage) {
@@ -49,19 +50,23 @@ function UserRow({
         }
       >
         <div
-          className="user-row-left-div"
-          onMouseOver={(e) => !searchable && setShowMiniProfile(true)}
-          onMouseOut={(e) => setShowMiniProfile(false)}
+          className={
+            user.id === myId
+              ? "user-row-left-div myself-header"
+              : "user-row-left-div"
+          }
         >
           <img
             className="user-row-profile-img"
+            onMouseOver={(e) => !searchable && setHover(true)}
+            onMouseOut={(e) => !searchable && setHover(false)}
             src={user.profilePicUrl}
             alt={`${user.username}-profile-pic`}
             style={{ width: imageSize, height: imageSize }}
             onClick={handleClick}
             id={`${user.id}-userProfileImg`}
           />
-          {miniProfileEnabled && showMiniProfile && <MiniProfile user={user} />}
+          {miniProfileEnabled && <MiniProfile hover={hover} user={user} />}
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{user.name}</div>
@@ -107,7 +112,9 @@ function UserRow({
               Following
             </button>
           ) : (
-            <span className=" user-row-button">Myself</span>
+            !suggestionBox && (
+              <span className=" user-row-button myself">Me</span>
+            )
           ))}
       </div>
     )

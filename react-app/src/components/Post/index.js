@@ -14,8 +14,9 @@ import { useHistory, Link } from "react-router-dom";
 import CommentInput from "../CommentInput";
 import Comment from "../Comment";
 import "./post.css";
-import { likePost, unlikePost } from "../../store/posts";
+import { likePost, unlikePost, savePost, unsavePost } from "../../store/posts";
 import { useDispatch, useSelector } from "react-redux";
+import timeStamp from '../utils';
 
 function Post({ post }) {
   const history = useHistory();
@@ -25,6 +26,7 @@ function Post({ post }) {
     (state) => state.posts.homeFeed[post.id].comments
   );
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
+  const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [clicks, setClicks] = useState(0);
   const [userMentionPlugin] = useState(
@@ -74,25 +76,7 @@ function Post({ post }) {
     EditorState.createWithContent(data)
   );
 
-  let createdAt = new Date(post.createdAt);
-  let now = Date.now();
-  let elapsed = now - createdAt;
-  let timestamp;
-  if (elapsed < 1000) {
-    timestamp = `NOW`;
-  } else if (elapsed < 60000) {
-    timestamp = `${Math.floor(elapsed / 1000)} SECONDS AGO`;
-  } else if (elapsed < 120000) {
-    timestamp = `${Math.floor(elapsed / 60000)} MINUTE AGO`;
-  } else if (elapsed < 3600000) {
-    timestamp = `${Math.floor(elapsed / 60000)} MINUTES AGO`;
-  } else if (elapsed < 7200000) {
-    timestamp = `${Math.floor(elapsed / 3600000)} HOUR AGO`;
-  } else if (elapsed < 86400000) {
-    timestamp = `${Math.floor(elapsed / 3600000)} HOURS AGO`;
-  } else {
-    timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
-  }
+  let timestamp = timeStamp(new Date(post.createdAt));
 
   useEffect(() => {
     if (clicks == 2 && !liked) {
@@ -112,6 +96,16 @@ function Post({ post }) {
       dispatch(likePost(post.id));
       setLiked(true);
       setLikes(likes + 1);
+    }
+  };
+
+  const saveHandler = () => {
+    if (saved) {
+      dispatch(unsavePost(post.id));
+      setSaved(false);
+    } else {
+      dispatch(savePost(post.id));
+      setSaved(true);
     }
   };
 
@@ -150,10 +144,20 @@ function Post({ post }) {
             ) : (
               <BsHeart onClick={likeHandler} className="post-icon" />
             )}
-            <BsChat className="post-icon-comment" />
+            <BsChat
+              onClick={() => history.push(`/p/${post.id}`)}
+              className="post-icon-comment"
+            />
           </div>
           <div className="feed_post-info-icons-right">
-            <BsBookmark className="post-icon-bk" />
+            {saved ? (
+              <BsBookmarkFill
+                onClick={saveHandler}
+                className="post-icon-bk bk-full"
+              />
+            ) : (
+              <BsBookmark onClick={saveHandler} className="post-icon-bk" />
+            )}
           </div>
         </div>
         <div className="feed_post-info-comments">

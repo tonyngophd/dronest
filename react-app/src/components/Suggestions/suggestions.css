@@ -3,16 +3,16 @@
 
 .mini-profile-and-suggestions {
   position: fixed;
-  width: 300px;
+  width: 500px;
   border-radius: 5px;
   box-sizing: border-box;
-  margin-left: 1030px;
+  margin-left: 1230px;
   margin-top: 20px;
-  max-height: 520px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
   background-color: rgb(250, 250, 250);
   overflow: hidden;
+  padding-right: 200px;
   /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
 }
 
@@ -39,8 +39,7 @@
 }
 
 .suggestions_container {
-  max-height: 522px;
-  overflow: scroll;
+  height: 900px;
 }
 
 h3 {

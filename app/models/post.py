@@ -18,6 +18,7 @@ class Post(db.Model):
     comments = db.relationship('Comment', foreign_keys='Comment.parentPostId')
     images = db.relationship('Image', foreign_keys='Image.postId')
     likingUsers = db.relationship('User', secondary='likedposts')
+    userSaves = db.relationship('User', secondary='savedposts')
 
 
 
@@ -33,7 +34,8 @@ class Post(db.Model):
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
-            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
+            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers},
+            "userSaves": {user.id:user.id for user in self.userSaves}
         }
 
     def to_dict_for_self(self):       
@@ -45,5 +47,6 @@ class Post(db.Model):
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
-            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
+            "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers},
+            "userSaves": {user.id:user.id for user in self.userSaves}
         }

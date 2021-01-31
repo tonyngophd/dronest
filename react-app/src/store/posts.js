@@ -97,7 +97,6 @@ export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   const res = await fetch(`/api/posts/${userId}/feed/${page}`);
   let feed = await res.json();
   feed = feed["posts"];
-  console.log(feed);
   dispatch(loadHomeFeed(feed));
 };
 
@@ -136,6 +135,14 @@ export const likePost = (postId) => async (dispatch) => {
 
 export const unlikePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unlike`);
+};
+
+export const savePost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${postId}/save`);
+};
+
+export const unsavePost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${postId}/unsave`);
 };
 
 const initialState = {

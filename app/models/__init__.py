@@ -13,3 +13,4 @@ from .userfollower import UserFollower
 from .likedpost import LikedPost
 from .directmessage import DirectMessage
 from .messagetaggeduser import MessageTaggedUser
+from .savedpost import SavedPost

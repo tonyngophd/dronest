@@ -225,6 +225,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .user-row-info-div {
   display: flex;
