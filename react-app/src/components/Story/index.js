@@ -89,6 +89,7 @@ export function StoriesFullPage() {
   const users = useSelector(state => state.users.allUsers);
   const [usersWithRecentPosts, setUsersWithRecentPosts] = useState([]);
   const [allStories, updateAllStories] = useState([]);
+  const [fiveStories, updateFiveStories] = useState([]);
   const [userAndStoriesObj, setUserAndStoriesObj] = useState({});
   const [currentUser, updateCurrentUser] = useState(undefined);
   const history = useHistory();
@@ -126,13 +127,34 @@ export function StoriesFullPage() {
       obj[user.username] = i;
     }
     setUserAndStoriesObj(obj);
-    console.log('obj', obj);
   }, [usersWithRecentPosts]);
 
   useEffect(() => {
     if (!Object.keys(userAndStoriesObj).length) return;
     updateCurrentUser(userAndStoriesObj[params.username]);
   }, [params.username, userAndStoriesObj])
+
+  useEffect(() => {
+    let fiveS = new Array(5).fill(undefined);
+    if (currentUser !== undefined && allStories.length) {
+      if (allStories[currentUser])
+        fiveS[2] = allStories[currentUser];
+      if (currentUser - 2 >= 0 && usersWithRecentPosts[currentUser - 2]) {
+        fiveS[0] = usersWithRecentPosts[currentUser - 2]
+      }
+      if (currentUser - 1 >= 0 && usersWithRecentPosts[currentUser - 1]) {
+        fiveS[1] = usersWithRecentPosts[currentUser - 1]
+      }
+      if (currentUser + 1 < allStories.length && usersWithRecentPosts[currentUser + 1]) {
+        fiveS[3] = usersWithRecentPosts[currentUser + 1]
+      }
+      if (currentUser + 2 < allStories.length && usersWithRecentPosts[currentUser + 2]) {
+        fiveS[4] = usersWithRecentPosts[currentUser + 2]
+      }
+    }
+    updateFiveStories(fiveS);
+    console.log('fiveS', fiveS);
+  }, [currentUser, allStories]);
 
   const shiftUser = (next = true) => {
     if (!Object.keys(userAndStoriesObj).length) return;
@@ -154,21 +176,57 @@ export function StoriesFullPage() {
     <div className='story-fullpage-container'>
       <div className='stories-view-div'>
         <div className="stories-lineup-div">
-          {allStories && (currentUser !== undefined) &&
-            <div className="active-stories" >
-              <GrPrevious className="stories-prev"
-                onClick={e => shiftUser(false)}
-              />
-              <Stories
-                stories={allStories[currentUser]}
-                width={500}
-                height={700}
-                onStoryEnd={() => setTimeout(() => shiftUser(), 1000)}
-              />
-              <GrNext className="stories-next"
-                onClick={e => shiftUser()}
-              />
-            </div>}
+          {/* <div className="feed_post-header story-topbox-user-div">
+            <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
+              style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+            // onClick={e => setOpenStory(true)}
+            />
+            <div className="feed_post-username story-username-div">{user.username}</div>
+          </div> */}
+
+          {fiveStories.length > 0 && (currentUser !== undefined) && fiveStories[2] !== undefined &&
+            fiveStories.map((stories, index) =>
+            <div key={nanoid()}>
+              {
+                index === 2 ?
+                  <div className="active-stories" >
+                    <GrPrevious className="stories-prev"
+                      onClick={e => shiftUser(false)}
+                    />
+
+                    <Stories
+                      stories={stories}
+                      width={500}
+                      height={700}
+                      // onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
+                    />
+                    <GrNext className="stories-next"
+                      onClick={e => shiftUser()}
+                    />
+                  </div>
+                  : <div className="stories-lineup-inactive-user-div">
+                    {
+                      stories !== undefined ? <>
+                        <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
+                          style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                        // onClick={e => setOpenStory(true)}
+                        />
+                        <div className="feed_post-username story-username-div" style={{ color: 'white' }}>
+                          {stories.username}
+                        </div>
+                      </>:
+                      <h1>Dummy</h1>
+                    }
+                  </div>
+              }
+            </div>)
+            // {allStories && (currentUser !== undefined) && <Stories
+            //   stories={allStories[currentUser]}
+            //   width={500}
+            //   height={700}
+            //   onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
+            // />
+          }
         </div>
       </div>
       <div className="fullpage-stories-close"
@@ -180,24 +238,3 @@ export function StoriesFullPage() {
     </div>
   );
 }
-
-
-/*
-                  <div className="stories-lineup-inactive-user-div">
-                    <img src={usersWithRecentPosts[index].profilePicUrl} alt="user-icon" className="story-profile-image"
-                      style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                    // onClick={e => setOpenStory(true)}
-                    />
-                    <div className="feed_post-username story-username-div" style={{ color: 'white' }}>
-                      {usersWithRecentPosts[index].username}
-                    </div>
-                  </div>
-
-          {<div className="feed_post-header story-topbox-user-div">
-            <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
-              style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-            // onClick={e => setOpenStory(true)}
-            />
-            <div className="feed_post-username story-username-div">{user.username}</div>
-          </div>                 
-*/
