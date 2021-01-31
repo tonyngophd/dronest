@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import Stories, { WithSeeMore } from 'react-insta-stories';
-import Comment from "../Comment"; 
+// import Comment from "../Comment";
+import { fetchAllUsers } from '../../store/users';
 import { GrClose, GrNext, GrPrevious } from "react-icons/gr";
 
 
@@ -95,6 +96,11 @@ export function StoriesFullPage() {
   const [currentUser, updateCurrentUser] = useState(undefined);
   const history = useHistory();
   const params = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!users.length) dispatch(fetchAllUsers());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!users) return;
@@ -154,7 +160,6 @@ export function StoriesFullPage() {
       }
     }
     updateFiveStories(fiveS);
-    console.log('fiveS', fiveS);
   }, [currentUser, allStories]);
 
   const shiftUser = (next = true, userIndex = undefined) => {
@@ -199,21 +204,23 @@ export function StoriesFullPage() {
                       <GrPrevious className="stories-prev"
                         onClick={e => shiftUser(false)}
                       />
-                      <Stories
-                        stories={stories}
-                        width={500}
-                        height={700}
-                        storyStyles = {{
-                          minHeight: '100%',
-                          minWidth: "100%",
-                          maxHeight: 'auto',
-                          objectFit: "cover",
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center'
-                        }}          
+                      <div style={{ overflow: 'hidden',  borderRadius: '10px' }}>
+                        <Stories
+                          stories={stories}
+                          width={500}
+                          height={700}
+                          storyStyles={{
+                            minHeight: '100%',
+                            minWidth: "100%",
+                            maxHeight: 'auto',
+                            objectFit: "cover",
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',                          
+                          }}
                         // onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
-                      />
+                        />
+                      </div>
                       <GrNext className="stories-next"
                         onClick={e => shiftUser()}
                       />
@@ -224,16 +231,24 @@ export function StoriesFullPage() {
                         id={`${currentUser + index - 2}-userstories-div`}
                         onClick={e => shiftUser(undefined, e.target.id.split("-")[0])}
                       >
-                        <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
-                          style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                          id={`${currentUser + index - 2}-userstories-img`}
-                        />
-                        <div className="feed_post-username story-username-div"
-                          style={{ color: 'white' }}
-                          id={`${currentUser + index - 2}-userstories-text`}
-                        >
-                          {stories.username}
+                        <div className='inactive-story-user-profile-img' id={`${currentUser + index - 2}-userstories-profimgdiv`}>
+                          <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
+                            style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                            id={`${currentUser + index - 2}-userstories-img`}
+                          />
+                          <div className="feed_post-username story-username-div"
+                            style={{ color: 'white' }}
+                            id={`${currentUser + index - 2}-userstories-text`}
+                          >
+                            {stories.username}
+                          </div>
                         </div>
+                        <img
+                          src={stories.ownPosts[0].images[0].imgUrl}
+                          alt={stories.ownPosts[0].imgUrl} id={`${index}-${stories.ownPosts[0].imgUrl}`}
+                          style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover' }}
+                          id={`${currentUser + index - 2}-background-img`}
+                        />
                       </div> :
                       <div className='stories-lineup-dummy-user-div' />
                     )
