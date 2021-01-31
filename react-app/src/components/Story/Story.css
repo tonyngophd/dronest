@@ -85,6 +85,18 @@
   color: white;
   margin: 50px;
 }
+.stories-lineup-dummy-user-div{
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: white;
+  margin: 50px;
+  background-color: rgba(255, 255, 255, 0);
+}
 
 .active-stories {
   margin: 50px;

@@ -186,27 +186,26 @@ export function StoriesFullPage() {
 
           {fiveStories.length > 0 && (currentUser !== undefined) && fiveStories[2] !== undefined &&
             fiveStories.map((stories, index) =>
-            <div key={nanoid()}>
-              {
-                index === 2 ?
-                  <div className="active-stories" >
-                    <GrPrevious className="stories-prev"
-                      onClick={e => shiftUser(false)}
-                    />
+              <div key={nanoid()}>
+                {
+                  index === 2 ?
+                    <div className="active-stories" >
+                      <GrPrevious className="stories-prev"
+                        onClick={e => shiftUser(false)}
+                      />
 
-                    <Stories
-                      stories={stories}
-                      width={500}
-                      height={700}
+                      <Stories
+                        stories={stories}
+                        width={500}
+                        height={700}
                       // onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
-                    />
-                    <GrNext className="stories-next"
-                      onClick={e => shiftUser()}
-                    />
-                  </div>
-                  : <div className="stories-lineup-inactive-user-div">
-                    {
-                      stories !== undefined ? <>
+                      />
+                      <GrNext className="stories-next"
+                        onClick={e => shiftUser()}
+                      />
+                    </div>
+                    : (stories !== undefined ?
+                      <div className="stories-lineup-inactive-user-div">
                         <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
                           style={{ width: '60px', height: '60px', borderRadius: '50%' }}
                         // onClick={e => setOpenStory(true)}
@@ -214,12 +213,11 @@ export function StoriesFullPage() {
                         <div className="feed_post-username story-username-div" style={{ color: 'white' }}>
                           {stories.username}
                         </div>
-                      </>:
-                      <h1>Dummy</h1>
-                    }
-                  </div>
-              }
-            </div>)
+                      </div> :
+                      <div className='stories-lineup-dummy-user-div'/>
+                    )
+                }
+              </div>)
             // {allStories && (currentUser !== undefined) && <Stories
             //   stories={allStories[currentUser]}
             //   width={500}
