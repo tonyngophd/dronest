@@ -25,23 +25,6 @@
   background-color: rgba(200, 200, 200, 0.5);
 }
 
-.main-search-bar {
-  height: 32px;
-  border-radius: 50px;
-  width: 100%;
-  border: none;
-  font-size: 14px;
-  background-color: rgb(240, 240, 249);
-  padding-left: 40px;
-  width: 200px;
-  -webkit-transition: width 0.6s ease-in-out;
-  transition: width 0.6s ease-in-out;
-}
-
-.main-search-bar:focus {
-  width: 400px;
-}
-
 .search-icon-class {
   font-size: 3.5vh;
   color: rgb(190, 190, 190);
@@ -71,6 +54,23 @@
   color: red;
 } */
 
+.main-search-bar {
+  height: 32px;
+  border-radius: 50px;
+  width: 100%;
+  border: none;
+  font-size: 14px;
+  background-color: rgb(240, 240, 249);
+  padding-left: 40px;
+  width: 200px;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.main-search-bar.focused {
+  width: 400px;
+}
+
 .search-and-dropdown-display-main-box {
   display: flex;
   flex-direction: column;
@@ -90,6 +90,24 @@
 
 .search-dropdown {
   position: absolute;
-  /*ADAM: Here is where you can style the search box*/
-  top: 20px;
+  top: 17px;
+}
+.search-dropdown-box {
+  border: 1px solid rgb(219, 219, 219);
+  padding-top: 5px;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.search-row {
+  border-bottom: 1px solid rgb(219, 219, 219);
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  padding: 5px;
+}
+
+.search-row:hover {
+  background-color: rgba(216, 182, 255, 0.208);
+  transition-property: background-color;
+  transition-duration: 0.2s;
 }

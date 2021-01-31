@@ -15,22 +15,33 @@ import {
   BsBookmarkFill,
 } from "react-icons/bs";
 import { fetchSinglePost, likePost, unlikePost } from "../../store/posts";
+import { fetchUserProfile } from "../../store/profile";
+import ProfileFeed from "../ProfileFeed";
 
 const SinglePostPage = () => {
   const { id } = useParams();
-  const singlePost = useSelector((state) => state.posts.singlePost);
+
   const user = useSelector((state) => state.session.user);
+  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [count, setCount] = useState(1);
   useEffect(() => {
     dispatch(fetchNotifications());
-
     dispatch(fetchSinglePost(id));
-    singlePost.likingUsers && setLiked(singlePost.likingUsers[user.id]);
-    singlePost.likingUsers &&
-      setLiked(Object.values(singlePost.likingUsers).length);
-  }, [user, id]);
+  }, [id]);
+
+  const singlePost = useSelector((state) => state.posts.singlePost);
+  useEffect(() => {
+    if (count !== 1) {
+      setLiked(singlePost.likingUsers[user.id]);
+      setLikes(Object.values(singlePost.likingUsers).length);
+      dispatch(fetchUserProfile(singlePost.user.username));
+    }
+    setCount(count + 1);
+  }, [singlePost]);
+
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(singlePost.id));
@@ -64,12 +75,15 @@ const SinglePostPage = () => {
 
   return (
     <>
-      {singlePost.user && (
+      {singlePost.likingUsers && (
         <div className="pic-modal-container single-post">
           {singlePost.images && (
-            <img className="modal-img" src={singlePost.images[0].imgUrl} />
+            <img
+              className="modal-img single-image"
+              src={singlePost.images[0].imgUrl}
+            />
           )}
-          <div className="pic-modal-right">
+          <div className="pic-modal-right single-post-right">
             <Link
               className="pic-modal-header"
               to={`/${singlePost.user.username}`}
@@ -108,7 +122,7 @@ const SinglePostPage = () => {
                   })}
               </div>
             </div>
-            <div className="pic-modal-utils">
+            <div className="pic-modal-utils single-post-utils">
               <div className="feed_post-info-icons">
                 <div className="feed_post-info-icons-left">
                   {liked ? (
