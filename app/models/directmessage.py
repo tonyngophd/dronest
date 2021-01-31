@@ -21,7 +21,9 @@ class DirectMessage(db.Model):
           "senderId": self.senderId,
           "receiverId": self.receiverId,
           "message": self.message,
-          "viewStatus": self.viewStatus  
+          "viewStatus": self.viewStatus,
+          'createdAt': self.createdAt,
+          'updatedAt': self.updatedAt,
         }
         
 

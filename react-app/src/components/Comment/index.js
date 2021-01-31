@@ -15,7 +15,7 @@ function Comment({ home, comment, message = undefined }) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
-  let createdAt = new Date(comment.createdAt);
+  let createdAt = new Date(comment ? comment.createdAt : message.createdAt);
   let now = Date.now();
   let elapsed = now - createdAt;
   let timestamp;
@@ -120,13 +120,13 @@ function Comment({ home, comment, message = undefined }) {
         {messageIsPlainText ? (
           <>{data}</>
         ) : (
-          <Editor
-            editorState={editorState}
-            readOnly={true}
-            plugins={plugins}
-            onChange={(editorState) => setEditorState(editorState)}
-          />
-        )}
+            <Editor
+              editorState={editorState}
+              readOnly={true}
+              plugins={plugins}
+              onChange={(editorState) => setEditorState(editorState)}
+            />
+          )}
       </div>
       {!home && !message && (
         <div className="time-and-likes-comment">
