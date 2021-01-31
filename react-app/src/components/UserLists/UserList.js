@@ -61,16 +61,21 @@ export function MinimalUserList({
       {includeMyself && (
         <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
       )}
-      {allUsersWithoutMyself.map((user) => (
-        <UserRow
-          user={user}
-          searchable={searchable}
-          myId={myself.id}
-          notFollowedYet={notFollowedYet(user.id, myself)}
-          key={nanoid()}
-          followAsButton={followAsButton}
-        />
-      ))}
+      {allUsersWithoutMyself
+        .filter((user) => {
+          return notFollowedYet(user.id, myself);
+        })
+        .slice(0, 7)
+        .map((user) => (
+          <UserRow
+            user={user}
+            searchable={searchable}
+            myId={myself.id}
+            notFollowedYet={notFollowedYet(user.id, myself)}
+            key={nanoid()}
+            followAsButton={followAsButton}
+          />
+        ))}
     </div>
   );
 }
