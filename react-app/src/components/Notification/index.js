@@ -4,6 +4,7 @@ import { BsX } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { viewNotification } from "../../store/notifications";
 import { useHistory } from "react-router-dom";
+import { fetchSinglePost } from "../../store/posts";
 
 const Notification = ({ notif, onClose }) => {
   const dispatch = useDispatch();
@@ -32,11 +33,14 @@ const Notification = ({ notif, onClose }) => {
     dispatch(viewNotification(notif));
   };
 
-  const notifClickHandler = () => {
+  const notifClickHandler = async () => {
     dispatch(viewNotification(notif));
     switch (notif.type) {
       case "follow":
         history.push(`/${notif.follower.username}`);
+        onClose();
+      case "post":
+        history.push(`/p/${notif.postId}`);
         onClose();
       default:
         break;

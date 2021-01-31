@@ -106,7 +106,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification notif={notif} />;
+                return <Notification onClose={onClose} notif={notif} />;
               })}
           {current === 2 &&
             Object.values(notifications.follows)
@@ -114,7 +114,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification notif={notif} />;
+                return <Notification onClose={onClose} notif={notif} />;
               })}
           {current === 3 &&
             Object.values(notifications.posts)
@@ -122,7 +122,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification notif={notif} />;
+                return <Notification onClose={onClose} notif={notif} />;
               })}
           {current === 4 &&
             Object.values(notifications.comments)
@@ -130,14 +130,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return (
-                  <Notification
-                    onClose={() => {
-                      onClose();
-                    }}
-                    notif={notif}
-                  />
-                );
+                return <Notification onClose={onClose} notif={notif} />;
               })}
         </div>
       </div>

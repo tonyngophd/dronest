@@ -6,9 +6,18 @@
   border-bottom: 1px solid rgb(230, 230, 230);
 
   font-size: 14px;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.notif-wrapper:hover {
+  background-color: rgba(182, 221, 255, 0.3);
+  transition-property: background-color;
+  transition-duration: 0.2s;
 }
 
 .notif-wrapper-left {
+  cursor: pointer;
   padding: 8px 15px;
   width: 90%;
   display: flex;
