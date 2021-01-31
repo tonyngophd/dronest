@@ -150,7 +150,10 @@ function Post({ post }) {
             ) : (
               <BsHeart onClick={likeHandler} className="post-icon" />
             )}
-            <BsChat className="post-icon-comment" />
+            <BsChat
+              onClick={() => history.push(`/p/${post.id}`)}
+              className="post-icon-comment"
+            />
           </div>
           <div className="feed_post-info-icons-right">
             <BsBookmark className="post-icon-bk" />
