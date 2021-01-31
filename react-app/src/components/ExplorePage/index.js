@@ -19,7 +19,7 @@ const ExplorePage = () => {
       {feed && (
         <InfiniteScroll
           className="hashtag-feed"
-          dataLength={feed.length}
+          dataLength={Object.values(feed).length}
           next={() => setPage(page + 1)}
           hasMore={true}
           loader={
@@ -33,9 +33,13 @@ const ExplorePage = () => {
             />
           }
         >
-          {feed.map((post) => (
-            <ProfilePost post={post} key={nanoid()} />
-          ))}
+          {Object.values(feed)
+            .sort((a, b) =>
+              new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+            )
+            .map((post) => (
+              <ProfilePost post={post} key={nanoid()} />
+            ))}
         </InfiniteScroll>
       )}
     </div>

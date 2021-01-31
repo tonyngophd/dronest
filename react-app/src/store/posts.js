@@ -132,8 +132,8 @@ export const unlikePost = (postId) => async (dispatch) => {
 
 const initialState = {
   homeFeed: {},
-  exploreFeed: [],
-  hashtagFeed: [],
+  exploreFeed: {},
+  hashtagFeed: {},
   singlePost: {},
 };
 
@@ -165,11 +165,11 @@ const reducer = (state = initialState, action) => {
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);
-      newState.hashtagFeed = [...newState.hashtagFeed, ...action.payload];
+      newState.hashtagFeed = {...newState.hashtagFeed, ...action.payload};
       return newState;
     case FETCH_EXPLORE_FEED:
       newState = Object.assign({}, state);
-      newState.exploreFeed = [...newState.exploreFeed, ...action.payload];
+      newState.exploreFeed = {...newState.exploreFeed, ...action.payload};
       return newState;
     case FETCH_SINGLE_POST:
       newState = Object.assign({}, state);
