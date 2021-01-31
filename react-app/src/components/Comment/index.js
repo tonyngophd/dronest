@@ -7,6 +7,7 @@ import createMentionPlugin from "draft-js-mention-plugin";
 import { useHistory, Link } from "react-router-dom";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";
+import timeStamp from '../utils';
 
 function Comment({ home, comment, message = undefined }) {
   const user = useSelector((state) => state.session.user);
@@ -15,25 +16,7 @@ function Comment({ home, comment, message = undefined }) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
-  let createdAt = new Date(comment ? comment.createdAt : message.createdAt);
-  let now = Date.now();
-  let elapsed = now - createdAt;
-  let timestamp;
-  if (elapsed < 1000) {
-    timestamp = `NOW`;
-  } else if (elapsed < 60000) {
-    timestamp = `${Math.floor(elapsed / 1000)}s`;
-  } else if (elapsed < 120000) {
-    timestamp = `${Math.floor(elapsed / 60000)}m`;
-  } else if (elapsed < 3600000) {
-    timestamp = `${Math.floor(elapsed / 60000)}m`;
-  } else if (elapsed < 7200000) {
-    timestamp = `${Math.floor(elapsed / 3600000)}h`;
-  } else if (elapsed < 86400000) {
-    timestamp = `${Math.floor(elapsed / 3600000)}h`;
-  } else {
-    timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
-  }
+  let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
 
   useEffect(() => {
     if (!message) {
