@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import Stories, { WithSeeMore } from 'react-insta-stories';
+import Comment from "../Comment"; 
 import { GrClose, GrNext, GrPrevious } from "react-icons/gr";
 
 
@@ -111,7 +112,7 @@ export function StoriesFullPage() {
             duration: 2000,
             header: {
               heading: user.username,
-              subheading: 'Posted 30m ago',
+              subheading: `Posted at ${post.createdAt}`,
               profileImage: user.profilePicUrl,
             },
             // seeMore: ({ close }) => {
@@ -202,7 +203,16 @@ export function StoriesFullPage() {
                         stories={stories}
                         width={500}
                         height={700}
-                        onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
+                        storyStyles = {{
+                          minHeight: '100%',
+                          minWidth: "100%",
+                          maxHeight: 'auto',
+                          objectFit: "cover",
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}          
+                        // onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
                       />
                       <GrNext className="stories-next"
                         onClick={e => shiftUser()}
@@ -228,13 +238,8 @@ export function StoriesFullPage() {
                       <div className='stories-lineup-dummy-user-div' />
                     )
                 }
-              </div>)
-            // {allStories && (currentUser !== undefined) && <Stories
-            //   stories={allStories[currentUser]}
-            //   width={500}
-            //   height={700}
-            //   onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
-            // />
+              </div>
+            )
           }
         </div>
       </div>
