@@ -58,3 +58,24 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.stories-lineup-inactive-user-div{
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(99, 99, 99);
+  border-radius: 10px;
+  color: white;
+  margin: 50px;
+}
+
+.active-stories{
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: fixed; */
+}

@@ -138,12 +138,12 @@ export function StoriesFullPage() {
     if (!Object.keys(userAndStoriesObj).length) return;
     const len = allStories.length;
     let current = currentUser;
-    if(next) {
+    if (next) {
       current++;
-      if(current >= len) current = 0;
+      if (current >= len) current = 0;
     } else {
       current--;
-      if(current < 0) current = 0;
+      if (current < 0) current = 0;
     }
     const username = Object.keys(userAndStoriesObj)[current];
     updateCurrentUser(current);
@@ -153,9 +153,6 @@ export function StoriesFullPage() {
   return (
     <div className='story-fullpage-container'>
       <div className='stories-view-div'>
-        <GrPrevious className="stories-prev" 
-          onClick={e => shiftUser(false)}
-        />
         <div className="stories-lineup-div">
           {/* <div className="feed_post-header story-topbox-user-div">
             <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
@@ -169,17 +166,31 @@ export function StoriesFullPage() {
             <div key={nanoid()}>
               {
                 index === currentUser ?
-                  <Stories
-                    stories={stories}
-                    width={500}
-                    height={700}
+                  <div className="active-stories" >
+                    <GrPrevious className="stories-prev"
+                      onClick={e => shiftUser(false)}
+                    />
+
+                    <Stories
+                      stories={stories}
+                      width={500}
+                      height={700}
                     // onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
-                  />
-                  :
-                  <div>
-                    
+                    />
+                    <GrNext className="stories-next"
+                      onClick={e => shiftUser()}
+                    />
                   </div>
-              }
+                  :
+                  <div className="stories-lineup-inactive-user-div">
+                    <img src={usersWithRecentPosts[index].profilePicUrl} alt="user-icon" className="story-profile-image"
+                      style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                    // onClick={e => setOpenStory(true)}
+                    />
+                    <div className="feed_post-username story-username-div" style={{ color: 'white' }}>
+                      {usersWithRecentPosts[index].username}
+                    </div>
+                  </div>}
             </div>
           )
             // {allStories && (currentUser !== undefined) && <Stories
@@ -190,12 +201,9 @@ export function StoriesFullPage() {
             // />
           }
         </div>
-        <GrNext className="stories-next"           
-          onClick={e => shiftUser()}
-        />
       </div>
       <div className="fullpage-stories-close"
-        onClick={e => history.goBack()}
+        onClick={e => history.push('/')}
         style={{ color: 'white' }}
       >
         <GrClose />
