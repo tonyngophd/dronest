@@ -22,6 +22,7 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
+
 @user_routes.route('/notifications')
 @login_required
 def fetch_notifications():
@@ -36,6 +37,55 @@ def fetch_notifications():
     comment_mentions = {mention["id"]: mention for mention in comment_mentions_list}
     total = len(post_mentions) + len(comment_mentions) + len(follows)
     return {"notifications": {"total": total, "num_follows": len(follows_list), "num_post_tags": len(post_mentions_list), "num_comment_tags": len(comment_mentions_list), "follows": follows,  "posts": post_mentions, "comments": comment_mentions}}
+
+
+@user_routes.route('/notifications/clear')
+@login_required
+def view_all_notifications():
+    follows_list = UserFollower.query.filter(UserFollower.viewStatus==False, UserFollower.userId==current_user.id).all()
+    post_mentions_list = TaggedUser.query.filter(TaggedUser.viewStatus==False, TaggedUser.userId==current_user.id).all()
+    comment_mentions_list = CommentTaggedUser.query.filter(CommentTaggedUser.viewStatus==False, CommentTaggedUser.userId==current_user.id).all()
+    for i in range(len(follows_list)):
+        follows_list[i].viewStatus = True
+        db.session.add(follows_list[i])
+    for i in range(len(post_mentions_list)):
+        post_mentions_list[i].viewStatus = True
+        db.session.add(post_mentions_list[i])
+    for i in range(len(comment_mentions_list)):
+        comment_mentions_list[i].viewStatus = True
+        db.session.add(comment_mentions_list[i])
+    db.session.commit()
+    return {"message": "Success"}
+
+
+@user_routes.route('/notifications/follows/<int:id>')
+@login_required
+def view_follow_notification(id):
+    follow = UserFollower.query.get(id)
+    follow.viewStatus = True
+    db.session.add(follow)
+    db.session.commit()
+    return {"id": follow.id}
+
+
+@user_routes.route('/notifications/posts/<int:id>')
+@login_required
+def view_tag_notification(id):
+    tag = TaggedUser.query.get(id)
+    tag.viewStatus = True
+    db.session.add(tag)
+    db.session.commit()
+    return {"id": tag.id}
+
+
+@user_routes.route('/notifications/comments/<int:id>')
+@login_required
+def view_comment_notification(id):
+    tag = CommentTaggedUser.query.get(id)
+    tag.viewStatus = True
+    db.session.add(tag)
+    db.session.commit()
+    return {"id": tag.id}
 
 
 @user_routes.route('/<string:username>')

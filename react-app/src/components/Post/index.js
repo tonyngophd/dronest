@@ -109,7 +109,11 @@ function Post({ post }) {
     <div className="feed_post-container">
       <Link to={`/${post.user.username}`}>
         <div className="feed_post-header">
-          <img src={post.user.profilePicUrl} alt="user-icon" />
+          <img
+            src={post.user.profilePicUrl}
+            draggable="false"
+            alt="user-icon"
+          />
           <p className="feed_post-username">{post.user.username}</p>
         </div>
       </Link>
@@ -120,6 +124,7 @@ function Post({ post }) {
             (post.images[0] && post.images[0].imgUrl) ||
             "https://placeimg.com/500/500"
           }
+          draggable="false"
           alt="user-icon"
         />
       </div>

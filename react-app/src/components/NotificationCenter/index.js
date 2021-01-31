@@ -4,6 +4,7 @@ import { BsBell, BsTag, BsChat } from "react-icons/bs";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import Notification from "../Notification";
+import { viewAllNotifications } from "../../store/notifications";
 
 const NotificationCenter = ({ initialTab, onClose }) => {
   const [current, setCurrent] = useState(initialTab);
@@ -11,6 +12,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
   const [followActive, setFollowActive] = useState(current === 2);
   const [postActive, setPostActive] = useState(current === 3);
   const [commentActive, setCommentActive] = useState(current === 4);
+  const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notifications);
   return (
     <div className="notif-center-container">
@@ -19,6 +21,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
         <button
           className="clear-all-button"
           onClick={() => {
+            dispatch(viewAllNotifications());
             onClose();
           }}
         >
@@ -127,7 +130,14 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification notif={notif} />;
+                return (
+                  <Notification
+                    onClose={() => {
+                      onClose();
+                    }}
+                    notif={notif}
+                  />
+                );
               })}
         </div>
       </div>
