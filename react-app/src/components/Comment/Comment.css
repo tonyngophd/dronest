@@ -1,5 +1,14 @@
 .comment-wrapper {
   font-size: 14px;
+  position: relative;
+}
+
+.comment-modal-wrapper {
+  font-size: 14px;
+}
+
+.modal-comment {
+  position: relative;
 }
 
 .comment {
@@ -7,10 +16,41 @@
 
   margin-bottom: 4px;
 }
+.comment-heart {
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.comment-heart:hover {
+  color: rgb(233, 63, 77);
+}
+
+.comment-heart.filled:hover {
+  color: rgb(228, 104, 114);
+}
+
+.comment-heart.filled {
+  color: rgb(233, 63, 77);
+}
 
 .comment a {
   font-size: 14px;
   font-weight: 600;
   color: rgb(38, 38, 38);
   margin-right: 5px;
+}
+
+.time-and-likes-comment {
+  display: flex;
+  color: rgb(131, 131, 131);
+  align-items: center;
+  font-size: 12px;
+}
+
+.comment-likes {
+  margin-left: 12px;
+  font-weight: 640;
 }

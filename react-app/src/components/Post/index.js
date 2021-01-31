@@ -178,7 +178,7 @@ function Post({ post }) {
           <div className="post-comments-container">
             {comments &&
               comments.map((comment) => {
-                return <Comment comment={comment} />;
+                return <Comment home={true} comment={comment} />;
               })}
           </div>
           <Link to={`/p/${post.id}`}>

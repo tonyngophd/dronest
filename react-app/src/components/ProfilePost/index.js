@@ -120,6 +120,7 @@ const ProfilePost = ({ post }) => {
                           src={comment.commenterPic}
                         />
                         <Comment comment={comment} />
+                  
                       </div>
                     );
                   })}
