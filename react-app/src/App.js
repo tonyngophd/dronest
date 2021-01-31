@@ -16,7 +16,7 @@ import ExplorePage from "./components/ExplorePage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
-import { StoryTopBox } from './components/Story';
+import { StoryTopBox, StoriesFullPage } from './components/Story';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -81,6 +81,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/:username/liked">
             <ProfilePage liked={true} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/stories/:username">
+            <StoriesFullPage />
           </ProtectedRoute>
         </Switch>
       </div>
