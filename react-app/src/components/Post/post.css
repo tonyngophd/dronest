@@ -122,6 +122,14 @@
   cursor: pointer;
 }
 
+.post-icon-bk.bk-full {
+  color: rgb(0, 149, 246);
+}
+
+.post-icon-bk.bk-full:hover {
+  color: rgb(111, 192, 247);
+}
+
 .feed_post-info-comments {
   display: flex;
   flex-direction: column;

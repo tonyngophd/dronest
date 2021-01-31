@@ -14,12 +14,19 @@ import {
   BsHeartFill,
   BsBookmarkFill,
 } from "react-icons/bs";
-import { fetchSinglePost, likePost, unlikePost } from "../../store/posts";
+import {
+  fetchSinglePost,
+  likePost,
+  unlikePost,
+  savePost,
+  unsavePost,
+} from "../../store/posts";
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
   const user = useSelector((state) => state.session.user);
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
+  const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [numComments, setNumComments] = useState(post.comments.length);
   const dispatch = useDispatch();
@@ -35,6 +42,15 @@ const ProfilePost = ({ post }) => {
       dispatch(likePost(post.id));
       setLiked(true);
       setLikes(likes + 1);
+    }
+  };
+  const saveHandler = () => {
+    if (saved) {
+      dispatch(unsavePost(post.id));
+      setSaved(false);
+    } else {
+      dispatch(savePost(post.id));
+      setSaved(true);
     }
   };
   let createdAt = new Date(post.createdAt);
@@ -120,7 +136,6 @@ const ProfilePost = ({ post }) => {
                           src={comment.commenterPic}
                         />
                         <Comment comment={comment} />
-                  
                       </div>
                     );
                   })}
@@ -140,7 +155,17 @@ const ProfilePost = ({ post }) => {
                   <BsChat className="post-icon-comment" />
                 </div>
                 <div className="feed_post-info-icons-right">
-                  <BsBookmark className="post-icon-bk" />
+                  {saved ? (
+                    <BsBookmarkFill
+                      onClick={saveHandler}
+                      className="post-icon-bk bk-full"
+                    />
+                  ) : (
+                    <BsBookmark
+                      onClick={saveHandler}
+                      className="post-icon-bk"
+                    />
+                  )}
                 </div>
               </div>
               <p className="info-likes">

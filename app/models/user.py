@@ -25,6 +25,7 @@ class User(db.Model, UserMixin):
   ownComments = db.relationship('Comment', foreign_keys='Comment.userId')
   taggedInPosts = db.relationship('Post', secondary='taggedusers')
   likedPosts = db.relationship('Post', secondary='likedposts')
+  savedPosts = db.relationship('Post', secondary='savedposts')
   sentMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.senderId')
   receivedMessages = db.relationship('DirectMessage', foreign_keys='DirectMessage.receiverId')
   likedComments = db.relationship('Comment', secondary='commentlikes')
@@ -130,6 +131,7 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
       "ownPosts": [post.to_dict() for post in self.ownPosts],
       "likedPosts": [post.to_dict() for post in self.likedPosts],
+      "savedPosts": [post.to_dict() for post in self.savedPosts],
       "taggedInPosts": [post.to_dict() for post in self.taggedInPosts],
       "messages": [m.to_dict() for m in self.allMessages], #[sentMsg.to_dict() for sentMsg in self.sentMessages] + [recvdMsg.to_dict() for recvdMsg in self.receivedMessages],
       "followers": [user.to_dict() for user in self.followers],
@@ -156,6 +158,7 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
       "ownPosts": [post.to_dict() for post in self.ownPosts],
       "likedPosts": [post.to_dict() for post in self.likedPosts],
+      "savedPosts": [post.to_dict() for post in self.savedPosts],
       "taggedInPosts": [post.to_dict() for post in self.taggedInPosts],
       "followers": [user.to_dict() for user in self.followers],
       "following": [user.to_dict() for user in self.following],

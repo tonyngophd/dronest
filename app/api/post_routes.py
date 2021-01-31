@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, redirect, request
 from sqlalchemy import any_
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike
+from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike, SavedPost
 from ..helpers import *
 from ..config import Config
 import json
@@ -132,6 +132,25 @@ def like_post(postId):
 def unlike_post(postId):
   postLike = LikedPost.query.filter(LikedPost.postId==postId,LikedPost.userId==current_user.id).first()
   db.session.delete(postLike)
+  db.session.commit()
+  return {'message': "Success"}
+
+
+@post_routes.route("/<int:postId>/save")
+def save_post(postId):
+  postSave = SavedPost(
+    postId=postId,
+    userId=current_user.id
+  )
+  db.session.add(postSave)
+  db.session.commit()
+  return {'message': "Success"}
+
+
+@post_routes.route("/<int:postId>/unsave")
+def unsave_post(postId):
+  postSave = SavedPost.query.filter(SavedPost.postId==postId,SavedPost.userId==current_user.id).first()
+  db.session.delete(postSave)
   db.session.commit()
   return {'message': "Success"}
 
