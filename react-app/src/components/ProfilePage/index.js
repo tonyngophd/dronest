@@ -19,7 +19,7 @@ export const notFollowedYet = (userId, myself) => {
   return true;
 };
 
-const ProfilePage = ({ tagged, liked }) => {
+const ProfilePage = ({ tagged, liked, saved }) => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -204,12 +204,13 @@ const ProfilePage = ({ tagged, liked }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      {profile.user && !tagged && !liked && (
+      {profile.user && !tagged && !liked && !saved && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
       {profile.user && tagged && (
         <ProfileFeed posts={profile.user.taggedInPosts} />
       )}
+      {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} />}
       {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
       {showFollowersModal && (
         <FollowModal listOfUsers={profile.user.followers} title="Followers" />

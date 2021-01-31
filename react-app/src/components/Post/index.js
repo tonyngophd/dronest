@@ -14,7 +14,7 @@ import { useHistory, Link } from "react-router-dom";
 import CommentInput from "../CommentInput";
 import Comment from "../Comment";
 import "./post.css";
-import { likePost, unlikePost } from "../../store/posts";
+import { likePost, unlikePost, savePost, unsavePost } from "../../store/posts";
 import { useDispatch, useSelector } from "react-redux";
 
 function Post({ post }) {
@@ -25,6 +25,7 @@ function Post({ post }) {
     (state) => state.posts.homeFeed[post.id].comments
   );
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
+  const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [clicks, setClicks] = useState(0);
   const [userMentionPlugin] = useState(
@@ -115,6 +116,16 @@ function Post({ post }) {
     }
   };
 
+  const saveHandler = () => {
+    if (saved) {
+      dispatch(unsavePost(post.id));
+      setSaved(false);
+    } else {
+      dispatch(savePost(post.id));
+      setSaved(true);
+    }
+  };
+
   return (
     <div className="feed_post-container">
       <Link to={`/${post.user.username}`}>
@@ -156,7 +167,14 @@ function Post({ post }) {
             />
           </div>
           <div className="feed_post-info-icons-right">
-            <BsBookmark className="post-icon-bk" />
+            {saved ? (
+              <BsBookmarkFill
+                onClick={saveHandler}
+                className="post-icon-bk bk-full"
+              />
+            ) : (
+              <BsBookmark onClick={saveHandler} className="post-icon-bk" />
+            )}
           </div>
         </div>
         <div className="feed_post-info-comments">

@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import "./ProfileFeed.css";
 import ProfilePost from "../ProfilePost";
 
-const ProfileFeed = ({ posts, single }) => {
+const ProfileFeed = ({ posts }) => {
   return (
     <div className="profile-feed">
       {posts
