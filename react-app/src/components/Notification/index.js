@@ -36,6 +36,7 @@ const Notification = ({ notif, onClose }) => {
   const notifClickHandler = async () => {
     switch (notif.type) {
       case "follow":
+        dispatch(viewNotification(notif));
         history.push(`/${notif.follower.username}`);
         return onClose();
       case "post":
