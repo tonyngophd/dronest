@@ -1,33 +1,88 @@
-
-.miniprofile-container-div{
-  position: fixed;
+.miniprofile-container-div {
+  position: absolute;
   width: 400px;
-  height: 280px;
+  height: 302px;
+  top: 40px;
+  left: 0px;
+  padding-top: 10px;
+  z-index: 10;
   border: none;
   border-radius: 10px;
   overflow: hidden;
-  transform: translate(160px, 150px);
+  /* transform: translate(160px, 150px); */
+  visibility: visible;
+  transition-property: visibility;
+  transition-delay: 0.5s;
   /* left: 400px; */
-  background-color: rgba(206, 212, 216, 0.99);
-  box-shadow: 0 7px 13px rgba(0, 0, 0, 0.5);
+  background-color: rgb(252, 252, 252);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   /* z-index: 10000; */
 }
-hr{
-  color: lightgray;
+
+.miniprofile-container-div.hidden {
+  visibility: hidden;
+  transition-delay: 0s;
 }
 
-.mini-profile-images-div{
+hr {
+  color: rgb(219, 219, 219);
+}
+
+.mini-profile-images-div {
   display: flex;
   overflow-x: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */  
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .mini-profile-images-div::-webkit-scrollbar {
   display: none;
 }
-.mini-profile-image-preview{
+.mini-profile-image-preview {
+  margin-top: 10px;
   width: 135px;
   height: 120px;
   overflow: hidden;
   object-fit: cover;
+}
+
+.user-row-display-name.popup {
+  font-size: 14px;
+}
+
+.user-row-website {
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgb(34, 95, 190);
+}
+
+.user-row-info-div.popup {
+  padding: 5px;
+}
+
+.profile-numbers.popup {
+  margin-bottom: 0px;
+}
+
+.no-posts-placeholder {
+  color: rgb(38, 38, 38);
+  padding-top: 20px;
+}
+
+.myself {
+  font-weight: 600;
+  padding-right: 10px;
+  color: rgb(131, 131, 131);
+  font-size: 15px;
+}
+
+.user-row-left-div.myself-header {
+  margin-left: 8px;
+}
+
+.user-row-profile-img {
+  border: 1px solid rgb(219, 219, 219);
+}
+
+.feed_post-header > img {
+  border: 1px solid rgb(219, 219, 219);
 }
