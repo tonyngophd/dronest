@@ -16,6 +16,10 @@
   transition-duration: 0.2s;
 }
 
+.notif-wrapper:active:hover {
+  background-color: rgba(218, 238, 255, 0.3);
+}
+
 .notif-wrapper-left {
   cursor: pointer;
   padding: 8px 15px;

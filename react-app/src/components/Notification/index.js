@@ -34,14 +34,18 @@ const Notification = ({ notif, onClose }) => {
   };
 
   const notifClickHandler = async () => {
-    dispatch(viewNotification(notif));
     switch (notif.type) {
       case "follow":
         history.push(`/${notif.follower.username}`);
-        onClose();
+        return onClose();
       case "post":
+        dispatch(viewNotification(notif));
         history.push(`/p/${notif.postId}`);
-        onClose();
+        return onClose();
+      case "comment":
+        dispatch(viewNotification(notif));
+        history.push(`/p/${notif.postId}`);
+        return onClose();
       default:
         break;
     }

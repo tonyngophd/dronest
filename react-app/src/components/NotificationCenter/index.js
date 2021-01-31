@@ -13,6 +13,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
   const [postActive, setPostActive] = useState(current === 3);
   const [commentActive, setCommentActive] = useState(current === 4);
   const dispatch = useDispatch();
+  
   const notifications = useSelector((state) => state.notifications);
   return (
     <div className="notif-center-container">

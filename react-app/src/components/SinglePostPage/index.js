@@ -6,6 +6,7 @@ import CommentInput from "../CommentInput";
 import Comment from "../Comment";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchNotifications } from "../../store/notifications";
 import {
   BsHeart,
   BsChat,
@@ -23,6 +24,8 @@ const SinglePostPage = () => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   useEffect(() => {
+    dispatch(fetchNotifications());
+
     dispatch(fetchSinglePost(id));
     singlePost.likingUsers && setLiked(singlePost.likingUsers[user.id]);
     singlePost.likingUsers &&

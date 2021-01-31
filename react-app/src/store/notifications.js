@@ -37,16 +37,17 @@ export const fetchNotifications = () => async (dispatch) => {
 };
 
 export const viewNotification = (notif) => async (dispatch) => {
+  console.log(notif);
   switch (notif.type) {
     case "follow":
       await fetch(`/api/users/notifications/follows/${notif.id}`);
-      dispatch(deleteFollowNotification(notif.id));
+      return dispatch(deleteFollowNotification(notif.id));
     case "post":
       await fetch(`/api/users/notifications/posts/${notif.id}`);
-      dispatch(deleteTagNotification(notif.id));
+      return dispatch(deleteTagNotification(notif.id));
     case "comment":
       await fetch(`/api/users/notifications/comments/${notif.id}`);
-      dispatch(deleteCommentNotification(notif.id));
+      return dispatch(deleteCommentNotification(notif.id));
     default:
       break;
   }
