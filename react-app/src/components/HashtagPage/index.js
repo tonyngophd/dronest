@@ -24,19 +24,18 @@ const HashtagPage = () => {
 
   return (
     <div className="hashtag-page-container">
-      {feed && feed.length > 0 && (
+      {feed && Object.values(feed).length > 0 && (
         <>
           <div className="hashtag-info">
             <img
               draggable="false"
-              src={`${feed[0].images[0].imgUrl}`}
+              src={`${Object.values(feed)[0].images[0].imgUrl}`}
               className="hashtag-header-pic"
             />
             <div className="hashtag-text">
               <div className="hashtag-name">#{hashtag}</div>
               <div className="hashtag-number">
-                <span className="hashtag-number-posts">{feed.length}</span>{" "}
-                posts
+                <span className="hashtag-number-posts">{}</span> posts
               </div>
             </div>
           </div>
@@ -46,7 +45,7 @@ const HashtagPage = () => {
       {feed && (
         <InfiniteScroll
           className="hashtag-feed"
-          dataLength={feed.length}
+          dataLength={Object.values(feed).length}
           next={() => setPage(page + 1)}
           hasMore={true}
           loader={
@@ -60,9 +59,13 @@ const HashtagPage = () => {
             />
           }
         >
-          {feed.map((post) => (
-            <ProfilePost post={post} key={nanoid()} />
-          ))}
+          {Object.values(feed)
+            .sort((a, b) =>
+              new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+            )
+            .map((post) => (
+              <ProfilePost post={post} key={nanoid()} />
+            ))}
         </InfiniteScroll>
       )}
     </div>
