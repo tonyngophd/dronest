@@ -50,7 +50,6 @@ const NavBar = () => {
               exact={true}
               activeclassname="active"
               className="navbar-icon"
-              style={{ width: "60px" }}
             >
               Login
             </NavLink>
@@ -59,7 +58,6 @@ const NavBar = () => {
               exact={true}
               activeclassname="active"
               className="navbar-icon"
-              style={{ width: "60px" }}
             >
               Sign Up
             </NavLink>

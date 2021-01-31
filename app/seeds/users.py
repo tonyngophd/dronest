@@ -23,10 +23,10 @@ def seed_users():
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
     db.session.add(tony)
 
-    Daniel = User(username='DanielIzKewl', email='Daniel@gmail.com',
+    daniel = User(username='danielIzKewl', email='Daniel@gmail.com',
                 password='password', bio='Daniel is my name and coding is my game!', websiteUrl="www.google.com",
                 name="Daniel ",profilePicUrl="https://avatars.githubusercontent.com/u/70864617?s=460&v=4")
-    db.session.add(Daniel)
+    db.session.add(daniel)
 
     adam = User(username='AdamDaMan', email='adam@gmail.com',
                 password='password', bio='adam is my name and coding is my game!', websiteUrl="www.google.com",
@@ -37,7 +37,7 @@ def seed_users():
     M = 1
     i = 0
     while i < 26:
-        while (p := fake.profile()) and p['sex'] not in ['F', 'M']:    
+        while (p := fake.profile()) and p['sex'] not in ['F', 'M']:
             continue
         if M > 11 and p['sex'] == 'M':
             continue
