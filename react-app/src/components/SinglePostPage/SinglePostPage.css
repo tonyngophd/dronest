@@ -1,0 +1,28 @@
+.single-post {
+  margin-top: 90px;
+  border: 1px solid rgb(219, 219, 219);
+  background-color: white;
+}
+
+.single-post-divider {
+  margin-top: 50px;
+  padding-top: 65px;
+  width: 942px;
+  border-top: 1px solid rgb(219, 219, 219);
+}
+
+.single-post-more {
+  color: rgb(142, 142, 142);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.single-post-user-bottom {
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(38, 38, 38);
+}
+
+.single-post-divider a {
+  text-decoration: none;
+}

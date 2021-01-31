@@ -9,7 +9,12 @@ import { notFollowedYet } from "../ProfilePage";
 
 import "./UserLists.css";
 
-export function MinimalUserList({ includeMyself = true, followAsButton=true, searchable = false, searchText = "" }) {
+export function MinimalUserList({
+  includeMyself = true,
+  followAsButton = true,
+  searchable = false,
+  searchText = "",
+}) {
   const allUsers = useSelector((state) => state.users.allUsers);
   const myself = useSelector((state) => state.session.user);
   // const [users, setUsers] = useState([]);
@@ -29,32 +34,37 @@ export function MinimalUserList({ includeMyself = true, followAsButton=true, sea
 
   const searchFunction = (user, searchText) => {
     for (let key in user) {
-      if (typeof(user[key]) === 'string' &&
-        user[key].toLowerCase().includes(searchText.toLowerCase())) {
+      if (
+        typeof user[key] === "string" &&
+        user[key].toLowerCase().includes(searchText.toLowerCase())
+      ) {
         return true;
       }
     }
     return false;
-  }
+  };
   let allUsersWithoutMyself;
-  if (searchable) {    
+  if (searchable) {
     allUsersWithoutMyself = allUsers.filter(
-      (user) => (user.id !== myself.id) && searchFunction(user, searchText)
+      (user) => user.id !== myself.id && searchFunction(user, searchText)
     );
   } else {
-    allUsersWithoutMyself = allUsers.filter(
-      (user) => user.id !== myself.id
-    );
+    allUsersWithoutMyself = allUsers.filter((user) => user.id !== myself.id);
   }
 
   return (
-    <div className="all-users-div">
+    <div
+      className={
+        searchable ? "all-users-div search-dropdown-box" : "all-users-div"
+      }
+    >
       {includeMyself && (
         <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
       )}
       {allUsersWithoutMyself.map((user) => (
         <UserRow
           user={user}
+          searchable={searchable}
           myId={myself.id}
           notFollowedYet={notFollowedYet(user.id, myself)}
           key={nanoid()}

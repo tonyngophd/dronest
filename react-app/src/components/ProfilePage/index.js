@@ -9,6 +9,7 @@ import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
 import UserRow, { handleFollowClick } from "./UserRow";
 import { fetchUserProfile } from "../../store/profile";
+import { fetchNotifications } from "../../store/notifications";
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -34,6 +35,8 @@ const ProfilePage = ({ tagged, liked }) => {
   }, [dispatch, profile.ownPosts, username]);
 
   useEffect(() => {
+    dispatch(fetchNotifications());
+
     window.scrollTo(0, 0);
   }, []);
 

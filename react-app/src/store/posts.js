@@ -122,6 +122,14 @@ export const fetchSinglePost = (postId) => async (dispatch) => {
   dispatch(loadSinglePost(post));
 };
 
+export const likeComment = (commentId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/comments/${commentId}/like`);
+};
+
+export const unlikeComment = (commentId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/comments/${commentId}/unlike`);
+};
+
 export const likePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/like`);
 };
@@ -142,7 +150,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_POST:
       newState = Object.assign({}, state);
-      newState.homeFeed = {...action.payload, ...newState.homeFeed};
+      newState.homeFeed = { ...action.payload, ...newState.homeFeed };
       return newState;
     case CREATE_COMMENT:
       newState = Object.assign({}, state);
@@ -165,11 +173,11 @@ const reducer = (state = initialState, action) => {
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);
-      newState.hashtagFeed = {...newState.hashtagFeed, ...action.payload};
+      newState.hashtagFeed = { ...newState.hashtagFeed, ...action.payload };
       return newState;
     case FETCH_EXPLORE_FEED:
       newState = Object.assign({}, state);
-      newState.exploreFeed = {...newState.exploreFeed, ...action.payload};
+      newState.exploreFeed = { ...newState.exploreFeed, ...action.payload };
       return newState;
     case FETCH_SINGLE_POST:
       newState = Object.assign({}, state);

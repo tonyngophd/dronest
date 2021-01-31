@@ -24,6 +24,7 @@
   color: rgb(0, 149, 246);
   font-weight: 600;
   cursor: pointer;
+  outline: none;
 }
 
 .comment-submit:disabled {

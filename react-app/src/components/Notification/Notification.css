@@ -1,9 +1,31 @@
 .notif-wrapper {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid rgb(230, 230, 230);
-  padding: 8px 15px;
+
   font-size: 14px;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.notif-wrapper:hover {
+  background-color: rgba(182, 221, 255, 0.3);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.notif-wrapper:active:hover {
+  background-color: rgba(218, 238, 255, 0.3);
+}
+
+.notif-wrapper-left {
+  cursor: pointer;
+  padding: 8px 15px;
+  width: 90%;
+  display: flex;
+  align-items: center;
 }
 
 .notif-pic {
@@ -33,4 +55,18 @@
 .notif-bottom {
   color: rgb(137, 137, 137);
   font-size: 11px;
+}
+
+.notif-x-button {
+  font-size: 30px;
+  margin-right: 10px;
+  color: rgb(70, 70, 70);
+  cursor: pointer;
+}
+
+.notif-x-button:hover {
+  color: rgb(160, 160, 160);
+}
+.notif-x-button:active:hover {
+  color: rgb(210, 210, 210);
 }

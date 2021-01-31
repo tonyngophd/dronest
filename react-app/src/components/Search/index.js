@@ -41,13 +41,15 @@ export default function MainSearchBar({
       <form type="submit" className={className} onSubmit={handleSubmit}>
         <BsSearch className="search-icon" />
         <input
-          className="main-search-bar"
+          className={focused ? "main-search-bar focused" : "main-search-bar"}
           type="text"
           placeholder="Search..."
           onBlur={(e) => {
             e.preventDefault();
-            setFocused(false);
-            setSearchValue("");
+            setTimeout(() => {
+              setFocused(false);
+              setSearchValue("");
+            }, 100);
           }}
           value={searchValue}
           onChange={onInputChange}

@@ -10,8 +10,8 @@ class Comment(db.Model):
     captionRawData = db.Column(db.Text, nullable=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
-
     commenter = db.relationship('User', foreign_keys=userId)
+    likingUsers = db.relationship('User', secondary='commentlikes')
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
@@ -20,6 +20,8 @@ class Comment(db.Model):
         "userId": self.userId,
         "parentPostId": self.parentPostId,
         "captionRawData": self.captionRawData,
+        "createdAt": self.createdAt,
         "commenter": self.commenter.username,
-        "commenterPic": self.commenter.profilePicUrl
+        "commenterPic": self.commenter.profilePicUrl,
+        "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers}
         }

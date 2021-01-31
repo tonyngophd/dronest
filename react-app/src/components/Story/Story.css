@@ -1,22 +1,36 @@
-.story-topbox-main-div{
+.story-topbox-main-div {
   display: flex;
   flex-direction: row;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
-.story-topbox-user-div{
+.story-topbox-user-div {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  margin: 5px 5px;
+  margin: 12px 8px 8px 8px;
 }
-.story-username-div{
-  font-size: 14px;
+.story-username-div {
+  font-size: 13px;
 }
-.story-profile-image{
+.story-profile-image {
   width: 70px;
   height: 70px;
+  border: 2px solid white;
 }
 
-.story-fullpage-container{
+.story-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #4e4376, #2b5876);
+  border-radius: 50%;
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+
+.story-fullpage-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -29,13 +43,13 @@
   align-items: center;
 }
 
-.stories-view-div{
+.stories-view-div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.fullpage-stories-close{
+.fullpage-stories-close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -48,18 +62,18 @@
 }
 
 .stories-next,
-.stories-prev{
+.stories-prev {
   font-size: 30px;
 }
 
-.stories-lineup-div{
+.stories-lineup-div {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
 
-.stories-lineup-inactive-user-div{
+.stories-lineup-inactive-user-div {
   width: 250px;
   height: 350px;
   display: flex;
@@ -72,7 +86,7 @@
   margin: 50px;
 }
 
-.active-stories{
+.active-stories {
   margin: 50px;
   display: flex;
   justify-content: center;

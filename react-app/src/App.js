@@ -16,6 +16,7 @@ import ExplorePage from "./components/ExplorePage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
+import SinglePostPage from "./components/SinglePostPage";
 import { StoryTopBox, StoriesFullPage } from './components/Story';
 
 function App() {
@@ -58,6 +59,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/explore" exact={true}>
             <ExplorePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/p/:id" exact={true}>
+            <SinglePostPage />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">
