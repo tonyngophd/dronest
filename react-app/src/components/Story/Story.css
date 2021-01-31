@@ -69,13 +69,15 @@
 .stories-lineup-div {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
+  margin: 0 20px;
+  padding: 20px;
 }
 
 .stories-lineup-inactive-user-div {
-  width: 250px;
-  height: 350px;
+  width: 200px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,19 +85,20 @@
   background-color: rgb(99, 99, 99);
   border-radius: 10px;
   color: white;
-  margin: 50px;
+  margin: 20px;
 }
 .stories-lineup-dummy-user-div{
-  width: 250px;
-  height: 350px;
+  width: 200px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   color: white;
-  margin: 50px;
-  background-color: rgba(255, 255, 255, 0);
+  margin: 20px;
+  background-color: rgb(99, 99, 99);
+  /* background-color: rgba(255, 255, 255, 0); */
 }
 
 .active-stories {
