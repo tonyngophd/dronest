@@ -175,7 +175,7 @@ export function StoriesFullPage() {
                       stories={stories}
                       width={500}
                       height={700}
-                    // onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
+                      onStoryEnd={() => setTimeout(() => shiftUser(), 1000)}
                     />
                     <GrNext className="stories-next"
                       onClick={e => shiftUser()}
