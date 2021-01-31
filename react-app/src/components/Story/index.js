@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Stories, { WithSeeMore } from 'react-insta-stories';
 import { GrClose, GrNext, GrPrevious } from "react-icons/gr";
 
@@ -74,36 +74,6 @@ export function StoryTopBox() {
 }
 
 export function StoriesFullPageComponent({ stories = [] }) {
-  // const users = useSelector(state => state.users.allUsers);
-  // const [usersWithRecentPosts, setUsersWithRecentPosts] = useState([]);
-  // const [openStory, setOpenStory] = useState(false);
-  // const [stories, updateStories] = useState([]);
-
-  // useEffect(() => {
-  //   if (!users) return;
-  //   setUsersWithRecentPosts(users.filter(
-  //     user => user.ownPosts.length
-  //   ))
-  // }, [users])
-
-  // useEffect(() => {
-  //   updateStories(
-  //     usersWithRecentPosts.map(user => {
-  //       return {
-  //         url: user.ownPosts[0].images[0].imgUrl,
-  //         duration: 2000,
-  //         header: {
-  //           heading: user.username,
-  //           subheading: 'Posted 30m ago',
-  //           profileImage: user.profilePicUrl,
-  //         },
-  //         // seeMore: ({ close }) => {
-  //         //   return <div onClick={close}>Hello, click to close this.</div>;
-  //         // },
-  //       }
-  //     })
-  //   )
-  // }, [usersWithRecentPosts]);
 
   return (
     <div className='story-fullpage-container'>
@@ -118,9 +88,11 @@ export function StoriesFullPageComponent({ stories = [] }) {
 export function StoriesFullPage() {
   const users = useSelector(state => state.users.allUsers);
   const [usersWithRecentPosts, setUsersWithRecentPosts] = useState([]);
-  // const [openStory, setOpenStory] = useState(false);
-  const [stories, updateStories] = useState([]);
+  const [allStories, updateAllStories] = useState([]);
+  const [userAndStoriesObj, setUserAndStoriesObj] = useState({});
+  const [currentUser, updateCurrentUser] = useState(undefined);
   const history = useHistory();
+  const params = useParams();
 
   useEffect(() => {
     if (!users) return;
@@ -130,23 +102,36 @@ export function StoriesFullPage() {
   }, [users])
 
   useEffect(() => {
-    updateStories(
+    updateAllStories(
       usersWithRecentPosts.map(user => {
-        return {
-          url: user.ownPosts[0].images[0].imgUrl,
-          duration: 2000,
-          header: {
-            heading: user.username,
-            subheading: 'Posted 30m ago',
-            profileImage: user.profilePicUrl,
-          },
-          // seeMore: ({ close }) => {
-          //   return <div onClick={close}>Hello, click to close this.</div>;
-          // },
-        }
+        return user.ownPosts.map(post => {
+          return {
+            url: post.images[0].imgUrl,
+            duration: 2000,
+            header: {
+              heading: user.username,
+              subheading: 'Posted 30m ago',
+              profileImage: user.profilePicUrl,
+            },
+            // seeMore: ({ close }) => {
+            //   return <div onClick={close}>Hello, click to close this.</div>;
+            // },
+          }
+        })
       })
     )
+    let obj = {};
+    for(let i = 0; i < usersWithRecentPosts.length; i++){
+      let user = usersWithRecentPosts[i];
+      obj[user.username] = i;
+    }
+    setUserAndStoriesObj(obj);
+    // console.log('obj', obj);
   }, [usersWithRecentPosts]);
+
+  // useEffect(() => {
+  //   updateCurrentUser()
+  // }, [params.username, userAndStoriesObj])
 
   return (
     <div className='story-fullpage-container'>
@@ -161,8 +146,8 @@ export function StoriesFullPage() {
             <div className="feed_post-username story-username-div">{user.username}</div>
           </div> */}
 
-          {stories.length && <Stories
-            stories={stories}
+          {allStories && (Object.keys(userAndStoriesObj).length) && <Stories
+            stories={allStories[userAndStoriesObj[params.username]]}
             width={500}
             height={700}
             onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
