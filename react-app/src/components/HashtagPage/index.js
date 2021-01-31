@@ -7,6 +7,7 @@ import { fetchHashtagFeed } from "../../store/posts";
 import { nanoid } from "nanoid";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
+import { fetchNotifications } from "../../store/notifications";
 
 const HashtagPage = () => {
   const { hashtag } = useParams();
@@ -16,6 +17,7 @@ const HashtagPage = () => {
 
   useEffect(() => {
     dispatch(fetchHashtagFeed(hashtag, page));
+    dispatch(fetchNotifications());
   }, [dispatch, hashtag, page]);
 
   useEffect(() => {

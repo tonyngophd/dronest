@@ -26,6 +26,7 @@ function UserRow({
   showFollowButtonOrText = true,
   gotoUserPage = true,
   miniProfileEnabled = true,
+  searchable,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,10 +42,15 @@ function UserRow({
 
   return (
     user && (
-      <div className="user-row-main-div">
+      <div
+        onClick={() => searchable && history.push(`/${user.username}`)}
+        className={
+          !searchable ? "user-row-main-div" : "user-row-main-div search-row"
+        }
+      >
         <div
           className="user-row-left-div"
-          onMouseOver={(e) => setShowMiniProfile(true)}
+          onMouseOver={(e) => !searchable && setShowMiniProfile(true)}
           onMouseOut={(e) => setShowMiniProfile(false)}
         >
           <img

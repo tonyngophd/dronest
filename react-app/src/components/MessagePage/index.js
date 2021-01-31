@@ -23,6 +23,8 @@ import User from "../User";
 import { GrUp } from "react-icons/gr";
 import CommentInput from "../CommentInput";
 
+import { fetchNotifications } from "../../store/notifications";
+
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
@@ -65,6 +67,7 @@ function MessagePage() {
         }
       }
     }
+    dispatch(fetchNotifications());
     // console.log('groupedMsgs', groupedMsgs);
     setCurrentGroupedMsgs(groupedMsgs);
   }, [myself, currentReceiver]);
@@ -148,12 +151,12 @@ function MessagePage() {
         <div className="top-left-div">
           {/* <div className="user-name">{myself.username}</div> */}
           <UserRow
-                user={myself}
-                myId={myself.id}
-                showFollowButtonOrText={false}
-                gotoUserPage={false}
-                miniProfileEnabled={true}
-              />          
+            user={myself}
+            myId={myself.id}
+            showFollowButtonOrText={false}
+            gotoUserPage={false}
+            miniProfileEnabled={true}
+          />
         </div>
 
         <div className="main-left-div">

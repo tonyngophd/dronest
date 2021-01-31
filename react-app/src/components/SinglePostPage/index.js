@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./ProfilePost.css";
+import "./SinglePostPage.css";
 import PicModal from "../PicModal";
 import PicModalCaption from "../PicModalCaption";
 import CommentInput from "../CommentInput";
-import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import Comment from "../Comment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchNotifications } from "../../store/notifications";
 import {
   BsHeart,
   BsChat,
@@ -15,29 +15,45 @@ import {
   BsBookmarkFill,
 } from "react-icons/bs";
 import { fetchSinglePost, likePost, unlikePost } from "../../store/posts";
+import { fetchUserProfile } from "../../store/profile";
+import ProfileFeed from "../ProfileFeed";
 
-const ProfilePost = ({ post }) => {
-  const [hover, setHover] = useState(false);
+const SinglePostPage = () => {
+  const { id } = useParams();
+
   const user = useSelector((state) => state.session.user);
-  const [liked, setLiked] = useState(post.likingUsers[user.id]);
-  const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
-  const [numComments, setNumComments] = useState(post.comments.length);
-  const dispatch = useDispatch();
-  const singlePost = useSelector((state) => state.posts.singlePost);
   const profile = useSelector((state) => state.profile);
-  const [isPicOpen, setIsPicOpen] = useState(false);
+  const dispatch = useDispatch();
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [count, setCount] = useState(1);
+  useEffect(() => {
+    dispatch(fetchNotifications());
+    dispatch(fetchSinglePost(id));
+  }, [id]);
+
+  const singlePost = useSelector((state) => state.posts.singlePost);
+  useEffect(() => {
+    if (count !== 1) {
+      setLiked(singlePost.likingUsers[user.id]);
+      setLikes(Object.values(singlePost.likingUsers).length);
+      dispatch(fetchUserProfile(singlePost.user.username));
+    }
+    setCount(count + 1);
+  }, [singlePost]);
+
   const likeHandler = () => {
     if (liked) {
-      dispatch(unlikePost(post.id));
+      dispatch(unlikePost(singlePost.id));
       setLiked(false);
       setLikes(likes - 1);
     } else {
-      dispatch(likePost(post.id));
+      dispatch(likePost(singlePost.id));
       setLiked(true);
       setLikes(likes + 1);
     }
   };
-  let createdAt = new Date(post.createdAt);
+  let createdAt = new Date(singlePost.createdAt);
   let now = Date.now();
   let elapsed = now - createdAt;
   let timestamp;
@@ -56,59 +72,40 @@ const ProfilePost = ({ post }) => {
   } else {
     timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
   }
+
   return (
     <>
-      <div
-        onMouseOver={() => setHover(true)}
-        onMouseOut={() => setHover(false)}
-        className="profile-post-pic-wrapper"
-        onClick={() => {
-          dispatch(fetchSinglePost(post.id));
-          setIsPicOpen(true);
-        }}
-      >
-        <img
-          draggable="false"
-          className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-          src={post.images[0].imgUrl}
-          alt="pic"
-        />
-        <div
-          className={
-            hover
-              ? "profile-post-pic-overlay hovered"
-              : "profile-post-pic-overlay"
-          }
-        >
-          <div className="profile-post-pic-overlay-inner">
-            <i className="fas fa-heart"></i>
-            {likes}
-          </div>
-          <div className="profile-post-pic-overlay-inner">
-            <i className="fas fa-comment"></i>
-            {numComments}
-          </div>
-        </div>
-      </div>
-      <PicModal open={isPicOpen} onClose={() => setIsPicOpen(false)}>
-        <div className="pic-modal-container">
-          <img className="modal-img" src={post.images[0].imgUrl} />
-          <div className="pic-modal-right">
-            <Link className="pic-modal-header" to={`/${post.user.username}`}>
-              <img src={post.user.profilePicUrl} alt="user-icon" />
-              <span className="feed_post-username">{post.user.username}</span>
+      {singlePost.likingUsers && (
+        <div className="pic-modal-container single-post">
+          {singlePost.images && (
+            <img
+              className="modal-img single-image"
+              src={singlePost.images[0].imgUrl}
+            />
+          )}
+          <div className="pic-modal-right single-post-right">
+            <Link
+              className="pic-modal-header"
+              to={`/${singlePost.user.username}`}
+            >
+              <img src={singlePost.user.profilePicUrl} alt="user-icon" />
+              <span className="feed_post-username">
+                {singlePost.user.username}
+              </span>
             </Link>
             <div className="caption-and-comments">
               <div className="pic-modal-caption-wrapper">
                 <img
                   className="commenter-pic"
-                  src={post.user.profilePicUrl}
+                  src={singlePost.user.profilePicUrl}
                   alt="pic"
                 />
-                <Link to={`/${post.user.username}`}>
-                  <div className="caption-user-modal">{post.user.username}</div>
+                <Link to={`/${singlePost.user.username}`}>
+                  <div className="caption-user-modal">
+                    {singlePost.user.username}
+                  </div>
                 </Link>
-                <PicModalCaption post={post} />
+                <PicModalCaption post={singlePost} />
               </div>
               <div className="pic-modal-comments">
                 {singlePost.comments &&
@@ -120,13 +117,12 @@ const ProfilePost = ({ post }) => {
                           src={comment.commenterPic}
                         />
                         <Comment comment={comment} />
-                  
                       </div>
                     );
                   })}
               </div>
             </div>
-            <div className="pic-modal-utils">
+            <div className="pic-modal-utils single-post-utils">
               <div className="feed_post-info-icons">
                 <div className="feed_post-info-icons-left">
                   {liked ? (
@@ -148,18 +144,14 @@ const ProfilePost = ({ post }) => {
               </p>
               <div className="post-timestamp">{timestamp}</div>
               <div className="modal-comment-input">
-                <CommentInput
-                  modal={true}
-                  post={post}
-                  increaseNumComments={() => setNumComments(numComments + 1)}
-                />
+                <CommentInput modal={true} post={singlePost} />
               </div>
             </div>
           </div>
         </div>
-      </PicModal>
+      )}
     </>
   );
 };
 
-export default ProfilePost;
+export default SinglePostPage;

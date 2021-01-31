@@ -6,12 +6,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 import ProfilePost from "../ProfilePost";
 import { nanoid } from "nanoid";
+import { fetchNotifications } from "../../store/notifications";
 
 const ExplorePage = () => {
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.posts.exploreFeed);
   const [page, setPage] = useState(0);
   useEffect(() => {
+      dispatch(fetchNotifications());
     dispatch(fetchExploreFeed(page));
   }, [dispatch, page]);
   return (

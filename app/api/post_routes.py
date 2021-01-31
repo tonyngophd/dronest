@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, redirect, request
 from sqlalchemy import any_
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost
+from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike
 from ..helpers import *
 from ..config import Config
 import json
@@ -132,6 +132,23 @@ def like_post(postId):
 def unlike_post(postId):
   postLike = LikedPost.query.filter(LikedPost.postId==postId,LikedPost.userId==current_user.id).first()
   db.session.delete(postLike)
+  db.session.commit()
+  return {'message': "Success"}
+
+@post_routes.route("/comments/<int:commentId>/like")
+def like_comment(commentId):
+  commentLike = CommentLike(
+    commentId=commentId,
+    userId=current_user.id
+  )
+  db.session.add(commentLike)
+  db.session.commit()
+  return {'message': "Success"}
+
+@post_routes.route("/comments/<int:commentId>/unlike")
+def unlike_comment(commentId):
+  commentLike = CommentLike.query.filter(CommentLike.commentId==commentId,CommentLike.userId==current_user.id).first()
+  db.session.delete(commentLike)
   db.session.commit()
   return {'message': "Success"}
 
