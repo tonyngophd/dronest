@@ -5,6 +5,7 @@ import Stories, { WithSeeMore } from 'react-insta-stories';
 // import Comment from "../Comment";
 import { fetchAllUsers } from '../../store/users';
 import { GrClose, GrNext, GrPrevious } from "react-icons/gr";
+import timeStamp from '../utils';
 
 
 import './Story.css';
@@ -108,7 +109,7 @@ export function StoriesFullPage() {
       user => user.ownPosts.length
     ))
   }, [users])
-
+//let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
   useEffect(() => {
     updateAllStories(
       usersWithRecentPosts.map(user => {
@@ -118,7 +119,7 @@ export function StoriesFullPage() {
             duration: 2000,
             header: {
               heading: user.username,
-              subheading: `Posted at ${post.createdAt}`,
+              subheading: `Posted ${timeStamp(new Date(post.createdAt))}`,
               profileImage: user.profilePicUrl,
             },
             // seeMore: ({ close }) => {
