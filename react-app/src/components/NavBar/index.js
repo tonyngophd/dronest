@@ -9,6 +9,8 @@ import { BsHeart } from "react-icons/bs";
 
 import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
+
+import MainSearchBar from "../Search";
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -16,18 +18,25 @@ const NavBar = () => {
 
   return (
     <nav className="top-navbar">
-      <NavLink to="/" exact={true} activeclassname="active">
-        <img className="lioness hvr-grow" src={require("./insta.png")} />
-        <p className="navbar-content hvr-pulse hvr-underline-from-center">
-          InstaVibes
-        </p>
+      <NavLink
+        to="/"
+        exact={true}
+        className="nav-title-logo"
+        activeclassname="active"
+      >
+        <img
+          className="lioness hvr-grow hvr-pulse"
+          src={require("./insta.png")}
+        />
+        <p className="nav-title navbar-content hvr-grow ">InstaVibes</p>
       </NavLink>
-      <input
+      <MainSearchBar />
+      {/* <input
         className="search-navbar-content"
         type="text"
         placeholder="Search.."
-      ></input>
-      <div className="navbar-content">
+      ></input> */}
+      <div className="navbar-content right-side">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome
             className="navbar-icon hvr-shrink  "
@@ -41,7 +50,6 @@ const NavBar = () => {
               exact={true}
               activeclassname="active"
               className="navbar-icon"
-              style={{ width: "60px" }}
             >
               Login
             </NavLink>
@@ -50,7 +58,6 @@ const NavBar = () => {
               exact={true}
               activeclassname="active"
               className="navbar-icon"
-              style={{ width: "60px" }}
             >
               Sign Up
             </NavLink>
@@ -64,13 +71,17 @@ const NavBar = () => {
             <NavLink to="/explore" exact={true} activeclassname="active">
               <FaWpexplorer className="navbar-icon hvr-shrink " />
             </NavLink>
-            <NavLink to="/likes" exact={true} activeclassname="active">
-              <BsHeart className="navbar-icon hvr-shrink " />
+            <NavLink
+              to={`/${user.username}/liked`}
+              exact={true}
+              activeclassname="active"
+            >
+              <BsHeart className="navbar-icon hvr-shrink heart-button " />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon hvr-shrink " />
+              <CgProfile className="navbar-icon hvr-shrink profile-button " />
             </NavLink>
-            <LogoutButton className="navbar-icon der  hvr-grow " />
+            <LogoutButton className="navbar-icon der hvr-grow" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">

@@ -4,8 +4,13 @@
   margin-right: 45px;
 }
 
-.feed_post-container {
+.three-dots {
+  margin-left: 250px;
+}
+
+/* .feed_post-container {
   width: 100%;
+
   background-color: #e9e9e9;
   display: flex;
   flex-direction: column;
@@ -67,4 +72,4 @@
   border-bottom-right-radius: 5px;
   position: relative;
   bottom: 0px;
-}
+} */

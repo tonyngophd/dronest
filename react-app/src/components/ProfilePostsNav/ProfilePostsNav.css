@@ -5,8 +5,8 @@
   justify-content: space-between;
 }
 
-.profile-posts-nav.three {
-  width: 330px;
+.profile-posts-nav.four {
+  width: 440px;
 }
 
 .profile-posts-nav-option {
@@ -16,6 +16,13 @@
   padding: 16px 0px 18px 0px;
   font-size: 13px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.profile-posts-nav-option svg {
+  margin-right: 5px;
+  font-size: 16px;
 }
 
 .profile-posts-nav-option:active:hover {

@@ -1,0 +1,113 @@
+.search-over-banner-div {
+  /* position: -webkit-sticky;
+  position: sticky; */
+  margin-top: 0px;
+  /* top: 30vh; */
+  /* width: 40vw; */
+  /* left: 30vw; */
+  /* height: 5vh; */
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 500px;
+}
+
+/* .search-box-home-fixed{
+  position: absolute;
+  top: -20px;
+} */
+
+.search-spots-page {
+  top: 0px;
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.search-icon-class {
+  font-size: 3.5vh;
+  color: rgb(190, 190, 190);
+  opacity: 0.5;
+  padding: 1vh;
+  z-index: 5;
+}
+
+.search-icon {
+  font-size: 1.3em;
+  color: rgb(65, 75, 118);
+  opacity: 0.8;
+
+  z-index: 5;
+  position: absolute;
+  left: 36px;
+}
+
+.search-icon-x {
+  font-size: 1.7em;
+  color: rgb(160, 160, 160);
+  z-index: 5;
+  position: absolute;
+  right: 30px;
+}
+/* .search-icon-class:hover{
+  color: red;
+} */
+
+.main-search-bar {
+  height: 32px;
+  border-radius: 50px;
+  width: 100%;
+  border: none;
+  font-size: 14px;
+  background-color: rgb(240, 240, 249);
+  padding-left: 40px;
+  width: 200px;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.main-search-bar.focused {
+  width: 400px;
+}
+
+.search-and-dropdown-display-main-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 61.5%;
+  margin-right: -320px;
+  width: 250px;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.search-and-dropdown-display-main-box.focused-search {
+  width: 450px;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 17px;
+}
+.search-dropdown-box {
+  border: 1px solid rgb(219, 219, 219);
+  padding-top: 5px;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.search-row {
+  border-bottom: 1px solid rgb(219, 219, 219);
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  padding: 5px;
+}
+
+.search-row:hover {
+  background-color: rgba(216, 182, 255, 0.208);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}

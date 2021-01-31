@@ -19,5 +19,6 @@ class CommentLike(db.Model):
         return {
           "id": self.id,
           "commentId": self.commentId,
-          "userId": self.userId,               
+          "userId": self.userId,
+
         }

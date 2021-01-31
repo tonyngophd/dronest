@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import {
   BsHeart,
@@ -21,8 +21,12 @@ function Post({ post }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const comments = useSelector(
+    (state) => state.posts.homeFeed[post.id].comments
+  );
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
+  const [clicks, setClicks] = useState(0);
   const [userMentionPlugin] = useState(
     createMentionPlugin({
       mentionComponent: (mentionProps) => (
@@ -90,6 +94,15 @@ function Post({ post }) {
     timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
   }
 
+  useEffect(() => {
+    if (clicks == 2 && !liked) {
+      dispatch(likePost(post.id));
+      setLiked(true);
+      setLikes(likes + 1);
+    }
+    setTimeout(() => setClicks(0), 300);
+  }, [clicks]);
+
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(post.id));
@@ -106,17 +119,23 @@ function Post({ post }) {
     <div className="feed_post-container">
       <Link to={`/${post.user.username}`}>
         <div className="feed_post-header">
-          <img src={post.user.profilePicUrl} alt="user-icon" />
+          <img
+            src={post.user.profilePicUrl}
+            draggable="false"
+            alt="user-icon"
+          />
           <p className="feed_post-username">{post.user.username}</p>
         </div>
       </Link>
 
       <div className="feed_post-image">
         <img
+          onClick={() => setClicks(clicks + 1)}
           src={
             (post.images[0] && post.images[0].imgUrl) ||
             "https://placeimg.com/500/500"
           }
+          draggable="false"
           alt="user-icon"
         />
       </div>
@@ -157,12 +176,14 @@ function Post({ post }) {
           </div>
 
           <div className="post-comments-container">
-            {post.comments &&
-              post.comments.map((comment) => {
-                return <Comment comment={comment} />;
+            {comments &&
+              comments.map((comment) => {
+                return <Comment home={true} comment={comment} />;
               })}
           </div>
-          <div className="post-timestamp">{timestamp}</div>
+          <Link to={`/p/${post.id}`}>
+            <div className="post-timestamp">{timestamp}</div>
+          </Link>
           <div className="post-new-comment">
             <CommentInput post={post} />
           </div>

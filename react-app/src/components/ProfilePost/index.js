@@ -14,7 +14,7 @@ import {
   BsHeartFill,
   BsBookmarkFill,
 } from "react-icons/bs";
-import { likePost, unlikePost } from "../../store/posts";
+import { fetchSinglePost, likePost, unlikePost } from "../../store/posts";
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
@@ -23,9 +23,9 @@ const ProfilePost = ({ post }) => {
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [numComments, setNumComments] = useState(post.comments.length);
   const dispatch = useDispatch();
+  const singlePost = useSelector((state) => state.posts.singlePost);
   const profile = useSelector((state) => state.profile);
   const [isPicOpen, setIsPicOpen] = useState(false);
- 
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(post.id));
@@ -37,13 +37,35 @@ const ProfilePost = ({ post }) => {
       setLikes(likes + 1);
     }
   };
+  let createdAt = new Date(post.createdAt);
+  let now = Date.now();
+  let elapsed = now - createdAt;
+  let timestamp;
+  if (elapsed < 1000) {
+    timestamp = `NOW`;
+  } else if (elapsed < 60000) {
+    timestamp = `${Math.floor(elapsed / 1000)} SECONDS AGO`;
+  } else if (elapsed < 120000) {
+    timestamp = `${Math.floor(elapsed / 60000)} MINUTE AGO`;
+  } else if (elapsed < 3600000) {
+    timestamp = `${Math.floor(elapsed / 60000)} MINUTES AGO`;
+  } else if (elapsed < 7200000) {
+    timestamp = `${Math.floor(elapsed / 3600000)} HOUR AGO`;
+  } else if (elapsed < 86400000) {
+    timestamp = `${Math.floor(elapsed / 3600000)} HOURS AGO`;
+  } else {
+    timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
+  }
   return (
     <>
       <div
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
         className="profile-post-pic-wrapper"
-        onClick={() => setIsPicOpen(true)}
+        onClick={() => {
+          dispatch(fetchSinglePost(post.id));
+          setIsPicOpen(true);
+        }}
       >
         <img
           draggable="false"
@@ -89,8 +111,8 @@ const ProfilePost = ({ post }) => {
                 <PicModalCaption post={post} />
               </div>
               <div className="pic-modal-comments">
-                {post &&
-                  post.comments.map((comment) => {
+                {singlePost.comments &&
+                  singlePost.comments.map((comment) => {
                     return (
                       <div className="modal-comment">
                         <img
@@ -98,6 +120,7 @@ const ProfilePost = ({ post }) => {
                           src={comment.commenterPic}
                         />
                         <Comment comment={comment} />
+                  
                       </div>
                     );
                   })}
@@ -123,6 +146,7 @@ const ProfilePost = ({ post }) => {
               <p className="info-likes">
                 {likes} {likes === 1 ? "like" : "likes"}
               </p>
+              <div className="post-timestamp">{timestamp}</div>
               <div className="modal-comment-input">
                 <CommentInput
                   modal={true}

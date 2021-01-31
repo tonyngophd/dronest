@@ -6,7 +6,7 @@ import ProfilePost from "../ProfilePost";
 const ExploreFeed = ({ posts }) => {
   return (
     <div className="explore-feed">
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <ProfilePost post={post} key={nanoid()} />
       ))}
     </div>

@@ -1,0 +1,95 @@
+.story-topbox-main-div {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.story-topbox-user-div {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 12px 8px 8px 8px;
+}
+.story-username-div {
+  font-size: 13px;
+}
+.story-profile-image {
+  width: 70px;
+  height: 70px;
+  border: 2px solid white;
+}
+
+.story-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #4e4376, #2b5876);
+  border-radius: 50%;
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+
+.story-fullpage-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(136, 136, 136);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stories-view-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullpage-stories-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 30px;
+  /* background-color: white; */
+  z-index: 200;
+  /* width: 200px;
+  height: 200px; */
+}
+
+.stories-next,
+.stories-prev {
+  font-size: 30px;
+}
+
+.stories-lineup-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stories-lineup-inactive-user-div {
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(99, 99, 99);
+  border-radius: 10px;
+  color: white;
+  margin: 50px;
+}
+
+.active-stories {
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: fixed; */
+}
