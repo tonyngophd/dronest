@@ -175,7 +175,7 @@ export function StoriesFullPage() {
         if (current >= len) current = 0;
       } else {
         current--;
-        if (current < 0) current = 0;
+        if (current < 0) current = len-1;
       }
     }
     const username = Object.keys(userAndStoriesObj)[current];
@@ -187,14 +187,6 @@ export function StoriesFullPage() {
     <div className='story-fullpage-container'>
       <div className='stories-view-div'>
         <div className="stories-lineup-div">
-          {/* <div className="feed_post-header story-topbox-user-div">
-            <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
-              style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-            // onClick={e => setOpenStory(true)}
-            />
-            <div className="feed_post-username story-username-div">{user.username}</div>
-          </div> */}
-
           {fiveStories.length > 0 && (currentUser !== undefined) && fiveStories[2] !== undefined &&
             fiveStories.map((stories, index) =>
               <div key={nanoid()}>
@@ -218,7 +210,7 @@ export function StoriesFullPage() {
                             justifyContent: 'center',
                             alignItems: 'center',                          
                           }}
-                        // onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
+                          onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
                         />
                       </div>
                       <GrNext className="stories-next"

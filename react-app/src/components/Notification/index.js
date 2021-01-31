@@ -5,29 +5,13 @@ import { useDispatch } from "react-redux";
 import { viewNotification } from "../../store/notifications";
 import { useHistory } from "react-router-dom";
 import { fetchSinglePost } from "../../store/posts";
+import timeStamp from '../utils';
 
 const Notification = ({ notif, onClose }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  let createdAt = new Date(notif.createdAt);
-  let now = Date.now();
-  let elapsed = now - createdAt;
-  let timestamp;
-  if (elapsed < 1000) {
-    timestamp = `NOW`;
-  } else if (elapsed < 60000) {
-    timestamp = `${Math.floor(elapsed / 1000)} SECONDS AGO`;
-  } else if (elapsed < 120000) {
-    timestamp = `${Math.floor(elapsed / 60000)} MINUTE AGO`;
-  } else if (elapsed < 3600000) {
-    timestamp = `${Math.floor(elapsed / 60000)} MINUTES AGO`;
-  } else if (elapsed < 7200000) {
-    timestamp = `${Math.floor(elapsed / 3600000)} HOUR AGO`;
-  } else if (elapsed < 86400000) {
-    timestamp = `${Math.floor(elapsed / 3600000)} HOURS AGO`;
-  } else {
-    timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
-  }
+
+  let timestamp = timeStamp(new Date(notif.createdAt));
 
   const notifCloseHandler = () => {
     dispatch(viewNotification(notif));
