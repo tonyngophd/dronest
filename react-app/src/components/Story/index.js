@@ -121,23 +121,42 @@ export function StoriesFullPage() {
       })
     )
     let obj = {};
-    for(let i = 0; i < usersWithRecentPosts.length; i++){
+    for (let i = 0; i < usersWithRecentPosts.length; i++) {
       let user = usersWithRecentPosts[i];
       obj[user.username] = i;
     }
     setUserAndStoriesObj(obj);
-    // console.log('obj', obj);
+    console.log('obj', obj);
   }, [usersWithRecentPosts]);
 
-  // useEffect(() => {
-  //   updateCurrentUser()
-  // }, [params.username, userAndStoriesObj])
+  useEffect(() => {
+    if (!Object.keys(userAndStoriesObj).length) return;
+    updateCurrentUser(userAndStoriesObj[params.username]);
+  }, [params.username, userAndStoriesObj])
+
+  const shiftUser = (next = true) => {
+    if (!Object.keys(userAndStoriesObj).length) return;
+    const len = allStories.length;
+    let current = currentUser;
+    if(next) {
+      current++;
+      if(current >= len) current = 0;
+    } else {
+      current--;
+      if(current < 0) current = 0;
+    }
+    const username = Object.keys(userAndStoriesObj)[current];
+    updateCurrentUser(current);
+    history.push(`/stories/${username}`);
+  }
 
   return (
     <div className='story-fullpage-container'>
       <div className='stories-view-div'>
-        <GrPrevious className="stories-prev" />
-        <div>
+        <GrPrevious className="stories-prev" 
+          onClick={e => shiftUser(false)}
+        />
+        <div className="stories-lineup-div">
           {/* <div className="feed_post-header story-topbox-user-div">
             <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
               style={{ width: '60px', height: '60px', borderRadius: '50%' }}
@@ -146,15 +165,34 @@ export function StoriesFullPage() {
             <div className="feed_post-username story-username-div">{user.username}</div>
           </div> */}
 
-          {allStories && (Object.keys(userAndStoriesObj).length) && <Stories
-            stories={allStories[userAndStoriesObj[params.username]]}
-            width={500}
-            height={700}
-            onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
-          />
+          {allStories && (currentUser !== undefined) && allStories.map((stories, index) =>
+            <div key={nanoid()}>
+              {
+                index === currentUser ?
+                  <Stories
+                    stories={stories}
+                    width={500}
+                    height={700}
+                    // onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
+                  />
+                  :
+                  <div>
+                    
+                  </div>
+              }
+            </div>
+          )
+            // {allStories && (currentUser !== undefined) && <Stories
+            //   stories={allStories[currentUser]}
+            //   width={500}
+            //   height={700}
+            //   onStoryEnd={() => setTimeout(() => history.goBack(), 5000)}
+            // />
           }
         </div>
-        <GrNext className="stories-next" />
+        <GrNext className="stories-next"           
+          onClick={e => shiftUser()}
+        />
       </div>
       <div className="fullpage-stories-close"
         onClick={e => history.goBack()}
