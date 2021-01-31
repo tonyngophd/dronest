@@ -48,13 +48,13 @@ function UserRow({
           !searchable ? "user-row-main-div" : "user-row-main-div search-row"
         }
       >
-        <div
-          className="user-row-left-div"
-          onMouseOver={(e) => !searchable && setShowMiniProfile(true)}
-          onMouseOut={(e) => setShowMiniProfile(false)}
-        >
+        <div className="user-row-left-div">
           <img
             className="user-row-profile-img"
+            // onMouseOver={(e) => !searchable && setShowMiniProfile(true)}
+            // onMouseOut={(e) => !searchable && setShowMiniProfile(false)}
+            onMouseOver={(e) => !searchable && setShowMiniProfile(true)}
+            onMouseOut={(e) => !searchable && setShowMiniProfile(false)}
             src={user.profilePicUrl}
             alt={`${user.username}-profile-pic`}
             style={{ width: imageSize, height: imageSize }}
