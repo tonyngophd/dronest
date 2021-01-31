@@ -16,6 +16,7 @@ import ExplorePage from "./components/ExplorePage";
 import { restoreUser } from "./store/session";
 import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
+import { StoryTopBox, StoriesFullPage } from './components/Story';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -61,7 +62,10 @@ function App() {
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">
               <div className="body_container">
-                <Feed user={user} />
+                <div>
+                  <StoryTopBox />
+                  <Feed user={user} />
+                </div>
                 <Suggestions />
               </div>
             </div>
@@ -77,6 +81,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/:username/liked">
             <ProfilePage liked={true} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/stories/:username">
+            <StoriesFullPage />
           </ProtectedRoute>
         </Switch>
       </div>
