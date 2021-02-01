@@ -29,6 +29,7 @@ const NavBar = () => {
           src={require("./insta.png")}
         />
         <p className="nav-title navbar-content hvr-grow ">InstaVibes</p>
+        {/* <p className="nav-title navbar-content hvr-grow login-form_header"><img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png" /></p> */}
       </NavLink>
       <MainSearchBar />
       {/* <input

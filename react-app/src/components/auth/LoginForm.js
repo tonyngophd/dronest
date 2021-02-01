@@ -43,13 +43,13 @@ const LoginForm = () => {
   return (
     <div className="login_container">
       <div className="login-img">
-        <img src="../images/computer.png"></img>
+        <img src="https://instavibes.s3.amazonaws.com/images/computer.png"></img>
       </div>
       <div className="login_form-container">
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
-            <img src="../images/InstaVibes2.png"></img>
+            <img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png"></img>
           </div>
           <div>
             {errors.map((error) => (
