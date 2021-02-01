@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, userParams } from 'react-router-dom';
 
 import { EditorState, convertToRaw } from "draft-js";
 import Editor from "draft-js-plugins-editor";
@@ -29,6 +30,7 @@ function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceiver, setCurrentReceiver] = useState(null);
+  const params = useParams();
   const dispatch = useDispatch();
   const [allReceiverIds, setAllReceiverIds] = useState(
     Array.from(
@@ -81,6 +83,13 @@ function MessagePage() {
   // useEffect(() => {
   //   console.log("allUniqueReceivers", allUniqueReceivers);
   // }, [allUniqueReceivers]);
+
+  useEffect(() => {
+    const id = Number(params.userId);
+    if(id){
+      setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
+    }
+  }, [params.userId, allUniqueReceivers])
 
   const receiverClick = (e) => {
     e.preventDefault();

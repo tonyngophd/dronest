@@ -56,7 +56,7 @@ function App() {
           <ProtectedRoute path="/users/:userId" exact={true}>
             <User />
           </ProtectedRoute>
-          <ProtectedRoute path="/messages" exact={true}>
+          <ProtectedRoute path="/messages/:userId(\d*)" >
             <MessagePage />
           </ProtectedRoute>
           <ProtectedRoute path="/explore" exact={true}>

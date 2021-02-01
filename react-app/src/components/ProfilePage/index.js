@@ -1,6 +1,6 @@
 import "./ProfilePage.css";
 import React, { useEffect, useState } from "react";
-import { useParams, Link, NavLink } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { GrClose } from "react-icons/gr";
@@ -24,6 +24,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const myself = useSelector((state) => state.session.user);
+  const history = useHistory();
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
@@ -150,7 +151,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                 <button className="profile-edit-button">Edit Profile</button>
               ) : (
                 <>
-                  <button className="profile-edit-button">Message</button>
+                  <button className="profile-edit-button"
+                    onClick={e => history.push(`/messages/${profile.user.id}`)}
+                  >Message</button>
                   <button
                     className="profile-following-button"
                     onClick={(e) =>

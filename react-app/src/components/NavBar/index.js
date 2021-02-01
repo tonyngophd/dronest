@@ -70,7 +70,7 @@ const NavBar = () => {
         )}
         {user && (
           <>
-            <NavLink to="/messages" exact={true} activeclassname="active">
+            <NavLink to="/messages/" exact={true} activeclassname="active">
               <IoPaperPlaneOutline className="navbar-icon hvr-shrink  " />
             </NavLink>
             <NavLink to="/explore" exact={true} activeclassname="active">
