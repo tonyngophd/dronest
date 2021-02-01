@@ -6,7 +6,7 @@
 .profile-post-pic {
   width: 294px;
   height: 294px;
-  object-fit: cover;
+  object-fit: cover !important;
   margin-right: 30px;
   margin-bottom: 30px;
 }
