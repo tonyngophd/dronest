@@ -155,7 +155,6 @@
 .modal-content {
   background-color: #fefefe;
   margin-top: 25vh;
-  padding: 15px;
   border: 1px solid rgb(220 220 220);
   box-shadow: 0 7px 13px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -179,7 +178,7 @@
   overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
   border-radius: 10px;
   width: 100%;
-  padding: 0px;
+  padding: 0px 15px;
   margin: 0px;
 }
 
@@ -272,10 +271,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
-  margin: 0px;
+  padding: 15px 15px 22px 15px;
+  margin: 10px 0px;
   height: 20px;
   width: 100%;
+  border-bottom: 1px solid rgb(219, 219, 219);
 }
 .follow-modal-title-div {
   font-weight: bold;
@@ -283,9 +283,9 @@
 
 .modal-close {
   z-index: 100;
-  margin: 0px;
   padding: 0px;
   font-size: 26px;
+  cursor: pointer;
 }
 
 .hr {

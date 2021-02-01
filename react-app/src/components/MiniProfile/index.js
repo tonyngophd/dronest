@@ -67,7 +67,6 @@ function MiniProfile({
           <div className="user-row-website">{user.websiteUrl}</div>
         </div>
       </div>
-      <hr />
       <div
         className="profile-numbers popup"
         style={{ marginLeft: "20px", paddingTop: "5px", paddingBottom: "5px" }}
@@ -91,7 +90,6 @@ function MiniProfile({
           <span className="profile-number-text"> following</span>
         </div>
       </div>
-      <hr />
       {numberOfOwnPosts ? (
         <PostPreview />
       ) : (

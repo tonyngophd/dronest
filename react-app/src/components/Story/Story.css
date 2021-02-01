@@ -13,6 +13,11 @@
 .story-username-div {
   font-size: 13px;
 }
+
+.feed_post-container.story-topbox-main-div a:hover {
+  text-decoration: none;
+}
+
 .story-profile-image {
   width: 70px;
   height: 70px;
@@ -73,7 +78,7 @@
 }
 
 .stories-lineup-inactive-user-div,
-.stories-lineup-dummy-user-div{
+.stories-lineup-dummy-user-div {
   width: 200px;
   height: 320px;
   display: flex;
@@ -86,20 +91,20 @@
   overflow: hidden;
   position: relative;
 }
-.stories-lineup-inactive-user-div{
+.stories-lineup-inactive-user-div {
   background-color: rgb(99, 99, 99);
 }
-.stories-lineup-dummy-user-div{
+.stories-lineup-dummy-user-div {
   background-color: rgba(255, 255, 255, 0);
 }
 
-.inactive-story-user-profile-img{
+.inactive-story-user-profile-img {
   position: absolute;
   z-index: 20;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 .active-stories {
