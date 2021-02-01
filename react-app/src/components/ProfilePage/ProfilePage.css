@@ -288,6 +288,10 @@
   cursor: pointer;
 }
 
+.myself-header.modal-me {
+  margin-left: 0px;
+}
+
 .hr {
   width: 100%;
 }

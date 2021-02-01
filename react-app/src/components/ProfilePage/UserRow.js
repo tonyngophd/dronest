@@ -30,6 +30,7 @@ function UserRow({
   suggestionBox,
   onClose,
   followlist,
+  modal,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -56,7 +57,11 @@ function UserRow({
       >
         <div
           className={
-            user.id === myId
+            modal
+              ? user.id === myId
+                ? "user-row-left-div myself-header modal-me"
+                : "user-row-left-div"
+              : user.id === myId
               ? "user-row-left-div myself-header"
               : "user-row-left-div"
           }
