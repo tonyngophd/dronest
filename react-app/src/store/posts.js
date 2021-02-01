@@ -97,7 +97,6 @@ export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   const res = await fetch(`/api/posts/${userId}/feed/${page}`);
   let feed = await res.json();
   feed = feed["posts"];
-  console.log(feed);
   dispatch(loadHomeFeed(feed));
 };
 

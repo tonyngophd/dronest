@@ -40,7 +40,9 @@ function App() {
       <div className="homepage">
         {/* <Footer /> */}
         <NavBar />
-        <NewPostTab />
+        {user &&
+          <NewPostTab />
+        }
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />

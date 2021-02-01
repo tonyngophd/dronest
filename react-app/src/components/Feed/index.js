@@ -8,18 +8,36 @@ import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 
+
 const Feed = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const feed = useSelector((state) => state.posts.homeFeed);
   const [page, setPage] = useState(0);
+
   useEffect(() => {
     dispatch(fetchNotifications());
   }, []);
   useEffect(() => {
+// <<<<<<< HEAD
+//     dispatch(fetchNotifications());
+//     dispatch(fetchHomeFeed(user.id));
+//   }, [dispatch, user]);
+// =======
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
+// >>>>>>> master
 
+  const setPost = (arr, num) => {
+    let newArr = []
+    for (let i = 0; i < num; i++) {
+      newArr.push(arr[i]);
+    }
+    return newArr;
+  }
+
+  let num = 5;
+  console.log('FEEED', feed)
   return (
     <>
       {feed && (

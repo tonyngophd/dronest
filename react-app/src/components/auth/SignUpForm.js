@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../../store/session";
+import './SignUpForm.css'
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -59,82 +60,94 @@ const SignUpForm = () => {
   }
 
   return (
-    <form className="signup-form" onSubmit={onSignUp}>
-      <div>
-        <label>User Name</label>
-        <input
-          type="text"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
+    <div className="signup-form_container">
+      <div className="signup-form_header">
+        <img src="../images/InstaVibes2.png"></img>
+        <h5>Sign up to see photos from your friends</h5>
       </div>
-      <div>
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={updateName}
-          value={name}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <div>
-        <label>Bio</label>
-        <input
-          type="text"
-          name="bio"
-          onChange={updateBio}
-          value={bio}
-        ></input>
-      </div>
-      <div>
-        <label>Website URL</label>
-        <input
-          type="text"
-          name="bio"
-          onChange={updateWebsiteUrl}
-          value={websiteUrl}
-        ></input>
-      </div>
-      <div>
-        <label>profilePicUrl</label>
-        <input
-          type="text"
-          name="bio"
-          onChange={updateProfilePicUrl}
-          value={profilePicUrl}
-        ></input>
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+      <form className="signup-form" onSubmit={onSignUp}>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={updateUsername}
+            value={username}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={updateName}
+            value={name}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            onChange={updateEmail}
+            value={email}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={updatePassword}
+            value={password}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="password"
+            name="repeat_password"
+            placeholder="Confrim Password"
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+            required={true}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="bio"
+            placeholder="Bio"
+            onChange={updateBio}
+            value={bio}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="bio"
+            placeholder="Website URL"
+            onChange={updateWebsiteUrl}
+            value={websiteUrl}
+          ></input>
+        </div>
+        <div className="login-form-element">
+          <input
+            type="text"
+            name="bio"
+            placeholder="Profile Picture URL"
+            onChange={updateProfilePicUrl}
+            value={profilePicUrl}
+          ></input>
+        </div>
+        <button type="submit">Sign Up</button>
+        <div className="signup-form-footer">
+          <p>Already have an account?</p>
+          <Link to="/login">
+            Log in
+          </Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

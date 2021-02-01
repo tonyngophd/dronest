@@ -25,11 +25,11 @@ def seed_images():
   db.session.commit()
 
 
-  for i in range(30):
-    postId = random.randint(1, 30)
-    imgUrl = fake.image_url()
-    fakeImages = Image(postId=postId, imgUrl=imgUrl)
-    db.session.add(fakeImages)
+  # for i in range(30):
+  #   postId = random.randint(1, 30)
+  #   imgUrl = fake.image_url()
+  #   fakeImages = Image(postId=postId, imgUrl=imgUrl)
+  #   db.session.add(fakeImages)
 
   db.session.commit()
 

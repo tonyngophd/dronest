@@ -67,6 +67,10 @@
   border-radius: 40px;
 }
 
+input[type="text"] {
+  /* width: 130px; */
+}
+
 .top-navbar input[type="text"] {
   outline: none;
 }
@@ -104,6 +108,10 @@ li {
 .profile-button {
   width: 24px;
   height: 24px;
+}
+
+.navbar-content a {
+  width: 80px;
 }
 
 .navbar-icon:hover {
