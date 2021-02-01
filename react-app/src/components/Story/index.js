@@ -215,7 +215,7 @@ export function StoriesFullPage() {
                             justifyContent: 'center',
                             alignItems: 'center',
                           }}
-                          onStoryEnd={() => setTimeout(() => shiftUser({automatic: true}), 2000)}
+                          onAllStoriesEnd={() => setTimeout(() => shiftUser({automatic: true}), 2000)}
                         />
                       </div>
                       <GrNext className="stories-next"
