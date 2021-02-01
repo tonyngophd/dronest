@@ -63,9 +63,9 @@ export function MinimalUserList({
       )}
       {allUsersWithoutMyself
         .filter((user) => {
-          return notFollowedYet(user.id, myself);
+          return searchable? true : notFollowedYet(user.id, myself);
         })
-        .slice(0, 7)
+        .slice(0, searchable?10000:7)
         .map((user) => (
           <UserRow
             user={user}
