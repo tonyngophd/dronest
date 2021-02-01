@@ -96,6 +96,10 @@ const ProfilePage = ({ tagged, liked, saved }) => {
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
+                  onClose={() => {
+                    setShowFollowersModal(false);
+                    setShowFollowingModal(false);
+                  }}
                   user={u}
                   myId={myself.id}
                   notFollowedYet={notFollowedYet(u.id, myself)}

@@ -28,6 +28,7 @@ function UserRow({
   miniProfileEnabled = true,
   searchable,
   suggestionBox,
+  onClose,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function UserRow({
   const [hover, setHover] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
+    if (onClose) {
+      onClose();
+    }
     if (gotoUserPage) {
       history.push(`/${user.username}`);
     }
