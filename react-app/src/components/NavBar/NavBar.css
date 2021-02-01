@@ -110,8 +110,13 @@ li {
   height: 24px;
 }
 
-.navbar-content a {
+.navbar-icon.logged-out {
   width: 80px;
+  text-decoration: none;
+}
+
+.login-button {
+  margin-bottom: 5px;
 }
 
 .navbar-icon:hover {

@@ -89,7 +89,6 @@ const ProfilePage = ({ tagged, liked, saved }) => {
             <div className="follow-modal-title-div">{title}</div>
             <GrClose className="modal-close" onClick={hideModal} />
           </div>
-          <hr className="hr" />
           <div className="modal-content-scroll">
             {amIIntheList && (
               <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
