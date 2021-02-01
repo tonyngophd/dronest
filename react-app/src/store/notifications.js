@@ -37,7 +37,7 @@ export const fetchNotifications = () => async (dispatch) => {
 };
 
 export const viewNotification = (notif) => async (dispatch) => {
-  console.log(notif);
+  // console.log(notif);
   switch (notif.type) {
     case "follow":
       await fetch(`/api/users/notifications/follows/${notif.id}`);

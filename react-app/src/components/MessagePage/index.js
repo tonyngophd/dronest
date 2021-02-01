@@ -106,18 +106,20 @@ function MessagePage() {
   };
 
   const MessageBubble = ({ msg }) => {
-    let divClass1, divClass2;
+    let divClass1, divClass2, divClass3;
     if (msg.senderId === myself.id) {
       divClass1 = "message-bubble-container-me-right";
       divClass2 = "message-bubble-me-right";
+      divClass3 = 'message-and-profileimg-bubble-me-right';
     } else {
       divClass1 = "message-bubble-container-them-left";
       divClass2 = "message-bubble-them-left";
+      divClass3 = 'message-and-profileimg-bubble-them-left';
     }
     return (
       <div className={divClass1}>
         {msg.senderId === myself.id ? (
-          <div className="message-and-profileimg-bubble">
+          <div className={divClass3}>
             <div className={divClass2}>
               {msg.message.map((m) => (
                 <div key={nanoid()}>
@@ -133,7 +135,7 @@ function MessagePage() {
             />
           </div>
         ) : (
-          <div className="message-and-profileimg-bubble">
+          <div className={divClass3}>
             <img
               className="user-row-profile-img"
               src={currentReceiver.profilePicUrl}

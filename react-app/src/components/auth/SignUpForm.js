@@ -62,7 +62,7 @@ const SignUpForm = () => {
   return (
     <div className="signup-form_container">
       <div className="signup-form_header">
-        <img src="https://instavibes.s3.amazonaws.com/InstaVibes2.png"></img>
+        <img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png"></img>
         <h5>Sign up to see photos from your friends</h5>
       </div>
       <form className="signup-form" onSubmit={onSignUp}>

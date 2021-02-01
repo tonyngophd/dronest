@@ -51,7 +51,7 @@ export const uploadPost = (
   mentionedUsers = mentionedUsers.map((user) => {
     return user.id;
   });
-  console.log(mentionedUsers);
+  // console.log(mentionedUsers);
   const form = new FormData();
   form.append("userId", userId);
   form.append("mentionedUsers", JSON.stringify(mentionedUsers));

@@ -16,7 +16,7 @@ const fetchAFollowing = async (personToFollowId, profilePersonId, do_follow, dis
   // dispatch(loadProfileBasicInfoPOJO(user));
   if(!res2.errors){
     dispatch(setUserPOJO(res2.follower));
-    console.log("personToFollowId", personToFollowId, "\nprofilePersonId", profilePersonId);
+    // console.log("personToFollowId", personToFollowId, "\nprofilePersonId", profilePersonId);
     if(personToFollowId === profilePersonId)
       dispatch(loadProfileBasicInfoPOJO(res2.followee))
   }

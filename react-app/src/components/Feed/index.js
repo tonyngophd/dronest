@@ -37,7 +37,7 @@ const Feed = () => {
   }
 
   let num = 5;
-  console.log('FEEED', feed)
+  // console.log('FEEED', feed)
   return (
     <>
       {feed && (
