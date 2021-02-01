@@ -109,7 +109,6 @@ export function StoriesFullPage() {
       user => user.ownPosts.length
     ))
   }, [users])
-//let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
   useEffect(() => {
     updateAllStories(
       usersWithRecentPosts.map(user => {
@@ -163,7 +162,7 @@ export function StoriesFullPage() {
     updateFiveStories(fiveS);
   }, [currentUser, allStories]);
 
-  const shiftUser = (next = true, userIndex = undefined) => {
+  const shiftUser = ({ next = true, userIndex = undefined, automatic = false } = {}) => {
     if (!Object.keys(userAndStoriesObj).length) return;
     const len = allStories.length;
 
@@ -173,10 +172,15 @@ export function StoriesFullPage() {
     } else {
       if (next) {
         current++;
-        if (current >= len) current = 0;
+        if (current >= len) {
+          if (automatic) {
+            return history.push(`/`);
+          }
+          current = 0;
+        }
       } else {
         current--;
-        if (current < 0) current = len-1;
+        if (current < 0) current = len - 1;
       }
     }
     const username = Object.keys(userAndStoriesObj)[current];
@@ -195,9 +199,9 @@ export function StoriesFullPage() {
                   index === 2 ?
                     <div className="active-stories" >
                       <GrPrevious className="stories-prev"
-                        onClick={e => shiftUser(false)}
+                        onClick={e => shiftUser({ next: false })}
                       />
-                      <div style={{ overflow: 'hidden',  borderRadius: '10px' }}>
+                      <div style={{ overflow: 'hidden', borderRadius: '10px' }}>
                         <Stories
                           stories={stories}
                           width={500}
@@ -209,9 +213,9 @@ export function StoriesFullPage() {
                             objectFit: "cover",
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center',                          
+                            alignItems: 'center',
                           }}
-                          onStoryEnd={() => setTimeout(() => shiftUser(), 5000)}
+                          onStoryEnd={() => setTimeout(() => shiftUser({automatic: true}), 2000)}
                         />
                       </div>
                       <GrNext className="stories-next"
@@ -222,7 +226,8 @@ export function StoriesFullPage() {
                       <div
                         className="stories-lineup-inactive-user-div"
                         id={`${currentUser + index - 2}-userstories-div`}
-                        onClick={e => shiftUser(undefined, e.target.id.split("-")[0])}
+                        // onClick={e => shiftUser(undefined, e.target.id.split("-")[0])}
+                        onClick={e => shiftUser({ userIndex: e.target.id.split("-")[0] })}
                       >
                         <div className='inactive-story-user-profile-img' id={`${currentUser + index - 2}-userstories-profimgdiv`}>
                           <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
