@@ -29,6 +29,7 @@ function UserRow({
   searchable,
   suggestionBox,
   onClose,
+  followlist,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -70,7 +71,9 @@ function UserRow({
             onClick={handleClick}
             id={`${user.id}-userProfileImg`}
           />
-          {miniProfileEnabled && <MiniProfile hover={hover} user={user} />}
+          {miniProfileEnabled && !followlist && (
+            <MiniProfile hover={hover} user={user} />
+          )}
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{user.name}</div>

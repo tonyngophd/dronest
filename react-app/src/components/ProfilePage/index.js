@@ -103,6 +103,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                   user={u}
                   myId={myself.id}
                   notFollowedYet={notFollowedYet(u.id, myself)}
+                  followlist={true}
                 />
               </div>
             ))}
