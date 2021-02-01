@@ -39,7 +39,11 @@ const NavBar = () => {
       <div className="navbar-content right-side">
         <NavLink to="/" exact={true} activeclassname="active">
           <AiOutlineHome
-            className="navbar-icon hvr-shrink  "
+            className={
+              user
+                ? "navbar-icon hvr-shrink"
+                : "navbar-icon hvr-shrink logged-out"
+            }
             activeclassname="active"
           />
         </NavLink>
@@ -49,7 +53,7 @@ const NavBar = () => {
               to="/login"
               exact={true}
               activeclassname="active"
-              className="navbar-icon"
+              className="navbar-icon logged-out login-button"
             >
               Login
             </NavLink>
@@ -57,7 +61,7 @@ const NavBar = () => {
               to="/sign-up"
               exact={true}
               activeclassname="active"
-              className="navbar-icon"
+              className="navbar-icon logged-out login-button"
             >
               Sign Up
             </NavLink>
@@ -69,19 +73,19 @@ const NavBar = () => {
               <IoPaperPlaneOutline className="navbar-icon hvr-shrink  " />
             </NavLink>
             <NavLink to="/explore" exact={true} activeclassname="active">
-              <FaWpexplorer className="navbar-icon hvr-shrink " />
+              <FaWpexplorer className="navbar-icon home-page hvr-shrink " />
             </NavLink>
             <NavLink
               to={`/${user.username}/liked`}
               exact={true}
               activeclassname="active"
             >
-              <BsHeart className="navbar-icon hvr-shrink heart-button " />
+              <BsHeart className="navbar-icon home-page hvr-shrink heart-button " />
             </NavLink>
             <NavLink to={`/${user.username}`}>
-              <CgProfile className="navbar-icon hvr-shrink profile-button " />
+              <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />
             </NavLink>
-            <LogoutButton className="navbar-icon der hvr-grow" />
+            <LogoutButton className="navbar-icon home-page der hvr-grow" />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">

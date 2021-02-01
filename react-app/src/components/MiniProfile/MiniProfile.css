@@ -38,7 +38,7 @@ hr {
   display: none;
 }
 .mini-profile-image-preview {
-  margin-top: 10px;
+  margin-top: 12px;
   width: 135px;
   height: 120px;
   overflow: hidden;
@@ -60,7 +60,9 @@ hr {
 }
 
 .profile-numbers.popup {
-  margin-bottom: 0px;
+  padding: 10px 20px !important;
+  margin: 10px 0px !important;
+  width: 100%;
   border-bottom: 1px solid rgb(219, 219, 219);
   border-top: 1px solid rgb(219, 219, 219);
 }
