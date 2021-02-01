@@ -172,12 +172,12 @@
 .message-and-profileimg-bubble-me-right {
   display: flex;
   justify-content: flex-end;
-  /* align-items: center; */
+  align-items: flex-end;
 }
 .message-and-profileimg-bubble-them-left {
   display: flex;
   justify-content: flex-start;
-  /* align-items: center; */
+  align-items: flex-end;
 }
 .reverse {
   flex-direction: row-reverse;
