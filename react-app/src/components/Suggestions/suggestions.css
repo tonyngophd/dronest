@@ -16,6 +16,18 @@
   /* -webkit-box-shadow: 5px 5px 10px 13px rgba(0, 0, 0, 0.1); */
 }
 
+.mini-profile-and-suggestions.searchable {
+  margin-left: -200px !important;
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.suggestions_container.searchable {
+  width: 400px;
+  background-color: rgb(250, 250, 250);
+  height: auto !important;
+}
+
 /* .mini-profile-and-suggestions:hover {
   background: linear-gradient(to right, #4e4376, #2b5876);
 } */

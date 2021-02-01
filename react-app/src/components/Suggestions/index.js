@@ -16,7 +16,14 @@ const Suggestions = ({
   const myself = useSelector((state) => state.session.user);
 
   return (
-    <div className="mini-profile-and-suggestions" style={style}>
+    <div
+      className={
+        searchable
+          ? "mini-profile-and-suggestions searchable"
+          : "mini-profile-and-suggestions"
+      }
+      style={style}
+    >
       {!searchable && (
         <>
           <UserRow
@@ -34,7 +41,13 @@ const Suggestions = ({
           </div>
         </>
       )}
-      <div className="suggestions_container">
+      <div
+        className={
+          searchable
+            ? "suggestions_container searchable"
+            : "suggestions_container"
+        }
+      >
         <UserList
           includeMyself={false}
           limit={7}

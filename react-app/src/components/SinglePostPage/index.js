@@ -22,9 +22,7 @@ import {
   unsavePost,
 } from "../../store/posts";
 import { fetchUserProfile } from "../../store/profile";
-import ProfileFeed from "../ProfileFeed";
-import timeStamp from '../utils';
-
+import timeStamp from "../utils";
 
 const SinglePostPage = () => {
   const { id } = useParams();
@@ -78,7 +76,7 @@ const SinglePostPage = () => {
 
   return (
     <>
-      {singlePost.likingUsers && (
+      {count > 2 && singlePost.likingUsers && (
         <div className="pic-modal-container single-post">
           {singlePost.images && (
             <img

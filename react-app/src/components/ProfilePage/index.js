@@ -91,14 +91,25 @@ const ProfilePage = ({ tagged, liked, saved }) => {
           </div>
           <div className="modal-content-scroll">
             {amIIntheList && (
-              <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
+              <UserRow
+                user={myself}
+                modal={true}
+                myId={myself.id}
+                notFollowedYet={false}
+              />
             )}
             {listOfUsersWithoutMe.map((u) => (
               <div key={nanoid()}>
                 <UserRow
+                  modal={true}
+                  onClose={() => {
+                    setShowFollowersModal(false);
+                    setShowFollowingModal(false);
+                  }}
                   user={u}
                   myId={myself.id}
                   notFollowedYet={notFollowedYet(u.id, myself)}
+                  followlist={true}
                 />
               </div>
             ))}

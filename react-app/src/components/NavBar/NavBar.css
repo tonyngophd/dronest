@@ -67,9 +67,6 @@
   border-radius: 40px;
 }
 
-input[type="text"] {
-  /* width: 130px; */
-}
 
 .top-navbar input[type="text"] {
   outline: none;

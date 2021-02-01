@@ -28,6 +28,9 @@ function UserRow({
   miniProfileEnabled = true,
   searchable,
   suggestionBox,
+  onClose,
+  followlist,
+  modal,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,6 +39,9 @@ function UserRow({
   const [hover, setHover] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
+    if (onClose) {
+      onClose();
+    }
     if (gotoUserPage) {
       history.push(`/${user.username}`);
     }
@@ -51,7 +57,11 @@ function UserRow({
       >
         <div
           className={
-            user.id === myId
+            modal
+              ? user.id === myId
+                ? "user-row-left-div myself-header modal-me"
+                : "user-row-left-div"
+              : user.id === myId
               ? "user-row-left-div myself-header"
               : "user-row-left-div"
           }
@@ -66,7 +76,9 @@ function UserRow({
             onClick={handleClick}
             id={`${user.id}-userProfileImg`}
           />
-          {miniProfileEnabled && <MiniProfile hover={hover} user={user} />}
+          {miniProfileEnabled && !followlist && (
+            <MiniProfile hover={hover} user={user} />
+          )}
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{user.name}</div>
