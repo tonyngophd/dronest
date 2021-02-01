@@ -3,6 +3,7 @@
   flex-direction: row;
   margin-top: 30px;
   margin-bottom: 10px;
+  overflow-x: scroll;
 }
 .story-topbox-user-div {
   display: flex;
