@@ -121,7 +121,7 @@ function Post({ post }) {
       }
     }
     if(postId)
-       dispatch(deleteAPost(Number(e.target.id.split("-")[0])));
+       dispatch(deleteAPost(postId));
   };
 
   return (

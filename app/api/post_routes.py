@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, redirect, request
-from sqlalchemy import any_
+from sqlalchemy import and_
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike, SavedPost
@@ -121,6 +121,7 @@ def single_post(postId):
 @post_routes.route("/<int:postId>/delete")
 def delete_single_post(postId):
   post = Post.query.get(postId)
+  print("\n\n\n\n\n\n\n\n", post)
   post.cascade_delete()
   db.session.delete(post)
   db.session.commit()

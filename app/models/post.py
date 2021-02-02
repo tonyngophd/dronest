@@ -5,6 +5,7 @@ from .comment import Comment
 from .image import Image
 from .likedpost import LikedPost
 from .savedpost import SavedPost
+from .hashtagpost import HashtagPost
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -25,7 +26,7 @@ class Post(db.Model):
     images = db.relationship('Image', foreign_keys='Image.postId')
     likingUsers = db.relationship('User', secondary='likedposts')
     userSaves = db.relationship('User', secondary='savedposts')
-
+    # hastags = db.relationship('Hashtag', secondary='hashtagposts')
 
 
     def cascade_delete(self):
@@ -41,6 +42,7 @@ class Post(db.Model):
             LikedPost.query.filter(and_(LikedPost.postId == self.id, LikedPost.userId == user.id)).delete()
         for user in self.userSaves:
             SavedPost.query.filter(and_(SavedPost.postId == self.id, SavedPost.userId == user.id)).delete()
+        HashtagPost.query.filter(HashtagPost.postId == self.id).delete()
         db.session.commit()
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter

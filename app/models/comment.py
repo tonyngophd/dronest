@@ -1,5 +1,7 @@
 from .db import db
+from sqlalchemy import and_
 from .commentlike import CommentLike
+from .commenttaggeduser import CommentTaggedUser
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -17,6 +19,7 @@ class Comment(db.Model):
     def cascade_delete(self):
         for user in self.likingUsers:
             CommentLike.query.filter(and_(CommentLike.commentId == self.id, CommentLike.userId == user.id)).delete()
+        CommentTaggedUser.query.filter(CommentTaggedUser.commentId == self.id).delete()
         db.session.commit()
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
