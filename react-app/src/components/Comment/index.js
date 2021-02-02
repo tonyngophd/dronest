@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Comment.css";
 import { EditorState, convertFromRaw } from "draft-js";
-import Editor from "draft-js-plugins-editor";
+import Editor from "@draft-js-plugins/editor";
 import { useDispatch, useSelector } from "react-redux";
-import createMentionPlugin from "draft-js-mention-plugin";
+// import createMentionPlugin from "draft-js-mention-plugin";
+import createMentionPlugin, {
+  defaultSuggestionsFilter,
+} from '@draft-js-plugins/mention';
+
 import { useHistory, Link } from "react-router-dom";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";

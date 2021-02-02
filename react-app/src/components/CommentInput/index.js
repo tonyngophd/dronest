@@ -1,10 +1,11 @@
 import "./CommentInput.css";
-import React, { useState, useRef, useEffect } from "react";
-import Editor from "draft-js-plugins-editor";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertToRaw } from "draft-js";
-import createMentionPlugin, {
-  defaultSuggestionsFilter,
-} from "draft-js-mention-plugin";
+// import createMentionPlugin, {  defaultSuggestionsFilter,} from "draft-js-mention-plugin";
+import createMentionPlugin, {  defaultSuggestionsFilter,} from "@draft-js-plugins/mention";
+import '@draft-js-plugins/mention/lib/plugin.css';
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchUserMentionsComments,
@@ -84,6 +85,14 @@ const CommentInput = ({
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
   const [focused, setFocused] = useState(null);
+  const [mentionOpen, setMentionOpen] = useState(false);
+  const onMentionOpenChange = useCallback((_open) => {
+    setMentionOpen(_open);
+  }, []);  
+  const [hashtagOpen, setHastagOpen] = useState(false);
+  const onHastangOpenChange = useCallback((_open) => {
+    setHastagOpen(_open);
+  }, []);    
 
   const focus = () => {
     ref.current.focus();
@@ -235,13 +244,16 @@ const CommentInput = ({
           }}
           suggestions={suggestions}
           entryComponent={UserTag}
+          open={mentionOpen}
+          onOpenChange={onMentionOpenChange}
         />
         <HashtagMentionSuggestions
           onSearchChange={({ value }) => {
             setHashtagQuery(value);
           }}
           suggestions={hashtagSuggestions}
-          entryComponent={Hashtag}
+          open={hashtagOpen}
+          onOpenChange={onHastangOpenChange}
         />
       </div>
       <button

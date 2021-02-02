@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "./NewPost.css";
 import { EditorState, convertToRaw } from "draft-js";
-import Editor from "draft-js-plugins-editor";
+import Editor from "@draft-js-plugins/editor";
 import createMentionPlugin, {
   defaultSuggestionsFilter,
-} from "draft-js-mention-plugin";
+} from "@draft-js-plugins/mention";
 import "draft-js/dist/Draft.css";
+import '@draft-js-plugins/mention/lib/plugin.css';
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
@@ -68,6 +70,14 @@ const NewPost = ({ onPost }) => {
   const hashtagMentions = useSelector((state) => state.mentions.hashtags);
   const ref = useRef();
   const dispatch = useDispatch();
+  const [mentionOpen, setMentionOpen] = useState(false);
+  const onMentionOpenChange = useCallback((_open) => {
+    setMentionOpen(_open);
+  }, []);  
+  const [hashtagOpen, setHastagOpen] = useState(false);
+  const onHastangOpenChange = useCallback((_open) => {
+    setHastagOpen(_open);
+  }, []);  
 
   const updateFile = (e) => {
     const file = e.target.files[0];
@@ -223,6 +233,8 @@ const NewPost = ({ onPost }) => {
             }}
             suggestions={suggestions}
             entryComponent={UserTag}
+            open={mentionOpen}
+            onOpenChange={onMentionOpenChange}
           />
           <HashtagMentionSuggestions
             onSearchChange={({ value }) => {
@@ -230,6 +242,8 @@ const NewPost = ({ onPost }) => {
             }}
             suggestions={hashtagSuggestions}
             entryComponent={Hashtag}
+            open={hashtagOpen}
+            onOpenChange={onHastangOpenChange}
           />
         </div>
       </div>

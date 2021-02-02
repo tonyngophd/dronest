@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, userParams } from 'react-router-dom';
 
-import { EditorState, convertToRaw } from "draft-js";
-import Editor from "draft-js-plugins-editor";
-import createMentionPlugin, {
-  defaultSuggestionsFilter,
-} from "draft-js-mention-plugin";
 import "draft-js/dist/Draft.css";
 import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
