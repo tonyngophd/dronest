@@ -1,3 +1,6 @@
+![Database Schema](https://github.com/suasllc/dronest/blob/master/resources/drawSQL-export-2021-02-02_17_26.png)
+
+
 # Flask React Project
 
 This is the backend for the Flask React project.
