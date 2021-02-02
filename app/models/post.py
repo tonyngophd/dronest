@@ -36,7 +36,7 @@ class Post(db.Model):
             comment.cascade_delete()
             db.session.delete(comment)
         for image in self.images:
-            #TODO: delete picture from S3
+            image.delete_actual_image_from_s3()
             db.session.delete(image)
         for user in self.likingUsers:
             LikedPost.query.filter(and_(LikedPost.postId == self.id, LikedPost.userId == user.id)).delete()

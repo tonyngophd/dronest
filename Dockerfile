@@ -15,7 +15,7 @@ FROM python:3.8
 # Setup Flask environment
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
-ENV SQLALCHEMY_ECHO=True
+ENV SQLALCHEMY_ECHO=False
 
 EXPOSE 8000
 
