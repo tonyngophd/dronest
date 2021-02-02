@@ -85,6 +85,19 @@
   align-items: center;
 }
 
+.feed_post-profile-and-delete-button{
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+.feed_post-delete-button{
+  display: flex;
+  background-color: white;
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  padding-right: 15px;
+}
 .post-icon {
   /* height: 22px;
   width: 22px; */

@@ -7,6 +7,7 @@ import {
   BsHeartFill,
   BsBookmarkFill,
 } from "react-icons/bs";
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
@@ -17,6 +18,7 @@ import "./post.css";
 import { likePost, unlikePost, savePost, unsavePost } from "../../store/posts";
 import { useDispatch, useSelector } from "react-redux";
 import timeStamp from '../utils';
+import { deleteAPost } from '../../store/posts';
 
 function Post({ post }) {
   const history = useHistory();
@@ -109,19 +111,38 @@ function Post({ post }) {
     }
   };
 
+  const deleteHandler = (e) => {
+    e.preventDefault();
+    let postId = Number(e.target.id.split("-")[0]);
+    if(!postId){
+      try{
+        postId = Number(e.target.parentNode.parentNode.id.split("-")[0]);
+      } catch(e){        
+      }
+    }
+    if(postId)
+       dispatch(deleteAPost(Number(e.target.id.split("-")[0])));
+  };
+
   return (
     <div className="feed_post-container">
-      <Link to={`/${post.user.username}`}>
-        <div className="feed_post-header">
-          <img
-            src={post.user.profilePicUrl}
-            draggable="false"
-            alt="user-icon"
-          />
-          <p className="feed_post-username">{post.user.username}</p>
-        </div>
-      </Link>
-
+      <div className='feed_post-profile-and-delete-button'>
+        <Link to={`/${post.user.username}`}>
+          <div className="feed_post-header">
+            <img
+              src={post.user.profilePicUrl}
+              draggable="false"
+              alt="user-icon"
+            />
+            <p className="feed_post-username">{post.user.username}</p>
+          </div>
+        </Link>
+        {user.id === post.user.id && <div className="feed_post-delete-button"
+          id={`${post.id}-post`}
+        >
+          <RiDeleteBin6Line id={`${post.id}-deletebutton`} onClick={deleteHandler} />
+        </div>}
+      </div>
       <div className="feed_post-image">
         <img
           onClick={() => setClicks(clicks + 1)}
@@ -142,8 +163,8 @@ function Post({ post }) {
                 className="post-icon heart-full"
               />
             ) : (
-              <BsHeart onClick={likeHandler} className="post-icon" />
-            )}
+                <BsHeart onClick={likeHandler} className="post-icon" />
+              )}
             <BsChat
               onClick={() => history.push(`/p/${post.id}`)}
               className="post-icon-comment"
@@ -156,8 +177,8 @@ function Post({ post }) {
                 className="post-icon-bk bk-full"
               />
             ) : (
-              <BsBookmark onClick={saveHandler} className="post-icon-bk" />
-            )}
+                <BsBookmark onClick={saveHandler} className="post-icon-bk" />
+              )}
           </div>
         </div>
         <div className="feed_post-info-comments">

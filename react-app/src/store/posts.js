@@ -1,4 +1,5 @@
 const CREATE_POST = "posts/CREATE_POST";
+const DELETE_POST = "posts/DELETE_POST";
 const CREATE_COMMENT = "posts/CREATE_COMMENT";
 const CREATE_MODAL_COMMENT = "posts/CREATE_MODAL_COMMENT";
 
@@ -10,6 +11,11 @@ const FETCH_EXPLORE_FEED = "posts/FETCH_EXPLORE_FEED";
 const createNewPost = (post) => ({
   type: CREATE_POST,
   payload: post,
+});
+
+const deleteAPostPOJO = (postId) => ({
+  type: DELETE_POST,
+  payload: postId,
 });
 
 const createNewComment = (comment) => ({
@@ -145,6 +151,14 @@ export const unsavePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unsave`);
 };
 
+export const deleteAPost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/posts/${postId}/delete`);
+  if(res.ok){
+    const res2 = await res.json();
+    dispatch(deleteAPostPOJO(res2['postId']));
+  }
+};
+
 const initialState = {
   homeFeed: {},
   exploreFeed: {},
@@ -158,6 +172,12 @@ const reducer = (state = initialState, action) => {
     case CREATE_POST:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...action.payload, ...newState.homeFeed };
+      return newState;
+    case DELETE_POST:
+      newState = Object.assign({}, state);
+      newState.homeFeed = { ...newState.homeFeed };
+      delete newState.homeFeed[action.payload]
+      // newState.homeFeed = { ...(newState.homeFeed.filter(feed => feed.id !== action.payload)) };
       return newState;
     case CREATE_COMMENT:
       newState = Object.assign({}, state);

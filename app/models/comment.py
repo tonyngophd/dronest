@@ -1,4 +1,5 @@
 from .db import db
+from .commentlike import CommentLike
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -12,6 +13,11 @@ class Comment(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
     commenter = db.relationship('User', foreign_keys=userId)
     likingUsers = db.relationship('User', secondary='commentlikes')
+
+    def cascade_delete(self):
+        for user in self.likingUsers:
+            CommentLike.query.filter(and_(CommentLike.commentId == self.id, CommentLike.userId == user.id)).delete()
+        db.session.commit()
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):

@@ -46,7 +46,7 @@ def create_post():
     db.session.add(post)
     db.session.flush()
 
-    image.filename = secure_filename(image.filename)
+    image.filename = f'images/{secure_filename(image.filename)}'
     imgUrl = upload_file_to_s3(image, Config.S3_BUCKET)
     print(imgUrl)
     new_image = Image(
@@ -117,6 +117,14 @@ def hashtagFeed(hashtag, page):
 def single_post(postId):
   post = Post.query.get(postId)
   return {'post': post.to_dict()}
+
+@post_routes.route("/<int:postId>/delete")
+def delete_single_post(postId):
+  post = Post.query.get(postId)
+  post.cascade_delete()
+  db.session.delete(post)
+  db.session.commit()
+  return {'postId': postId}
 
 @post_routes.route("/<int:postId>/like")
 def like_post(postId):

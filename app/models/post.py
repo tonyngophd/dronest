@@ -1,4 +1,10 @@
+from sqlalchemy import and_
 from .db import db
+from .taggeduser import TaggedUser
+from .comment import Comment
+from .image import Image
+from .likedpost import LikedPost
+from .savedpost import SavedPost
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -21,6 +27,21 @@ class Post(db.Model):
     userSaves = db.relationship('User', secondary='savedposts')
 
 
+
+    def cascade_delete(self):
+        for user in self.taggedUsers:
+            TaggedUser.query.filter(and_(TaggedUser.postId == self.id, TaggedUser.userId == user.id)).delete()
+        for comment in self.comments:
+            comment.cascade_delete()
+            db.session.delete(comment)
+        for image in self.images:
+            #TODO: delete picture from S3
+            db.session.delete(image)
+        for user in self.likingUsers:
+            LikedPost.query.filter(and_(LikedPost.postId == self.id, LikedPost.userId == user.id)).delete()
+        for user in self.userSaves:
+            SavedPost.query.filter(and_(SavedPost.postId == self.id, SavedPost.userId == user.id)).delete()
+        db.session.commit()
 
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):       

@@ -19,14 +19,9 @@ const Feed = () => {
     dispatch(fetchNotifications());
   }, []);
   useEffect(() => {
-// <<<<<<< HEAD
-//     dispatch(fetchNotifications());
-//     dispatch(fetchHomeFeed(user.id));
-//   }, [dispatch, user]);
-// =======
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
-// >>>>>>> master
+
 
   const setPost = (arr, num) => {
     let newArr = []
