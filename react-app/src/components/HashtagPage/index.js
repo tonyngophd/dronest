@@ -31,7 +31,7 @@ const HashtagPage = () => {
           <div className="hashtag-info">
             <img
               draggable="false"
-              src={`${Object.values(feed)[0].images[0].imgUrl}`}
+              src={`${Object.values(feed)[0].images[0].mediaUrl}`}
               className="hashtag-header-pic"
             />
             <div className="hashtag-text">

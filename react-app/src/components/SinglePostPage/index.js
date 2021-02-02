@@ -81,7 +81,7 @@ const SinglePostPage = () => {
           {singlePost.images && (
             <img
               className="modal-img single-image"
-              src={singlePost.images[0].imgUrl}
+              src={singlePost.images[0].mediaUrl}
             />
           )}
           <div className="pic-modal-right single-post-right">

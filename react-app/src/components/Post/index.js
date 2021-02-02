@@ -147,7 +147,7 @@ function Post({ post }) {
         <img
           onClick={() => setClicks(clicks + 1)}
           src={
-            (post.images[0] && post.images[0].imgUrl) ||
+            (post.images[0] && post.images[0].mediaUrl) ||
             "https://placeimg.com/500/500"
           }
           draggable="false"

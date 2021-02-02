@@ -2,7 +2,7 @@ from sqlalchemy import and_
 from .db import db
 from .taggeduser import TaggedUser
 from .comment import Comment
-from .image import Image
+from .media import Media
 from .likedpost import LikedPost
 from .savedpost import SavedPost
 from .hashtagpost import HashtagPost
@@ -23,7 +23,7 @@ class Post(db.Model):
     user = db.relationship('User', foreign_keys=userId)  #owner of the post
     taggedUsers = db.relationship('User', secondary='taggedusers')
     comments = db.relationship('Comment', foreign_keys='Comment.parentPostId')
-    images = db.relationship('Image', foreign_keys='Image.postId')
+    images = db.relationship('Media', foreign_keys='Media.postId')
     likingUsers = db.relationship('User', secondary='likedposts')
     userSaves = db.relationship('User', secondary='savedposts')
     # hastags = db.relationship('Hashtag', secondary='hashtagposts')

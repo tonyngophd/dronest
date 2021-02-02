@@ -38,8 +38,8 @@ function MiniProfile({
             .map((post) => (
               <img
                 key={nanoid()}
-                src={post.images[0].imgUrl}
-                alt={post.images[0].imgUrl}
+                src={post.images[0].mediaUrl}
+                alt={post.images[0].mediaUrl}
                 className="mini-profile-image-preview"
               />
             ))}

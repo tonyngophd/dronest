@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, redirect, request
 from sqlalchemy import and_
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Image, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike, SavedPost
+from app.models import db, Post, Media, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike, SavedPost
 from ..helpers import *
 from ..config import Config
 import json
@@ -47,11 +47,11 @@ def create_post():
     db.session.flush()
 
     image.filename = f'images/{secure_filename(image.filename)}'
-    imgUrl = upload_file_to_s3(image, Config.S3_BUCKET)
-    print(imgUrl)
-    new_image = Image(
+    mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
+    print(mediaUrl)
+    new_image = Media(
       postId = post.id,
-      imgUrl=imgUrl
+      mediaUrl=mediaUrl
     )
     db.session.add(new_image)
 

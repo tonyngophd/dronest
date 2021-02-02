@@ -72,7 +72,7 @@ const ProfilePost = ({ post }) => {
         <img
           draggable="false"
           className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-          src={post.images[0].imgUrl}
+          src={post.images[0].mediaUrl}
           alt="pic"
         />
         <div
@@ -94,7 +94,7 @@ const ProfilePost = ({ post }) => {
       </div>
       <PicModal open={isPicOpen} onClose={() => setIsPicOpen(false)}>
         <div className="pic-modal-container">
-          <img className="modal-img" src={post.images[0].imgUrl} />
+          <img className="modal-img" src={post.images[0].mediaUrl} />
           <div className="pic-modal-right">
             <Link className="pic-modal-header" to={`/${post.user.username}`}>
               <img src={post.user.profilePicUrl} alt="user-icon" />

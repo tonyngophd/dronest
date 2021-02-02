@@ -3,7 +3,7 @@ from .user import User
 from .commentlike import CommentLike
 from .comment import Comment
 from .commenttaggeduser import CommentTaggedUser
-from .image import Image
+from .media import Media
 from .post import Post
 from .taggeduser import TaggedUser
 from .hashtag import Hashtag

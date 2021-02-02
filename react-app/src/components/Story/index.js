@@ -29,7 +29,7 @@ export function StoryTopBox() {
     updateStories(
       usersWithRecentPosts.map(user => {
         return {
-          url: user.ownPosts[0].images[0].imgUrl,
+          url: user.ownPosts[0].images[0].mediaUrl,
           duration: 2000,
           header: {
             heading: user.username,
@@ -114,7 +114,7 @@ export function StoriesFullPage() {
       usersWithRecentPosts.map(user => {
         return user.ownPosts.map(post => {
           return {
-            url: post.images[0].imgUrl,
+            url: post.images[0].mediaUrl,
             duration: 2000,
             header: {
               heading: user.username,
@@ -242,8 +242,8 @@ export function StoriesFullPage() {
                           </div>
                         </div>
                         <img
-                          src={stories.ownPosts[0].images[0].imgUrl}
-                          alt={stories.ownPosts[0].imgUrl} id={`${index}-${stories.ownPosts[0].imgUrl}`}
+                          src={stories.ownPosts[0].images[0].mediaUrl}
+                          alt={stories.ownPosts[0].mediaUrl} id={`${index}-${stories.ownPosts[0].mediaUrl}`}
                           style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover' }}
                           id={`${currentUser + index - 2}-background-img`}
                         />
