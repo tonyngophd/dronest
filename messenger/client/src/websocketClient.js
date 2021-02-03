@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Home from './components/Home';
 import MessageCore from './components/MessageCore';
 
-const App = () => {
+const Messenger = () => {
   const [username, setUserName] = useState('');
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
@@ -16,7 +16,7 @@ const App = () => {
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { id: Math.floor(Math.random() * 100), username });
+      sendMessage('add-new-person', { username });
     };
 
     ws.onmessage = (e) => {
@@ -75,7 +75,7 @@ const App = () => {
 
 
   const sendChat = (msg, username) => {
-    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 100),username, msg });
+    webSocket.current.sendMessage('chat-message', { username, msg });
   };
 
    const backgroundColor = () => {
@@ -91,20 +91,9 @@ const App = () => {
   };
 
   return (
-    <div style={{backgroundColor: backgroundColor(), display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '500px'}}>
-      <h1>Minimum Instant Messenger</h1>
-      <h2>With JS and WebSocket</h2>
-      {username ? (
-        <MessageCore
-          username={username} 
-          messageSession={messageSession} 
-          sendChat={sendChat}
-          />
-      ) : (
-          <Home updatePersonName={updatePersonName} />
-        )}
+    <div>
     </div>
   );
 }
 
-export default App;
+export default Messenger;

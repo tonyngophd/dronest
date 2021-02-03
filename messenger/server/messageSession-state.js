@@ -1,10 +1,12 @@
 /* eslint-disable max-classes-per-file */
 
 const { User, DirectMessage } = require('./db/models');
+const { Op } = require('sequelize');
 
 
 class Person {
-  constructor(username, ws) {
+  constructor(id, username, ws) {
+    this.id = id;
     this.username = username;
     this.ws = ws;
   }
@@ -20,14 +22,18 @@ class MessageSession {
   constructor(person1) {
     this.person1 = person1;
     this.person2 = null;
-    this.styles=['lightblue', 'lightgray'];
+    this.styles = ['lightblue', 'lightgray'];
     this.messages = [];
+    this.people = {};
+    this.people[`${person1.id}`] = person1;
+    this.latestMessage = {};
   }
 
   // get messageSessionOver() {
   // }
 
   getPersons() {
+    // return this.people;
     return [this.person1, this.person2];
   }
 
@@ -40,12 +46,12 @@ class MessageSession {
     };
   }
 
-  async checkDB(){
+  async checkDB() {
     const p1 = await User.findOne({
       where: {
         username: this.person1.username
       },
-      include: [{model: DirectMessage, as: 'sent'}, {model: DirectMessage, as: 'received'}]
+      include: [{ model: DirectMessage, as: 'sent' }, { model: DirectMessage, as: 'received' }]
     });
 
     // const person = await JSON.parse(p1);

@@ -75,6 +75,7 @@ const CommentInput = ({
   action = "Post",
   placeHolder = "Add a comment...",
   receiverId,
+  sendChat = null,
 }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
@@ -206,6 +207,9 @@ const CommentInput = ({
       modal && dispatch(fetchSinglePost(post.id));
     } else {
       // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+      if(sendChat){
+        sendChat(rawData, user.username);
+      }
       await uploadMessage(
         user.id,
         receiverId,

@@ -47,8 +47,9 @@ const startMessageSession = async () => {
   broadcastMessage('start-message-session', data, messageSession.getPersons());
 };
 
-const addNewPerson = (username, ws) => {
-  const person = new Person(username, ws);
+const addNewPerson = (id, username, ws) => {
+  const person = new Person(id, username, ws);
+  console.log("person", person.id);
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
@@ -82,7 +83,9 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case 'add-new-person':
-      addNewPerson(message.data.username, ws);
+      console.table(message.data);
+      console.log(message.data.id);
+      addNewPerson(message.data.id, message.data.username, ws);
       break;
     case 'chat-message':
       recordChat(message.data, ws);
