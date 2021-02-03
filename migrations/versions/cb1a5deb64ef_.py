@@ -49,7 +49,7 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    op.create_table('directmessages',
+    op.create_table('DirectMessages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('senderId', sa.Integer(), nullable=False),
     sa.Column('receiverId', sa.Integer(), nullable=False),
@@ -130,7 +130,7 @@ def upgrade():
     sa.Column('viewStatus', sa.Boolean(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.ForeignKeyConstraint(['messageId'], ['directmessages.id'], ),
+    sa.ForeignKeyConstraint(['messageId'], ['DirectMessages.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -192,7 +192,7 @@ def downgrade():
     op.drop_table('comments')
     op.drop_table('userfollowers')
     op.drop_table('posts')
-    op.drop_table('directmessages')
+    op.drop_table('DirectMessages')
     op.drop_table('Users')
     op.drop_table('locations')
     op.drop_table('hashtags')

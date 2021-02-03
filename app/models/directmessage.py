@@ -1,7 +1,7 @@
 from .db import db
 
 class DirectMessage(db.Model):
-    __tablename__ = 'directmessages'
+    __tablename__ = 'DirectMessages'
 
 
     id = db.Column(db.Integer, primary_key=True)
