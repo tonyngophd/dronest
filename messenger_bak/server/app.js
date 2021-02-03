@@ -41,9 +41,8 @@ const broadcastMessage = (type, data, persons) => {
   });
 };
 
-const startMessageSession = async () => {
+const startMessageSession = () => {
   const data = messageSession.getData();
-  await messageSession.checkDB();
   broadcastMessage('start-message-session', data, messageSession.getPersons());
 };
 

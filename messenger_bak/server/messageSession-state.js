@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
 
-const { User, DirectMessage } = require('./db/models');
-
-
 class Person {
   constructor(username, ws) {
     this.username = username;
@@ -38,18 +35,6 @@ class MessageSession {
       person2: this.person2.getData(),
       messages: this.messages
     };
-  }
-
-  async checkDB(){
-    const p1 = await User.findOne({
-      where: {
-        username: this.person1.username
-      },
-      include: [{model: DirectMessage, as: 'sent'}, {model: DirectMessage, as: 'received'}]
-    });
-
-    // const person = await JSON.parse(p1);
-    console.log("person 1", p1.toJSON().sent);
   }
 }
 
