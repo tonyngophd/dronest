@@ -87,9 +87,22 @@ const App = () => {
     setUserName('');
   };
 
+  const backgroundColor = () => {
+    if(messageSession){
+      if(username === messageSession.person1.username){
+        return 'lightblue';
+      } else {
+        return 'lightgreen';
+      }
+    } else {
+      return 'lightgray';
+    }
+  };
+
   return (
-    <div style={{backgroundColor: Math.random()<0.5?"lightblue":'lightgray'}}>
-      <h1>Messenger</h1>
+    <div style={{backgroundColor: backgroundColor(), display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '500px'}}>
+      <h1>Minimum Instant Messenger</h1>
+      <h2>With JS and WebSocket</h2>
       {username ? (
         <MessageCore
           username={username} 

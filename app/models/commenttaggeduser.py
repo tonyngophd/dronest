@@ -5,7 +5,7 @@ class CommentTaggedUser(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     commentId = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
     viewStatus = db.Column(db.Boolean, nullable=True, default=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())

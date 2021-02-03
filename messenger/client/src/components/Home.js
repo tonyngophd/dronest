@@ -42,7 +42,7 @@ const Home = ({ updatePersonName }) => {
   };
 
   return (
-      <div>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
       <h2>Welcome!</h2>
       <p>Please provide your name and 
         click the "Start MessageSession" button to start a messageSession.</p>

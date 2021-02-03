@@ -17,7 +17,8 @@ class MessageSession {
   constructor(person1) {
     this.person1 = person1;
     this.person2 = null;
-    this.messages = [{ username: person1.username, msg: "Hello there" }, { username: this.person2?this.person2.username:"user2", msg: "Hi back!" }];
+    this.styles=['lightblue', 'lightgray'];
+    this.messages = [];
   }
 
   // get messageSessionOver() {

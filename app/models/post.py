@@ -12,7 +12,7 @@ class Post(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
     captionRawData = db.Column(db.Text, nullable=False)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())

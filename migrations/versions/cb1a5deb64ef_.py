@@ -34,7 +34,7 @@ def upgrade():
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('users',
+    op.create_table('Users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=True),
@@ -57,8 +57,8 @@ def upgrade():
     sa.Column('viewStatus', sa.Boolean(), nullable=False),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.ForeignKeyConstraint(['receiverId'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['senderId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['receiverId'], ['Users.id'], ),
+    sa.ForeignKeyConstraint(['senderId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('posts',
@@ -69,7 +69,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['locationId'], ['locations.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('userfollowers',
@@ -79,8 +79,8 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('viewStatus', sa.Boolean(), nullable=False),
-    sa.ForeignKeyConstraint(['followerId'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['followerId'], ['Users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('comments',
@@ -91,7 +91,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['parentPostId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('hashtagposts',
@@ -120,7 +120,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('messagetaggedusers',
@@ -131,7 +131,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['messageId'], ['directmessages.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('savedposts',
@@ -141,7 +141,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('taggedusers',
@@ -152,7 +152,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('commentlikes',
@@ -162,7 +162,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('commenttaggedusers',
@@ -173,7 +173,7 @@ def upgrade():
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -193,7 +193,7 @@ def downgrade():
     op.drop_table('userfollowers')
     op.drop_table('posts')
     op.drop_table('directmessages')
-    op.drop_table('users')
+    op.drop_table('Users')
     op.drop_table('locations')
     op.drop_table('hashtags')
     # ### end Alembic commands ###
