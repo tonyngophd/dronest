@@ -5,7 +5,7 @@ import MessageCore from './components/MessageCore';
 
 const App = () => {
   const [username, setUserName] = useState('');
-  const [messageSession, setGame] = useState(null);
+  const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const App = () => {
         case 'start-message-session':
         case 'update-message-session':
         case 'end-message-session':
-          setGame(message.data);
+          setMessageSession(message.data);
           break;
         default:
           throw new Error(`Unknown message type: ${message.type}`);
@@ -43,7 +43,7 @@ const App = () => {
       console.log(`Connection closed: ${e}`);
       webSocket.current = null;
       setUserName('');
-      setGame(null);
+      setMessageSession(null);
     };
 
     const sendMessage = (type, data) => {
@@ -69,7 +69,7 @@ const App = () => {
     };
   }, [username]);
 
-  const updatePlayerName = (username) => {
+  const updatePersonName = (username) => {
     setUserName(username);
   };
 
@@ -79,7 +79,7 @@ const App = () => {
   };
 
   const playAgain = (username) => {
-    setGame(null);
+    setMessageSession(null);
     webSocket.current.sendMessage('add-new-person', { username });
   };
 
@@ -99,7 +99,7 @@ const App = () => {
           sendChat={sendChat}
           />
       ) : (
-          <Home updatePlayerName={updatePlayerName} />
+          <Home updatePersonName={updatePersonName} />
         )}
     </div>
   );

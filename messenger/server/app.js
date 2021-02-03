@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const WebSocket = require('ws');
 
 const { port } = require('./config');
-const { MessageSession, Player } = require('./messageSession-state');
+const { MessageSession, Person } = require('./messageSession-state');
 
 const app = express();
 
@@ -41,19 +41,19 @@ const broadcastMessage = (type, data, persons) => {
   });
 };
 
-const startGame = () => {
+const startMessageSession = () => {
   const data = messageSession.getData();
-  broadcastMessage('start-message-session', data, messageSession.getPlayers());
+  broadcastMessage('start-message-session', data, messageSession.getPersons());
 };
 
-const addNewPlayer = (username, ws) => {
-  const person = new Player(username, ws);
+const addNewPerson = (username, ws) => {
+  const person = new Person(username, ws);
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
   } else if (messageSession.person2 === null) {
     messageSession.person2 = person;
-    startGame();
+    startMessageSession();
   } else {
     // TODO Ignore any additional person connections.
     console.log(`Ignoring person ${username}...`);
@@ -61,14 +61,8 @@ const addNewPlayer = (username, ws) => {
   }
 };
 
-const endGame = () => {
-  const persons = messageSession.getPlayers();
-  const data = messageSession.getData();
-  broadcastMessage('end-message-session', data, persons);
-};
-
-const updateGame = () => {
-  const persons = messageSession.getPlayers();
+const updateMessageSession = () => {
+  const persons = messageSession.getPersons();
   const data = messageSession.getData();
   broadcastMessage('update-message-session', data, persons);
 };
@@ -76,7 +70,7 @@ const updateGame = () => {
 
 const recordChat = (chatData) => {
   messageSession.messages.push(chatData);
-  updateGame();  
+  updateMessageSession();  
 }
 
 //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
@@ -87,7 +81,7 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case 'add-new-person':
-      addNewPlayer(message.data.username, ws);
+      addNewPerson(message.data.username, ws);
       break;
     case 'chat-message':
       recordChat(message.data, ws);

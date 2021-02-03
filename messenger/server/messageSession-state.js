@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-class Player {
+class Person {
   constructor(username, ws) {
     this.username = username;
     this.ws = ws;
@@ -20,10 +20,10 @@ class MessageSession {
     this.messages = [{ username: person1.username, msg: "Hello there" }, { username: this.person2?this.person2.username:"user2", msg: "Hi back!" }];
   }
 
-  // get gameOverMessage() {
+  // get messageSessionOver() {
   // }
 
-  getPlayers() {
+  getPersons() {
     return [this.person1, this.person2];
   }
 
@@ -39,5 +39,5 @@ class MessageSession {
 
 module.exports = {
   MessageSession,
-  Player,
+  Person,
 };

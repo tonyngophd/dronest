@@ -16,7 +16,7 @@ const ValidationErrors = ({ errors }) => {
   );
 };
 
-const Home = ({ updatePlayerName }) => {
+const Home = ({ updatePersonName }) => {
   const [username, setUserName] = useState('');
   const [errors, setErrors] = useState([]);
 
@@ -38,7 +38,7 @@ const Home = ({ updatePlayerName }) => {
       return;
     }
 
-    updatePlayerName(username);
+    updatePersonName(username);
   };
 
   return (
