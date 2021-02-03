@@ -1,0 +1,10 @@
+/* TODO Add site wide styles */
+/* ./src/index.css */
+
+body, button, input {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input {
+  font-size: 1.1em;
+}

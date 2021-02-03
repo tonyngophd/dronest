@@ -1,0 +1,23 @@
+/* ./src/components/MessageSession.module.css */
+
+.messageSession {
+  margin: auto;
+  width: 402px;
+}
+
+.persons {
+  display: grid;
+  height: 20px;
+  width: 400px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.actions {
+  display: flex;
+}
+
+.announcement {
+  font-size: 1.4em;
+  text-align: center;
+}
