@@ -4,8 +4,10 @@ import { nanoid } from 'nanoid';
 import styles from './MessageCore.module.css';
 
 
-const MessageCore = ({ username, messageSession, sendChat }) => {
+const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => {
   const [msg, setMsg] = useState('');
+  const [chatFriends, updateChatFriends] = useState([]);
+  const [friendName, setFriendName] = useState('');
   // useEffect(() => {
   //   if (messageSession && messageSession.messages) {
   //     console.log("messageSession.messages", messageSession.messages, messageSession.messages.map(m => [m.name, m.text]));
@@ -38,10 +40,26 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
     );
   }
 
+  const handleNameSubmit = e => {
+    e.preventDefault();
+    addAChatFriend(undefined, friendName);
+    setFriendName('');
+  }
+
   return (
     <div className={styles.messageSession}>
       { messageSession ? (
         <>
+          <div>
+            <form onSubmit={handleNameSubmit}>
+              <input
+                type='text'
+                value={friendName}
+                onChange={e => setFriendName(e.target.value)}
+              />
+              <button type='submit'>Enter</button>
+            </form>
+          </div>
           <div className={styles.persons}>
             <PersonsNames />
           </div>

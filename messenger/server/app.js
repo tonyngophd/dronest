@@ -52,19 +52,19 @@ const startMessageSession = async () => {
 };
 
 const addNewPerson = (id, username, ws) => {
-  const person = new Person(0, username, ws);
+  const person = new Person(id, username, ws);
+  console.log("person", id, person.getData());
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
   } else {
     // TODO Ignore any additional person connections.
     // console.log(`Ignoring person ${username}...`);
-    person.id = messageSession.peopleArr.length;
+    // person.id = messageSession.peopleArr.length;
     if (!messageSession.peopleIdObj[`${person.id}`]) {
       messageSession.addPerson(person);
     }
   }
-  console.log("person", person.getData());
   if (messageSession.peopleArr.length >= 1) {
     startMessageSession();
   } else {
@@ -97,6 +97,19 @@ const recordChat = (chatData) => {
   updateMessageSession();
 }
 
+const addAChatFriend = (data) => {
+  const username = data.username;
+  console.log(messageSession.peopleUnObj);
+  console.log(messageSession.peopleUnObj[username]);
+  if(messageSession && messageSession.peopleUnObj[username] !== undefined){
+    const personData = messageSession.peopleArr.find(p => p.username === username).getData();
+    if(personData){
+      console.log(personData);
+      // messageSession.conversations.push();
+    }
+  } 
+}
+
 //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
 const processIncomingMessage = (jsonData, ws) => {
   // console.log(`Processing incoming message ${jsonData}...`);
@@ -105,11 +118,14 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case 'add-new-person':
-      addNewPerson(message.data.id, message.data.username, ws);
+      addNewPerson(message.data.userId, message.data.username, ws);
       break;
     case 'chat-message':
       recordChat(message.data, ws);
       break;
+    case 'add-chat-friend':
+      addAChatFriend(message.data);
+      break;      
     default:
       throw new Error(`Unknown message type: ${message.type}`);
   }
@@ -139,7 +155,7 @@ wss.on('connection', (ws) => {
     //     messageSession = null;
     //   }
     // }
-    console.log('closed, messageSession', messageSession);
+    console.log('closed');
   });
 });
 

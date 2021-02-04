@@ -29,6 +29,7 @@ class MessageSession {
     this.peopleUnObj[`${person.username}`] = person.id;
     this.peopleArr = [person];
     this.latestMessage = {};
+    this.conversations = {};
   }
 
   // get messageSessionOver() {
@@ -36,6 +37,7 @@ class MessageSession {
 
   addPerson(person){
     this.peopleIdObj[`${person.id}`] = person.username;
+    this.peopleUnObj[`${person.username}`] = person.id;
     this.peopleArr.push(person);
   }
 

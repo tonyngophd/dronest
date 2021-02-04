@@ -16,8 +16,9 @@ const ValidationErrors = ({ errors }) => {
   );
 };
 
-const Home = ({ updatePersonName }) => {
+const Home = ({ updatePersonNameAndId }) => {
   const [username, setUserName] = useState('');
+  const [userId, setUserId] = useState(undefined);
   const [errors, setErrors] = useState([]);
 
   const onChange = (e) => {
@@ -38,7 +39,7 @@ const Home = ({ updatePersonName }) => {
       return;
     }
 
-    updatePersonName(username);
+    updatePersonNameAndId(userId, username);
   };
 
   return (
@@ -48,8 +49,17 @@ const Home = ({ updatePersonName }) => {
         click the "Start MessageSession" button to start a messageSession.</p>
       <ValidationErrors errors={errors} />
       <form onSubmit={onSubmit}>
+        <input type='number' value={userId}
+          onChange={e=>{
+            setUserId(Number(e.target.value)); console.log((Number(e.target.value)));
+          }} 
+          min={0}
+          style={{width:'30px'}}
+          />
         <input type='text' value={username}
-          onChange={onChange} />
+          onChange={onChange} 
+          placeholder="Name"
+          />
         <button>Start MessageSession</button>
       </form>
     </div>

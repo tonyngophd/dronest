@@ -5,18 +5,19 @@ import MessageCore from './components/MessageCore';
 
 const App = () => {
   const [username, setUserName] = useState('');
+  const [userId, setUserId] = useState(null);
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
   useEffect(() => {
-    if (!username) {
+    if (!username || !userId) {
       return;
     }
 
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { id: Math.floor(Math.random() * 20), username });
+      sendMessage('add-new-person', { userId, username });
     };
 
     ws.onmessage = (e) => {
@@ -67,15 +68,21 @@ const App = () => {
         webSocket.current.ws.close();
       }
     };
-  }, [username]);
+  }, [username, userId]);
 
-  const updatePersonName = (username) => {
+  const updatePersonNameAndId = (id, username) => {
+    setUserId(id);
     setUserName(username);
   };
 
 
   const sendChat = (msg, username) => {
-    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 20),username, msg });
+    const myId = messageSession.peopleUnObj[username];
+    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 20), username, msg });
+  };
+  
+  const addAChatFriend = (userId, username) => {
+    webSocket.current.sendMessage('add-chat-friend', { userId, username });
   };
 
    const backgroundColor = () => {
@@ -99,9 +106,10 @@ const App = () => {
           username={username} 
           messageSession={messageSession} 
           sendChat={sendChat}
+          addAChatFriend={addAChatFriend}
           />
       ) : (
-          <Home updatePersonName={updatePersonName} />
+          <Home updatePersonNameAndId={updatePersonNameAndId} />
         )}
     </div>
   );
