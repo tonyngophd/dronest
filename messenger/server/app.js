@@ -47,8 +47,10 @@ const broadcastMessage = (type, data, persons) => {
 
 const startMessageSession = async () => {
   const data = messageSession.getData();
+  //TODO: send the list of online people when they are only in the followers or following list
   // await messageSession.checkDB();
-  broadcastMessage('start-message-session', data, messageSession.getPersons());
+  const personToBroadcastTo = messageSession.peopleArr[messageSession.peopleArr.length-1];
+  broadcastMessage('start-message-session', data, [personToBroadcastTo]);
 };
 
 const addNewPerson = (id, username, ws) => {
