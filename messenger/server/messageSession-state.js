@@ -53,7 +53,7 @@ class MessageSession {
       //TODO optimize this!
       peopleIdObj: this.peopleIdObj,
       peopleUnObj: this.peopleUnObj,
-      peopleArr: this.peopleArr.map(p => p.getData()),
+      // peopleArr: this.peopleArr.map(p => p.getData()),
       messages: [],
       // conversations: this.conversations,
     };

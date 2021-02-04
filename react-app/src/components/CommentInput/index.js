@@ -75,6 +75,7 @@ const CommentInput = ({
   action = "Post",
   placeHolder = "Add a comment...",
   receiverId,
+  receiverName,
   sendChat = null,
 }) => {
   const user = useSelector((state) => state.session.user);
@@ -208,7 +209,8 @@ const CommentInput = ({
     } else {
       // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
       if(sendChat){
-        sendChat(rawData, user.username);
+        //sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
+        sendChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
       }
       await uploadMessage(
         user.id,

@@ -1,12 +1,17 @@
 import { login, logout, authenticate, signup } from "../services/auth";
 
 const SET_USER = "session/SET_USER";
+const ADD_A_MESSAGE = "session/ADD_A_MESSAGE";
 const REMOVE_USER = "session/REMOVE_USER";
 // const RESTORE_USER = 'user/RESTORE_USER';
 
 export const setUserPOJO = (user) => ({
   type: SET_USER,
   user,
+});
+export const setUserAddAMessagePOJO = (message) => ({
+  type: ADD_A_MESSAGE,
+  message,
 });
 
 const removeUserPOJO = () => ({
@@ -57,6 +62,10 @@ const reducer = (state = initialState, action) => {
     case REMOVE_USER:
       newState = Object.assign({}, state);
       newState.user = null;
+      return newState;
+    case ADD_A_MESSAGE:
+      newState = Object.assign({}, state);
+      newState.user.messages.push(action.message);
       return newState;
     default:
       return state;

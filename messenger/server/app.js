@@ -7,6 +7,8 @@ const WebSocket = require('ws');
 
 const { port } = require('./config');
 const { MessageSession, Person } = require('./messageSession-state');
+const { User, DirectMessage } = require('./db/models');
+
 
 const app = express();
 
@@ -47,79 +49,91 @@ const broadcastMessage = (type, data, persons) => {
 
 const startMessageSession = async () => {
   const data = messageSession.getData();
+  //TODO: send the previous message in the convo if user participated in a previous convo
+  // await messageSession.checkDB();
+  const personToBroadcastTo = messageSession.peopleArr[messageSession.peopleArr.length - 1];
+  broadcastMessage('start-message-session', data, [personToBroadcastTo]);
+};
+
+const updateListOfOnlineUsers = async () => {
+  const data = messageSession.peopleArr.map(p => p.getData());
   //TODO: send the list of online people when they are only on the followers or following list
   // await messageSession.checkDB();
-  const personToBroadcastTo = messageSession.peopleArr[messageSession.peopleArr.length-1];
-  broadcastMessage('start-message-session', data, [personToBroadcastTo]);
+  broadcastMessage('update-online-user-list', data, messageSession.peopleArr);
 };
 
 const addNewPerson = (id, username, ws) => {
   const person = new Person(id, username, ws);
-  console.log("person", id, person.getData());
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
   } else {
-    // TODO Ignore any additional person connections.
-    // console.log(`Ignoring person ${username}...`);
-    // person.id = messageSession.peopleArr.length;
     if (!messageSession.peopleIdObj[`${person.id}`]) {
       messageSession.addPerson(person);
     }
   }
   if (messageSession.peopleArr.length >= 1) {
     startMessageSession();
+    updateListOfOnlineUsers();
   } else {
     ws.close();
   }
-  // if (messageSession === null) {
-  //   messageSession = new MessageSession(person);
-  // } else if (!messageSession.peopleArr[1]) {
-  //   messageSession.addPerson(person)
-  //   startMessageSession();
-  // } else {
-  //   // TODO Ignore any additional person connections.
-  //   // console.log(`Ignoring person ${username}...`);
-  //   if(!messageSession.peopleIdObj[`${person.id}`]){
-  //     messageSession.addPerson(person);
-  //   }
-  //   ws.close();
-  // }
 };
 
 const pushChatMsgs = (chatData) => {
-  // console.log('pushChatMsgs', chatData);
   const persons = messageSession.getPersons();
   const people = [];
-  let { senderId, receiverId } = chatData;
-  if(receiverId < 0) receiverId = undefined;
+  let { senderId, senderName, receiverId, receiverName } = chatData;
+  if (receiverId < 0) receiverId = undefined;
   const key = new Set([senderId, receiverId]);
   const data = messageSession.getData(key);
-  if(messageSession.conversations[key]){
+  if (messageSession.conversations[key]) {
     console.log('messageSession.conversations[key]', messageSession.conversations[key]);
     const arr = Array.from(key);
     arr.forEach(el =>
       people.push(persons.find(p => p.id === el))
     );
-    // console.log('People', people);
   } else {
-    if(senderId && receiverId){
-      messageSession.conversations[key] = [senderId, receiverId];
+    if (senderId && receiverId && (senderId !== receiverId)) {
+      messageSession.conversations[key] = {
+        usernames: [senderName, receiverName],
+        userIds: [senderId, receiverId],
+      };
+
       //TODO add this later
-    // } else {
-    //   if(senderId){
-    //     people.push(persons.find(p => p.id === senderId))
-    //   }
+      // } else {
+      //   if(senderId){
+      //     people.push(persons.find(p => p.id === senderId))
+      //   }
     }
   }
   // console.log('People', people);
-  if(people.length > 1) broadcastMessage('update-message-session', data, people);
+  if (people.length > 1) broadcastMessage('update-message-session', data, people);
 };
 
 
-const recordChat = (chatData) => {
-  messageSession.messages.push(chatData);
-  pushChatMsgs(chatData);
+const recordChat = async (chatData) => {
+  console.log('\n\n\nBefore: chatData', chatData);
+  let latestMessage;
+  let i = 0;
+  while (!latestMessage && (i++ < 10)) {
+    await new Promise(r => setTimeout(r, 100));
+    latestMessage = await DirectMessage.findAll({
+      limit: 1,
+      where: {
+        senderId: chatData.senderId,
+        receiverId: chatData.receiverId,
+        message: JSON.stringify(chatData.message)
+      },
+      order: [['createdAt', 'DESC']]
+    });
+    if (latestMessage && latestMessage[0]) {
+      console.log('chatData', chatData, latestMessage[0].toJSON());
+      // messageSession.messages.push(chatData);
+      messageSession.messages.push(latestMessage[0].toJSON());
+      pushChatMsgs(chatData);
+    }
+  }
 }
 
 const addAChatFriend = (data) => {
@@ -143,15 +157,18 @@ const addAChatFriend = (data) => {
         // messageSession.conversations.push();
       }
     }
-    if(myself && friend){
+    if (myself && friend && (myself !== friend)) {
       const convoId = new Set([myself.id, friend.id]);
-      messageSession.conversations[convoId] = [myself.username, friend.username];
+      messageSession.conversations[convoId] = {
+        usernames: [myself.username, friend.username],
+        userIds: [myself.id, friend.id],
+      };
       console.log(messageSession.conversations);
     }
   }
 }
 
-//Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
+//Processing incoming message {"type":"chat-message","data":{"username":"p2","message":"hi there"}}
 const processIncomingMessage = (jsonData, ws) => {
   // console.log(`Processing incoming message ${jsonData}...`);
 
@@ -178,24 +195,26 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    // If there's a messageSession available...
-    // if (messageSession !== null) {
-    //   const [ person1, person2 ] = messageSession.peopleArr;
+    if (!messageSession) return;
+    const personLeft = messageSession.peopleArr.find(p =>
+      p.ws === ws
+    )
 
-    //   // If the closed WS belonged to either person 1 or person 2
-    //   // then we need to abort the messageSession.
-    //   if (person1.ws === ws || (person2 && person2.ws === ws)) {
-    //     // If the closed WS doesn't belong to person 1
-    //     // then close their WS, otherwise if there's a
-    //     // person 2 then close their WS.
-    //     if (person1.ws !== ws) {
-    //       person1.ws.close();
-    //     } else if (person2 ) {
-    //       person2.ws.close();
-    //     }
-    //     messageSession = null;
-    //   }
-    // }
+    if (personLeft) {
+      messageSession.peopleArr = messageSession.peopleArr.filter(p =>
+        p.ws !== ws
+      )
+      delete messageSession.peopleIdObj[personLeft.id];
+      delete messageSession.peopleUnObj[personLeft.username];
+      for (let key in messageSession.conversations) {
+        if (messageSession.conversations[key].userIds.includes(personLeft.id)) {
+          delete messageSession.conversations[key];
+        }
+      }
+    }
+    if (!messageSession.peopleArr.length) {
+      messageSession = null;
+    }
     console.log('closed');
   });
 });

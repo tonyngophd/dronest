@@ -7,6 +7,7 @@ const App = () => {
   const [username, setUserName] = useState('');
   const [userId, setUserId] = useState(null);
   const [messageSession, setMessageSession] = useState(null);
+  const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
   const webSocket = useRef(null);
 
   useEffect(() => {
@@ -30,6 +31,9 @@ const App = () => {
         case 'update-message-session':
         case 'end-message-session':
           setMessageSession(message.data);
+          break;
+        case 'update-online-user-list':
+          updateListOfOnlineUsers(message.data);
           break;
         default:
           throw new Error(`Unknown message type: ${message.type}`);
@@ -76,8 +80,8 @@ const App = () => {
   };
 
 
-  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
-    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
+  const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
+    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
   };
   
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
@@ -85,8 +89,8 @@ const App = () => {
   };
 
    const backgroundColor = () => {
-    if(messageSession){
-      if(username === messageSession.peopleArr[0].username){
+    if(listOfOnlineUsers.length){
+      if(username === listOfOnlineUsers[0].username){
         return 'lightblue';
       } else {
         return 'lightgreen';
@@ -104,7 +108,8 @@ const App = () => {
         <MessageCore
           userId={userId}
           username={username} 
-          messageSession={messageSession} 
+          messageSession={messageSession}
+          listOfOnlineUsers={listOfOnlineUsers}
           sendChat={sendChat}
           addAChatFriend={addAChatFriend}
           />
