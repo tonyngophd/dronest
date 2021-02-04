@@ -53,6 +53,13 @@ const startMessageSession = async () => {
   broadcastMessage('start-message-session', data, [personToBroadcastTo]);
 };
 
+const updateListOfOnlineUsers = async () => {
+  const data = messageSession.peopleArr.map(p => p.getData());
+  //TODO: send the list of online people when they are only on the followers or following list
+  // await messageSession.checkDB();
+  broadcastMessage('update-online-user-list', data, messageSession.peopleArr);
+};
+
 const addNewPerson = (id, username, ws) => {
   const person = new Person(id, username, ws);
   console.log("person", id, person.getData());
@@ -69,6 +76,7 @@ const addNewPerson = (id, username, ws) => {
   }
   if (messageSession.peopleArr.length >= 1) {
     startMessageSession();
+    updateListOfOnlineUsers();    
   } else {
     ws.close();
   }
