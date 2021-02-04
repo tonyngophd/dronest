@@ -80,8 +80,8 @@ const App = () => {
     webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
   };
   
-  const addAChatFriend = (userId, username) => {
-    webSocket.current.sendMessage('add-chat-friend', { userId, username });
+  const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
+    webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId});
   };
 
    const backgroundColor = () => {

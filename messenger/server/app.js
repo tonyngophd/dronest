@@ -34,7 +34,7 @@ const broadcastMessage = (type, data, persons) => {
   persons.forEach((person) => {
     // console.log(person.ws.readyState);
     //TODO: broadcast to only the person in the conversation
-    if (person.ws && person.ws.readyState === 1) {
+    if (person && person.ws && person.ws.readyState === 1) {
       person.ws.send(message, (err) => {
         if (err) {
           // TODO Handle errors.
@@ -47,8 +47,10 @@ const broadcastMessage = (type, data, persons) => {
 
 const startMessageSession = async () => {
   const data = messageSession.getData();
+  //TODO: send the list of online people when they are only on the followers or following list
   // await messageSession.checkDB();
-  broadcastMessage('start-message-session', data, messageSession.getPersons());
+  const personToBroadcastTo = messageSession.peopleArr[messageSession.peopleArr.length-1];
+  broadcastMessage('start-message-session', data, [personToBroadcastTo]);
 };
 
 const addNewPerson = (id, username, ws) => {
@@ -85,30 +87,68 @@ const addNewPerson = (id, username, ws) => {
   // }
 };
 
-const updateMessageSession = () => {
+const pushChatMsgs = (chatData) => {
+  // console.log('pushChatMsgs', chatData);
   const persons = messageSession.getPersons();
-  const data = messageSession.getData();
-  broadcastMessage('update-message-session', data, persons);
+  const people = [];
+  let { senderId, receiverId } = chatData;
+  if(receiverId < 0) receiverId = undefined;
+  const key = new Set([senderId, receiverId]);
+  const data = messageSession.getData(key);
+  if(messageSession.conversations[key]){
+    console.log('messageSession.conversations[key]', messageSession.conversations[key]);
+    const arr = Array.from(key);
+    arr.forEach(el =>
+      people.push(persons.find(p => p.id === el))
+    );
+    // console.log('People', people);
+  } else {
+    if(senderId && receiverId){
+      messageSession.conversations[key] = [senderId, receiverId];
+      //TODO add this later
+    // } else {
+    //   if(senderId){
+    //     people.push(persons.find(p => p.id === senderId))
+    //   }
+    }
+  }
+  // console.log('People', people);
+  if(people.length > 1) broadcastMessage('update-message-session', data, people);
 };
 
 
 const recordChat = (chatData) => {
   messageSession.messages.push(chatData);
-  updateMessageSession();
+  pushChatMsgs(chatData);
 }
 
 const addAChatFriend = (data) => {
-  const username = data.username;
-  console.log(messageSession.peopleUnObj);
-  console.log(messageSession.peopleUnObj[username]);
-  if(messageSession && messageSession.peopleUnObj[username] !== undefined){
-    const personData = messageSession.peopleArr.find(p => p.username === username).getData();
-    if(personData){
-      console.log(personData);
-      const friendId = personData.userId;
-      // messageSession.conversations.push();
+  const { myId, myUsername, friendId, friendUsername, convoId } = data;
+  // console.log(messageSession.peopleUnObj[username]);
+  if (messageSession) {
+    let myself, friend;
+    if (messageSession.peopleUnObj[myUsername] !== undefined) {
+      myself = messageSession.peopleArr.find(p => p.username === myUsername).getData();
+      if (myself) {
+        console.log("myself", myself);
+        // const convoId = new Set()
+        // messageSession.conversations.push();
+      }
     }
-  } 
+    if (messageSession.peopleUnObj[friendUsername] !== undefined) {
+      friend = messageSession.peopleArr.find(p => p.username === friendUsername).getData();
+      if (friend) {
+        console.log("friend", friend);
+        // const convoId = new Set()
+        // messageSession.conversations.push();
+      }
+    }
+    if(myself && friend){
+      const convoId = new Set([myself.id, friend.id]);
+      messageSession.conversations[convoId] = [myself.username, friend.username];
+      console.log(messageSession.conversations);
+    }
+  }
 }
 
 //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
@@ -126,7 +166,7 @@ const processIncomingMessage = (jsonData, ws) => {
       break;
     case 'add-chat-friend':
       addAChatFriend(message.data);
-      break;      
+      break;
     default:
       throw new Error(`Unknown message type: ${message.type}`);
   }
