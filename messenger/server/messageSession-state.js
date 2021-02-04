@@ -20,6 +20,7 @@ class Person {
 }
 
 class MessageSession {
+  #peeparr = [];
   constructor(person) {
     this.styles = ['lightblue', 'lightgray'];
     this.messages = [];

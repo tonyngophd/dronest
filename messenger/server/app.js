@@ -105,6 +105,7 @@ const addAChatFriend = (data) => {
     const personData = messageSession.peopleArr.find(p => p.username === username).getData();
     if(personData){
       console.log(personData);
+      const friendId = personData.userId;
       // messageSession.conversations.push();
     }
   } 

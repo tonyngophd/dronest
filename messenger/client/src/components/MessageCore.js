@@ -8,6 +8,7 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
   const [msg, setMsg] = useState('');
   const [chatFriends, updateChatFriends] = useState([]);
   const [friendName, setFriendName] = useState('');
+  const [friendId, setFriendId] = useState(-1);
   // useEffect(() => {
   //   if (messageSession && messageSession.messages) {
   //     console.log("messageSession.messages", messageSession.messages, messageSession.messages.map(m => [m.name, m.text]));
@@ -42,7 +43,7 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
 
   const handleNameSubmit = e => {
     e.preventDefault();
-    addAChatFriend(undefined, friendName);
+    addAChatFriend("userId", friendName, 'conversationId');
     setFriendName('');
   }
 
@@ -50,12 +51,21 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
     <div className={styles.messageSession}>
       { messageSession ? (
         <>
-          <div>
+          <div style={{marginBottom: '20px'}}>
             <form onSubmit={handleNameSubmit}>
+              <label>FriendId </label>
+              <input
+                type='number'
+                min={0}
+                value={friendId}
+                onChange={e => setFriendId(Number(e.target.value))}
+                style={{width: '50px'}}
+              />
               <input
                 type='text'
                 value={friendName}
                 onChange={e => setFriendName(e.target.value)}
+                style={{width: '100px'}}                
               />
               <button type='submit'>Enter</button>
             </form>
@@ -64,7 +74,7 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
             <PersonsNames />
           </div>
           {messageSession.messages &&
-            <div>
+            <div style={{marginTop: "100px"}}>
               <div>
                 {messageSession.messages.map(m =>
                   <p key={nanoid()} className={m.username === username ? styles.individual_message_right : styles.individual_message_left}>
