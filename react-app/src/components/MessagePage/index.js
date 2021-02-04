@@ -12,6 +12,7 @@ import UserRow from "../ProfilePage/UserRow";
 import Comment from "../Comment";
 
 import sendAMessage from "../../store/messages";
+import { setUserAddAMessagePOJO } from '../../store/session';
 
 import "./MessagePage.css";
 import { nanoid } from "nanoid";
@@ -39,6 +40,7 @@ function MessagePage() {
   const webSocket = useRef(null);
   const [userId, setUserId] = useState(null);
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
+  const [instantMessage, setInstantMessage] = useState({});
 
   useEffect(() => {
     const groupedMsgs = [];
@@ -70,9 +72,9 @@ function MessagePage() {
       }
     }
     dispatch(fetchNotifications());
-    // console.log('groupedMsgs', groupedMsgs);
     setCurrentGroupedMsgs(groupedMsgs);
-  }, [myself, currentReceiver]);
+    console.log('groupedMsgs', groupedMsgs, instantMessage);
+  }, [myself, currentReceiver, instantMessage]);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -125,6 +127,13 @@ function MessagePage() {
           if(messages && messages.length){
             const lastMessage = messages.pop();
             console.log("lastMessage", lastMessage);
+            const msg = {
+              senderId: lastMessage.senderId,
+              receiverId: lastMessage.receiverId,
+              message: lastMessage.msg,
+            }
+            setInstantMessage(msg);
+            dispatch(setUserAddAMessagePOJO(msg));
           }
           break;
         case 'update-online-user-list':
