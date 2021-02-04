@@ -34,7 +34,6 @@ const App = () => {
           break;
         case 'update-online-user-list':
           updateListOfOnlineUsers(message.data);
-          console.log('update-online-user-list', message.data);
           break;
         default:
           throw new Error(`Unknown message type: ${message.type}`);

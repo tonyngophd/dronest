@@ -66,9 +66,6 @@ const addNewPerson = (id, username, ws) => {
   if (messageSession === null) {
     messageSession = new MessageSession(person);
   } else {
-    // TODO Ignore any additional person connections.
-    // console.log(`Ignoring person ${username}...`);
-    // person.id = messageSession.peopleArr.length;
     if (!messageSession.peopleIdObj[`${person.id}`]) {
       messageSession.addPerson(person);
     }
@@ -79,23 +76,9 @@ const addNewPerson = (id, username, ws) => {
   } else {
     ws.close();
   }
-  // if (messageSession === null) {
-  //   messageSession = new MessageSession(person);
-  // } else if (!messageSession.peopleArr[1]) {
-  //   messageSession.addPerson(person)
-  //   startMessageSession();
-  // } else {
-  //   // TODO Ignore any additional person connections.
-  //   // console.log(`Ignoring person ${username}...`);
-  //   if(!messageSession.peopleIdObj[`${person.id}`]){
-  //     messageSession.addPerson(person);
-  //   }
-  //   ws.close();
-  // }
 };
 
 const pushChatMsgs = (chatData) => {
-  // console.log('pushChatMsgs', chatData);
   const persons = messageSession.getPersons();
   const people = [];
   let { senderId, senderName, receiverId, receiverName } = chatData;
@@ -108,7 +91,6 @@ const pushChatMsgs = (chatData) => {
     arr.forEach(el =>
       people.push(persons.find(p => p.id === el))
     );
-    // console.log('People', people);
   } else {
     if (senderId && receiverId) {
       messageSession.conversations[key] = {
@@ -192,6 +174,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
+    if(!messageSession) return;
     const personLeft = messageSession.peopleArr.find(p =>
       p.ws === ws
     )

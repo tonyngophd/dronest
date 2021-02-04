@@ -36,7 +36,9 @@ function MessagePage() {
   const [currentGroupedMsgs, setCurrentGroupedMsgs] = useState([]);
   const [username, setUserName] = useState('');
   const [messageSession, setMessageSession] = useState(null);
-  const webSocket = useRef(null);  
+  const webSocket = useRef(null); 
+  const [userId, setUserId] = useState(null);
+  const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
 
   useEffect(() => {
     const groupedMsgs = [];
@@ -93,14 +95,19 @@ function MessagePage() {
   useEffect(() => {
     if(myself){
       setUserName(myself.username);
+      setUserId(myself.id);
     }
   }, [myself]);
+
   useEffect(() => {
-    const id = myself.id;
+    if (!username || !userId) {
+      return;
+    }
+
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { id, username });
+      sendMessage('add-new-person', { userId, username });
     };
 
     ws.onmessage = (e) => {
@@ -112,7 +119,11 @@ function MessagePage() {
         case 'start-message-session':
         case 'update-message-session':
         case 'end-message-session':
+          console.log('update-message-session', message.data.messages);
           setMessageSession(message.data);
+          break;
+        case 'update-online-user-list':
+          updateListOfOnlineUsers(message.data);
           break;
         default:
           throw new Error(`Unknown message type: ${message.type}`);
@@ -151,31 +162,33 @@ function MessagePage() {
         webSocket.current.ws.close();
       }
     };
-  }, [username]);
+  }, [username, userId]);
 
-  const updatePersonName = (username) => {
-    setUserName(username);
+
+  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
+    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
   };
-
-
-  const sendChat = (msg, username) => {
-    webSocket.current.sendMessage('chat-message', { username, msg });
-  };  
+  
+  const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
+    webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId});
+  }; 
 
   const receiverClick = (e) => {
     e.preventDefault();
     const receiverId = Number(e.target.id.split("-")[0]);
-    setCurrentReceiver(allUniqueReceivers.find((u) => u.id === receiverId));
+    const recver = allUniqueReceivers.find((u) => u.id === receiverId);
+    setCurrentReceiver(recver);
+    addAChatFriend(myself.id, myself.username, receiverId, recver.username, 'newConvo');    
     // console.log('receiverId', receiverId, allUniqueReceivers.filter(u => u.id === receiverId)[0]);
   };
 
-  const msgClick = (e) => {
-    e.preventDefault();
-    // console.log(myself.id, currentReceiver.id, currentMsg);
-    sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
-    sendChat(currentMsg, username);
-    setCurrentMsg("");
-  };
+  // const msgClick = (e) => {
+  //   e.preventDefault();
+  //   // console.log(myself.id, currentReceiver.id, currentMsg);
+  //   sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
+  //   sendChat(currentMsg, username);
+  //   setCurrentMsg("");
+  // };
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -292,6 +305,7 @@ function MessagePage() {
                     action="Send"
                     placeHolder="Type your message"
                     receiverId={currentReceiver.id}
+                    receiverName={currentReceiver.username}
                     sendChat={sendChat}
                   />
                 </div>
