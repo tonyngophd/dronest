@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import styles from './MessageCore.module.css';
 
 
-const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => {
+const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFriend }) => {
   const [msg, setMsg] = useState('');
   const [chatFriends, updateChatFriends] = useState([]);
   const [friendName, setFriendName] = useState('');
@@ -18,7 +18,7 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
 
   const handleChatSubmit = e => {
     e.preventDefault();
-    sendChat(msg, username);
+    sendChat(userId, username, friendId, friendName, msg, "convoId");
     setMsg('');
   };
 
@@ -43,8 +43,9 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
 
   const handleNameSubmit = e => {
     e.preventDefault();
-    addAChatFriend("userId", friendName, 'conversationId');
+    addAChatFriend(friendId, friendName, 'conversationId');
     setFriendName('');
+    setFriendId(-1)
   }
 
   return (
@@ -77,8 +78,8 @@ const MessageCore = ({ username, messageSession, sendChat, addAChatFriend }) => 
             <div style={{marginTop: "100px"}}>
               <div>
                 {messageSession.messages.map(m =>
-                  <p key={nanoid()} className={m.username === username ? styles.individual_message_right : styles.individual_message_left}>
-                    <span className={styles.person_name}><b>{personsName(m.username, true)}</b></span>
+                  <p key={nanoid()} className={m.senderId === userId ? styles.individual_message_right : styles.individual_message_left}>
+                    <span className={styles.person_name}><b>{personsName(m.senderName, true)}</b></span>
                     <span >{m.msg}</span>
                   </p>
                 )}

@@ -76,9 +76,8 @@ const App = () => {
   };
 
 
-  const sendChat = (msg, username) => {
-    const myId = messageSession.peopleUnObj[username];
-    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 20), username, msg });
+  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
+    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
   };
   
   const addAChatFriend = (userId, username) => {
@@ -103,6 +102,7 @@ const App = () => {
       <h2>With JS and WebSocket</h2>
       {username ? (
         <MessageCore
+          userId={userId}
           username={username} 
           messageSession={messageSession} 
           sendChat={sendChat}
