@@ -47,7 +47,7 @@ const broadcastMessage = (type, data, persons) => {
 
 const startMessageSession = async () => {
   const data = messageSession.getData();
-  //TODO: send the list of online people when they are only in the followers or following list
+  //TODO: send the list of online people when they are only on the followers or following list
   // await messageSession.checkDB();
   const personToBroadcastTo = messageSession.peopleArr[messageSession.peopleArr.length-1];
   broadcastMessage('start-message-session', data, [personToBroadcastTo]);
@@ -95,8 +95,8 @@ const pushChatMsgs = (chatData) => {
   if(receiverId < 0) receiverId = undefined;
   const key = new Set([senderId, receiverId]);
   const data = messageSession.getData(key);
-  if(data.conversations[key]){
-    console.log('data.conversations[key]', data.conversations[key]);
+  if(messageSession.conversations[key]){
+    console.log('messageSession.conversations[key]', messageSession.conversations[key]);
     const arr = Array.from(key);
     arr.forEach(el =>
       people.push(persons.find(p => p.id === el))

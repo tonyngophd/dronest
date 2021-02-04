@@ -55,7 +55,7 @@ class MessageSession {
       peopleUnObj: this.peopleUnObj,
       peopleArr: this.peopleArr.map(p => p.getData()),
       messages: [],
-      conversations: this.conversations,
+      // conversations: this.conversations,
     };
 
     if(convoKey){
