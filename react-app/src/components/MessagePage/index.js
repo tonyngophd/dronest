@@ -40,10 +40,11 @@ function MessagePage() {
   const webSocket = useRef(null);
   const [userId, setUserId] = useState(null);
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
-  const [gotInstantMessage, setGotInstantMessage] = useState("");
-  let instantMessage = {};
+  const [instantMessage, setInstantMessage] = useState({});
+  const chatboxRef = useRef(null);
 
   useEffect(() => {
+    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage);
     const groupedMsgs = [];
     if (currentReceiver) {
       const msgs = myself.messages.filter(
@@ -51,10 +52,9 @@ function MessagePage() {
           msg.receiverId === currentReceiver.id ||
           msg.senderId === currentReceiver.id
       );
-      if(Object.keys(instantMessage).length){
-        if(instantMessage.senderId !== myself.id)
+      if (Object.keys(instantMessage).length) {
+        if (instantMessage.senderId !== myself.id)
           msgs.push(instantMessage);
-        instantMessage = {};
       }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
@@ -75,9 +75,13 @@ function MessagePage() {
         }
       }
     }
-    dispatch(fetchNotifications());
+    // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
-  }, [myself, currentReceiver, gotInstantMessage]);
+  }, [myself, currentReceiver, instantMessage]);
+
+  useEffect(() => {
+    if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
+  }, [currentGroupedMsgs]);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -123,13 +127,10 @@ function MessagePage() {
           break;
         case 'update-message-session':
           const messages = message.data.messages;
-          if(messages && messages.length){
+          if (messages && messages.length) {
             const lastMessage = messages.pop();
-            // for(let key in lastMessage.message)
-            console.log("\n\n\nlastMessage", JSON.parse(JSON.stringify(lastMessage.message)));
-            // const { key, text } = JSON.parse(JSON.stringify(lastMessage.message))["blocks"][0];
-            instantMessage = lastMessage;
-            // setGotInstantMessage(key + text);
+            let msg = JSON.stringify(JSON.parse(lastMessage.message));
+            setInstantMessage({...lastMessage, message: msg});
             // dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
@@ -177,12 +178,12 @@ function MessagePage() {
 
 
   const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
-    if(webSocket.current)
+    if (webSocket.current)
       webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
   };
 
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
-    if(webSocket.current)
+    if (webSocket.current)
       webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
   };
 
@@ -300,6 +301,7 @@ function MessagePage() {
                   {currentGroupedMsgs.map((msg) => (
                     <MessageBubble key={nanoid()} msg={msg} />
                   ))}
+                  <div ref={chatboxRef} />
                 </div>
                 <div className="message-typing-box-div">
                   {/* <form className='message-input-form'>

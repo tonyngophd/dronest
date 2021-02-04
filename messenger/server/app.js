@@ -113,7 +113,7 @@ const pushChatMsgs = (chatData) => {
 
 
 const recordChat = async (chatData) => {
-  console.log('\n\n\nBefore: chatData', chatData);
+  // console.log('\n\n\nBefore: chatData', chatData);
   let latestMessage;
   let i = 0;
   while (!latestMessage && (i++ < 10)) {
@@ -128,7 +128,7 @@ const recordChat = async (chatData) => {
       order: [['createdAt', 'DESC']]
     });
     if (latestMessage && latestMessage[0]) {
-      console.log(i);
+      console.log(i,"\nlatestMessage", latestMessage[0].toJSON());
       // messageSession.messages.push(chatData);
       messageSession.messages.push(latestMessage[0].toJSON());
       return pushChatMsgs(latestMessage[0].toJSON());
