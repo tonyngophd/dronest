@@ -127,13 +127,8 @@ function MessagePage() {
           if(messages && messages.length){
             const lastMessage = messages.pop();
             console.log("lastMessage", lastMessage);
-            const msg = {
-              senderId: lastMessage.senderId,
-              receiverId: lastMessage.receiverId,
-              message: lastMessage.msg,
-            }
-            setInstantMessage(msg);
-            dispatch(setUserAddAMessagePOJO(msg));
+            setInstantMessage(lastMessage);
+            dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
         case 'update-online-user-list':
@@ -179,12 +174,14 @@ function MessagePage() {
   }, [username, userId]);
 
 
-  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
-    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
+  const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
+    if(webSocket.current)
+      webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
   };
 
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
-    webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
+    if(webSocket.current)
+      webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
   };
 
   const receiverClick = (e) => {

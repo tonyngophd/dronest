@@ -88,12 +88,12 @@ const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFrien
                 {messageSession.messages.map(m =>
                   <p key={nanoid()} className={m.senderId === userId ? styles.individual_message_right : styles.individual_message_left}>
                     <span className={styles.person_name}><b>{personsName(m.senderName, true)}</b></span>
-                    <span >{m.msg}</span>
+                    <span >{m.message}</span>
                   </p>
                 )}
               </div>
               <form onSubmit={handleChatSubmit}>
-                <input type='text' value={msg} onChange={e => setMsg(e.target.value)} placeholder="Enter a message" />
+                <input type='text' value={message} onChange={e => setMsg(e.target.value)} placeholder="Enter a message" />
                 <button type='submit'>Send</button>
               </form>
             </div>}

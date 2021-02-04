@@ -80,8 +80,8 @@ const App = () => {
   };
 
 
-  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
-    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
+  const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
+    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
   };
   
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {

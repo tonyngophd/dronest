@@ -7,6 +7,8 @@ const WebSocket = require('ws');
 
 const { port } = require('./config');
 const { MessageSession, Person } = require('./messageSession-state');
+const { User, DirectMessage } = require('./db/models');
+
 
 const app = express();
 
@@ -110,9 +112,28 @@ const pushChatMsgs = (chatData) => {
 };
 
 
-const recordChat = (chatData) => {
-  messageSession.messages.push(chatData);
-  pushChatMsgs(chatData);
+const recordChat = async (chatData) => {
+  console.log('\n\n\nBefore: chatData', chatData);
+  let latestMessage;
+  let i = 0;
+  while (!latestMessage && (i++ < 10)) {
+    await new Promise(r => setTimeout(r, 100));
+    latestMessage = await DirectMessage.findAll({
+      limit: 1,
+      where: {
+        senderId: chatData.senderId,
+        receiverId: chatData.receiverId,
+        message: JSON.stringify(chatData.message)
+      },
+      order: [['createdAt', 'DESC']]
+    });
+    if (latestMessage && latestMessage[0]) {
+      console.log('chatData', chatData, latestMessage[0].toJSON());
+      // messageSession.messages.push(chatData);
+      messageSession.messages.push(latestMessage[0].toJSON());
+      pushChatMsgs(chatData);
+    }
+  }
 }
 
 const addAChatFriend = (data) => {
@@ -147,7 +168,7 @@ const addAChatFriend = (data) => {
   }
 }
 
-//Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
+//Processing incoming message {"type":"chat-message","data":{"username":"p2","message":"hi there"}}
 const processIncomingMessage = (jsonData, ws) => {
   // console.log(`Processing incoming message ${jsonData}...`);
 
@@ -174,7 +195,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    if(!messageSession) return;
+    if (!messageSession) return;
     const personLeft = messageSession.peopleArr.find(p =>
       p.ws === ws
     )
