@@ -128,12 +128,15 @@ const recordChat = async (chatData) => {
       order: [['createdAt', 'DESC']]
     });
     if (latestMessage && latestMessage[0]) {
-      console.log('chatData', chatData, latestMessage[0].toJSON());
+      console.log(i);
       // messageSession.messages.push(chatData);
       messageSession.messages.push(latestMessage[0].toJSON());
-      pushChatMsgs(chatData);
+      return pushChatMsgs(latestMessage[0].toJSON());
     }
   }
+  //For standalone applications
+  messageSession.messages.push(chatData);
+  return pushChatMsgs(chatData);
 }
 
 const addAChatFriend = (data) => {

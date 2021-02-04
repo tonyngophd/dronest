@@ -40,18 +40,22 @@ function MessagePage() {
   const webSocket = useRef(null);
   const [userId, setUserId] = useState(null);
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
-  const [instantMessage, setInstantMessage] = useState({});
+  const [gotInstantMessage, setGotInstantMessage] = useState("");
+  let instantMessage = {};
 
   useEffect(() => {
     const groupedMsgs = [];
     if (currentReceiver) {
-      // console.log("myself", myself.messages);
       const msgs = myself.messages.filter(
         (msg) =>
           msg.receiverId === currentReceiver.id ||
           msg.senderId === currentReceiver.id
       );
-      // console.log('\nmsgs', msgs, "\ncurrentReceiver", currentReceiver, "\nmyself", myself.messages);
+      if(Object.keys(instantMessage).length){
+        if(instantMessage.senderId !== myself.id)
+          msgs.push(instantMessage);
+        instantMessage = {};
+      }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
         let j = 0;
@@ -73,8 +77,7 @@ function MessagePage() {
     }
     dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
-    console.log('groupedMsgs', groupedMsgs, instantMessage);
-  }, [myself, currentReceiver, instantMessage]);
+  }, [myself, currentReceiver, gotInstantMessage]);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -82,9 +85,7 @@ function MessagePage() {
       allReceiverIds.map((id) => all.find((u) => u.id === id))
     );
   }, [allReceiverIds]);
-  // useEffect(() => {
-  //   console.log("allUniqueReceivers", allUniqueReceivers);
-  // }, [allUniqueReceivers]);
+
 
   useEffect(() => {
     const id = Number(params.userId);
@@ -113,8 +114,6 @@ function MessagePage() {
     };
 
     ws.onmessage = (e) => {
-      console.log(`Processing incoming message ${e.data}...`);
-
       const message = JSON.parse(e.data);
 
       switch (message.type) {
@@ -126,9 +125,12 @@ function MessagePage() {
           const messages = message.data.messages;
           if(messages && messages.length){
             const lastMessage = messages.pop();
-            console.log("lastMessage", lastMessage);
-            setInstantMessage(lastMessage);
-            dispatch(setUserAddAMessagePOJO(lastMessage));
+            // for(let key in lastMessage.message)
+            console.log("\n\n\nlastMessage", JSON.parse(JSON.stringify(lastMessage.message)));
+            // const { key, text } = JSON.parse(JSON.stringify(lastMessage.message))["blocks"][0];
+            instantMessage = lastMessage;
+            // setGotInstantMessage(key + text);
+            // dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
         case 'update-online-user-list':
