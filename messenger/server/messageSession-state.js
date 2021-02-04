@@ -13,35 +13,41 @@ class Person {
 
   getData() {
     return {
+      id: this.id,
       username: this.username,
     };
   }
 }
 
 class MessageSession {
-  constructor(person1) {
-    this.person1 = person1;
-    this.person2 = null;
+  constructor(person) {
     this.styles = ['lightblue', 'lightgray'];
     this.messages = [];
     this.people = {};
-    this.people[`${person1.id}`] = person1;
+    this.people[`${person.id}`] = person;
+    this.peopleArr = [person];
     this.latestMessage = {};
   }
 
   // get messageSessionOver() {
   // }
 
+  addPerson(person){
+    this.people[`${person.id}`] = person;
+    this.peopleArr.push(person);
+  }
+
   getPersons() {
     // return this.people;
-    return [this.person1, this.person2];
+    return this.peopleArr;
   }
 
 
   getData() {
     return {
-      person1: this.person1.getData(),
-      person2: this.person2.getData(),
+      //TODO optimize this!
+      people: this.people,
+      peopleArr: this.peopleArr.map(p => p.getData()),
       messages: this.messages
     };
   }
@@ -49,7 +55,7 @@ class MessageSession {
   async checkDB() {
     const p1 = await User.findOne({
       where: {
-        username: this.person1.username
+        username: this.peopleArr[0].username
       },
       include: [{ model: DirectMessage, as: 'sent' }, { model: DirectMessage, as: 'received' }]
     });

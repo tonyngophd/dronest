@@ -49,16 +49,19 @@ const startMessageSession = async () => {
 
 const addNewPerson = (id, username, ws) => {
   const person = new Person(id, username, ws);
-  console.log("person", person.id);
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
-  } else if (messageSession.person2 === null) {
-    messageSession.person2 = person;
+  } else if (!messageSession.peopleArr[1]) {
+    messageSession.addPerson(person)
     startMessageSession();
   } else {
     // TODO Ignore any additional person connections.
-    console.log(`Ignoring person ${username}...`);
+    // console.log(`Ignoring person ${username}...`);
+    if(!messageSession.people[`${person.id}`]){
+      messageSession.addPerson(person);
+    }
+    // console.log(Object.values(messageSession.people));
     ws.close();
   }
 };
@@ -83,8 +86,6 @@ const processIncomingMessage = (jsonData, ws) => {
 
   switch (message.type) {
     case 'add-new-person':
-      console.table(message.data);
-      console.log(message.data.id);
       addNewPerson(message.data.id, message.data.username, ws);
       break;
     case 'chat-message':
@@ -103,17 +104,17 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     // If there's a messageSession available...
     if (messageSession !== null) {
-      const { person1, person2 } = messageSession;
+      const [ person1, person2 ] = messageSession.peopleArr;
 
       // If the closed WS belonged to either person 1 or person 2
       // then we need to abort the messageSession.
-      if (person1.ws === ws || (person2 !== null && person2.ws === ws)) {
+      if (person1.ws === ws || (person2 && person2.ws === ws)) {
         // If the closed WS doesn't belong to person 1
         // then close their WS, otherwise if there's a
         // person 2 then close their WS.
         if (person1.ws !== ws) {
           person1.ws.close();
-        } else if (person2 !== null) {
+        } else if (person2 ) {
           person2.ws.close();
         }
         messageSession = null;

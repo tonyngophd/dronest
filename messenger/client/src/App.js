@@ -16,7 +16,7 @@ const App = () => {
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { id: Math.floor(Math.random() * 100), username });
+      sendMessage('add-new-person', { id: Math.floor(Math.random() * 5), username });
     };
 
     ws.onmessage = (e) => {
@@ -75,12 +75,12 @@ const App = () => {
 
 
   const sendChat = (msg, username) => {
-    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 100),username, msg });
+    webSocket.current.sendMessage('chat-message', { id: Math.floor(Math.random() * 5),username, msg });
   };
 
    const backgroundColor = () => {
     if(messageSession){
-      if(username === messageSession.person1.username){
+      if(username === messageSession.peopleArr[0].username){
         return 'lightblue';
       } else {
         return 'lightgreen';
