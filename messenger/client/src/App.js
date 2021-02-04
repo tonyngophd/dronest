@@ -91,7 +91,6 @@ const App = () => {
 
    const backgroundColor = () => {
     if(listOfOnlineUsers.length){
-      console.log('94 listOfOnlineUsers', listOfOnlineUsers[0]);
       if(username === listOfOnlineUsers[0].username){
         return 'lightblue';
       } else {
