@@ -43,7 +43,7 @@ const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFrien
 
   const handleNameSubmit = e => {
     e.preventDefault();
-    addAChatFriend(friendId, friendName, 'conversationId');
+    addAChatFriend(userId, username, friendId, friendName, 'newConvo');
     setFriendName('');
     setFriendId(-1)
   }

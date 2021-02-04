@@ -98,17 +98,27 @@ const recordChat = (chatData) => {
 }
 
 const addAChatFriend = (data) => {
-  const username = data.username;
-  console.log(messageSession.peopleUnObj);
-  console.log(messageSession.peopleUnObj[username]);
-  if(messageSession && messageSession.peopleUnObj[username] !== undefined){
-    const personData = messageSession.peopleArr.find(p => p.username === username).getData();
-    if(personData){
-      console.log(personData);
-      const friendId = personData.userId;
-      // messageSession.conversations.push();
+  const { myId, myUsername, friendId, friendUsername, convoId } = data;
+  // console.log(messageSession.peopleUnObj[username]);
+  if (messageSession) {
+    let myself, friend;
+    if (messageSession.peopleUnObj[myUsername] !== undefined) {
+      myself = messageSession.peopleArr.find(p => p.username === myUsername).getData();
+      if (myself) {
+        console.log("myself", myself);
+        // const convoId = new Set()
+        // messageSession.conversations.push();
+      }
     }
-  } 
+    if (messageSession.peopleUnObj[friendUsername] !== undefined) {
+      friend = messageSession.peopleArr.find(p => p.username === friendUsername).getData();
+      if (friend) {
+        console.log("friend", friend);
+        // const convoId = new Set()
+        // messageSession.conversations.push();
+      }
+    }
+  }
 }
 
 //Processing incoming message {"type":"chat-message","data":{"username":"p2","msg":"hi there"}}
@@ -126,7 +136,7 @@ const processIncomingMessage = (jsonData, ws) => {
       break;
     case 'add-chat-friend':
       addAChatFriend(message.data);
-      break;      
+      break;
     default:
       throw new Error(`Unknown message type: ${message.type}`);
   }
