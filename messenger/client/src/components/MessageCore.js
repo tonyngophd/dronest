@@ -28,9 +28,11 @@ const MessageCore = ({ username, messageSession, sendChat }) => {
 
     return (
       <>
-        {
-          others.map(person => <div key={nanoid()}>{personsName(person.username)}</div>)
-        }
+        <div>
+          {
+            others.map(person => <div key={nanoid()}>{personsName(person.username)}</div>)
+          }
+        </div>
         <div>{me.username}</div>
       </>
     );

@@ -52,18 +52,29 @@ const addNewPerson = (id, username, ws) => {
 
   if (messageSession === null) {
     messageSession = new MessageSession(person);
-  } else if (!messageSession.peopleArr[1]) {
-    messageSession.addPerson(person)
-    startMessageSession();
   } else {
     // TODO Ignore any additional person connections.
     // console.log(`Ignoring person ${username}...`);
-    if(!messageSession.people[`${person.id}`]){
+    if(!messageSession.peopleIdObj[`${person.id}`]){
       messageSession.addPerson(person);
     }
-    // console.log(Object.values(messageSession.people));
-    ws.close();
   }
+  if(messageSession.peopleArr.length >= 2){
+    startMessageSession();
+  }
+  // if (messageSession === null) {
+  //   messageSession = new MessageSession(person);
+  // } else if (!messageSession.peopleArr[1]) {
+  //   messageSession.addPerson(person)
+  //   startMessageSession();
+  // } else {
+  //   // TODO Ignore any additional person connections.
+  //   // console.log(`Ignoring person ${username}...`);
+  //   if(!messageSession.peopleIdObj[`${person.id}`]){
+  //     messageSession.addPerson(person);
+  //   }
+  //   ws.close();
+  // }
 };
 
 const updateMessageSession = () => {

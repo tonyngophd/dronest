@@ -23,8 +23,10 @@ class MessageSession {
   constructor(person) {
     this.styles = ['lightblue', 'lightgray'];
     this.messages = [];
-    this.people = {};
-    this.people[`${person.id}`] = person;
+    this.peopleIdObj = {};
+    this.peopleIdObj[`${person.id}`] = person.username;
+    this.peopleUnObj = {};
+    this.peopleUnObj[`${person.username}`] = person.id;
     this.peopleArr = [person];
     this.latestMessage = {};
   }
@@ -33,12 +35,12 @@ class MessageSession {
   // }
 
   addPerson(person){
-    this.people[`${person.id}`] = person;
+    this.peopleIdObj[`${person.id}`] = person.username;
     this.peopleArr.push(person);
   }
 
   getPersons() {
-    // return this.people;
+    // return this.peopleIdObj;
     return this.peopleArr;
   }
 
@@ -46,7 +48,8 @@ class MessageSession {
   getData() {
     return {
       //TODO optimize this!
-      people: this.people,
+      peopleIdObj: this.peopleIdObj,
+      peopleUnObj: this.peopleUnObj,
       peopleArr: this.peopleArr.map(p => p.getData()),
       messages: this.messages
     };
