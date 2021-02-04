@@ -7,13 +7,14 @@ import styles from './MessageCore.module.css';
 const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFriend }) => {
   const [msg, setMsg] = useState('');
   const [chatFriends, updateChatFriends] = useState([]);
+  const [friendNameInput, setFriendNameInput] = useState('');
+  const [friendIdInput, setFriendIdInput] = useState(-1);
   const [friendName, setFriendName] = useState('');
   const [friendId, setFriendId] = useState(-1);
-  // useEffect(() => {
-  //   if (messageSession && messageSession.messages) {
-  //     console.log("messageSession.messages", messageSession.messages, messageSession.messages.map(m => [m.name, m.text]));
-  //   }
-  // }, [messageSession])
+  useEffect(() => {
+    if(friendIdInput !== -1) setFriendId(friendIdInput);
+    if(friendNameInput !== '') setFriendName(friendNameInput);
+  }, [friendIdInput, friendNameInput])
 
 
   const handleChatSubmit = e => {
@@ -44,8 +45,10 @@ const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFrien
   const handleNameSubmit = e => {
     e.preventDefault();
     addAChatFriend(userId, username, friendId, friendName, 'newConvo');
-    setFriendName('');
-    setFriendId(-1)
+    if(friendIdInput !== -1) setFriendId(friendIdInput);
+    if(friendNameInput !== '') setFriendName(friendNameInput);    
+    setFriendNameInput('');
+    setFriendIdInput(-1)
   }
 
   return (
@@ -58,18 +61,22 @@ const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFrien
               <input
                 type='number'
                 min={0}
-                value={friendId}
-                onChange={e => setFriendId(Number(e.target.value))}
+                value={friendIdInput}
+                onChange={e => setFriendIdInput(Number(e.target.value))}
                 style={{width: '50px'}}
               />
               <input
                 type='text'
-                value={friendName}
-                onChange={e => setFriendName(e.target.value)}
+                value={friendNameInput}
+                onChange={e => setFriendNameInput(e.target.value)}
                 style={{width: '100px'}}                
               />
               <button type='submit'>Enter</button>
             </form>
+          </div>
+          <div>
+            <span>Actual friends in this convo: </span>
+            <span>{friendId} </span> <span> {friendName}</span>
           </div>
           <div className={styles.persons}>
             <PersonsNames />

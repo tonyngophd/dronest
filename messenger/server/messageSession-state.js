@@ -48,14 +48,29 @@ class MessageSession {
   }
 
 
-  getData() {
-    return {
+  getData(convoKey = undefined) {
+    const data = {
       //TODO optimize this!
       peopleIdObj: this.peopleIdObj,
       peopleUnObj: this.peopleUnObj,
       peopleArr: this.peopleArr.map(p => p.getData()),
-      messages: this.messages
+      messages: [],
+      conversations: this.conversations,
     };
+
+    if(convoKey){
+      const msgs = this.getConversationMessages(convoKey);
+      if(msgs)
+        data.messages = msgs;
+    }
+
+    return data;
+  }
+
+  getConversationMessages(convoKey){
+    if(!(convoKey instanceof Set)) return [];
+    const arr = Array.from(convoKey);
+    return this.messages.filter(m => arr.includes(m.senderId) && arr.includes(m.receiverId));
   }
 
   async checkDB() {

@@ -34,7 +34,7 @@ const broadcastMessage = (type, data, persons) => {
   persons.forEach((person) => {
     // console.log(person.ws.readyState);
     //TODO: broadcast to only the person in the conversation
-    if (person.ws && person.ws.readyState === 1) {
+    if (person && person.ws && person.ws.readyState === 1) {
       person.ws.send(message, (err) => {
         if (err) {
           // TODO Handle errors.
@@ -85,16 +85,39 @@ const addNewPerson = (id, username, ws) => {
   // }
 };
 
-const updateMessageSession = () => {
+const pushChatMsgs = (chatData) => {
+  // console.log('pushChatMsgs', chatData);
   const persons = messageSession.getPersons();
-  const data = messageSession.getData();
-  broadcastMessage('update-message-session', data, persons);
+  const people = [];
+  let { senderId, receiverId } = chatData;
+  if(receiverId < 0) receiverId = undefined;
+  const key = new Set([senderId, receiverId]);
+  const data = messageSession.getData(key);
+  if(data.conversations[key]){
+    console.log('data.conversations[key]', data.conversations[key]);
+    const arr = Array.from(key);
+    arr.forEach(el =>
+      people.push(persons.find(p => p.id === el))
+    );
+    // console.log('People', people);
+  } else {
+    if(senderId && receiverId){
+      messageSession.conversations[key] = [senderId, receiverId];
+      //TODO add this later
+    // } else {
+    //   if(senderId){
+    //     people.push(persons.find(p => p.id === senderId))
+    //   }
+    }
+  }
+  // console.log('People', people);
+  if(people.length > 1) broadcastMessage('update-message-session', data, people);
 };
 
 
 const recordChat = (chatData) => {
   messageSession.messages.push(chatData);
-  updateMessageSession();
+  pushChatMsgs(chatData);
 }
 
 const addAChatFriend = (data) => {
@@ -117,6 +140,11 @@ const addAChatFriend = (data) => {
         // const convoId = new Set()
         // messageSession.conversations.push();
       }
+    }
+    if(myself && friend){
+      const convoId = new Set([myself.id, friend.id]);
+      messageSession.conversations[convoId] = [myself.username, friend.username];
+      console.log(messageSession.conversations);
     }
   }
 }
