@@ -92,7 +92,7 @@ const pushChatMsgs = (chatData) => {
       people.push(persons.find(p => p.id === el))
     );
   } else {
-    if (senderId && receiverId) {
+    if (senderId && receiverId && (senderId !== receiverId)) {
       messageSession.conversations[key] = {
         usernames: [senderName, receiverName],
         userIds: [senderId, receiverId],
@@ -136,7 +136,7 @@ const addAChatFriend = (data) => {
         // messageSession.conversations.push();
       }
     }
-    if (myself && friend) {
+    if (myself && friend && (myself !== friend)) {
       const convoId = new Set([myself.id, friend.id]);
       messageSession.conversations[convoId] = {
         usernames: [myself.username, friend.username],

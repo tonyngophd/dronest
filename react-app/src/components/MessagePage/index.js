@@ -36,7 +36,7 @@ function MessagePage() {
   const [currentGroupedMsgs, setCurrentGroupedMsgs] = useState([]);
   const [username, setUserName] = useState('');
   const [messageSession, setMessageSession] = useState(null);
-  const webSocket = useRef(null); 
+  const webSocket = useRef(null);
   const [userId, setUserId] = useState(null);
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
 
@@ -86,14 +86,14 @@ function MessagePage() {
 
   useEffect(() => {
     const id = Number(params.userId);
-    if(id){
+    if (id) {
       setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
     }
   }, [params.userId, allUniqueReceivers])
 
 
   useEffect(() => {
-    if(myself){
+    if (myself) {
       setUserName(myself.username);
       setUserId(myself.id);
     }
@@ -117,10 +117,15 @@ function MessagePage() {
 
       switch (message.type) {
         case 'start-message-session':
-        case 'update-message-session':
         case 'end-message-session':
-          console.log('update-message-session', message.data.messages);
           setMessageSession(message.data);
+          break;
+        case 'update-message-session':
+          const messages = message.data.messages;
+          if(messages && messages.length){
+            const lastMessage = messages.pop();
+            console.log("lastMessage", lastMessage);
+          }
           break;
         case 'update-online-user-list':
           updateListOfOnlineUsers(message.data);
@@ -168,17 +173,17 @@ function MessagePage() {
   const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
     webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
   };
-  
+
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
-    webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId});
-  }; 
+    webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
+  };
 
   const receiverClick = (e) => {
     e.preventDefault();
     const receiverId = Number(e.target.id.split("-")[0]);
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceiver(recver);
-    addAChatFriend(myself.id, myself.username, receiverId, recver.username, 'newConvo');    
+    addAChatFriend(myself.id, myself.username, receiverId, recver.username, 'newConvo');
     // console.log('receiverId', receiverId, allUniqueReceivers.filter(u => u.id === receiverId)[0]);
   };
 
@@ -220,23 +225,23 @@ function MessagePage() {
             />
           </div>
         ) : (
-          <div className={divClass3}>
-            <img
-              className="user-row-profile-img"
-              src={currentReceiver.profilePicUrl}
-              alt={currentReceiver.profilePicUrl}
-              style={{ marginRight: "0px" }}
-            />
-            <div className={divClass2}>
-              {msg.message.map((m) => (
-                <div key={nanoid()}>
-                  {/* {m} */}
-                  <Comment message={m} />
-                </div>
-              ))}
+            <div className={divClass3}>
+              <img
+                className="user-row-profile-img"
+                src={currentReceiver.profilePicUrl}
+                alt={currentReceiver.profilePicUrl}
+                style={{ marginRight: "0px" }}
+              />
+              <div className={divClass2}>
+                {msg.message.map((m) => (
+                  <div key={nanoid()}>
+                    {/* {m} */}
+                    <Comment message={m} />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     );
   };
@@ -313,19 +318,19 @@ function MessagePage() {
             </div>
           </>
         ) : (
-          <div className="empty-message-box-div durp">
-            <div>
-              <BiChat fontSize={"120px"} />
-            </div>
-            <div className="title-and-button-message-box-div">
-              <span className="title-message-box-div">Your Messages</span>
-              <span className="subtitle-message-box-div">
-                Send private photos and messages to a friend or group.
+            <div className="empty-message-box-div durp">
+              <div>
+                <BiChat fontSize={"120px"} />
+              </div>
+              <div className="title-and-button-message-box-div">
+                <span className="title-message-box-div">Your Messages</span>
+                <span className="subtitle-message-box-div">
+                  Send private photos and messages to a friend or group.
               </span>
-              <button className="button-message-box-div">Send Messages</button>
+                <button className="button-message-box-div">Send Messages</button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );
