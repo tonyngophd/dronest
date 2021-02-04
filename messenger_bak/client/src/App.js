@@ -5,19 +5,18 @@ import MessageCore from './components/MessageCore';
 
 const App = () => {
   const [username, setUserName] = useState('');
-  const [userId, setUserId] = useState(null);
   const [messageSession, setMessageSession] = useState(null);
   const webSocket = useRef(null);
 
   useEffect(() => {
-    if (!username || !userId) {
+    if (!username) {
       return;
     }
 
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { userId, username });
+      sendMessage('add-new-person', { username });
     };
 
     ws.onmessage = (e) => {
@@ -68,25 +67,29 @@ const App = () => {
         webSocket.current.ws.close();
       }
     };
-  }, [username, userId]);
+  }, [username]);
 
-  const updatePersonNameAndId = (id, username) => {
-    setUserId(id);
+  const updatePersonName = (username) => {
     setUserName(username);
   };
 
 
-  const sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId) => {
-    webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, msg });
-  };
-  
-  const addAChatFriend = (userId, username) => {
-    webSocket.current.sendMessage('add-chat-friend', { userId, username });
+  const sendChat = (msg, username) => {
+    webSocket.current.sendMessage('chat-message', { username, msg });
   };
 
-   const backgroundColor = () => {
+  const playAgain = (username) => {
+    setMessageSession(null);
+    webSocket.current.sendMessage('add-new-person', { username });
+  };
+
+  const quit = () => {
+    setUserName('');
+  };
+
+  const backgroundColor = () => {
     if(messageSession){
-      if(username === messageSession.peopleArr[0].username){
+      if(username === messageSession.person1.username){
         return 'lightblue';
       } else {
         return 'lightgreen';
@@ -102,14 +105,14 @@ const App = () => {
       <h2>With JS and WebSocket</h2>
       {username ? (
         <MessageCore
-          userId={userId}
           username={username} 
           messageSession={messageSession} 
+          playAgain={playAgain} 
+          quit={quit} 
           sendChat={sendChat}
-          addAChatFriend={addAChatFriend}
           />
       ) : (
-          <Home updatePersonNameAndId={updatePersonNameAndId} />
+          <Home updatePersonName={updatePersonName} />
         )}
     </div>
   );

@@ -19,28 +19,3 @@ const joe = new User('joe');
 console.log(joe.userName, joe.username); //Output: joe joe
 joe.userName = 'jesse';
 console.log(joe.userName, joe.username); //Output: jesse jesse
-
-class TestPrivate{
-  #p = 3; //private object property (not class property)
-  constructor(v1, v2){
-    this.v1 = v1;
-    this.v2 = v2;
-  }
-
-  getP(){
-    return this.#p;
-  }
-  incP(v = 1){
-    this.#p += v;
-  }
-}
-
-let t = new TestPrivate(1, 2);
-console.log(t.v1, t.v2);
-console.log(t.getP());
-t.incP(2);
-console.log(t.getP());
-
-let t2 = new TestPrivate(1, 2);
-console.log(t2.v1, t2.v2);
-console.log(t2.getP());

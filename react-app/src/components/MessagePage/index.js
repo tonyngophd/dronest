@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, userParams } from 'react-router-dom';
 
@@ -34,6 +34,9 @@ function MessagePage() {
   );
   const [allUniqueReceivers, setAllUniqueReceivers] = useState([]);
   const [currentGroupedMsgs, setCurrentGroupedMsgs] = useState([]);
+  const [username, setUserName] = useState('');
+  const [messageSession, setMessageSession] = useState(null);
+  const webSocket = useRef(null);  
 
   useEffect(() => {
     const groupedMsgs = [];
@@ -86,6 +89,79 @@ function MessagePage() {
     }
   }, [params.userId, allUniqueReceivers])
 
+
+  useEffect(() => {
+    if(myself){
+      setUserName(myself.username);
+    }
+  }, [myself]);
+  useEffect(() => {
+    const id = myself.id;
+    const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+
+    ws.onopen = () => {
+      sendMessage('add-new-person', { id, username });
+    };
+
+    ws.onmessage = (e) => {
+      console.log(`Processing incoming message ${e.data}...`);
+
+      const message = JSON.parse(e.data);
+
+      switch (message.type) {
+        case 'start-message-session':
+        case 'update-message-session':
+        case 'end-message-session':
+          setMessageSession(message.data);
+          break;
+        default:
+          throw new Error(`Unknown message type: ${message.type}`);
+      }
+    };
+
+    ws.onerror = (e) => {
+      console.error(e);
+    };
+
+    ws.onclose = (e) => {
+      console.log(`Connection closed: ${e}`);
+      webSocket.current = null;
+      setUserName('');
+      setMessageSession(null);
+    };
+
+    const sendMessage = (type, data) => {
+      const message = JSON.stringify({
+        type,
+        data,
+      });
+
+      console.log(`Sending message ${message}...`);
+
+      ws.send(message);
+    };
+
+    webSocket.current = {
+      ws,
+      sendMessage,
+    };
+
+    return function cleanup() {
+      if (webSocket.current !== null) {
+        webSocket.current.ws.close();
+      }
+    };
+  }, [username]);
+
+  const updatePersonName = (username) => {
+    setUserName(username);
+  };
+
+
+  const sendChat = (msg, username) => {
+    webSocket.current.sendMessage('chat-message', { username, msg });
+  };  
+
   const receiverClick = (e) => {
     e.preventDefault();
     const receiverId = Number(e.target.id.split("-")[0]);
@@ -97,6 +173,7 @@ function MessagePage() {
     e.preventDefault();
     // console.log(myself.id, currentReceiver.id, currentMsg);
     sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
+    sendChat(currentMsg, username);
     setCurrentMsg("");
   };
 
@@ -215,6 +292,7 @@ function MessagePage() {
                     action="Send"
                     placeHolder="Type your message"
                     receiverId={currentReceiver.id}
+                    sendChat={sendChat}
                   />
                 </div>
               </div>
