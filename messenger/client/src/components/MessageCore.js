@@ -93,7 +93,7 @@ const MessageCore = ({ userId, username, messageSession, sendChat, addAChatFrien
                 )}
               </div>
               <form onSubmit={handleChatSubmit}>
-                <input type='text' value={message} onChange={e => setMsg(e.target.value)} placeholder="Enter a message" />
+                <input type='text' value={msg} onChange={e => setMsg(e.target.value)} placeholder="Enter a message" />
                 <button type='submit'>Send</button>
               </form>
             </div>}

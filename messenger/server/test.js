@@ -44,3 +44,6 @@ console.log(t.getP());
 let t2 = new TestPrivate(1, 2);
 console.log(t2.v1, t2.v2);
 console.log(t2.getP());
+
+
+lastMessage = {"blocks":[{"key":"3v2g0","text":"fsdfsd342423","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}};

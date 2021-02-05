@@ -212,6 +212,7 @@ const CommentInput = ({
         //sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
         sendChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
       }
+      // console.log("\n\n\n\n\nRawdata", JSON.stringify(rawData));
       await uploadMessage(
         user.id,
         receiverId,
