@@ -13,13 +13,14 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";
 import timeStamp from '../utils';
 
-function Comment({ home, comment, message = undefined }) {
+function Comment({ home, comment, inputMessage = undefined, replaceText = undefined }) {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
+  let message = inputMessage && inputMessage.includes('Re9$L^$%')? inputMessage.replaceAll('Re9$L^$%', ":"):inputMessage;
   let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
 
   useEffect(() => {

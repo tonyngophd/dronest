@@ -112,8 +112,13 @@ function MessagePage() {
       return;
     }
 
-    const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    const REACT_APP_WS_URL = "wss://dronestms.herokuapp.com";
+    // const REACT_APP_WS_URL = "wss://dronest.herokuapp.com";
+    // const REACT_APP_WS_URL = process.env.REACT_APP_WS_URL;
+    // const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    const ws = new WebSocket(REACT_APP_WS_URL);
     console.log('process.env.REACT_APP_WS_URL', process.env.REACT_APP_WS_URL);
+    console.log('REACT_APP_WS_URL', REACT_APP_WS_URL);
     //TODO: specify how to use this URL on heroku
 
     ws.onopen = () => {
@@ -122,6 +127,8 @@ function MessagePage() {
 
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data);
+      console.log(`Got a message ${message}`);
+      console.log(message, message.data, message.data.messages);
 
       switch (message.type) {
         case 'start-message-session':
@@ -134,13 +141,16 @@ function MessagePage() {
             const lastMessage = messages.pop();
             let msg;
             try {
-              msg = JSON.stringify(JSON.parse(lastMessage.message));
+              msg = JSON.stringify(lastMessage.message);
             } catch (e) {
               msg = JSON.stringify(JSON.parse(JSON.stringify(lastMessage.message)));
               console.log('catch', msg);
             }
-            setInstantMessage({ ...lastMessage, message: msg });
-            dispatch(setUserAddAMessagePOJO(lastMessage));
+            const replaceDeli = 'Re9$L^$%';
+            const test2 = msg.replaceAll(':', replaceDeli);
+            // console.log("test2", `${test2}`, typeof(test2))
+            setInstantMessage({ ...lastMessage, message: test2 });
+            // dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
         case 'update-online-user-list':
@@ -168,7 +178,7 @@ function MessagePage() {
         data,
       });
 
-      // console.log(`Sending message ${message}...`);
+      console.log(`Sending message ${message}...`);
 
       ws.send(message);
     };
@@ -187,7 +197,11 @@ function MessagePage() {
 
   const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
     if (webSocket.current)
-      webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
+      webSocket.current.sendMessage('chat-message', { 
+        senderId, senderName, receiverId, receiverName, convoId, message,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
   };
 
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
@@ -231,7 +245,7 @@ function MessagePage() {
               {msg.message.map((m) => (
                 <div key={nanoid()}>
                   {/* {m} */}
-                  <Comment message={m} />
+                  <Comment inputMessage={m} />
                 </div>
               ))}
             </div>
@@ -253,7 +267,7 @@ function MessagePage() {
                 {msg.message.map((m) => (
                   <div key={nanoid()}>
                     {/* {m} */}
-                    <Comment message={m} />
+                    <Comment inputMessage={m} />
                   </div>
                 ))}
               </div>

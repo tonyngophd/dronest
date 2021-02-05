@@ -222,4 +222,10 @@ wss.on('connection', (ws) => {
   });
 });
 
-server.listen(port, () => console.log(`Listening on http://localhost:${port}`));
+function runMSserver () {
+  server.listen(port, () => console.log(`Listening on http://localhost:${port}`));
+}
+
+// runMSserver();
+
+module.exports = runMSserver;
