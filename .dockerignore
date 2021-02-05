@@ -1,4 +1,5 @@
 react-app/node_modules
+messenger_server/node_modules
 .venv
 Pipfile
 Pipfile.lock

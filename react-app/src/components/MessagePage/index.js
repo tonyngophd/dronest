@@ -113,6 +113,8 @@ function MessagePage() {
     }
 
     const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    console.log('process.env.REACT_APP_WS_URL', process.env.REACT_APP_WS_URL);
+    //TODO: specify how to use this URL on heroku
 
     ws.onopen = () => {
       sendMessage('add-new-person', { userId, username });

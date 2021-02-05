@@ -5,7 +5,7 @@ function Footer() {
     <div className="footer-div">
       <div className="footer-wrapper">
         <h1 className="footer-logo" href="/">
-          Instavibes
+          Dronest
         </h1>
         <ul className="footer-ul">
           <li>
@@ -17,7 +17,7 @@ function Footer() {
           <li>
             <i className="fab fa-github icon2"></i>
             <a
-              href="https://github.com/suasllc/instavibes"
+              href="https://github.com/suasllc/dronest"
               className="footer-a"
             >
               Github
