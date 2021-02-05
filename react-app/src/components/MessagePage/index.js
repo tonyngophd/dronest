@@ -138,7 +138,7 @@ function MessagePage() {
               console.log('catch', msg);
             }
             setInstantMessage({ ...lastMessage, message: msg });
-            // dispatch(setUserAddAMessagePOJO(lastMessage));
+            dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
         case 'update-online-user-list':
