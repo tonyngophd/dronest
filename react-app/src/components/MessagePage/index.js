@@ -44,7 +44,8 @@ function MessagePage() {
   const chatboxRef = useRef(null);
 
   useEffect(() => {
-    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage);
+    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
+      // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceiver) {
       const msgs = myself.messages.filter(
@@ -52,10 +53,10 @@ function MessagePage() {
           msg.receiverId === currentReceiver.id ||
           msg.senderId === currentReceiver.id
       );
-      if (Object.keys(instantMessage).length) {
-        if (instantMessage.senderId !== myself.id)
+      // if (Object.keys(instantMessage).length) {
+        if (instantMessage.receiverId === myself.id)
           msgs.push(instantMessage);
-      }
+      // }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
         let j = 0;
@@ -129,8 +130,14 @@ function MessagePage() {
           const messages = message.data.messages;
           if (messages && messages.length) {
             const lastMessage = messages.pop();
-            let msg = JSON.stringify(JSON.parse(lastMessage.message));
-            setInstantMessage({...lastMessage, message: msg});
+            let msg;
+            try {
+              msg = JSON.stringify(JSON.parse(lastMessage.message));
+            } catch (e) {
+              msg = JSON.stringify(JSON.parse(JSON.stringify(lastMessage.message)));
+              console.log('catch', msg);
+            }
+            setInstantMessage({ ...lastMessage, message: msg });
             // dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
@@ -147,7 +154,7 @@ function MessagePage() {
     };
 
     ws.onclose = (e) => {
-      console.log(`Connection closed: ${e}`);
+      // console.log(`Connection closed: ${e}`);
       webSocket.current = null;
       setUserName('');
       setMessageSession(null);
@@ -159,7 +166,7 @@ function MessagePage() {
         data,
       });
 
-      console.log(`Sending message ${message}...`);
+      // console.log(`Sending message ${message}...`);
 
       ws.send(message);
     };
@@ -175,7 +182,6 @@ function MessagePage() {
       }
     };
   }, [username, userId]);
-
 
   const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
     if (webSocket.current)
@@ -278,6 +284,7 @@ function MessagePage() {
                 showFollowButtonOrText={false}
                 gotoUserPage={false}
                 miniProfileEnabled={false}
+                online={listOfOnlineUsers.find(ou => ou.id === u.id)}
               />
             </div>
           ))}
