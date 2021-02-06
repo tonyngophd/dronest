@@ -18,7 +18,7 @@ import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
 import SinglePostPage from "./components/SinglePostPage";
 import { StoryTopBox, StoriesFullPage } from "./components/Story";
-import Band from './components/AAAMainComponents/Bands';
+import { Bands } from './components/AAAMainComponents/Bands';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,9 +44,7 @@ function App() {
         {/* {user &&
           <NewPostTab />
         } */}
-        <div className="homepage-bands-container">
-          <Band />
-        </div>
+        <Bands />
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />

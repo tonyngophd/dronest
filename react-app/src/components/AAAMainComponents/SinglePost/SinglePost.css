@@ -1,8 +1,9 @@
 .single-post-outer-container{
-  width: 280px;
-  height: 420px;
+  /* width: 280px; */
+  max-height: 420px;
   border-radius: 5px;
   overflow: hidden;
+  margin: 10px 10px;
 }
 
 .single-post-top-image-div{
@@ -43,7 +44,7 @@
   padding: 0px 5px;
 }
 .single-post-info-div{
-  font-size: 16px;
+  font-size: 15px;
 }
 .single-post-info-div>div{
   padding-top: 5px;
