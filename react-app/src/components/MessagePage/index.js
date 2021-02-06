@@ -44,7 +44,8 @@ function MessagePage() {
   const chatboxRef = useRef(null);
 
   useEffect(() => {
-    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage);
+    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
+      // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceiver) {
       const msgs = myself.messages.filter(
@@ -52,10 +53,10 @@ function MessagePage() {
           msg.receiverId === currentReceiver.id ||
           msg.senderId === currentReceiver.id
       );
-      if (Object.keys(instantMessage).length) {
-        if (instantMessage.senderId !== myself.id)
+      // if (Object.keys(instantMessage).length) {
+        if (instantMessage.receiverId === myself.id)
           msgs.push(instantMessage);
-      }
+      // }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
         let j = 0;
@@ -111,7 +112,14 @@ function MessagePage() {
       return;
     }
 
-    const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    const REACT_APP_WS_URL = "wss://dronestms.herokuapp.com";
+    // const REACT_APP_WS_URL = "wss://dronest.herokuapp.com";
+    // const REACT_APP_WS_URL = process.env.REACT_APP_WS_URL;
+    // const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+    const ws = new WebSocket(REACT_APP_WS_URL);
+    console.log('process.env.REACT_APP_WS_URL', process.env.REACT_APP_WS_URL);
+    console.log('REACT_APP_WS_URL', REACT_APP_WS_URL);
+    //TODO: specify how to use this URL on heroku
 
     ws.onopen = () => {
       sendMessage('add-new-person', { userId, username });
@@ -119,6 +127,8 @@ function MessagePage() {
 
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data);
+      console.log(`Got a message ${message}`);
+      console.log(message, message.data, message.data.messages);
 
       switch (message.type) {
         case 'start-message-session':
@@ -129,8 +139,17 @@ function MessagePage() {
           const messages = message.data.messages;
           if (messages && messages.length) {
             const lastMessage = messages.pop();
-            let msg = JSON.stringify(JSON.parse(lastMessage.message));
-            setInstantMessage({...lastMessage, message: msg});
+            let msg;
+            try {
+              msg = JSON.stringify(lastMessage.message);
+            } catch (e) {
+              msg = JSON.stringify(JSON.parse(JSON.stringify(lastMessage.message)));
+              console.log('catch', msg);
+            }
+            const replaceDeli = 'Re9$L^$%';
+            const test2 = msg.replaceAll(':', replaceDeli);
+            // console.log("test2", `${test2}`, typeof(test2))
+            setInstantMessage({ ...lastMessage, message: test2 });
             // dispatch(setUserAddAMessagePOJO(lastMessage));
           }
           break;
@@ -147,7 +166,7 @@ function MessagePage() {
     };
 
     ws.onclose = (e) => {
-      console.log(`Connection closed: ${e}`);
+      // console.log(`Connection closed: ${e}`);
       webSocket.current = null;
       setUserName('');
       setMessageSession(null);
@@ -176,10 +195,13 @@ function MessagePage() {
     };
   }, [username, userId]);
 
-
   const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
     if (webSocket.current)
-      webSocket.current.sendMessage('chat-message', { senderId, senderName, receiverId, receiverName, convoId, message });
+      webSocket.current.sendMessage('chat-message', { 
+        senderId, senderName, receiverId, receiverName, convoId, message,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
   };
 
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
@@ -223,7 +245,7 @@ function MessagePage() {
               {msg.message.map((m) => (
                 <div key={nanoid()}>
                   {/* {m} */}
-                  <Comment message={m} />
+                  <Comment inputMessage={m} />
                 </div>
               ))}
             </div>
@@ -245,7 +267,7 @@ function MessagePage() {
                 {msg.message.map((m) => (
                   <div key={nanoid()}>
                     {/* {m} */}
-                    <Comment message={m} />
+                    <Comment inputMessage={m} />
                   </div>
                 ))}
               </div>
@@ -278,6 +300,7 @@ function MessagePage() {
                 showFollowButtonOrText={false}
                 gotoUserPage={false}
                 miniProfileEnabled={false}
+                online={listOfOnlineUsers.find(ou => ou.id === u.id)}
               />
             </div>
           ))}

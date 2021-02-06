@@ -31,6 +31,7 @@ function UserRow({
   onClose,
   followlist,
   modal,
+  online = false,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -76,6 +77,11 @@ function UserRow({
             onClick={handleClick}
             id={`${user.id}-userProfileImg`}
           />
+          {
+            online && <div className='online-indicator'>
+
+            </div>
+          }
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}

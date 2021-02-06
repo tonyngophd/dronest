@@ -345,3 +345,14 @@
   border: 1px solid rgb(50, 149, 255);
   border-radius: 2px;
 }
+
+.online-indicator{
+  width: 14px;
+  height: 14px;
+  background-color: rgb(2, 250, 2);
+  border-radius: 50%;
+  margin-left: -15px;
+  margin-right: 5px;
+  /* background: radial-gradient(#53f73d, #26967a); */
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+}
