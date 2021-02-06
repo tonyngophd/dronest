@@ -1,5 +1,6 @@
 .main-band-container{
   width: 70vw;
+  min-width: 1200px;
   height: fit-content;
   display: flex;
   flex-direction: row;

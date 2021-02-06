@@ -28,3 +28,28 @@
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
   transition: ease 0.2s;
 }
+
+.single-post-love-view-div{
+  display: flex;
+  font-size: 18px;
+}
+.single-post-love-view-div>div{
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  color: rgb(26, 99, 235);
+}
+.single-post-love-view-div>div>span{
+  padding: 0px 5px;
+}
+.single-post-info-div{
+  font-size: 16px;
+}
+.single-post-info-div>div{
+  padding-top: 5px;
+}
+.single-post-user-and-date-dive{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
