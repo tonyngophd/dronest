@@ -52,9 +52,17 @@
 }
 .square-button:hover{
   cursor: pointer;
+  background-color: rgba(67, 67, 224, 0.808);  
 }
-.square-button-ative{
-  background-color: blue;
+.square-button-active{
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: rgb(67, 67, 224);
+  margin: auto 2px;  
+}
+.square-button-active:hover{
+  cursor: pointer;
 }
 
 .square-buttons-div{

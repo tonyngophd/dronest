@@ -10,12 +10,18 @@ import './Bands.css';
 import { nanoid } from 'nanoid';
 
 function Squares({ repeat = 4, onClick }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <div className='square-buttons-div'>
       {new Array(repeat).fill(true).map((el, i) =>
-        <div key={nanoid()} className='square-button' 
+        <div key={nanoid()} 
+          className={i===currentIndex?'square-button-active':'square-button'}
           id={`${i}-square${nanoid()}`}
-          onClick={e => onClick(Number(e.target.id.split('-')[0]))}
+          onClick={e => {
+            const index = Number(e.target.id.split('-')[0]);
+            setCurrentIndex(index);
+            onClick(4 * index, true);
+          }}
         />
       )}
     </div>
@@ -39,9 +45,9 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
   const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
-  const changeStartNumber = (diff = 4) => {
+  const changeStartNumber = (diff = 4, fixedStart = false) => {
     if (!objects || !Array.isArray(objects) || objects.length < numberOfCards) return;
-    let start = startNumber + diff;
+    let start = (fixedStart ? 0 : startNumber) + diff;
     if (start < 0) start = 0;
     if (start > (objects.length - 1) - numberOfCards) start = (objects.length - 1) - numberOfCards;
     setStartNumber(start);
@@ -60,7 +66,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
           </b>
         </div>
         <div className='squares-view-more-div'>
-          <Squares onClick={setStartNumber}/>
+          <Squares onClick={changeStartNumber} />
           <a href={link}>View More<GrNext className='band-title-div-i' /></a>
         </div>
       </div>
