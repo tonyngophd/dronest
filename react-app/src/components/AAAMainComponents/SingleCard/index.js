@@ -5,29 +5,29 @@ import timeStamp from '../../utils';
 
 import UserRow from '../../ProfilePage/UserRow';
 
-import './SinglePost.css';
+import './SingleCard.css';
 
 
-export default function SingplePost({ user, moreInfo = true, category }) {
+export default function SingpleCard({ user, moreInfo = true, category }) {
 
   return (
-    <div className='single-post-outer-container'>
-      <div className='single-post-top-image-div'>
+    <div className='single-card-outer-container'>
+      <div className='single-card-top-image-div'>
         <img
-          className='single-post-main-img'
+          className='single-card-main-img'
           src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
           alt='good band picture' />
       </div>
       {category &&
-        <div className='single-post-info-div'>
+        <div className='single-card-info-div'>
           <div><b>{category}</b></div>
         </div>
       }
       {moreInfo &&
-        <div className='single-post-info-div'>
+        <div className='single-card-info-div'>
           <div><b>Album</b>: Grand Canyon</div>
           <div>Equipment: Drone 1</div>
-          <div className="single-post-love-view-div">
+          <div className="single-card-love-view-div">
             <div>
               <AiOutlineHeart />
               <span>15</span>
@@ -41,9 +41,9 @@ export default function SingplePost({ user, moreInfo = true, category }) {
       }
       {user &&
         <>
-          <hr></hr>
-          <div className='single-post-user-and-date-dive'>
-            <div className='single-post-user-info-div'>
+          <hr className='single-card-hr'></hr>
+          <div className='single-card-user-and-date-div'>
+            <div className='single-card-user-info-div'>
               <UserRow showFollowButtonOrText={false} user={user} />
             </div>
             <div>

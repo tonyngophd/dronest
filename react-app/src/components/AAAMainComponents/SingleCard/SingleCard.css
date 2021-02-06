@@ -1,19 +1,21 @@
-.single-post-outer-container{
+.single-card-outer-container{
   /* width: 280px; */
   max-height: 420px;
   border-radius: 5px;
   overflow: hidden;
   margin: 10px 10px;
+  background-color: white;
 }
 
-.single-post-top-image-div{
+.single-card-top-image-div{
   width: 100%;
-  height: 50%;
+  height: 60%;
+  max-height: 178px;
   overflow: hidden;
   border-radius: 5px;
 }
 
-.single-post-main-img{
+.single-card-main-img{
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -22,35 +24,41 @@
   margin: 0 auto;
 }
 
-.single-post-main-img:hover{
+.single-card-main-img:hover{
   cursor: pointer;
+  height: 100%;
   /* transform: translateY(-6px); */
-  transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
   transition: ease 0.2s;
 }
 
-.single-post-love-view-div{
+.single-card-love-view-div{
   display: flex;
   font-size: 18px;
 }
-.single-post-love-view-div>div{
+.single-card-love-view-div>div{
   display: flex;
   padding-right: 10px;
   align-items: center;
   color: rgb(26, 99, 235);
 }
-.single-post-love-view-div>div>span{
+.single-card-love-view-div>div>span{
   padding: 0px 5px;
 }
-.single-post-info-div{
+.single-card-info-div{
   font-size: 15px;
+  margin: auto 3px;
 }
-.single-post-info-div>div{
+.single-card-info-div>div{
   padding-top: 5px;
 }
-.single-post-user-and-date-dive{
+.single-card-user-and-date-div{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: auto 3px;
+}
+.single-card-hr{
+  margin: 0px 10px;
 }

@@ -1,11 +1,33 @@
 .main-band-container{
-  width: 80vw;
-  min-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px auto;
+}
+
+.band-title-div{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: auto 200px;
+}
+.band-container{
+  /* width: 80vw; */
+  width: 1200px;
+  /* max-width: ; */
   height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+.band-title-div a {
+  font-size: 14px;
+}
+.band-title-div-i {
+  font-size: 10px;
 }
 
 .previous-or-next-tab-button{

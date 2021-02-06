@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrPrevious, GrNext } from 'react-icons/gr';
+import { MdNavigateNext } from 'react-icons/md';
 
 import { fetchAllUsers } from "../../../store/users";
-import SinglePost from '../SinglePost';
+import SingleCard from '../SingleCard';
 
 import './Bands.css';
 
@@ -20,31 +21,47 @@ export function NextOrPrevious({ next = true, onClick }) {
   );
 }
 
-export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories }) {
+export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, title = 'Nature', link = '/'}) {
   const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
   const changeStartNumber = (diff = 4) => {
-    if(!objects || !Array.isArray(objects) || objects.length < numberOfCards) return;
+    if (!objects || !Array.isArray(objects) || objects.length < numberOfCards) return;
     let start = startNumber + diff;
-    if(start < 0) start = 0;
-    if(start > (objects.length -1) - numberOfCards) start = (objects.length -1) - numberOfCards;
+    if (start < 0) start = 0;
+    if (start > (objects.length - 1) - numberOfCards) start = (objects.length - 1) - numberOfCards;
     setStartNumber(start);
   };
 
+  if(title) {
+    link = `/${title.replaceAll(' ', '')}`;
+  }
+
   return (
     <div className='main-band-container'>
-      <NextOrPrevious next={false} onClick={() => changeStartNumber(-4)}/>
-      {
-        cardArr.map((el, i) =>
-          <SinglePost
-            user={objects && objects[i + startNumber]}
-            moreInfo={moreInfo}
-            category={categories && categories[i]}
-          />
-        )
-      }
-      <NextOrPrevious  onClick={() => changeStartNumber(4)}/>
+      <div className='band-title-div'>
+        <div>
+          <b>
+            {title}
+          </b>
+        </div>
+        <div>
+          <a href={link}>View More<GrNext className='band-title-div-i'/></a>
+        </div>
+      </div>
+      <div className='band-container'>
+        <NextOrPrevious next={false} onClick={() => changeStartNumber(-4)} />
+        {
+          cardArr.map((el, i) =>
+            <SingleCard
+              user={objects && objects[i + startNumber]}
+              moreInfo={moreInfo}
+              category={categories && categories[i]}
+            />
+          )
+        }
+        <NextOrPrevious onClick={() => changeStartNumber(4)} />
+      </div>
     </div>
   )
 }
@@ -64,8 +81,9 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
-      <Band numberOfCards={5} moreInfo={false} categories={categories} />
+      <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
+      <Band objects={allUsers} title='City'/>
     </div>
   )
 }
