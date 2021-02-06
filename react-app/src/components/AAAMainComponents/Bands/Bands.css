@@ -43,3 +43,26 @@
   cursor: pointer;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
 }
+.square-button{
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: lightblue;
+  margin: auto 2px;
+}
+.square-button:hover{
+  cursor: pointer;
+}
+.square-button-ative{
+  background-color: blue;
+}
+
+.square-buttons-div{
+  display: flex;
+  flex-direction: row;
+}
+.squares-view-more-div{
+  display: flex;
+  width: 155px;
+  justify-content: space-between;
+}

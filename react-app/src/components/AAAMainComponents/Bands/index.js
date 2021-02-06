@@ -7,6 +7,20 @@ import { fetchAllUsers } from "../../../store/users";
 import SingleCard from '../SingleCard';
 
 import './Bands.css';
+import { nanoid } from 'nanoid';
+
+function Squares({ repeat = 4, onClick }) {
+  return (
+    <div className='square-buttons-div'>
+      {new Array(repeat).fill(true).map((el, i) =>
+        <div key={nanoid()} className='square-button' 
+          id={`${i}-square${nanoid()}`}
+          onClick={e => onClick(Number(e.target.id.split('-')[0]))}
+        />
+      )}
+    </div>
+  );
+}
 
 export function NextOrPrevious({ next = true, onClick }) {
 
@@ -21,7 +35,7 @@ export function NextOrPrevious({ next = true, onClick }) {
   );
 }
 
-export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, title = 'Nature', link = '/'}) {
+export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, title = 'Nature', link = '/' }) {
   const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
@@ -33,7 +47,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
     setStartNumber(start);
   };
 
-  if(title) {
+  if (title) {
     link = `/${title.replaceAll(' ', '')}`;
   }
 
@@ -45,8 +59,9 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
             {title}
           </b>
         </div>
-        <div>
-          <a href={link}>View More<GrNext className='band-title-div-i'/></a>
+        <div className='squares-view-more-div'>
+          <Squares onClick={setStartNumber}/>
+          <a href={link}>View More<GrNext className='band-title-div-i' /></a>
         </div>
       </div>
       <div className='band-container'>
@@ -75,8 +90,8 @@ export function Bands() {
     'Shenandoah Valley',
   ];
   const tags = ["Travel", 'Graduation',
-    'Night', 'Beach', 'IFeelAwesome', 'Arches National Park',
-    'Shenandoah Valley',
+    'Night', 'Beach', 'IFeelAwesome', 'Love',
+    'MeAndPets',
   ];
 
   useEffect(() => {
@@ -87,9 +102,9 @@ export function Bands() {
     <div className="homepage-bands-container">
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
-      <Band objects={allUsers} title='City'/>
-      <Band objects={allUsers} title='People'/>
-      <Band objects={allUsers} title='Sports'/>
+      <Band objects={allUsers} title='City' />
+      <Band objects={allUsers} title='People' />
+      <Band objects={allUsers} title='Sports' />
       <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
   )
