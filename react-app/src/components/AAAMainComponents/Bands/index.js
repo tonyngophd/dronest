@@ -70,8 +70,12 @@ export function Bands() {
   const allUsers = useSelector((state) => state.users.allUsers);
 
   const dispatch = useDispatch();
-  const categories = ["Seatle", 'New York',
+  const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
+    'Shenandoah Valley',
+  ];
+  const tags = ["Travel", 'Graduation',
+    'Night', 'Beach', 'IFeelAwesome', 'Arches National Park',
     'Shenandoah Valley',
   ];
 
@@ -84,6 +88,9 @@ export function Bands() {
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
       <Band objects={allUsers} title='City'/>
+      <Band objects={allUsers} title='People'/>
+      <Band objects={allUsers} title='Sports'/>
+      <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
   )
 }
