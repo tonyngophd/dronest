@@ -175,7 +175,7 @@ function MessagePage() {
 
       // console.log(`Sending message ${message}...`);
 
-      ws.send(message);
+      if(ws.readyState === 1) ws.send(message);
     };
 
     webSocket.current = {

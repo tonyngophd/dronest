@@ -1,0 +1,8 @@
+.main-band-container{
+  width: 70vw;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
