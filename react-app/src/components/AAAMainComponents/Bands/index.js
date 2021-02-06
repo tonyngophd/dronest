@@ -66,7 +66,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
           </b>
         </div>
         <div className='squares-view-more-div'>
-          <Squares onClick={changeStartNumber} />
+          {moreInfo && <Squares onClick={changeStartNumber} />}
           <a href={link}>View More<GrNext className='band-title-div-i' /></a>
         </div>
       </div>
