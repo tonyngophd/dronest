@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { nanoid } from 'nanoid';
 import "./ProfilePost.css";
 import PicModal from "../PicModal";
 import PicModalCaption from "../PicModalCaption";
@@ -116,7 +117,7 @@ const ProfilePost = ({ post }) => {
                 {singlePost.comments &&
                   singlePost.comments.map((comment) => {
                     return (
-                      <div className="modal-comment">
+                      <div className="modal-comment"  key={nanoid()}>
                         <img
                           className="commenter-pic"
                           src={comment.commenterPic}

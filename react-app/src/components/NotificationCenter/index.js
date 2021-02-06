@@ -5,6 +5,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import Notification from "../Notification";
 import { viewAllNotifications } from "../../store/notifications";
+import { nanoid } from "nanoid";
 
 const NotificationCenter = ({ initialTab, onClose }) => {
   const [current, setCurrent] = useState(initialTab);
@@ -107,7 +108,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification onClose={onClose} notif={notif} />;
+                return <Notification onClose={onClose} notif={notif} key={nanoid()}/>;
               })}
           {current === 2 &&
             Object.values(notifications.follows)
@@ -115,7 +116,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification onClose={onClose} notif={notif} />;
+                return <Notification onClose={onClose} notif={notif}  key={nanoid()}/>;
               })}
           {current === 3 &&
             Object.values(notifications.posts)
@@ -123,7 +124,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification onClose={onClose} notif={notif} />;
+                return <Notification onClose={onClose} notif={notif}  key={nanoid()}/>;
               })}
           {current === 4 &&
             Object.values(notifications.comments)
@@ -131,7 +132,7 @@ const NotificationCenter = ({ initialTab, onClose }) => {
                 new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
               )
               .map((notif) => {
-                return <Notification onClose={onClose} notif={notif} />;
+                return <Notification onClose={onClose} notif={notif}  key={nanoid()}/>;
               })}
         </div>
       </div>

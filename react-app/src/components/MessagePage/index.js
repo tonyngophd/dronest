@@ -42,6 +42,7 @@ function MessagePage() {
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
   const [instantMessage, setInstantMessage] = useState({});
   const chatboxRef = useRef(null);
+  const replaceText = 'Re9$L^$%';
 
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
@@ -127,8 +128,8 @@ function MessagePage() {
 
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data);
-      console.log(`Got a message ${message}`);
-      console.log(message, message.data, message.data.messages);
+      // console.log(`Got a message ${message}`);
+      // console.log(message, message.data, message.data.messages);
 
       switch (message.type) {
         case 'start-message-session':
@@ -146,8 +147,7 @@ function MessagePage() {
               msg = JSON.stringify(JSON.parse(JSON.stringify(lastMessage.message)));
               console.log('catch', msg);
             }
-            const replaceDeli = 'Re9$L^$%';
-            const test2 = msg.replaceAll(':', replaceDeli);
+            const test2 = msg.replaceAll(':', replaceText);
             // console.log("test2", `${test2}`, typeof(test2))
             setInstantMessage({ ...lastMessage, message: test2 });
             // dispatch(setUserAddAMessagePOJO(lastMessage));
@@ -178,7 +178,7 @@ function MessagePage() {
         data,
       });
 
-      console.log(`Sending message ${message}...`);
+      // console.log(`Sending message ${message}...`);
 
       ws.send(message);
     };
@@ -245,7 +245,7 @@ function MessagePage() {
               {msg.message.map((m) => (
                 <div key={nanoid()}>
                   {/* {m} */}
-                  <Comment inputMessage={m} />
+                  <Comment inputMessage={m} replaceText={replaceText}/>
                 </div>
               ))}
             </div>
@@ -267,7 +267,7 @@ function MessagePage() {
                 {msg.message.map((m) => (
                   <div key={nanoid()}>
                     {/* {m} */}
-                    <Comment inputMessage={m} />
+                    <Comment inputMessage={m} replaceText={replaceText}/>
                   </div>
                 ))}
               </div>
