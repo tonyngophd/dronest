@@ -14,8 +14,8 @@ function Squares({ repeat = 4, onClick }) {
   return (
     <div className='square-buttons-div'>
       {new Array(repeat).fill(true).map((el, i) =>
-        <div key={nanoid()} 
-          className={i===currentIndex?'square-button-active':'square-button'}
+        <div key={nanoid()}
+          className={i === currentIndex ? 'square-button-active' : 'square-button'}
           id={`${i}-square${nanoid()}`}
           onClick={e => {
             const index = Number(e.target.id.split('-')[0]);
@@ -41,23 +41,30 @@ export function NextOrPrevious({ next = true, onClick }) {
   );
 }
 
-export function MainBanner(){
-  
+export function MainBanner() {
+
   return (
-    <div className='main-band-container'>
-      <div className='band-title-div'>
+    <div className='main-banner-container'>
+      {/* <div className='band-title-div'>
         <div className='squares-view-more-div'>
           <Squares />
         </div>
-      </div>
-      <div className='band-container'>
-        <NextOrPrevious next={false}  />
-        {
-          new Array(4).fill(true).map((el, i) =>
-            <div/>
-          )
-        }
-        <NextOrPrevious  />
+      </div> */}
+      <div className='banner-container'>
+        <NextOrPrevious next={false} />
+        <div className='banner-img-container'>
+          {
+            new Array(4).fill(true).map((el, i) =>
+              <div key={nanoid()}>
+                <img
+                  src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg'
+                  alt='banner picture'
+                />
+              </div>
+            )
+          }
+        </div>
+        <NextOrPrevious />
       </div>
     </div>
   );
@@ -97,6 +104,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
         {
           cardArr.map((el, i) =>
             <SingleCard
+              key={nanoid()}
               user={objects && objects[i + startNumber]}
               moreInfo={moreInfo}
               category={categories && categories[i]}
