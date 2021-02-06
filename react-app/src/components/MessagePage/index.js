@@ -42,10 +42,11 @@ function MessagePage() {
   const [listOfOnlineUsers, updateListOfOnlineUsers] = useState([]);
   const [instantMessage, setInstantMessage] = useState({});
   const chatboxRef = useRef(null);
+  const replaceText = 'Re9$L^$%';
 
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
-      // Object.keys(instantMessage).length, instantMessage.senderId);
+    // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceiver) {
       const msgs = myself.messages.filter(
@@ -54,8 +55,8 @@ function MessagePage() {
           msg.senderId === currentReceiver.id
       );
       // if (Object.keys(instantMessage).length) {
-        if (instantMessage.receiverId === myself.id)
-          msgs.push(instantMessage);
+      if (instantMessage.receiverId === myself.id)
+        msgs.push(instantMessage);
       // }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
@@ -127,8 +128,8 @@ function MessagePage() {
 
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data);
-      console.log(`Got a message ${message}`);
-      console.log(message, message.data, message.data.messages);
+      // console.log(`Got a message ${message}`);
+      // console.log(message, message.data, message.data.messages);
 
       switch (message.type) {
         case 'start-message-session':
@@ -139,18 +140,12 @@ function MessagePage() {
           const messages = message.data.messages;
           if (messages && messages.length) {
             const lastMessage = messages.pop();
-            let msg;
-            try {
-              msg = JSON.stringify(lastMessage.message);
-            } catch (e) {
-              msg = JSON.stringify(JSON.parse(JSON.stringify(lastMessage.message)));
-              console.log('catch', msg);
-            }
-            const replaceDeli = 'Re9$L^$%';
-            const test2 = msg.replaceAll(':', replaceDeli);
+            let msg = JSON.stringify(lastMessage.message);
+            const test2 = msg.replaceAll(':', replaceText);
             // console.log("test2", `${test2}`, typeof(test2))
-            setInstantMessage({ ...lastMessage, message: test2 });
-            // dispatch(setUserAddAMessagePOJO(lastMessage));
+            const goodReactMsg = { ...lastMessage, message: test2 };
+            setInstantMessage(goodReactMsg);
+            dispatch(setUserAddAMessagePOJO(goodReactMsg));
           }
           break;
         case 'update-online-user-list':
@@ -178,9 +173,9 @@ function MessagePage() {
         data,
       });
 
-      console.log(`Sending message ${message}...`);
+      // console.log(`Sending message ${message}...`);
 
-      ws.send(message);
+      if(ws.readyState === 1) ws.send(message);
     };
 
     webSocket.current = {
@@ -197,7 +192,7 @@ function MessagePage() {
 
   const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
     if (webSocket.current)
-      webSocket.current.sendMessage('chat-message', { 
+      webSocket.current.sendMessage('chat-message', {
         senderId, senderName, receiverId, receiverName, convoId, message,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -214,7 +209,7 @@ function MessagePage() {
     const receiverId = Number(e.target.id.split("-")[0]);
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceiver(recver);
-    addAChatFriend(myself.id, myself.username, receiverId, recver.username, 'newConvo');
+    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
     // console.log('receiverId', receiverId, allUniqueReceivers.filter(u => u.id === receiverId)[0]);
   };
 
@@ -245,7 +240,7 @@ function MessagePage() {
               {msg.message.map((m) => (
                 <div key={nanoid()}>
                   {/* {m} */}
-                  <Comment inputMessage={m} />
+                  <Comment inputMessage={m} replaceText={replaceText} />
                 </div>
               ))}
             </div>
@@ -267,7 +262,7 @@ function MessagePage() {
                 {msg.message.map((m) => (
                   <div key={nanoid()}>
                     {/* {m} */}
-                    <Comment inputMessage={m} />
+                    <Comment inputMessage={m} replaceText={replaceText} />
                   </div>
                 ))}
               </div>

@@ -19,7 +19,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  background-color: #fafafa;
+  background-color: #eaeaea;
 
 }
 
@@ -42,6 +42,16 @@ body {
   /* align-items: flex-start; */
 }
 
+.stories-and-bands-div{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  padding-top: 100px;
+}
+
+.homepage-bands-container{
+  margin-top: 80px;
+}
 .login-form {
   margin-top: 50px;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
+import { nanoid } from 'nanoid';
+// import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import {
   BsHeart,
   BsChat,
@@ -203,7 +204,7 @@ function Post({ post }) {
           <div className="post-comments-container">
             {comments &&
               comments.map((comment) => {
-                return <Comment home={true} comment={comment} />;
+                return <Comment home={true} comment={comment}  key={nanoid()}/>;
               })}
           </div>
           <Link to={`/p/${post.id}`}>

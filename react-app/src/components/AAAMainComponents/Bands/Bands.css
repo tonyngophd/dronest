@@ -1,0 +1,77 @@
+.main-band-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px auto;
+}
+
+.band-title-div{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: auto 200px;
+}
+.band-container{
+  /* width: 80vw; */
+  width: 1200px;
+  /* max-width: ; */
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.band-title-div a {
+  font-size: 14px;
+}
+.band-title-div-i {
+  font-size: 10px;
+}
+
+.previous-or-next-tab-button{
+  display: flex;
+  border-radius: 5px;
+  width: 50px;
+  height: 60px;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+}
+.previous-or-next-tab-button:hover{
+  cursor: pointer;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+}
+.square-button{
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: lightblue;
+  margin: auto 2px;
+}
+.square-button:hover{
+  cursor: pointer;
+  background-color: rgba(67, 67, 224, 0.808);  
+}
+.square-button-active{
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: rgb(67, 67, 224);
+  margin: auto 2px;  
+}
+.square-button-active:hover{
+  cursor: pointer;
+}
+
+.square-buttons-div{
+  display: flex;
+  flex-direction: row;
+  margin: auto 5px;
+}
+.squares-view-more-div{
+  display: flex;
+  /* width: 155px; */
+  /* justify-content: space-between; */
+}

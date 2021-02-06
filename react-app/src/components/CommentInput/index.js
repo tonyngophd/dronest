@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertToRaw } from "draft-js";
 // import createMentionPlugin, {  defaultSuggestionsFilter,} from "draft-js-mention-plugin";
-import createMentionPlugin, {  defaultSuggestionsFilter,} from "@draft-js-plugins/mention";
+import createMentionPlugin, { defaultSuggestionsFilter, } from "@draft-js-plugins/mention";
 import '@draft-js-plugins/mention/lib/plugin.css';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -84,20 +84,21 @@ const CommentInput = ({
     (state) => state.mentions.hashtagsComments
   );
   const ref = useRef();
+  const sendButtonRef = useRef();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const dispatch = useDispatch();
   const [focused, setFocused] = useState(null);
   const [mentionOpen, setMentionOpen] = useState(false);
   const onMentionOpenChange = useCallback((_open) => {
     setMentionOpen(_open);
-  }, []);  
+  }, []);
   const [hashtagOpen, setHastagOpen] = useState(false);
   const onHastangOpenChange = useCallback((_open) => {
     setHastagOpen(_open);
-  }, []);    
+  }, []);
 
-  const focus = () => {
-    ref.current.focus();
+  const setfocus = () => {
+    if(ref.current) ref.current.focus();
     setFocused(true);
   };
 
@@ -185,7 +186,8 @@ const CommentInput = ({
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
-  const submitComment = async () => {
+  const submitComment = async (e) => {
+    // e.preventDefault();
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
     setEditorState(EditorState.createEmpty());
@@ -208,7 +210,7 @@ const CommentInput = ({
       modal && dispatch(fetchSinglePost(post.id));
     } else {
       // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
-      if(sendChat){
+      if (sendChat) {
         //sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
         sendChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
       }
@@ -230,19 +232,38 @@ const CommentInput = ({
           insideCN
             ? insideCN
             : modal
-            ? "comment-editor comment-pic-modal"
-            : "comment-editor"
+              ? "comment-editor comment-pic-modal"
+              : "comment-editor"
         }
         onBlur={() => setFocused(false)}
-        onFocus={focus}
+        onFocus={setfocus}
       >
         <Editor
+          allowUndo={true}
           editorState={editorState}
           plugins={plugins}
           placeholder={placeHolder}
           onChange={(editorState) => {
+            // console.log('editorState',editorState.getCurrentContent());
             return setEditorState(editorState);
           }}
+          // keyBindingFn={e => {
+          //   if (e.ctrlKey) {
+          //     if (e.key === "Enter") {
+          //       if (sendButtonRef.current) {
+          //         if (!sendButtonRef.current.disabled) {
+          //           setFocused(false);
+          //           sendButtonRef.current.focus();
+          //           setEditorState(EditorState.undo(editorState));
+          //           // sendButtonRef.current.click();
+          //           // submitComment();
+          //         }
+          //       }
+          //     }
+          //   }
+          // }}
+          handleKeyCommand={(command) => console.log(command)}
+          handleReturn={e => console.log(e)}
           ref={(event) => (ref.current = event)}
         />
         <MentionSuggestions
@@ -268,6 +289,7 @@ const CommentInput = ({
         // onClick={submitAction ? submitAction : submitComment}
         onClick={submitComment}
         className="comment-submit"
+        ref={sendButtonRef}
       >
         {action}
       </button>

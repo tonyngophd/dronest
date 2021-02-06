@@ -24,7 +24,7 @@ RUN npm install
 #RUN npm run build
 ENV NODE_ENV=production
 # RUN npm start
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
 
 
 
@@ -38,7 +38,7 @@ EXPOSE 8000 8080
 
 WORKDIR /var/www
 COPY . .
-COPY --from=build-stage /messenger_server app/static/
+# COPY --from=build-stage /messenger_server app/static/
 COPY --from=build-stage /react-app/build/* app/static/
 
 # Install Python Dependencies

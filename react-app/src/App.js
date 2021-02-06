@@ -18,6 +18,7 @@ import Footer from "./components/footer/Footer";
 import MessagePage from "./components/MessagePage";
 import SinglePostPage from "./components/SinglePostPage";
 import { StoryTopBox, StoriesFullPage } from "./components/Story";
+import { Bands } from './components/AAAMainComponents/Bands';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,9 +41,10 @@ function App() {
       <div className="homepage">
         {/* <Footer /> */}
         <NavBar />
-        {user &&
+        {/* {user &&
           <NewPostTab />
-        }
+        } */}
+        <Bands />
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />
@@ -68,11 +70,13 @@ function App() {
           <ProtectedRoute path="/" exact={true}>
             <div className="main_body">
               <div className="body_container">
-                <div>
-                  <StoryTopBox />
-                  <Feed user={user} />
+                <div className="stories-and-bands-div">
+                  {/* <StoryTopBox /> */}
+                  {/* <Feed user={user} /> */}
+                  {/* <Band /> */}
                 </div>
-                <Suggestions />
+                {/* <Suggestions /> */}
+                {/* <div></div> */}
               </div>
             </div>
           </ProtectedRoute>

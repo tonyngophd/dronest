@@ -20,7 +20,11 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
-  let message = inputMessage && inputMessage.includes('Re9$L^$%')? inputMessage.replaceAll('Re9$L^$%', ":"):inputMessage;
+  let message = inputMessage ?
+    (typeof (inputMessage) === "string" && inputMessage.includes(replaceText) ?
+      inputMessage.replaceAll(replaceText, ":") : inputMessage)
+    : undefined;
+    ;
   let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
 
   useEffect(() => {
