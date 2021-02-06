@@ -1,9 +1,23 @@
 .main-band-container{
-  width: 70vw;
+  width: 80vw;
   min-width: 1200px;
   height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+.previous-or-next-tab-button{
+  display: flex;
+  border-radius: 5px;
+  width: 50px;
+  height: 60px;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+}
+.previous-or-next-tab-button:hover{
+  cursor: pointer;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
 }
