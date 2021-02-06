@@ -20,7 +20,7 @@ function Squares({ repeat = 4, onClick }) {
           onClick={e => {
             const index = Number(e.target.id.split('-')[0]);
             setCurrentIndex(index);
-            onClick(4 * index, true);
+            onClick && onClick(4 * index, true);
           }}
         />
       )}
@@ -37,6 +37,28 @@ export function NextOrPrevious({ next = true, onClick }) {
       {
         next ? <GrNext /> : <GrPrevious />
       }
+    </div>
+  );
+}
+
+export function MainBanner(){
+  
+  return (
+    <div className='main-band-container'>
+      <div className='band-title-div'>
+        <div className='squares-view-more-div'>
+          <Squares />
+        </div>
+      </div>
+      <div className='band-container'>
+        <NextOrPrevious next={false}  />
+        {
+          new Array(4).fill(true).map((el, i) =>
+            <div/>
+          )
+        }
+        <NextOrPrevious  />
+      </div>
     </div>
   );
 }
@@ -106,6 +128,7 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
+      <MainBanner />
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
       <Band objects={allUsers} title='City' />
