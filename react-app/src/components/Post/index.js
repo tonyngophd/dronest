@@ -82,7 +82,7 @@ function Post({ post }) {
   let timestamp = timeStamp(new Date(post.createdAt));
 
   useEffect(() => {
-    if (clicks == 2 && !liked) {
+    if (clicks === 2 && !liked) {
       dispatch(likePost(post.id));
       setLiked(true);
       setLikes(likes + 1);
