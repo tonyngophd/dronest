@@ -66,7 +66,7 @@ function App() {
           <ProtectedRoute path="/p/:id" exact={true}>
             <SinglePostPage />
           </ProtectedRoute>
-          <ProtectedRoute path="/" exact={true}>
+          <Route path="/" exact={true}>
             <Bands />
             {/* <div className="main_body">
               <div className="body_container">
@@ -79,7 +79,7 @@ function App() {
                 <div></div>
               </div>
             </div> */}
-          </ProtectedRoute>
+          </Route>
           <ProtectedRoute path="/explore/tags/:hashtag">
             <HashtagPage />
           </ProtectedRoute>
