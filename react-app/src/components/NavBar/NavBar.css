@@ -3,7 +3,7 @@
 
 .top-navbar {
   display: flex;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.774);
   padding: 0px 150px;
   border-style: solid;
   border-width: 0px;

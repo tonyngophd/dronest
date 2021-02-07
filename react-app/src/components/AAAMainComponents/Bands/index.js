@@ -147,6 +147,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
 }
 
 export function Bands() {
+  const myself = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users.allUsers);
 
   const dispatch = useDispatch();
@@ -165,7 +166,7 @@ export function Bands() {
   const maxNumberOfBands = 4;
 
   useEffect(() => {
-    if (!allUsers.length) dispatch(fetchAllUsers());
+    if (myself && !allUsers.length) dispatch(fetchAllUsers());
   }, [dispatch]);
 
   return (

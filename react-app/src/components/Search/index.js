@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Suggestions from "../Suggestions";
 import { BareUserList } from "../UserLists";
 import { BsSearch, BsX } from "react-icons/bs";
@@ -11,6 +11,7 @@ import "./Search.css";
 export default function MainSearchBar({
   className = "search-over-banner-div",
 }) {
+  const loggedInUser = useSelector((state) => state.session.user);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const [focused, setFocused] = useState(false);
@@ -68,17 +69,26 @@ export default function MainSearchBar({
       </form>
       <div className="search-dropdown">
         {searchValue && (
-          <Suggestions
-            UserList={BareUserList}
-            searchable={true}
-            searchText={searchValue}
-            style={{
-              maxHeight: "300px",
-              overflowY: "scroll",
-              marginLeft: "-160px",
-            }}
-          />
-        )}
+          loggedInUser ?
+            <Suggestions
+              UserList={BareUserList}
+              searchable={true}
+              searchText={searchValue}
+              style={{
+                maxHeight: "300px",
+                overflowY: "scroll",
+                marginLeft: "-160px",
+              }}
+            />
+            :
+            <div>
+              <p></p>
+              <p></p>
+              <p></p>
+              <p>Search function when not logged in</p> 
+              <p>is being implemented</p>
+          </div>)
+        }
       </div>
     </div>
   );
