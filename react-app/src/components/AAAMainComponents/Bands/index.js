@@ -18,9 +18,10 @@ function Squares({ repeat = 4, onClick }) {
           className={i === currentIndex ? 'square-button-active' : 'square-button'}
           id={`${i}-square${nanoid()}`}
           onClick={e => {
+            e.preventDefault();
             const index = Number(e.target.id.split('-')[0]);
             setCurrentIndex(index);
-            onClick && onClick(4 * index, true);
+            onClick && onClick(repeat * index, true);
           }}
         />
       )}
@@ -44,7 +45,7 @@ export function NextOrPrevious({ next = true, onClick }) {
 export function MainBanner() {
   const [currentPic, setCurrentPic] = useState(0);
   let next = currentPic;
-  const pictureSrc=[
+  const pictureSrc = [
     'https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg',
     'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home2.jpg',
     'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home5.jpg',
@@ -55,10 +56,10 @@ export function MainBanner() {
   useEffect(() => {
     const intvl = setInterval(() => {
       next++;
-      if(next >= maxPicNumber) next = 0;
+      if (next >= maxPicNumber) next = 0;
       setCurrentPic(next);
     }, 5000);
-  },[maxPicNumber]);
+  }, [maxPicNumber]);
 
 
   return (
@@ -73,8 +74,8 @@ export function MainBanner() {
         <div className='banner-img-container'>
           {
             new Array(maxPicNumber).fill(true).map((el, i) =>
-              <div key={nanoid()} 
-                className={i===currentPic?'active-banner-img-div':'inactive-banner-img-div'}
+              <div key={nanoid()}
+                className={i === currentPic ? 'active-banner-img-div' : 'inactive-banner-img-div'}
               >
                 <img
                   src={pictureSrc[i]}
@@ -86,6 +87,9 @@ export function MainBanner() {
           }
         </div>
         <NextOrPrevious />
+      </div>
+      <div className='banner-squares'>
+        <Squares />
       </div>
     </div>
   );
@@ -157,13 +161,13 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
-      <MainBanner />
+      {/* <MainBanner /> */}
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
       <Band objects={allUsers} title='City' />
       <Band objects={allUsers} title='People' />
       <Band objects={allUsers} title='Sports' />
-      <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
+      {/* <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} /> */}
     </div>
   )
 }

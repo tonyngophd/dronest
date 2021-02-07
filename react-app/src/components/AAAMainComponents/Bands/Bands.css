@@ -48,7 +48,7 @@
   height: 12px;
   border-radius: 3px;
   background-color: lightblue;
-  margin: auto 2px;
+  margin: auto 5px;
 }
 .square-button:hover{
   cursor: pointer;
@@ -59,7 +59,7 @@
   height: 12px;
   border-radius: 3px;
   background-color: rgb(67, 67, 224);
-  margin: auto 2px;  
+  margin: auto 5px;  
 }
 .square-button-active:hover{
   cursor: pointer;
@@ -130,4 +130,9 @@
 .banner-img{
   object-fit: cover;
   width: 100%;
+}
+.banner-squares{
+  position: absolute;
+  margin-bottom: 20px;
+  /* bottom: -0px; */
 }
