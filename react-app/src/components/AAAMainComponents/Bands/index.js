@@ -159,6 +159,11 @@ export function Bands() {
     'MeAndPets',
   ];
 
+  const titles = [
+    'Nature', 'City', 'Thermal', 'Industrial', 'Sports'
+  ];
+  const maxNumberOfBands = 4;
+
   useEffect(() => {
     if (!allUsers.length) dispatch(fetchAllUsers());
   }, [dispatch]);
@@ -167,10 +172,10 @@ export function Bands() {
     <div className="homepage-bands-container">
       <MainBanner />
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
-      <Band objects={allUsers} />
-      <Band objects={allUsers} title='City' />
-      <Band objects={allUsers} title='People' />
-      <Band objects={allUsers} title='Sports' />
+      {
+        new Array(maxNumberOfBands).fill(1).map((el, i) => 
+        <Band objects={allUsers} title={titles[i]} key={nanoid()}/>)
+      }
       <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
   )

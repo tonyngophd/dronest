@@ -47,18 +47,18 @@
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  background-color: lightblue;
+  background-color: rgb(169, 175, 177);
   margin: auto 5px;
 }
 .square-button:hover{
   cursor: pointer;
-  background-color: rgba(67, 67, 224, 0.808);  
+  background-color: rgba(26, 233, 248, 0.808);  
 }
 .square-button-active{
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  background-color: rgb(67, 67, 224);
+  background-color: rgb(26, 233, 248);
   margin: auto 5px;  
 }
 .square-button-active:hover{
