@@ -42,6 +42,24 @@ export function NextOrPrevious({ next = true, onClick }) {
 }
 
 export function MainBanner() {
+  const [currentPic, setCurrentPic] = useState(0);
+  let next = currentPic;
+  const pictureSrc=[
+    'https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg',
+    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home2.jpg',
+    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home5.jpg',
+    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home6.jpg',
+  ];
+  const maxPicNumber = pictureSrc.length;
+
+  useEffect(() => {
+    const intvl = setInterval(() => {
+      next++;
+      if(next >= maxPicNumber) next = 0;
+      setCurrentPic(next);
+    }, 5000);
+  },[maxPicNumber]);
+
 
   return (
     <div className='main-banner-container'>
@@ -54,11 +72,14 @@ export function MainBanner() {
         <NextOrPrevious next={false} />
         <div className='banner-img-container'>
           {
-            new Array(4).fill(true).map((el, i) =>
-              <div key={nanoid()}>
+            new Array(maxPicNumber).fill(true).map((el, i) =>
+              <div key={nanoid()} 
+                className={i===currentPic?'active-banner-img-div':'inactive-banner-img-div'}
+              >
                 <img
-                  src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg'
+                  src={pictureSrc[i]}
                   alt='banner picture'
+                  className='banner-img'
                 />
               </div>
             )
