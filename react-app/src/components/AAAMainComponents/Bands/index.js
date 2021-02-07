@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrPrevious, GrNext } from 'react-icons/gr';
-import { MdNavigateNext } from 'react-icons/md';
 
 import { fetchAllUsers } from "../../../store/users";
 import SingleCard from '../SingleCard';
@@ -9,8 +8,13 @@ import SingleCard from '../SingleCard';
 import './Bands.css';
 import { nanoid } from 'nanoid';
 
-function Squares({ repeat = 4, onClick }) {
+function Squares({ repeat = 4, onClick, numberOfCards = 4, currentActiveSquare }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(()=>{
+    if(currentActiveSquare){
+      setCurrentIndex(currentActiveSquare);
+    }
+  }, [currentActiveSquare]);
   return (
     <div className='square-buttons-div'>
       {new Array(repeat).fill(true).map((el, i) =>
@@ -21,7 +25,7 @@ function Squares({ repeat = 4, onClick }) {
             e.preventDefault();
             const index = Number(e.target.id.split('-')[0]);
             setCurrentIndex(index);
-            onClick && onClick(repeat * index, true);
+            onClick && onClick(numberOfCards * index, true);
           }}
         />
       )}
@@ -89,7 +93,7 @@ export function MainBanner() {
         <NextOrPrevious />
       </div>
       <div className='banner-squares'>
-        <Squares />
+        <Squares repeat={4} onClick={setCurrentPic} numberOfCards={1} currentActiveSquare={currentPic}/>
       </div>
     </div>
   );
@@ -161,13 +165,13 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
-      {/* <MainBanner /> */}
+      <MainBanner />
       <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       <Band objects={allUsers} />
       <Band objects={allUsers} title='City' />
       <Band objects={allUsers} title='People' />
       <Band objects={allUsers} title='Sports' />
-      {/* <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} /> */}
+      <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
   )
 }
