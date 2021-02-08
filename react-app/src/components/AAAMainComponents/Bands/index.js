@@ -100,7 +100,7 @@ export function MainBanner() {
   );
 }
 
-export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, title = 'Nature', link = '/' }) {
+export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, location, title = 'Nature', link = '/' }) {
   const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
@@ -138,6 +138,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
               user={objects && objects[i + startNumber]}
               moreInfo={moreInfo}
               category={categories && categories[i]}
+              location={location}
             />
           )
         }
@@ -186,8 +187,10 @@ export function Bands() {
         const randInt = getRandomInt(0, user.ownPosts.length);
         const post = user.ownPosts[randInt];
         if (post.location && post.location.city) {
-          locations.add(post.location.city);
-          users.push({ ...user, ownPosts: [post] })
+          if (!locations.has(post.location.city)) {
+            locations.add(post.location.city);
+            users.push({ ...user, ownPosts: [post] })
+          }
         }
       }
     }
@@ -204,8 +207,10 @@ export function Bands() {
         const randInt = getRandomInt(0, user.ownPosts.length);
         const post = user.ownPosts[randInt];
         if (post.category && post.category.name) {
-          cagetories.add(post.category.name);
-          users.push({ ...user, ownPosts: [post] })
+          if (!cagetories.has(post.category.name)) {
+            cagetories.add(post.category.name);
+            users.push({ ...user, ownPosts: [post] })
+          }
         }
       }
     }
@@ -214,33 +219,33 @@ export function Bands() {
       updateCategorizedUserPosts(users);
     }
 
-    const catdUsers=[];
-    for(let ti = 0; ti < titles.length; ti++){
+    const catdUsers = [];
+    for (let ti = 0; ti < titles.length; ti++) {
       let set = new Set();
       users = [];
       for (let i = 0; i < allUsers.length; i++) {
         // if (set.size >= 10) break;
         const user = allUsers[i];
         if (user.ownPosts && user.ownPosts.length) {
-          const posts = user.ownPosts.filter(p => p.category? p.category.name.includes(titles[ti]):false);
+          const posts = user.ownPosts.filter(p => p.category ? p.category.name.includes(titles[ti]) : false);
           if (posts.length) {
             users.push({ ...user, ownPosts: [...posts] })
           }
         }
       }
-      if(users.length) catdUsers.push(users);
+      if (users.length) catdUsers.push(users);
     }
     updateCategorizedUsers(catdUsers);
   }, [allUsers])
 
   useEffect(() => {
     console.log('categorizedUsers', categorizedUsers);
-  },[categorizedUsers])
+  }, [categorizedUsers])
 
   return (
     <div className="homepage-bands-container">
       <MainBanner />
-      <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
+      <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
       {
         new Array(maxNumberOfBands).fill(1).map((el, i) =>
           <Band objects={categorizedUsers[i]} title={titles[i]} key={nanoid()} />)
