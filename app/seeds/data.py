@@ -85,10 +85,6 @@ mediadata = [
     "catid": "3"
   },
   {
-    "url": "https://instavibes.s3.amazonaws.com/HiRes_1024.png",
-    "catid": "3"
-  },
-  {
     "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s600x600/116429348_10217562876404890_3180680170310846299_o.jpg?_nc_cat=104&ccb=2&_nc_sid=b9115d&_nc_ohc=CmQKJpag9RkAX9zMGtp&_nc_ht=scontent-iad3-1.xx&tp=7&oh=718fc4a423e7ccdbcaf0da954d493886&oe=604656B7",
     "catid": "3"
   },
@@ -268,6 +264,10 @@ mediadata = [
     "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s640x640/104437346_1311902082349224_7420370309713603719_o.jpg?_nc_cat=107&ccb=2&_nc_sid=825194&_nc_ohc=ER51nAVqmPYAX-saq0W&_nc_ht=scontent-iad3-1.xx&tp=7&oh=8edb5e6b67ad610eb11ae32caf3efaa0&oe=6047379E",
     "catid": "16"
   },
+  {
+    "url": "https://instavibes.s3.amazonaws.com/HiRes_1024.png",
+    "catid": "3"
+  },  
   {
     "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s640x640/142436781_10215308845674582_1916820356078754214_o.jpg?_nc_cat=105&ccb=2&_nc_sid=825194&_nc_ohc=27H6NwL6DAkAX9Ixd4-&_nc_oc=AQl93TGuLk3A2LqQsQ9sZmnN7CPzWp8w14MqIv4MF1nWC7TaCtuTE3RVL710jrNijuM&_nc_ht=scontent-iad3-1.xx&tp=7&oh=53cc3c756e5f5890c14777389996d66e&oe=6044F136",
     "catid": "2"

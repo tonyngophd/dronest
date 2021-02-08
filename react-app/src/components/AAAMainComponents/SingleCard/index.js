@@ -8,7 +8,9 @@ import UserRow from '../../ProfilePage/UserRow';
 import './SingleCard.css';
 
 
-export default function SingpleCard({ user, moreInfo = true, category }) {
+export default function SingleCard({ user, moreInfo = true, category }) {
+  const src = user && user.ownPosts && user.ownPosts.length? user.ownPosts[0].images[0].mediaUrl
+    :'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s720x720/146887222_10224900286638677_3698840883103249499_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=ymzZQjKFmpwAX8sKlQ_&_nc_ht=scontent-iad3-1.xx&tp=7&oh=f9f9313ef82e283cda40f81d16ae8365&oe=604764F6'
 
   return (
     <div className='single-card-outer-container'>
@@ -16,7 +18,7 @@ export default function SingpleCard({ user, moreInfo = true, category }) {
         <img
           className='single-card-main-img'
           // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
-          src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s720x720/146887222_10224900286638677_3698840883103249499_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=ymzZQjKFmpwAX8sKlQ_&_nc_ht=scontent-iad3-1.xx&tp=7&oh=f9f9313ef82e283cda40f81d16ae8365&oe=604764F6'
+          src={src}
           alt='good band picture' />
       </div>
       {category &&
