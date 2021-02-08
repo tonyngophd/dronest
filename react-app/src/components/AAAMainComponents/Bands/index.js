@@ -11,8 +11,8 @@ import { getRandomInt } from '../../utils';
 
 function Squares({ repeat = 4, onClick, numberOfCards = 4, currentActiveSquare }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  useEffect(()=>{
-    if(currentActiveSquare){
+  useEffect(() => {
+    if (currentActiveSquare) {
       setCurrentIndex(currentActiveSquare);
     }
   }, [currentActiveSquare]);
@@ -94,7 +94,7 @@ export function MainBanner() {
         <NextOrPrevious />
       </div>
       <div className='banner-squares'>
-        <Squares repeat={4} onClick={setCurrentPic} numberOfCards={1} currentActiveSquare={currentPic}/>
+        <Squares repeat={4} onClick={setCurrentPic} numberOfCards={1} currentActiveSquare={currentPic} />
       </div>
     </div>
   );
@@ -153,6 +153,7 @@ export function Bands() {
   const dispatch = useDispatch();
   const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
   const [categorizedUserPosts, updateCategorizedUserPosts] = useState([]);
+  const [categorizedUsers, updateCategorizedUsers] = useState([[]]);
 
   const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
@@ -174,53 +175,75 @@ export function Bands() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(!allUsers.length) return;
+    if (!allUsers.length) return;
     const locations = new Set();
     const cagetories = new Set();
     let users = [];
-    for(let i = 0; i < allUsers.length; i++){
-      if(locations.size >= 10) break;
+    for (let i = 0; i < allUsers.length; i++) {
+      if (locations.size >= 10) break;
       const user = allUsers[i];
-      if(user.ownPosts && user.ownPosts.length){
+      if (user.ownPosts && user.ownPosts.length) {
         const randInt = getRandomInt(0, user.ownPosts.length);
         const post = user.ownPosts[randInt];
-        if(post.location && post.location.city) {
+        if (post.location && post.location.city) {
           locations.add(post.location.city);
-          users.push({...user, ownPosts: [post]})
+          users.push({ ...user, ownPosts: [post] })
         }
       }
     }
 
-    if(users.length >= 6){
+    if (users.length >= 6) {
       updateLocatedUserPosts(users);
     }
-    
+
     users = [];
-    for(let i = 0; i < allUsers.length; i++){
-      if(cagetories.size >= 10) break;
+    for (let i = 0; i < allUsers.length; i++) {
+      if (cagetories.size >= 10) break;
       const user = allUsers[i];
-      if(user.ownPosts && user.ownPosts.length){
+      if (user.ownPosts && user.ownPosts.length) {
         const randInt = getRandomInt(0, user.ownPosts.length);
         const post = user.ownPosts[randInt];
-        if(post.category && post.category.name) {
+        if (post.category && post.category.name) {
           cagetories.add(post.category.name);
-          users.push({...user, ownPosts: [post]})
+          users.push({ ...user, ownPosts: [post] })
         }
       }
     }
 
-    if(users.length >= 6){
+    if (users.length >= 6) {
       updateCategorizedUserPosts(users);
     }
+
+    const catdUsers=[];
+    for(let ti = 0; ti < titles.length; ti++){
+      let set = new Set();
+      users = [];
+      for (let i = 0; i < allUsers.length; i++) {
+        // if (set.size >= 10) break;
+        const user = allUsers[i];
+        if (user.ownPosts && user.ownPosts.length) {
+          const posts = user.ownPosts.filter(p => p.category? p.category.name.includes(titles[ti]):false);
+          if (posts.length) {
+            users.push({ ...user, ownPosts: [...posts] })
+          }
+        }
+      }
+      if(users.length) catdUsers.push(users);
+    }
+    updateCategorizedUsers(catdUsers);
   }, [allUsers])
+
+  useEffect(() => {
+    console.log('categorizedUsers', categorizedUsers);
+  },[categorizedUsers])
 
   return (
     <div className="homepage-bands-container">
       <MainBanner />
       <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       {
-        new Array(maxNumberOfBands).fill(1).map((el, i) => 
-        <Band objects={allUsers} title={titles[i]} key={nanoid()}/>)
+        new Array(maxNumberOfBands).fill(1).map((el, i) =>
+          <Band objects={categorizedUsers[i]} title={titles[i]} key={nanoid()} />)
       }
       <Band objects={categorizedUserPosts} numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
