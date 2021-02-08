@@ -55,7 +55,7 @@ function PicModalCaption({ post }) {
     data = convertFromRaw(data);
   }
   const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(data)
+    (data?EditorState.createWithContent(data):EditorState.createEmpty())
   );
 
   return (

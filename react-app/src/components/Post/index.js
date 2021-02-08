@@ -79,7 +79,7 @@ function Post({ post }) {
     data = convertFromRaw(data);
   }
   const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(data)
+    (data?EditorState.createWithContent(data):EditorState.createEmpty())
   );
 
   let timestamp = timeStamp(new Date(post.createdAt));

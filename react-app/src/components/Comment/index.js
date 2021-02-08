@@ -86,7 +86,7 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
   }
 
   const [editorState, setEditorState] = useState(
-    messageIsPlainText ? undefined : EditorState.createWithContent(data)
+    messageIsPlainText ? undefined : (data?EditorState.createWithContent(data):EditorState.createEmpty())
   );
 
   const likeHandler = () => {

@@ -27,7 +27,7 @@ def seed_posts():
     for i in range(len(mediadata)):
         text = fake.sentence(nb_words=10)
         post = Post(userId=randint(1,30), locationId=randint(1,30),
-                captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+                # captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
                 categoryId = mediadata[i]['catid']
             )
         db.session.add(post)

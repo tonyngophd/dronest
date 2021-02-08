@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c8f7bd8070f5
+Revision ID: d3e05dc2f984
 Revises: 
-Create Date: 2021-02-07 22:18:36.431063
+Create Date: 2021-02-08 09:38:12.125371
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c8f7bd8070f5'
+revision = 'd3e05dc2f984'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,6 +42,7 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('bio', sa.Text(), nullable=True),
     sa.Column('websiteUrl', sa.Text(), nullable=False),
+    sa.Column('userType', sa.Integer(), nullable=True),
     sa.Column('profilePicUrl', sa.Text(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
@@ -58,9 +59,12 @@ def upgrade():
     )
     op.create_table('locations',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('city', sa.Text(), nullable=False),
-    sa.Column('state', sa.Text(), nullable=False),
-    sa.Column('country', sa.Text(), nullable=False),
+    sa.Column('city', sa.String(length=50), nullable=False),
+    sa.Column('state', sa.String(length=50), nullable=False),
+    sa.Column('zipCode', sa.String(length=10), nullable=True),
+    sa.Column('country', sa.String(length=50), nullable=False),
+    sa.Column('latitude', sa.Float(), nullable=True),
+    sa.Column('longitude', sa.Float(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -81,7 +85,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('locationId', sa.Integer(), nullable=True),
-    sa.Column('captionRawData', sa.Text(), nullable=False),
+    sa.Column('captionRawData', sa.Text(), nullable=True),
     sa.Column('categoryId', sa.Integer(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
