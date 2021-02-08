@@ -24,33 +24,38 @@ fake = Faker()
 #     following.add(userid)
 #   print(followers, following)
 
-F = 1
-M = 1
-i = 0
-while i < 26:
-  while (p := fake.profile()) and p['sex'] not in ['F', 'M']:    
-    continue
-  if M > 11 and p['sex'] == 'M':
-    continue
-  if F > 15 and p['sex'] == 'F':
-    continue
+# F = 1
+# M = 1
+# i = 0
+# while i < 26:
+#   while (p := fake.profile()) and p['sex'] not in ['F', 'M']:    
+#     continue
+#   if M > 11 and p['sex'] == 'M':
+#     continue
+#   if F > 15 and p['sex'] == 'F':
+#     continue
 
-  i += 1
+#   i += 1
 
-  fl = ''
-  url = ''
-  fl = ''
-  url = ''
-  if p['sex'] == 'F':
-      fl = f'f{F}.jpg'
-      F += 1
-  else:
-      fl = f'm{M}.jpg'
-      M += 1
-  url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
-  print(url, F, M, i)
+#   fl = ''
+#   url = ''
+#   fl = ''
+#   url = ''
+#   if p['sex'] == 'F':
+#       fl = f'f{F}.jpg'
+#       F += 1
+#   else:
+#       fl = f'm{M}.jpg'
+#       M += 1
+#   url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
+#   print(url, F, M, i)
 
   # user = User(username=p['username'], email=p['mail'],
   #     password=f'password', bio=p['job'], websiteUrl=p['website'][0],
   #     name=p['name'],profilePicUrl=url)
+
+for i in range(10):
+  text = fake.sentence(nb_words=10)
+  captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'
+  print(captionRawData)
             
