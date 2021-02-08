@@ -19,8 +19,8 @@ class Album(db.Model):
       'id': self.id,
       "name": self.name,
       "userId": self.userId,
-      "createdAt": self.createdAt,
-      "updatedAt": self.updatedAt,
+      # "createdAt": self.createdAt,
+      # "updatedAt": self.updatedAt,
     }
 
 

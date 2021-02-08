@@ -31,6 +31,7 @@ class Post(db.Model):
     userSaves = db.relationship('User', secondary='savedposts')
     category = db.relationship('Category', foreign_keys=categoryId)
     album = db.relationship('Album', foreign_keys=albumId)
+    location = db.relationship('Location', foreign_keys=locationId)
     # hastags = db.relationship('Hashtag', secondary='hashtagposts')
 
 
@@ -56,6 +57,7 @@ class Post(db.Model):
             "id": self.id,
             "userId": self.userId,
             "locationId": self.locationId,
+            "location": self.location.to_dict(),
             "captionRawData": self.captionRawData,
             "createdAt": self.createdAt,
             "categoryId": self.categoryId,

@@ -7,6 +7,7 @@ import SingleCard from '../SingleCard';
 
 import './Bands.css';
 import { nanoid } from 'nanoid';
+import { getRandomInt } from '../../utils';
 
 function Squares({ repeat = 4, onClick, numberOfCards = 4, currentActiveSquare }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -149,8 +150,9 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
 export function Bands() {
   const myself = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users.allUsers);
-
   const dispatch = useDispatch();
+  const [locatedPosts, updateLocatedPosts] = useState([]);
+
   const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
     'Shenandoah Valley',
@@ -168,6 +170,28 @@ export function Bands() {
   useEffect(() => {
     if (myself && !allUsers.length) dispatch(fetchAllUsers());
   }, [dispatch]);
+
+  useEffect(() => {
+    if(!allUsers.length) return;
+    const locations = new Set();
+    const posts = [];
+    for(let i = 0; i < allUsers.length; i++){
+      if(locations.size >= 10) break;
+      const user = allUsers[i];
+      if(user.ownPosts && user.ownPosts.length){
+        const randInt = getRandomInt(0, user.ownPosts.length);
+        const post = user.ownPosts[randInt];
+        if(post.locationId) {
+          locations.add(post.locationId);
+          posts.push(post);
+        }
+      }
+    }
+
+    if(posts.length >= 6){
+      updateLocatedPosts(posts);
+    }
+  }, [allUsers])
 
   return (
     <div className="homepage-bands-container">
