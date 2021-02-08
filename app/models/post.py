@@ -15,7 +15,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
-    captionRawData = db.Column(db.Text, nullable=False)
+    captionRawData = db.Column(db.Text, nullable=True)
     categoryId = db.Column(db.Integer, db.ForeignKey('Categories.id'), nullable=True, default=18)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())

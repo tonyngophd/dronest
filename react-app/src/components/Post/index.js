@@ -73,8 +73,11 @@ function Post({ post }) {
   );
 
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
-  let data = JSON.parse(post.captionRawData);
-  data = convertFromRaw(data);
+  let data = "";
+  if (post.captionRawData) {
+    data = JSON.parse(post.captionRawData);
+    data = convertFromRaw(data);
+  }
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(data)
   );

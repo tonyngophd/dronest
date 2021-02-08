@@ -81,7 +81,7 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
     data = JSON.parse(message ? message : comment.captionRawData);
     data = convertFromRaw(data);
   } catch (e) {
-    data = message;
+    message? data = message: data="";
     messageIsPlainText = true;
   }
 
