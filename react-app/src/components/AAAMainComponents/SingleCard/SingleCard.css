@@ -1,6 +1,14 @@
 .single-card-outer-container{
-  width: 300px;
+  width: 800px;
   max-height: 420px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 10px;
+  background-color: white;
+}
+.single-card-outer-container-catloc{
+  width: 600px;
+  height: 160px;
   border-radius: 5px;
   overflow: hidden;
   margin: 10px 10px;
@@ -10,6 +18,13 @@
 .single-card-top-image-div{
   width: 100%;
   height: 60%;
+  max-height: 178px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.single-card-top-image-div-catloc{
+  width: 100%;
+  height: 80%;
   max-height: 178px;
   overflow: hidden;
   border-radius: 5px;

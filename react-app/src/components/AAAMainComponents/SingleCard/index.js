@@ -21,8 +21,8 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
 
 
   return (
-    <div className='single-card-outer-container'>
-      <div className='single-card-top-image-div'>
+    <div className={category || location? 'single-card-outer-container-catloc':'single-card-outer-container'}>
+      <div className={category || location? 'single-card-top-image-div-catloc':'single-card-top-image-div'}>
         <img
           className='single-card-main-img'
           // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
