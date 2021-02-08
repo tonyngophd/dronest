@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
   hashed_password = db.Column(db.String(255), nullable = False)
   bio = db.Column(db.Text, nullable=True)
   websiteUrl = db.Column(db.Text, nullable=False, default="www.google.com")
+  userType = db.Column(db.Integer, nullable=True, default=0)
   profilePicUrl = db.Column(db.Text, nullable=True)
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
   updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
@@ -129,6 +130,7 @@ class User(db.Model, UserMixin):
       "bio": self.bio,
       "websiteUrl": self.websiteUrl,
       "profilePicUrl": self.profilePicUrl,
+      "userType": self.userType,
       "ownPosts": [post.to_dict() for post in self.ownPosts],
       "likedPosts": [post.to_dict() for post in self.likedPosts],
       "savedPosts": [post.to_dict() for post in self.savedPosts],

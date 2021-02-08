@@ -22,16 +22,17 @@ const NavBar = () => {
         to="/"
         exact={true}
         className="nav-title-logo"
-        activeclassname="active"
       >
         <img
-          className="lioness hvr-grow hvr-pulse"
-          src={require("./insta.png")}
+          className="hvr-grow hvr-pulse"
+          src={require("./dronestlogo3.png")}
+          style={{width: '140px', objectFit: 'cover'}}
         />
-        <p className="nav-title navbar-content hvr-grow ">Dronest</p>
+        {/* <p className="nav-title navbar-content hvr-grow ">Dronest</p> */}
         {/* <p className="nav-title navbar-content hvr-grow login-form_header"><img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png" /></p> */}
       </NavLink>
-      {user && <MainSearchBar />}
+      {/* {user && <MainSearchBar />} */}
+      <MainSearchBar />
       {/* <input
         className="search-navbar-content"
         type="text"

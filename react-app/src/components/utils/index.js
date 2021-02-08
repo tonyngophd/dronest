@@ -1,4 +1,4 @@
-export default function timeStamp(createdAt, short = false) {
+export default function timeStamp(createdAt, short = false, yearIncluded = false) {
   let now = Date.now();
   let elapsed = now - createdAt;
   let timestamp;
@@ -29,8 +29,21 @@ export default function timeStamp(createdAt, short = false) {
   } else if (elapsed < 86400000) {
     timestamp = `${Math.floor(elapsed / 3600000)}${space}${h}`;
   } else {
-    timestamp = createdAt.toDateString().split(" ").splice(1, 2).join(" ");
+    timestamp = createdAt.toDateString().split(" ")
+      .splice(1, yearIncluded?3:2).join(" ");
   }
 
   return timestamp;
+}
+
+export function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+export function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }

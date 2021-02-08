@@ -12,19 +12,19 @@ ENV REACT_APP_BASE_URL="https://dronest.herokuapp.com"
 RUN npm install
 RUN npm run build
 
-RUN cd ..
-WORKDIR /messenger_server
-COPY messenger_server/. .
+# RUN cd ..
+# WORKDIR /messenger_server
+# COPY messenger_server/. .
 
-# You have to set this because it should be set during build time.
-# ENV REACT_APP_WS_URL="wss://dronestms.herokuapp.com:8080"
+# # You have to set this because it should be set during build time.
+# # ENV REACT_APP_WS_URL="wss://dronestms.herokuapp.com:8080"
 
-# Build our messenger_server app
-RUN npm install
-#RUN npm run build
-ENV NODE_ENV=production
-# RUN npm start
-# CMD [ "npm", "start" ]
+# # Build our messenger_server app
+# RUN npm install
+# #RUN npm run build
+# ENV NODE_ENV=production
+# # RUN npm start
+# # CMD [ "npm", "start" ]
 
 
 

@@ -9,8 +9,13 @@ user_routes = Blueprint('users', __name__)
 
 
 @user_routes.route('')
-@login_required
+# @login_required
 def users():
+    # TODO: need to check if there is current_user (logged in) or 
+    # just a generic unauthorized user to return different kind of information
+    # 1) withOUT a current_user (unauthorized): return generic public info
+    # 2) with current_user (authorized): can return more sensitive info.
+    # right now, there is no distinction yet because the info is kind of NOT too sensitive
     users = User.query.all()
     # return {"users": [user.to_dict() for user in users]}
     return {"users": [user.to_dict_with_posts_and_follows() for user in users]}

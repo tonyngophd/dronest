@@ -7,6 +7,7 @@ class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     postId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     mediaUrl = db.Column(db.Text, nullable=False)
+    mediaType = db.Column(db.Text, nullable=True, default="image/jpg")
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -19,7 +20,8 @@ class Media(db.Model):
         return {
         "id": self.id,
         "postId": self.postId,
-        "mediaUrl": self.mediaUrl
+        "mediaUrl": self.mediaUrl,
+        "mediaType": self.mediaType,
         }
         
 

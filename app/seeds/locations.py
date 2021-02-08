@@ -7,7 +7,7 @@ fake = Faker()
 # Adds a demo location, you can add other locations here if you want
 def seed_locations():
 
-    for i in range(30):
+    for i in range(100):
       add = fake.address()
       city = add.split('\n')[1]
       city = city[:-10]

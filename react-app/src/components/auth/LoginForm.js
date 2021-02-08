@@ -49,7 +49,7 @@ const LoginForm = () => {
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
-            <img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png"></img>
+            <img src={require("./dronestlogo3.png")}></img>
           </div>
           <div>
             {errors.map((error) => (

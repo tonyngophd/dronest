@@ -47,19 +47,19 @@
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  background-color: lightblue;
-  margin: auto 2px;
+  background-color: rgb(169, 175, 177);
+  margin: auto 5px;
 }
 .square-button:hover{
   cursor: pointer;
-  background-color: rgba(67, 67, 224, 0.808);  
+  background-color: rgba(26, 233, 248, 0.808);  
 }
 .square-button-active{
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  background-color: rgb(67, 67, 224);
-  margin: auto 2px;  
+  background-color: rgb(26, 233, 248);
+  margin: auto 5px;  
 }
 .square-button-active:hover{
   cursor: pointer;
@@ -74,4 +74,65 @@
   display: flex;
   /* width: 155px; */
   /* justify-content: space-between; */
+}
+
+.main-banner-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px auto;
+}
+
+/*TODO fix the small discrepancies in pixels and widths*/
+.banner-container{
+  /* width: 80vw; */
+  width: 1244px;
+  /* max-width: ; */
+  height: 320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+.banner-img-container{
+  /* width: 80vw; */
+  /* width: 1200px; */
+  /* max-width: ; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: auto 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.active-banner-img-div{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.inactive-banner-img-div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.banner-img{
+  object-fit: cover;
+  width: 100%;
+}
+.banner-squares{
+  position: absolute;
+  margin-bottom: 20px;
+  /* bottom: -0px; */
 }

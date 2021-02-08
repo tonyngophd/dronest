@@ -73,16 +73,19 @@ function Post({ post }) {
   );
 
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
-  let data = JSON.parse(post.captionRawData);
-  data = convertFromRaw(data);
+  let data = "";
+  if (post.captionRawData) {
+    data = JSON.parse(post.captionRawData);
+    data = convertFromRaw(data);
+  }
   const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(data)
+    (data?EditorState.createWithContent(data):EditorState.createEmpty())
   );
 
   let timestamp = timeStamp(new Date(post.createdAt));
 
   useEffect(() => {
-    if (clicks == 2 && !liked) {
+    if (clicks === 2 && !liked) {
       dispatch(likePost(post.id));
       setLiked(true);
       setLikes(likes + 1);

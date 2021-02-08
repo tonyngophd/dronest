@@ -44,7 +44,6 @@ function App() {
         {/* {user &&
           <NewPostTab />
         } */}
-        <Bands />
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm />
@@ -67,19 +66,20 @@ function App() {
           <ProtectedRoute path="/p/:id" exact={true}>
             <SinglePostPage />
           </ProtectedRoute>
-          <ProtectedRoute path="/" exact={true}>
-            <div className="main_body">
+          <Route path="/" exact={true}>
+            <Bands />
+            {/* <div className="main_body">
               <div className="body_container">
                 <div className="stories-and-bands-div">
-                  {/* <StoryTopBox /> */}
-                  {/* <Feed user={user} /> */}
-                  {/* <Band /> */}
+                  <StoryTopBox />
+                  <Feed user={user} />
+                  <Band />
                 </div>
-                {/* <Suggestions /> */}
-                {/* <div></div> */}
+                <Suggestions />
+                <div></div>
               </div>
-            </div>
-          </ProtectedRoute>
+            </div> */}
+          </Route>
           <ProtectedRoute path="/explore/tags/:hashtag">
             <HashtagPage />
           </ProtectedRoute>
