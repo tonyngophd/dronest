@@ -7,7 +7,7 @@ class Album(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50), nullable=False)
   userId = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
-  UniqueConstraint('name', 'userId', name='unique_name_user_combo')
+  db.UniqueConstraint('name', 'userId', name='unique_name_user_combo')
 
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
   updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())

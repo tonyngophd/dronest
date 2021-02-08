@@ -5,24 +5,24 @@ from app.models import db, Album
 def seed_albums():
 
   albums = [
-    {"name": "Generic", "userId": 0}
-    {"name": "Great City", "userId": 1}
-    {"name": "Winter", "userId": 1}
-    {"name": "Night Time", "userId": 1}
-    {"name": "Skyscraper", "userId": 1}
-    {"name": "Solar Panel", "userId": 2}
-    {"name": "Night Hunting", "userId": 2}
-    {"name": "My Hometown", "userId": 3}
-    {"name": "Zen", "userId": 3}
-    {"name": "Naturific", "userId": 4}
-    {"name": "Beautiful Lakes", "userId": 4}
-    {"name": "Trainnnns", "userId": 5}
-    {"name": "Love", "userId": 5}
-    {"name": "Sunshine", "userId": 1}
-    {"name": "Awesome roads", "userId": 6}
-    {"name": "Cars", "userId": 7}
-    {"name": "Sky Arts", "userId": 8}
-    {"name": "Great Mountains", "userId": 9}
+    {"name": "Generic", "userId": 0},
+    {"name": "Great City", "userId": 1},
+    {"name": "Winter", "userId": 1},
+    {"name": "Night Time", "userId": 1},
+    {"name": "Skyscraper", "userId": 1},
+    {"name": "Solar Panel", "userId": 2},
+    {"name": "Night Hunting", "userId": 2},
+    {"name": "My Hometown", "userId": 3},
+    {"name": "Zen", "userId": 3},
+    {"name": "Naturific", "userId": 4},
+    {"name": "Beautiful Lakes", "userId": 4},
+    {"name": "Trainnnns", "userId": 5},
+    {"name": "Love", "userId": 5},
+    {"name": "Sunshine", "userId": 1},
+    {"name": "Awesome roads", "userId": 6},
+    {"name": "Cars", "userId": 7},
+    {"name": "Sky Arts", "userId": 8},
+    {"name": "Great Mountains", "userId": 9},
   ]
 
   for i in range(len(albums)):
