@@ -1,29 +1,13 @@
-from app.models import db, Album
-
+from app.models import db, Album, User
+from .data import albums
 
 # Adds a demo location, you can add other locations here if you want
 def seed_albums():
 
-  albums = [
-    {"name": "Generic", "userId": 0},
-    {"name": "Great City", "userId": 1},
-    {"name": "Winter", "userId": 1},
-    {"name": "Night Time", "userId": 1},
-    {"name": "Skyscraper", "userId": 1},
-    {"name": "Solar Panel", "userId": 2},
-    {"name": "Night Hunting", "userId": 2},
-    {"name": "My Hometown", "userId": 3},
-    {"name": "Zen", "userId": 3},
-    {"name": "Naturific", "userId": 4},
-    {"name": "Beautiful Lakes", "userId": 4},
-    {"name": "Trainnnns", "userId": 5},
-    {"name": "Love", "userId": 5},
-    {"name": "Sunshine", "userId": 1},
-    {"name": "Awesome roads", "userId": 6},
-    {"name": "Cars", "userId": 7},
-    {"name": "Sky Arts", "userId": 8},
-    {"name": "Great Mountains", "userId": 9},
-  ]
+  users = User.query.all()
+  for i in range(len(users)):
+    al = Album(name="Generic", userId = users[i].id)
+    db.session.add(al)
 
   for i in range(len(albums)):
     al = Album(name=albums[i]["name"], userId = albums[i]["userId"])
