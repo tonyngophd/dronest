@@ -5,6 +5,7 @@ from .posts import seed_posts, undo_posts
 from .locations import seed_locations, undo_locations
 from .media import seed_media, undo_media
 from .category import seed_categories, undo_categories
+from .album import seed_albums, undo_albums
 
 from .userfollowers import seed_followers, undo_followers
 # Creates a seed group to hold our commands
@@ -17,6 +18,7 @@ def seed():
     seed_categories()
     seed_users()
     seed_locations()
+    seed_albums()
     seed_posts()
     seed_media()
     seed_followers()
@@ -29,6 +31,7 @@ def undo():
     undo_posts()
     undo_followers()
     undo_users()
+    undo_albums()
     undo_media()
     undo_categories
     # Add other undo functions here

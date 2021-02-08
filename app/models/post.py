@@ -17,6 +17,7 @@ class Post(db.Model):
     locationId = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=True)
     captionRawData = db.Column(db.Text, nullable=True)
     categoryId = db.Column(db.Integer, db.ForeignKey('Categories.id'), nullable=True, default=18)
+    albumId = db.Column(db.Integer, db.ForeignKey('Albums.id'), nullable=True, default=1)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -29,6 +30,7 @@ class Post(db.Model):
     likingUsers = db.relationship('User', secondary='likedposts')
     userSaves = db.relationship('User', secondary='savedposts')
     category = db.relationship('Category', foreign_keys=categoryId)
+    album = db.relationship('Album', foreign_keys=albumId)
     # hastags = db.relationship('Hashtag', secondary='hashtagposts')
 
 
@@ -58,6 +60,8 @@ class Post(db.Model):
             "createdAt": self.createdAt,
             "categoryId": self.categoryId,
             "category": self.category.to_dict(),
+            "albumId": self.albumId,
+            "album": self.album.to_dict(),
             "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
