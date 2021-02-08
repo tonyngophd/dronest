@@ -8,9 +8,17 @@ import UserRow from '../../ProfilePage/UserRow';
 import './SingleCard.css';
 
 
-export default function SingleCard({ user, moreInfo = true, category }) {
-  const src = user && user.ownPosts && user.ownPosts.length? user.ownPosts[0].images[0].mediaUrl
-    :'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s720x720/146887222_10224900286638677_3698840883103249499_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=ymzZQjKFmpwAX8sKlQ_&_nc_ht=scontent-iad3-1.xx&tp=7&oh=f9f9313ef82e283cda40f81d16ae8365&oe=604764F6'
+export default function SingleCard({ user, moreInfo = true, category = false, location = false }) {
+  let src = 'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s720x720/146887222_10224900286638677_3698840883103249499_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=ymzZQjKFmpwAX8sKlQ_&_nc_ht=scontent-iad3-1.xx&tp=7&oh=f9f9313ef82e283cda40f81d16ae8365&oe=604764F6';
+  let cat = "Generic";
+  let loc = "Great city"
+
+  if (user && user.ownPosts && user.ownPosts.length) {
+    src = user.ownPosts[0].images[0].mediaUrl;
+    loc = user.ownPosts[0].location.city;
+    cat = user.ownPosts[0].category.name;
+  }
+
 
   return (
     <div className='single-card-outer-container'>
@@ -23,7 +31,12 @@ export default function SingleCard({ user, moreInfo = true, category }) {
       </div>
       {category &&
         <div className='single-card-info-div'>
-          <div><b>{category}</b></div>
+          <div><b>{cat}</b></div>
+        </div>
+      }
+      {location &&
+        <div className='single-card-info-div'>
+          <div><b>{loc}</b></div>
         </div>
       }
       {moreInfo &&
@@ -42,7 +55,7 @@ export default function SingleCard({ user, moreInfo = true, category }) {
           </div>
         </div>
       }
-      {user &&
+      {user && !category &&
         <>
           <hr className='single-card-hr'></hr>
           <div className='single-card-user-and-date-div'>

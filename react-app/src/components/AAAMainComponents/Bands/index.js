@@ -151,7 +151,8 @@ export function Bands() {
   const myself = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users.allUsers);
   const dispatch = useDispatch();
-  const [locatedPosts, updateLocatedPosts] = useState([]);
+  const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
+  const [categorizedUserPosts, updateCategorizedUserPosts] = useState([]);
 
   const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
@@ -168,40 +169,60 @@ export function Bands() {
   const maxNumberOfBands = 4;
 
   useEffect(() => {
-    if (myself && !allUsers.length) dispatch(fetchAllUsers());
+    // if (myself && !allUsers.length) dispatch(fetchAllUsers());
+    if (!allUsers.length) dispatch(fetchAllUsers());
   }, [dispatch]);
 
   useEffect(() => {
     if(!allUsers.length) return;
     const locations = new Set();
-    const posts = [];
+    const cagetories = new Set();
+    let users = [];
     for(let i = 0; i < allUsers.length; i++){
       if(locations.size >= 10) break;
       const user = allUsers[i];
       if(user.ownPosts && user.ownPosts.length){
         const randInt = getRandomInt(0, user.ownPosts.length);
         const post = user.ownPosts[randInt];
-        if(post.locationId) {
-          locations.add(post.locationId);
-          posts.push(post);
+        if(post.location && post.location.city) {
+          locations.add(post.location.city);
+          users.push({...user, ownPosts: [post]})
         }
       }
     }
 
-    if(posts.length >= 6){
-      updateLocatedPosts(posts);
+    if(users.length >= 6){
+      updateLocatedUserPosts(users);
+    }
+    
+    users = [];
+    for(let i = 0; i < allUsers.length; i++){
+      if(cagetories.size >= 10) break;
+      const user = allUsers[i];
+      if(user.ownPosts && user.ownPosts.length){
+        const randInt = getRandomInt(0, user.ownPosts.length);
+        const post = user.ownPosts[randInt];
+        if(post.category && post.category.name) {
+          cagetories.add(post.category.name);
+          users.push({...user, ownPosts: [post]})
+        }
+      }
+    }
+
+    if(users.length >= 6){
+      updateCategorizedUserPosts(users);
     }
   }, [allUsers])
 
   return (
     <div className="homepage-bands-container">
       <MainBanner />
-      <Band numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
+      <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} categories={categories} />
       {
         new Array(maxNumberOfBands).fill(1).map((el, i) => 
         <Band objects={allUsers} title={titles[i]} key={nanoid()}/>)
       }
-      <Band numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
+      <Band objects={categorizedUserPosts} numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
     </div>
   )
 }
