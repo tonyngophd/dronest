@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash
-from app.models import db, Post
+from app.models import db, Post, Category
 from faker import Faker
 from random import randint
 fake = Faker()
@@ -26,8 +26,10 @@ def seed_posts():
 
     for i in range(len(mediadata)):
         text = fake.sentence(nb_words=10)
-        post = Post(userId=randint(1,5), locationId=randint(1,10), 
-            captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
+        post = Post(userId=randint(1,30), locationId=randint(1,30),
+                captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+                categoryId = mediadata[i]['catid']
+            )
         db.session.add(post)
         
 
