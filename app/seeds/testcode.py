@@ -1,6 +1,6 @@
-from random import randint
-from faker import Faker
-fake = Faker()
+# from random import randint
+# from faker import Faker
+# fake = Faker()
 
 # users = []
 # for i in range(30):
@@ -54,8 +54,29 @@ fake = Faker()
   #     password=f'password', bio=p['job'], websiteUrl=p['website'][0],
   #     name=p['name'],profilePicUrl=url)
 
-for i in range(10):
-  text = fake.sentence(nb_words=10)
-  captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'
-  print(captionRawData)
-            
+# for i in range(10):
+#   text = fake.sentence(nb_words=10)
+#   captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'
+#   print(captionRawData)
+
+
+# from .models import db, Post, Category, Album
+from random import randint
+from datetime import datetime
+
+def seed_test():
+  for i in range(10):
+    month = randint(1,12)
+    maxday = 28
+    if(month in [1, 3, 5, 7, 8, 10, 12]): maxday = 31
+    elif(month in [4, 6, 9, 11]): maxday = 30
+    day = randint(1,maxday)
+
+    createdAt = datetime(year=randint(2016, 2021), month=month, day=day, hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))
+    print(createdAt)
+
+    # print(datetime.date(year=randint(2016, 2021), month=month, day=day),
+    #   datetime.time(hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))
+    # )
+
+seed_test()
