@@ -18,8 +18,10 @@ def seed_categories():
     'Beach',      #11
     'Mountain',   #12
     'Valley',     #13
-    'Vineyard'    #14
-    'Vehicle'     #15
+    'Vineyard',   #14
+    'Vehicle',    #15
+    'Agriculture',#16
+    'Road',       #17
   ]
 
   sub_cats = [
