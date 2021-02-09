@@ -5,20 +5,22 @@ import { GrLogout } from "react-icons/gr";
 import { IoExitOutline } from "react-icons/io5";
 import { logoutUser } from "../../store/session";
 
-const LogoutButton = ({ className, setShowLoggedOut}) => {
+const LogoutButton = ({ className, setShowLoggedOut }) => {
   const dispatch = useDispatch();
 
   const onLogout = async (e) => {
     e.preventDefault();
-    dispatch(logoutUser());
-    if(setShowLoggedOut){
-      setShowLoggedOut(true);
+    const res = await dispatch(logoutUser());
+    if (res.message === "User logged out") {
+      if (setShowLoggedOut) {
+        setShowLoggedOut(true);
+      }
     }
   };
 
   return (
     <div onClick={onLogout} className={className}>
-      <IoExitOutline />    
+      <IoExitOutline />
     </div>
   );
 };
