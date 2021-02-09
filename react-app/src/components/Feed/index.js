@@ -112,14 +112,39 @@ export const AllPosts = () => {
             />
           }
         >
-          {Object.values(feed)
-            .sort((a, b) =>
-              new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-            )
-            .map((post) => (
-              // <BarePost post={post} key={nanoid()} />
-              <img src={post.images[0].mediaUrl} />
-            ))}
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 0)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+          </div>
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 1)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+          </div>
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 2)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+            </div>
         </InfiniteScroll>
       )}
     </>

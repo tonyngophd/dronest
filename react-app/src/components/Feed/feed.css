@@ -28,15 +28,27 @@
 
   line-height: 2;
    
-  -webkit-column-count: 4;
+  -webkit-column-count: 3;
   -webkit-column-gap:   10px;
-  -moz-column-count:    4;
+  -moz-column-count:    3;
   -moz-column-gap:      10px;
-  column-count:         4;
+  column-count:         3;
   column-gap:           10px;  
 }
 
-.feed_grid_container img {
+.feed_grid_container_column {
+  width: 400px;
+  line-height: 2;
+   
+  -webkit-column-count: 1;
+  -webkit-column-gap:   10px;
+  -moz-column-count:    1;
+  -moz-column-gap:      10px;
+  column-count:         1;
+  column-gap:           10px;  
+}
+
+.feed_grid_container_column img {
   /* Just in case there are inline attributes */
   width: 100% !important;
   height: auto !important;
