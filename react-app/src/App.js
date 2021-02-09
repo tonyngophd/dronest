@@ -66,7 +66,7 @@ function App() {
             <SignUpForm />
           </Route>
           <Route path='/allposts'>
-            <Feed user={user} />
+            <AllPosts />
           </Route>
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />

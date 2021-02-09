@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomeFeed, fetchAllPosts } from "../../store/posts";
-import Post from "../Post";
+import Post, { BarePost } from "../Post";
 import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -73,9 +73,9 @@ export const AllPosts = () => {
   const feed = useSelector((state) => state.posts.allFeed);
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    dispatch(fetchNotifications());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchNotifications());
+  // }, []);
   useEffect(() => {
     dispatch(fetchAllPosts(page));
   }, [dispatch, page]);
@@ -97,7 +97,7 @@ export const AllPosts = () => {
     <>
       {feed && (
         <InfiniteScroll
-          className="feed_container"
+          className="feed_grid_container"
           dataLength={Object.values(feed).length}
           next={() => setPage(page + 1)}
           hasMore={true}
@@ -117,7 +117,8 @@ export const AllPosts = () => {
               new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
             )
             .map((post) => (
-              <Post post={post} key={nanoid()} />
+              // <BarePost post={post} key={nanoid()} />
+              <img src={post.images[0].mediaUrl} />
             ))}
         </InfiniteScroll>
       )}
