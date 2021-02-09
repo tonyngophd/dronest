@@ -260,6 +260,7 @@ export function Bands() {
       {
         showLoginForm && <LoginForm />
       }
+
       <ThreeJSBanner />
       {/* <MainBanner /> */}
       <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
