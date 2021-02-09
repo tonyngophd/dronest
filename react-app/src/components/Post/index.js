@@ -25,9 +25,10 @@ function Post({ post }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const comments = useSelector(
-    (state) => state.posts.homeFeed[post.id].comments
-  );
+  const comments = post.comments; 
+  // useSelector(
+  //   (state) => state.posts.homeFeed[post.id].comments
+  // );
   const [liked, setLiked] = useState(post.likingUsers[user.id]);
   const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);

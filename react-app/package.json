@@ -26,7 +26,8 @@
     "react-three-fiber": "^5.3.18",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "three": "^0.125.2"
   },
   "scripts": {
     "start": "react-scripts start",
