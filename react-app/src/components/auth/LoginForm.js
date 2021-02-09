@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { nanoid } from 'nanoid';
 import { Route } from 'react'
 import SignUpForm from './SignUpForm'
@@ -14,6 +14,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -40,8 +41,15 @@ const LoginForm = () => {
     setPassword("password")
   }
 
+  const closeModal = (e) => {
+    e.preventDefault();
+    if(e.target.className==='modal'){
+      history.push('/');
+    }
+  }
+
   return (
-    <div className="modal">
+    <div className="modal" onClick={closeModal}>
       {/* <div className="login-img">
         <img src={require("../../pictures/signuppicture1.jpg")}/>
       </div> */}
