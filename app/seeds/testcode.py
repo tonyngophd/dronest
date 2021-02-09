@@ -73,7 +73,7 @@ def seed_test():
     day = randint(1,maxday)
 
     createdAt = datetime(year=randint(2016, 2021), month=month, day=day, hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))
-    print(createdAt)
+    # print(createdAt)
 
     # print(datetime.date(year=randint(2016, 2021), month=month, day=day),
     #   datetime.time(hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))

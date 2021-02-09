@@ -48,7 +48,7 @@ def create_post():
 
     image.filename = f'images/{secure_filename(image.filename)}'
     mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
-    print(mediaUrl)
+    # print(mediaUrl)
     new_image = Media(
       postId = post.id,
       mediaUrl=mediaUrl
@@ -104,6 +104,12 @@ def homeFeedInfinite(userId, page):
   feed_list = [post.to_dict() for post in feed]
   return {'posts': {post["id"]: post for post in feed_list}}
 
+@post_routes.route("/feed/<int:page>")
+def allFeedInfinite(page):
+  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*10).limit(10)
+  feed_list = [post.to_dict() for post in feed]
+  return {'posts': {post["id"]: post for post in feed_list}}
+
 @post_routes.route("/tag/<string:hashtag>/<int:page>")
 def hashtagFeed(hashtag, page):
   hashtag_obj = Hashtag.query.filter(Hashtag.tagInfo==hashtag).first()
@@ -121,7 +127,7 @@ def single_post(postId):
 @post_routes.route("/<int:postId>/delete")
 def delete_single_post(postId):
   post = Post.query.get(postId)
-  print("\n\n\n\n\n\n\n\n", post)
+  # print("\n\n\n\n\n\n\n\n", post)
   post.cascade_delete()
   db.session.delete(post)
   db.session.commit()

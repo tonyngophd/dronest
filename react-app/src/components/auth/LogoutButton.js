@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 // import { logout } from "../../services/auth";
 import { useDispatch } from "react-redux";
 import { GrLogout } from "react-icons/gr";
 import { IoExitOutline } from "react-icons/io5";
 import { logoutUser } from "../../store/session";
 
-const LogoutButton = ({ className }) => {
+const LogoutButton = ({ className, setShowLoggedOut }) => {
   const dispatch = useDispatch();
+
   const onLogout = async (e) => {
     e.preventDefault();
-    dispatch(logoutUser());
+    const res = await dispatch(logoutUser());
+    if (res.message === "User logged out") {
+      if (setShowLoggedOut) {
+        setShowLoggedOut(true);
+      }
+    }
   };
 
   return (

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHomeFeed } from "../../store/posts";
-import Post from "../Post";
+import { fetchHomeFeed, fetchAllPosts } from "../../store/posts";
+import Post, { BarePost } from "../Post";
 import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -22,6 +22,9 @@ const Feed = () => {
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
 
+  useEffect(() => {
+    console.log('FEEED', feed)
+  }, [feed]);
 
   const setPost = (arr, num) => {
     let newArr = []
@@ -32,7 +35,6 @@ const Feed = () => {
   }
 
   let num = 5;
-  // console.log('FEEED', feed)
   return (
     <>
       {feed && (
@@ -59,6 +61,90 @@ const Feed = () => {
             .map((post) => (
               <Post post={post} key={nanoid()} />
             ))}
+        </InfiniteScroll>
+      )}
+    </>
+  );
+};
+
+export const AllPosts = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const feed = useSelector((state) => state.posts.allFeed);
+  const [page, setPage] = useState(0);
+
+  // useEffect(() => {
+  //   dispatch(fetchNotifications());
+  // }, []);
+  useEffect(() => {
+    dispatch(fetchAllPosts(page));
+  }, [dispatch, page]);
+
+  useEffect(() => {
+    console.log('FEEED', feed)
+  }, [feed]);
+
+  const setPost = (arr, num) => {
+    let newArr = []
+    for (let i = 0; i < num; i++) {
+      newArr.push(arr[i]);
+    }
+    return newArr;
+  }
+
+  let num = 5;
+  return (
+    <>
+      {feed && (
+        <InfiniteScroll
+          className="feed_grid_container"
+          dataLength={Object.values(feed).length}
+          next={() => setPage(page + 1)}
+          hasMore={true}
+          loader={
+            <Loader
+              className="three-dots"
+              type="ThreeDots"
+              color="rgb(58,66,105)"
+              height={100}
+              width={100}
+              timeout={1000}
+            />
+          }
+        >
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 0)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+          </div>
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 1)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+          </div>
+          <div className='feed_grid_container_column'>
+            {Object.values(feed)
+              .sort((a, b) =>
+                new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+              )
+              .filter((p, i) => i % 3 === 2)
+              .map((post) => (
+                // <BarePost post={post} key={nanoid()} />
+                <img src={post.images[0].mediaUrl} />
+              ))}
+            </div>
         </InfiniteScroll>
       )}
     </>

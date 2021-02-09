@@ -4,6 +4,7 @@ const CREATE_COMMENT = "posts/CREATE_COMMENT";
 const CREATE_MODAL_COMMENT = "posts/CREATE_MODAL_COMMENT";
 
 const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
+const FETCH_ALL_FEED = "posts/FETCH_ALL_FEED";
 const FETCH_SINGLE_POST = "posts/FETCH_SINGLE_POST";
 const FETCH_HASHTAG_FEED = "posts/FETCH_HASHTAG_FEED";
 const FETCH_EXPLORE_FEED = "posts/FETCH_EXPLORE_FEED";
@@ -29,6 +30,11 @@ const createModalComment = (comment) => ({
 
 const loadHomeFeed = (feed) => ({
   type: FETCH_HOME_FEED,
+  payload: feed,
+});
+
+const loadAllFeedPOJO = (feed) => ({
+  type: FETCH_ALL_FEED,
   payload: feed,
 });
 
@@ -105,6 +111,12 @@ export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   feed = feed["posts"];
   dispatch(loadHomeFeed(feed));
 };
+export const fetchAllPosts = (page) => async (dispatch) => {
+  const res = await fetch(`/api/posts/feed/${page}`);
+  let feed = await res.json();
+  feed = feed["posts"];
+  dispatch(loadAllFeedPOJO(feed));
+};
 
 export const fetchHashtagFeed = (hashtag, page) => async (dispatch) => {
   const res = await fetch(`/api/posts/tag/${hashtag}/${page}`);
@@ -160,6 +172,7 @@ export const deleteAPost = (postId) => async (dispatch) => {
 };
 
 const initialState = {
+  allFeed: {},
   homeFeed: {},
   exploreFeed: {},
   hashtagFeed: {},
@@ -197,6 +210,10 @@ const reducer = (state = initialState, action) => {
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...newState.homeFeed, ...action.payload };
+      return newState;
+    case FETCH_ALL_FEED:
+      newState = Object.assign({}, state);
+      newState.allFeed = { ...newState.allFeed, ...action.payload };
       return newState;
     case FETCH_HASHTAG_FEED:
       newState = Object.assign({}, state);

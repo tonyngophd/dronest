@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 
 import { fetchAllUsers } from "../../../store/users";
 import SingleCard from '../SingleCard';
+import { ThreeJSBanner } from '../ThreeJS';
+import LoginForm from '../../auth/LoginForm';
 
 import './Bands.css';
 import { nanoid } from 'nanoid';
@@ -155,6 +158,8 @@ export function Bands() {
   const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
   const [categorizedUserPosts, updateCategorizedUserPosts] = useState([]);
   const [categorizedUsers, updateCategorizedUsers] = useState([[]]);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const location = useLocation();
 
   const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
@@ -169,6 +174,14 @@ export function Bands() {
     'Nature', 'City', 'Thermal', 'Industrial', 'Sports'
   ];
   const maxNumberOfBands = 4;
+
+  useEffect(() => {
+    if (location.pathname.includes('/login')) {
+      setShowLoginForm(true);
+    } else {
+      setShowLoginForm(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     // if (myself && !allUsers.length) dispatch(fetchAllUsers());
@@ -244,7 +257,12 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
-      <MainBanner />
+      {
+        showLoginForm && <LoginForm />
+      }
+
+      <ThreeJSBanner />
+      {/* <MainBanner /> */}
       <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
       {
         new Array(maxNumberOfBands).fill(1).map((el, i) =>

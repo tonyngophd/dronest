@@ -258,3 +258,25 @@ li {
 .hvr-glow:active {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
+
+.show-user-have-logged-out-outer-div{
+  position: fixed;
+  height: 100px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  left: 0;
+  top: 100px;  
+}
+.show-user-have-logged-out-inner-div{
+  background-color: #e2e2e2;  
+  color: black;
+  z-index: 100;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}

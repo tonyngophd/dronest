@@ -8,6 +8,52 @@
   margin-left: 250px;
 }
 
+
+.feed_grid_container1{
+  max-width: 1200px;
+
+  margin-left: 50px;
+  margin-right: 45px;
+  display: grid;
+  grid-template-columns: 23% 23% 23% 23%;
+  grid-gap: 0% 4%;
+  /* background-color: white; */
+  width: 100%;
+  justify-items: center;  
+}
+
+.feed_grid_container {
+  /* Prevent vertical gaps */
+  max-width: 1200px;
+
+  line-height: 2;
+   
+  -webkit-column-count: 3;
+  -webkit-column-gap:   10px;
+  -moz-column-count:    3;
+  -moz-column-gap:      10px;
+  column-count:         3;
+  column-gap:           10px;  
+}
+
+.feed_grid_container_column {
+  width: 400px;
+  line-height: 2;
+   
+  -webkit-column-count: 1;
+  -webkit-column-gap:   10px;
+  -moz-column-count:    1;
+  -moz-column-gap:      10px;
+  column-count:         1;
+  column-gap:           10px;  
+}
+
+.feed_grid_container_column img {
+  /* Just in case there are inline attributes */
+  width: 100% !important;
+  height: auto !important;
+}
+
 /* .feed_post-container {
   width: 100%;
 

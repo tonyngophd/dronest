@@ -3,6 +3,7 @@
 
 .message-page-main-div {
   width: 70vw;
+  max-width: 1000px;
   height: 80vh;
   margin: 70px 0px 50px;
   display: flex;
@@ -194,7 +195,7 @@
 }
 
 .durp {
-  background: linear-gradient(to right, #4e4376, #2b5876);
+  background: linear-gradient(to bottom right, #ffffff, #9dc9c6);
 }
 
 

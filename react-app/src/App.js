@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar/index";
-import Feed from "./components/Feed/index";
+import Feed, { AllPosts } from "./components/Feed/index";
 import Suggestions from "./components/Suggestions/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import User from "./components/User";
@@ -45,11 +45,28 @@ function App() {
           <NewPostTab />
         } */}
         <Switch>
-          <Route path="/login" exact={true}>
-            <LoginForm />
+          <Route path={["/", '/login']} exact={true}>
+            <Bands />
+            {/* <div className="main_body">
+              <div className="body_container">
+                <div className="stories-and-bands-div">
+                  <StoryTopBox />
+                  <Feed user={user} />
+                  <Band />
+                </div>
+                <Suggestions />
+                <div></div>
+              </div>
+            </div> */}
           </Route>
+          {/* <Route path="/login" exact={true}>
+            <LoginForm />
+          </Route> */}
           <Route path="/sign-up" exact={true}>
             <SignUpForm />
+          </Route>
+          <Route path='/allposts'>
+            <AllPosts />
           </Route>
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
@@ -66,20 +83,6 @@ function App() {
           <ProtectedRoute path="/p/:id" exact={true}>
             <SinglePostPage />
           </ProtectedRoute>
-          <Route path="/" exact={true}>
-            <Bands />
-            {/* <div className="main_body">
-              <div className="body_container">
-                <div className="stories-and-bands-div">
-                  <StoryTopBox />
-                  <Feed user={user} />
-                  <Band />
-                </div>
-                <Suggestions />
-                <div></div>
-              </div>
-            </div> */}
-          </Route>
           <ProtectedRoute path="/explore/tags/:hashtag">
             <HashtagPage />
           </ProtectedRoute>

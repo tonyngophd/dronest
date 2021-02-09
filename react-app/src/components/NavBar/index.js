@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
 import { AiOutlineHome } from "react-icons/ai";
-import { IoPaperPlaneOutline } from "react-icons/io5";
+import { IoPaperPlaneOutline, IoImagesOutline } from "react-icons/io5";
 import { FaWpexplorer, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsHeart } from "react-icons/bs";
@@ -15,6 +15,13 @@ import "./NavBar.css";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
+  const [showLoggedOut, setShowLoggedOut] = useState(false);
+
+  useEffect(() => {
+    if (showLoggedOut) {
+      setTimeout(() => setShowLoggedOut(false), 2000);
+    }
+  }, [showLoggedOut])
 
   return (
     <nav className="top-navbar">
@@ -25,8 +32,8 @@ const NavBar = () => {
       >
         <img
           className="hvr-grow hvr-pulse"
-          src={require("./dronestlogo3.png")}
-          style={{width: '140px', objectFit: 'cover'}}
+          src={require("../../pictures/dronestlogo3.png")}
+          style={{ width: '140px', objectFit: 'cover' }}
         />
         {/* <p className="nav-title navbar-content hvr-grow ">Dronest</p> */}
         {/* <p className="nav-title navbar-content hvr-grow login-form_header"><img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png" /></p> */}
@@ -84,16 +91,31 @@ const NavBar = () => {
             >
               <BsHeart className="navbar-icon home-page hvr-shrink heart-button " />
             </NavLink>
+            <NavLink
+              to='/allposts'
+              exact={true}
+              activeClassName='active'
+            >
+              <IoImagesOutline className="navbar-icon home-page hvr-shrink heart-button "/>
+            </NavLink>
             <NavLink to={`/${user.username}`}>
               <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />
             </NavLink>
-            <LogoutButton className="navbar-icon home-page der hvr-grow" />
+            <LogoutButton className="navbar-icon home-page der hvr-grow" setShowLoggedOut={setShowLoggedOut} />
           </>
         )}
         {/* <NavLink to="/users" exact={true} activeclassname="active">
           <FaUsers className='navbar-icon' />
         </NavLink> */}
       </div>
+      {
+        showLoggedOut &&
+        <div className='show-user-have-logged-out-outer-div'>
+          <div className='show-user-have-logged-out-inner-div'>
+            You have safely logged out!
+          </div>
+        </div>
+      }
     </nav>
   );
 };

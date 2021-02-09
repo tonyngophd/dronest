@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { nanoid } from 'nanoid';
 import { Route } from 'react'
-import SignUpForm from './SignUpForm'
+// import SignUpForm from './SignUpForm'
 import './LoginForm.css'
+import { GrClose } from "react-icons/gr";
 
 import { loginUser } from "../../store/session";
 
@@ -14,12 +15,14 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
+    // e.stopPropagation();
     dispatch(loginUser(email, password));
-    if (user && user.errors) {
-      setErrors(user.errors);
+    if (errors) {
+      setErrors(errors);
     }
   };
 
@@ -35,22 +38,40 @@ const LoginForm = () => {
     return <Redirect to="/" />;
   }
 
-  const demoUser = (event) => {
+  const demoUser = (e) => {
+    e.stopPropagation();
     setEmail("demo@aa.io");
     setPassword("password")
   }
 
+  const closeModal = (e) => {
+    e.preventDefault();
+    // e.stopPropagation();
+    console.log(e.target.className);
+    if (
+      e.target.className === "modal" ||
+      e.target.className.animVal !== undefined
+    ) {
+      history.push('/');
+    }
+  }
+
   return (
-    <div className="login_container">
-      <div className="login-img">
-        <img src="https://instavibes.s3.amazonaws.com/images/computer.png"></img>
-      </div>
-      <div className="login_form-container">
-        <form className="login-form" onSubmit={onLogin}>
+    <div className="modal" onClick={closeModal}>
+      {/* <div className="login-img">
+        <img src={require("../../pictures/signuppicture1.jpg")}/>
+      </div> */}
+      <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="follow-modal-top-div">
+          <div className="follow-modal-title-div">Login</div>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
-            <img src={require("./dronestlogo3.png")}></img>
-          </div>
+            <img src={require("../../pictures/dronestlogo3.png")} />
+          </div>          
+          <GrClose className="modal-close" onClick={closeModal} />
+        </div>
+        <form className="login-form" onSubmit={onLogin}>
+
           <div>
             {errors.map((error) => (
               <div key={nanoid()}>{error}</div>
@@ -77,8 +98,8 @@ const LoginForm = () => {
             />
           </div>
           <div className="buttons">
-            <button type="submit">Log in</button>
-            <button onClick={demoUser} type="submit">Demo</button>
+            <button type="submit" id="login-button" onClick={e => e.stopPropagation()}>Log in</button>
+            <button onClick={demoUser} type="submit" id="demo-login-button">Demo</button>
           </div>
           <p className="OR">OR</p>
           <div className="login-form-footer">
