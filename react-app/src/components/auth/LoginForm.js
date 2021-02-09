@@ -41,11 +41,11 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="login_container">
-      <div className="login-img">
+    <div className="modal">
+      {/* <div className="login-img">
         <img src={require("../../pictures/signuppicture1.jpg")}/>
-      </div>
-      <div className="login_form-container">
+      </div> */}
+      <div className="modal-content">
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
