@@ -48,7 +48,7 @@ def create_post():
 
     image.filename = f'images/{secure_filename(image.filename)}'
     mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
-    print(mediaUrl)
+    # print(mediaUrl)
     new_image = Media(
       postId = post.id,
       mediaUrl=mediaUrl
@@ -121,7 +121,7 @@ def single_post(postId):
 @post_routes.route("/<int:postId>/delete")
 def delete_single_post(postId):
   post = Post.query.get(postId)
-  print("\n\n\n\n\n\n\n\n", post)
+  # print("\n\n\n\n\n\n\n\n", post)
   post.cascade_delete()
   db.session.delete(post)
   db.session.commit()

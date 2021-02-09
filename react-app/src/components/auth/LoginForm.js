@@ -18,6 +18,7 @@ const LoginForm = () => {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    // e.stopPropagation();
     dispatch(loginUser(email, password));
     if (user && user.errors) {
       setErrors(user.errors);
@@ -36,14 +37,15 @@ const LoginForm = () => {
     return <Redirect to="/" />;
   }
 
-  const demoUser = (event) => {
+  const demoUser = (e) => {
+    e.stopPropagation();
     setEmail("demo@aa.io");
     setPassword("password")
   }
 
   const closeModal = (e) => {
     e.preventDefault();
-    if(e.target.className==='modal'){
+    if (e.target.className === 'modal') {
       history.push('/');
     }
   }
@@ -53,11 +55,11 @@ const LoginForm = () => {
       {/* <div className="login-img">
         <img src={require("../../pictures/signuppicture1.jpg")}/>
       </div> */}
-      <div className="modal-content">
+      <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
-            <img src={require("../../pictures/dronestlogo3.png")}/>
+            <img src={require("../../pictures/dronestlogo3.png")} />
           </div>
           <div>
             {errors.map((error) => (
@@ -85,8 +87,8 @@ const LoginForm = () => {
             />
           </div>
           <div className="buttons">
-            <button type="submit">Log in</button>
-            <button onClick={demoUser} type="submit">Demo</button>
+            <button type="submit" id="login-button">Log in</button>
+            <button onClick={demoUser} type="submit" id="demo-login-button">Demo</button>
           </div>
           <p className="OR">OR</p>
           <div className="login-form-footer">
