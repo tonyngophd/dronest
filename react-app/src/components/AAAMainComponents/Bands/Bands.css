@@ -43,6 +43,15 @@
   cursor: pointer;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
 }
+.previous-or-next-tab-button-dummy{
+  display: flex;
+  border-radius: 5px;
+  width: 50px;
+  height: 60px;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+}
 .square-button{
   width: 12px;
   height: 12px;
@@ -110,6 +119,24 @@
   margin: auto 10px;
   border-radius: 5px;
   position: relative;
+  /* color: rgba(173, 216, 230, 0.692); */
+}
+
+.banner-img-container-threejs{
+  /* width: 80vw; */
+  /* width: 1200px; */
+  /* max-width: ; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: auto 10px;
+  border-radius: 5px;
+  position: relative;
+  background-image: url('https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg');
 }
 
 .active-banner-img-div{

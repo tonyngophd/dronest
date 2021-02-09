@@ -25,7 +25,7 @@ const NavBar = () => {
       >
         <img
           className="hvr-grow hvr-pulse"
-          src={require("./dronestlogo3.png")}
+          src={require("../../pictures/dronestlogo3.png")}
           style={{width: '140px', objectFit: 'cover'}}
         />
         {/* <p className="nav-title navbar-content hvr-grow ">Dronest</p> */}

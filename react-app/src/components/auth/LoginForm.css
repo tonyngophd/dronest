@@ -54,7 +54,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 250px;
     height: 85px;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .login-form_header img{

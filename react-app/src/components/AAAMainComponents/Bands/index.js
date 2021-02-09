@@ -4,6 +4,7 @@ import { GrPrevious, GrNext } from 'react-icons/gr';
 
 import { fetchAllUsers } from "../../../store/users";
 import SingleCard from '../SingleCard';
+import { ThreeJSBanner } from '../ThreeJS';
 
 import './Bands.css';
 import { nanoid } from 'nanoid';
@@ -244,7 +245,8 @@ export function Bands() {
 
   return (
     <div className="homepage-bands-container">
-      <MainBanner />
+      <ThreeJSBanner />
+      {/* <MainBanner /> */}
       <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
       {
         new Array(maxNumberOfBands).fill(1).map((el, i) =>
