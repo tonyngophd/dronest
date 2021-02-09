@@ -20,8 +20,8 @@ const LoginForm = () => {
     e.preventDefault();
     // e.stopPropagation();
     dispatch(loginUser(email, password));
-    if (user && user.errors) {
-      setErrors(user.errors);
+    if (errors) {
+      setErrors(errors);
     }
   };
 
@@ -87,7 +87,7 @@ const LoginForm = () => {
             />
           </div>
           <div className="buttons">
-            <button type="submit" id="login-button">Log in</button>
+            <button type="submit" id="login-button" onClick={e=>e.stopPropagation()}>Log in</button>
             <button onClick={demoUser} type="submit" id="demo-login-button">Demo</button>
           </div>
           <p className="OR">OR</p>
