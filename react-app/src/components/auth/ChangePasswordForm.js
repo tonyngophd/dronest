@@ -14,6 +14,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
@@ -22,23 +23,25 @@ const ChangePasswordForm = ({ setShowModal }) => {
   const onChangePassword = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    if(newPassword !== newConfirmPassword || !password || !newPassword){
+    if (newPassword !== newConfirmPassword || !password || !newPassword) {
       const errs = [];
-      if(!password)
+      if (!password)
         errs.push(["Please provide current password"]);
-      if(!newPassword)
+      if (!newPassword)
         errs.push(["Please provide new password"]);
-      if(newPassword !== newConfirmPassword)
+      if (newPassword !== newConfirmPassword)
         errs.push(["Passwords do not match"]);
 
-      console.log('errors', errs);
-      
       setErrors(errs);
-    } 
+    }
     else {
-      changePassword(user.email, password, newPassword);
-      if (errors) {
-        setErrors(errors);
+      const resJson = await changePassword(user.email, password, newPassword);
+      if (resJson.errors) {
+        setErrors([resJson.errors]);
+      } else {
+        setErrors([]);
+        setMessages([resJson.success])
+        setTimeout(() => setShowModal(false), 2000);
       }
     }
   };
@@ -62,7 +65,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
   }
 
   const escapeHideModal = e => {
-    if(e.key === 'Escape')
+    if (e.key === 'Escape')
       setShowModal(false);
   }
 
@@ -87,48 +90,48 @@ const ChangePasswordForm = ({ setShowModal }) => {
               <div key={nanoid()}>{error}</div>
             ))}
           </div>
-          <div className="login-form-element">
-            <label htmlFor="password"></label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Verify current password"
-              value={password}
-              onChange={updatePassword}
-              autoFocus={true}
-            />
-          </div>
-          <div className="login-form-element">
-            <label htmlFor="password"></label>
-            <input
-              name="password"
-              type="password"
-              placeholder="New Password"
-              value={newPassword}
-              onChange={e => updatePassword(e, setNewPassword)}
-            />
-          </div>
-          <div className="login-form-element">
-            <label htmlFor="password"></label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Confirm New Password"
-              value={newConfirmPassword}
-              onChange={e => updatePassword(e, setNewConfirmPassword)}
-            />
-          </div>
-          <div className="buttons">
-            <button type="submit" id="login-button" onClick={e => e.stopPropagation()}>Change Password</button>
-            <button id="cancel-button" onClick={closeModal}>Cancel</button>
-          </div>
-          <p className="OR">OR</p>
-          <div className="login-form-footer">
-            <p>Don't have an account?</p>
-            <Link to="/sign-up">
-              sign up
-            </Link>
-          </div>
+          {messages.length ? <div className='errors-div' style={{ color: 'green' }}>
+            {messages.map((m) => (
+              <div key={nanoid()}>{m}</div>
+            ))}
+          </div> :
+            <>
+              <div className="login-form-element">
+                <label htmlFor="password"></label>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="Verify current password"
+                  value={password}
+                  onChange={updatePassword}
+                  autoFocus={true}
+                />
+              </div>
+              <div className="login-form-element">
+                <label htmlFor="password"></label>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={e => updatePassword(e, setNewPassword)}
+                />
+              </div>
+              <div className="login-form-element">
+                <label htmlFor="password"></label>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="Confirm New Password"
+                  value={newConfirmPassword}
+                  onChange={e => updatePassword(e, setNewConfirmPassword)}
+                />
+              </div>
+              <div className="buttons">
+                <button type="submit" id="login-button" onClick={e => e.stopPropagation()}>Change Password</button>
+                <button id="cancel-button" onClick={e => setShowModal(false)}>Cancel</button>
+              </div>
+            </>}
         </form>
       </div>
     </div>
