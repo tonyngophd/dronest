@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Redirect  } from "react-router-dom";
 import { nanoid } from 'nanoid';
-import { Route } from 'react'
-// import SignUpForm from './SignUpForm'
 import './LoginForm.css'
 import { GrClose } from "react-icons/gr";
 
-// import { loginUser } from "../../store/session";
 import { changePassword } from '../../services/auth';
 
 const ChangePasswordForm = ({ setShowModal }) => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const [messages, setMessages] = useState([]);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
-  // const history = useHistory();
 
   const onChangePassword = async (e) => {
     e.preventDefault();
-    // e.stopPropagation();
     if (newPassword !== newConfirmPassword || !password || !newPassword) {
       const errs = [];
       if (!password)
@@ -55,7 +49,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
   }
 
   const closeModal = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     if (
       e.target.className === "modal" ||
       e.target.className.animVal !== undefined
@@ -75,7 +69,6 @@ const ChangePasswordForm = ({ setShowModal }) => {
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div" style={{fontSize: '14px', padding: '0px'}}>Change Password</div>
           <div className="login-form_header">
-            {/* <h1>Instavibes</h1> */}
             <img src={require("../../pictures/dronestlogo3.png")} />
           </div>
           <GrClose className="modal-close" onClick={closeModal} />
