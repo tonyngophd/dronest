@@ -14,7 +14,7 @@ const SignUpForm = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [bio, setBio] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
-  const [profilePicUrl, setPriofilePicUrl] = useState("");
+  const [profilePicUrl, setProfilePicUrl] = useState("");
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const SignUpForm = () => {
   };
 
   const updateProfilePicUrl = (e) => {
-    setPriofilePicUrl(e.target.value);
+    setProfilePicUrl(e.target.value);
   };
 
   if (user) {
@@ -106,7 +106,7 @@ const SignUpForm = () => {
           <input
             type="password"
             name="repeat_password"
-            placeholder="Confrim Password"
+            placeholder="Confirm Password"
             onChange={updateRepeatPassword}
             value={repeatPassword}
             required={true}
