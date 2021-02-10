@@ -137,6 +137,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
 
   const handelChangePassword = e => {
     e.preventDefault();
+    setShowChangePasswordModal(true);
   }
 
   return (

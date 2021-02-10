@@ -22,13 +22,24 @@ const ChangePasswordForm = ({ setShowModal }) => {
   const onChangePassword = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    if(newPassword !== newConfirmPassword){
-      setErrors(["Passwords do not match"]);
-    } else {
-      dispatch(changePassword(user.email, password, newPassword));
-    }
-    if (errors) {
-      setErrors(errors);
+    if(newPassword !== newConfirmPassword || !password || !newPassword){
+      const errs = [];
+      if(!password)
+        errs.push(["Please provide current password"]);
+      if(!newPassword)
+        errs.push(["Please provide new password"]);
+      if(newPassword !== newConfirmPassword)
+        errs.push(["Passwords do not match"]);
+
+      console.log('errors', errs);
+      
+      setErrors(errs);
+    } 
+    else {
+      changePassword(user.email, password, newPassword);
+      if (errors) {
+        setErrors(errors);
+      }
     }
   };
 
@@ -36,8 +47,8 @@ const ChangePasswordForm = ({ setShowModal }) => {
     cb(e.target.value);
   };
 
-  if (user) {
-    return <Redirect to="/" />;
+  if (!user) {
+    return <Redirect to="/login" />;
   }
 
   const closeModal = (e) => {
@@ -52,7 +63,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
 
   const escapeHideModal = e => {
     if(e.key === 'Escape')
-      closeModal();
+      setShowModal(false);
   }
 
   return (
@@ -71,7 +82,6 @@ const ChangePasswordForm = ({ setShowModal }) => {
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
         <form className="login-form" onSubmit={onChangePassword}>
-
           <div>
             {errors.map((error) => (
               <div key={nanoid()}>{error}</div>
@@ -82,9 +92,10 @@ const ChangePasswordForm = ({ setShowModal }) => {
             <input
               name="password"
               type="password"
-              placeholder="Veriry current password"
+              placeholder="Verify current password"
               value={password}
               onChange={updatePassword}
+              autoFocus={true}
             />
           </div>
           <div className="login-form-element">
@@ -105,16 +116,6 @@ const ChangePasswordForm = ({ setShowModal }) => {
               placeholder="Confirm New Password"
               value={newConfirmPassword}
               onChange={e => updatePassword(e, setNewConfirmPassword)}
-            />
-          </div>
-          <div className="login-form-element">
-            <label htmlFor="password"></label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={updatePassword}
             />
           </div>
           <div className="buttons">
