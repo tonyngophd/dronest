@@ -13,21 +13,21 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
+  const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    dispatch(loginUser(email, password));
+    dispatch(loginUser(credential.toLocaleLowerCase(), password));
     if (errors) {
       setErrors(errors);
     }
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const updateCredential = (e) => {
+    setCredential(e.target.value);
   };
 
   const updatePassword = (e) => {
@@ -40,14 +40,13 @@ const LoginForm = () => {
 
   const demoUser = (e) => {
     e.stopPropagation();
-    setEmail("demo@aa.io");
+    setCredential("demo@aa.io");
     setPassword("password")
   }
 
   const closeModal = (e) => {
+    if (!e) return history.push('/');
     e.preventDefault();
-    // e.stopPropagation();
-    console.log(e.target.className);
     if (
       e.target.className === "modal" ||
       e.target.className.animVal !== undefined
@@ -56,18 +55,24 @@ const LoginForm = () => {
     }
   }
 
+  const escapeHideModal = e => {
+    if(e.key === 'Escape')
+      closeModal();
+  }
+
   return (
-    <div className="modal" onClick={closeModal}>
+    <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
       {/* <div className="login-img">
         <img src={require("../../pictures/signuppicture1.jpg")}/>
       </div> */}
+      {/* <input type='text' onKeyUp={escapeHideModal}/> */}
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div">Login</div>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
             <img src={require("../../pictures/dronestlogo3.png")} />
-          </div>          
+          </div>
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
         <form className="login-form" onSubmit={onLogin}>
@@ -78,13 +83,14 @@ const LoginForm = () => {
             ))}
           </div>
           <div className="login-form-element">
-            <label htmlFor="email"></label>
+            <label htmlFor="credential"></label>
             <input
-              name="email"
+              name="credential"
               type="text"
-              placeholder="Email"
-              value={email}
-              onChange={updateEmail}
+              placeholder="Email or username"
+              value={credential}
+              onChange={updateCredential}
+              autoFocus={true}
             />
           </div>
           <div className="login-form-element">

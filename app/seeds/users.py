@@ -13,6 +13,11 @@ def seed_users():
                 name="Klark Kent",profilePicUrl="https://instavibes.s3.amazonaws.com/profiles/profilepics/g0.jpg")
     db.session.add(demo)
 
+    demo2 = User(username='Demo2', email='demo2@aa.io',
+                password='password', bio='Awesome book writer!', websiteUrl="www.google.com",
+                name="Michelle Sanders",profilePicUrl="https://instavibes.s3.amazonaws.com/profiles/profilepics/f15.jpg")
+    db.session.add(demo2)
+
     tony = User(username='TonyRox', email='tony@gmail.com',
                 password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
@@ -22,12 +27,12 @@ def seed_users():
     F = 1
     M = 1
     i = 0
-    while i < 30:
+    while i < 29:
         while (p := fake.profile()) and p['sex'] not in ['F', 'M']:
             continue
         if M > 15 and p['sex'] == 'M':
             continue
-        if F > 15 and p['sex'] == 'F':
+        if F > 14 and p['sex'] == 'F':
             continue
 
         i += 1

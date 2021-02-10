@@ -32,7 +32,7 @@ export const fetchNotifications = () => async (dispatch) => {
   const res = await fetch("/api/users/notifications");
   let notifications = await res.json();
   notifications = notifications["notifications"];
-  dispatch(loadNotifications(notifications));
+  if(notifications) dispatch(loadNotifications(notifications));
   return "HI";
 };
 

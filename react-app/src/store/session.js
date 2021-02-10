@@ -18,8 +18,8 @@ const removeUserPOJO = () => ({
   type: REMOVE_USER,
 });
 
-export const loginUser = (email, password) => async (dispatch) => {
-  const res = await login(email, password);
+export const loginUser = (credential, password) => async (dispatch) => {
+  const res = await login(credential, password);
   if (!res.errors) {
     dispatch(setUserPOJO(res));
   }
