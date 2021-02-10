@@ -112,6 +112,30 @@ def sign_up():
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
+@auth_routes.route('/update', methods=['POST'])
+def update():
+    """
+    Creates a new user and logs them in
+    """
+    form = SignUpForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        user = User(
+            username=form.data['username'],
+            name=form.data['name'],
+            email=form.data['email'],
+            password=form.data['password'],
+            bio=form.data['bio'],
+            websiteUrl=form.data['websiteUrl'],
+            profilePicUrl=form.data['profilePicUrl']
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return user.to_dict_for_self()
+    return {'errors': validation_errors_to_error_messages(form.errors)}
+
+
 @auth_routes.route('/unauthorized')
 def unauthorized():
     """

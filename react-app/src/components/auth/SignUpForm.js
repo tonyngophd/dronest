@@ -20,7 +20,7 @@ const SignUpForm = () => {
 	const [websiteUrl, setWebsiteUrl] = useState("");
 	const [profilePicUrl, setProfilePicUrl] = useState("");
 
-	const onUpdateProfile = async (e) => {
+	const handleSignup = async (e) => {
 		e.preventDefault();
 		if (password && password === repeatPassword) {
 			const resJson = await dispatch(signupUser(username, name, email, password, bio, websiteUrl, profilePicUrl));
@@ -74,7 +74,7 @@ const SignUpForm = () => {
 				<img src={require("../../pictures/dronestlogo3.png")}></img>
 				<h5>Sign up for to see much more drone arts</h5>
 			</div>
-			<form className="signup-form" onSubmit={onUpdateProfile}>
+			<form className="signup-form" onSubmit={handleSignup}>
 				<div className='errors-div'>
 					{errors.map((error) => (
 						<div key={nanoid()}>{error}</div>

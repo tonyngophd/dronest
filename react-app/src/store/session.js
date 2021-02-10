@@ -1,4 +1,4 @@
-import { login, logout, authenticate, signup, updatProfile } from "../services/auth";
+import { login, logout, authenticate, signup, updateProfile } from "../services/auth";
 
 const SET_USER = "session/SET_USER";
 const ADD_A_MESSAGE = "session/ADD_A_MESSAGE";
@@ -49,7 +49,7 @@ export const signupUser = (username, name, email, password, bio, websiteUrl, pro
 };
 
 export const updateUser = (username, name, email, bio, websiteUrl, profilePicUrl) => async (dispatch) => {
-  const res = await updatProfile(username, name, email, bio, websiteUrl, profilePicUrl);
+  const res = await updateProfile(username, name, email, bio, websiteUrl, profilePicUrl);
   if (!res.errors) {
     dispatch(setUserPOJO(res));
   }

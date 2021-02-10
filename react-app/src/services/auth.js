@@ -64,7 +64,7 @@ export const signup = async (username, name, email, password, bio, websiteUrl, p
   return await response.json();
 };
 
-export const updatProfile = async (username, name, email, bio, websiteUrl, profilePicUrl) => {
+export const updateProfile = async (username, name, email, bio, websiteUrl, profilePicUrl) => {
   const response = await fetch("/api/auth/update", {
     method: "POST",
     headers: {
