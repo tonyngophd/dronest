@@ -59,7 +59,6 @@ export const signup = async (username, name, email, password, bio, websiteUrl, p
       bio,
       websiteUrl,
       profilePicUrl
-
     }),
   });
   return await response.json();

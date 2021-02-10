@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from 'nanoid';
+
 import { signupUser } from "../../store/session";
 import './SignUpForm.css'
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,8 +21,14 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      dispatch(signupUser(username, name, email, password, bio, websiteUrl, profilePicUrl));
+    if (password && password === repeatPassword) {
+      const resJson = await dispatch(signupUser(username, name, email, password, bio, websiteUrl, profilePicUrl));
+      console.log(resJson);
+      if (resJson.errors) {
+        setErrors(resJson.errors);
+      }      
+    } else {
+      setErrors(['Passwords do not match']);
     }
   };
 
@@ -66,6 +75,11 @@ const SignUpForm = () => {
         <h5>Sign up for to see much more drone arts</h5>
       </div>
       <form className="signup-form" onSubmit={onSignUp}>
+        <div className='errors-div'>
+          {errors.map((error) => (
+            <div key={nanoid()}>{error}</div>
+          ))}
+        </div>
         <div className="login-form-element">
           <input
             type="text"
@@ -86,7 +100,7 @@ const SignUpForm = () => {
         </div>
         <div className="login-form-element">
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Email"
             onChange={updateEmail}
