@@ -56,8 +56,8 @@ const LoginForm = () => {
   }
 
   const escapeHideModal = e => {
-    console.log(e, e.key);
-    closeModal();
+    if(e.key === 'Escape')
+      closeModal();
   }
 
   return (

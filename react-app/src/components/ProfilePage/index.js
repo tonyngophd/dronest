@@ -75,6 +75,13 @@ const ProfilePage = ({ tagged, liked, saved }) => {
     }
   };
 
+  const escapeHideModal = e => {
+    if(e.key === 'Escape'){
+      setShowFollowersModal(false);
+      setShowFollowingModal(false);      
+    }
+  }
+
   const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
     const [listOfUsersWithoutMe] = useState(
       listOfUsers.filter((user) => user.id !== myself.id)
@@ -116,6 +123,12 @@ const ProfilePage = ({ tagged, liked, saved }) => {
             ))}
           </div>
         </div>
+        <input 
+          autoFocus={true} 
+          type='text' 
+          onKeyUp={escapeHideModal}
+          style={{position: 'fixed', top: '-100px', left: '-10px'}}
+        />
       </div>
     );
   };
