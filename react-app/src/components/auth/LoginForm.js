@@ -13,21 +13,21 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
+  const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    dispatch(loginUser(email, password));
+    dispatch(loginUser(credential, password));
     if (errors) {
       setErrors(errors);
     }
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const updateCredential = (e) => {
+    setCredential(e.target.value);
   };
 
   const updatePassword = (e) => {
@@ -40,7 +40,7 @@ const LoginForm = () => {
 
   const demoUser = (e) => {
     e.stopPropagation();
-    setEmail("demo@aa.io");
+    setCredential("demo@aa.io");
     setPassword("password")
   }
 
@@ -83,13 +83,13 @@ const LoginForm = () => {
             ))}
           </div>
           <div className="login-form-element">
-            <label htmlFor="email"></label>
+            <label htmlFor="credential"></label>
             <input
-              name="email"
+              name="credential"
               type="text"
-              placeholder="Email"
-              value={email}
-              onChange={updateEmail}
+              placeholder="Email or username"
+              value={credential}
+              onChange={updateCredential}
               autoFocus={true}
             />
           </div>
