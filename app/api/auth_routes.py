@@ -45,7 +45,7 @@ def login():
             user = User.query.filter(User.email == credential).first()
         else:
             user = User.query.filter(User.username == credential).first()
-        # login_user(user)
+        login_user(user)
         return user.to_dict_for_self()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

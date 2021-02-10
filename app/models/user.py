@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Table, Column, Integer, ForeignKey, or_
 from .directmessage import DirectMessage
+from sqlalchemy.orm import validates
 
 
 class User(db.Model, UserMixin):
@@ -35,6 +36,9 @@ class User(db.Model, UserMixin):
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
 
+  @validates('username', 'email')
+  def convert_lower(self, key, value):
+    return value.lower()
 
   @property
   def password(self):
