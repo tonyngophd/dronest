@@ -93,3 +93,18 @@
 .signup-form-footer a:hover {
     text-decoration: underline;
 }
+
+
+.update-form-element {
+    width: 450px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.update-form-element input {
+    width: 340px;
+}
+.username-update-input{
+    width: 200px !important;
+}
