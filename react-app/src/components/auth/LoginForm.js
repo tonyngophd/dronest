@@ -20,7 +20,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    dispatch(loginUser(credential, password));
+    dispatch(loginUser(credential.toLocaleLowerCase(), password));
     if (errors) {
       setErrors(errors);
     }
