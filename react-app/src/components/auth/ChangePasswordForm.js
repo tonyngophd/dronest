@@ -82,7 +82,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
         <form className="login-form" onSubmit={onChangePassword}>
-          <div>
+          <div className='errors-div'>
             {errors.map((error) => (
               <div key={nanoid()}>{error}</div>
             ))}

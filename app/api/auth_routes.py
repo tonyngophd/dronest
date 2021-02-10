@@ -64,15 +64,15 @@ def changepsw():
         # Add the user to the session, we are logged in!
         credential = form.data['credential']
         newPassword = form.data['newPassword']
+
         try:
             if '@' in credential:
                 user = User.query.filter(User.email == credential).first()
             else:
                 user = User.query.filter(User.username == credential).first()
-            print('72 newPassword', newPassword);
-            # user.password = newPassword
-            # login_user(user)
-            # db.session.commit()
+            user.password = newPassword
+            db.session.commit()
+            login_user(user)
             return {"success": "password updated successfully"}
         except:
             {"errors": "Could not update password"}

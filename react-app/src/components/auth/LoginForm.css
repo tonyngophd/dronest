@@ -136,3 +136,8 @@ body {
 .login-form-footer p {
     margin: 0px;
 }
+
+.errors-div{
+    font-size: 14px;
+    color: red;
+}
