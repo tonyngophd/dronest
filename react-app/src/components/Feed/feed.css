@@ -23,17 +23,18 @@
 }
 
 .feed_grid_container {
+  margin-top: 60px;
   /* Prevent vertical gaps */
   max-width: 1200px;
 
   line-height: 2;
    
   -webkit-column-count: 3;
-  -webkit-column-gap:   10px;
+  -webkit-column-gap:   30px;
   -moz-column-count:    3;
-  -moz-column-gap:      10px;
+  -moz-column-gap:      30px;
   column-count:         3;
-  column-gap:           10px;  
+  column-gap:           30px;  
 }
 
 .feed_grid_container_column {
