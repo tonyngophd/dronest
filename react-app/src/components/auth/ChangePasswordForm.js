@@ -71,13 +71,9 @@ const ChangePasswordForm = ({ setShowModal }) => {
 
   return (
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
-      {/* <div className="login-img">
-        <img src={require("../../pictures/signuppicture1.jpg")}/>
-      </div> */}
-      {/* <input type='text' onKeyUp={escapeHideModal}/> */}
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
         <div className="follow-modal-top-div">
-          <div className="follow-modal-title-div">Login</div>
+          <div className="follow-modal-title-div" style={{fontSize: '14px', padding: '0px'}}>Change Password</div>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
             <img src={require("../../pictures/dronestlogo3.png")} />
@@ -129,7 +125,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
               </div>
               <div className="buttons">
                 <button type="submit" id="login-button" onClick={e => e.stopPropagation()}>Change Password</button>
-                <button id="cancel-button" onClick={e => setShowModal(false)}>Cancel</button>
+                <button id="cancel-button" className='cancel-button' onClick={e => setShowModal(false)}>Cancel</button>
               </div>
             </>}
         </form>

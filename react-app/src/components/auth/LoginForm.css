@@ -141,3 +141,7 @@ body {
     font-size: 14px;
     color: red;
 }
+
+.cancel-button{
+    background-color: rgb(189, 76, 76) !important;
+}
