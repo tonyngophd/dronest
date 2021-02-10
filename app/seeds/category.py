@@ -22,7 +22,8 @@ def seed_categories():
     'Vehicle',    #15
     'Agriculture',#16
     'Road',       #17
-    'Generic',    #18
+    'Home Town',  #18
+    'Generic',    #99
   ]
 
   sub_cats = [

@@ -45,9 +45,8 @@ const LoginForm = () => {
   }
 
   const closeModal = (e) => {
+    if (!e) return history.push('/');
     e.preventDefault();
-    // e.stopPropagation();
-    console.log(e.target.className);
     if (
       e.target.className === "modal" ||
       e.target.className.animVal !== undefined
@@ -56,18 +55,24 @@ const LoginForm = () => {
     }
   }
 
+  const escapeHideModal = e => {
+    console.log(e, e.key);
+    closeModal();
+  }
+
   return (
-    <div className="modal" onClick={closeModal}>
+    <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
       {/* <div className="login-img">
         <img src={require("../../pictures/signuppicture1.jpg")}/>
       </div> */}
+      {/* <input type='text' onKeyUp={escapeHideModal}/> */}
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div">Login</div>
           <div className="login-form_header">
             {/* <h1>Instavibes</h1> */}
             <img src={require("../../pictures/dronestlogo3.png")} />
-          </div>          
+          </div>
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
         <form className="login-form" onSubmit={onLogin}>
@@ -85,6 +90,7 @@ const LoginForm = () => {
               placeholder="Email"
               value={email}
               onChange={updateEmail}
+              autoFocus={true}
             />
           </div>
           <div className="login-form-element">

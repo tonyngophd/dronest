@@ -251,9 +251,6 @@ export function Bands() {
     updateCategorizedUsers(catdUsers);
   }, [allUsers])
 
-  useEffect(() => {
-    console.log('categorizedUsers', categorizedUsers);
-  }, [categorizedUsers])
 
   return (
     <div className="homepage-bands-container">
