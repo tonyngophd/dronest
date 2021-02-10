@@ -32,3 +32,11 @@ def password_matches(form, field):
 class LoginForm(FlaskForm):
     credential = StringField('credential', validators=[DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired(), password_matches])
+
+
+class ChangePasswordForm(FlaskForm):
+    credential = StringField('credential', validators=[DataRequired(), user_exists])
+    password = StringField('password', validators=[DataRequired(), password_matches])
+    newPassword = StringField('newPassword', validators=[DataRequired()])
+
+

@@ -10,6 +10,7 @@ import ProfileFeed from "../ProfileFeed";
 import UserRow, { handleFollowClick } from "./UserRow";
 import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
+import ChangePasswordForm from '../auth/ChangePasswordForm';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -30,6 +31,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -76,9 +78,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   };
 
   const escapeHideModal = e => {
-    if(e.key === 'Escape'){
+    if (e.key === 'Escape') {
       setShowFollowersModal(false);
-      setShowFollowingModal(false);      
+      setShowFollowingModal(false);
     }
   }
 
@@ -123,15 +125,20 @@ const ProfilePage = ({ tagged, liked, saved }) => {
             ))}
           </div>
         </div>
-        <input 
-          autoFocus={true} 
-          type='text' 
+        <input
+          autoFocus={true}
+          type='text'
           onKeyUp={escapeHideModal}
-          style={{position: 'fixed', top: '-100px', left: '-10px'}}
+          style={{ position: 'fixed', top: '-100px', left: '-10px' }}
         />
       </div>
     );
   };
+
+  const handelChangePassword = e => {
+    e.preventDefault();
+    setShowChangePasswordModal(true);
+  }
 
   return (
     <div className="profile-page-container">
@@ -161,28 +168,34 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                   Follow
                 </button>
               ) : myself.id === profile.user.id ? (
-                <button className="profile-edit-button">Edit Profile</button>
-              ) : (
                 <>
+                  <button className="profile-edit-button">Edit Profile</button>
                   <button className="profile-edit-button"
-                    onClick={e => history.push(`/messages/${profile.user.id}`)}
-                  >Message</button>
-                  <button
-                    className="profile-following-button"
-                    onClick={(e) =>
-                      handleFollowClick(
-                        e,
-                        profile.user.id,
-                        profile.user.id,
-                        false,
-                        dispatch
-                      )
-                    }
-                  >
-                    Unfollow
-                  </button>
+                    style={{fontSize: '10px'}}
+                    onClick={handelChangePassword}
+                    >Change <br/>Password</button>
                 </>
-              )}
+              ) : (
+                    <>
+                      <button className="profile-edit-button"
+                        onClick={e => history.push(`/messages/${profile.user.id}`)}
+                      >Message</button>
+                      <button
+                        className="profile-following-button"
+                        onClick={(e) =>
+                          handleFollowClick(
+                            e,
+                            profile.user.id,
+                            profile.user.id,
+                            false,
+                            dispatch
+                          )
+                        }
+                      >
+                        Unfollow
+                  </button>
+                    </>
+                  )}
             </div>
             <div className="profile-numbers">
               <div className="profile-posts-numbers">
@@ -244,6 +257,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       {showFollowingModal && (
         <FollowModal listOfUsers={profile.user.following} title="Following" />
       )}
+      {showChangePasswordModal && 
+        <ChangePasswordForm setShowModal={setShowChangePasswordModal} />
+      }
     </div>
   );
 };

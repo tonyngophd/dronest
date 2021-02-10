@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
-from app.forms import LoginForm
+from app.forms import LoginForm, ChangePasswordForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -47,6 +47,35 @@ def login():
             user = User.query.filter(User.username == credential).first()
         login_user(user)
         return user.to_dict_for_self()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@auth_routes.route('/changepsw', methods=['POST'])
+@login_required
+def changepsw():
+    """
+    Change the loggedin user password
+    """
+    form = ChangePasswordForm()
+    # print(request.get_json())
+    # Get the csrf_token from the request cookie and put it into the
+    # form manually to validate_on_submit can be used
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        # Add the user to the session, we are logged in!
+        credential = form.data['credential']
+        newPassword = form.data['newPassword']
+
+        try:
+            if '@' in credential:
+                user = User.query.filter(User.email == credential).first()
+            else:
+                user = User.query.filter(User.username == credential).first()
+            user.password = newPassword
+            db.session.commit()
+            login_user(user)
+            return {"success": "password updated successfully"}
+        except:
+            {"errors": "Could not update password"}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

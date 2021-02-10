@@ -82,6 +82,22 @@ body {
     border-radius: 3px;
 }
 
+.login-form-element-error {
+    width: 240px;
+    border-radius: 3px;
+}
+
+.login-form-element-error input {
+    width: 240px;
+    margin-top: 8px;
+    height: 32px;
+    border: solid;
+    border-width: 1px;
+    border-color: #ff0000;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;
@@ -135,4 +151,13 @@ body {
 
 .login-form-footer p {
     margin: 0px;
+}
+
+.errors-div{
+    font-size: 14px;
+    color: red;
+}
+
+.cancel-button{
+    background-color: rgb(189, 76, 76) !important;
 }

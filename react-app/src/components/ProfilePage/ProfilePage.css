@@ -57,8 +57,8 @@
 .profile-edit-button {
   margin-left: 30px;
   border: 1px solid rgb(219, 219, 219);
-  border-radius: 3px;
-  padding: 0px 30px;
+  border-radius: 5px;
+  padding: 0px 8px;
   color: rgb(38, 38, 38);
   cursor: pointer;
   font-size: 14px;
