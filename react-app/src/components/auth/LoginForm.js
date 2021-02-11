@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { nanoid } from 'nanoid';
 import './LoginForm.css'
-import { GrClose } from "react-icons/gr";
 import Modal from '../AAPopups/Modals';
 
 

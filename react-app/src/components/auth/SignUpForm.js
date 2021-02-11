@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from 'nanoid';
 import { GrClose } from "react-icons/gr";
+import Modal from '../AAPopups/Modals';
 
 import { signupUser, updateUser } from "../../store/session";
 import './SignUpForm.css'
@@ -243,110 +244,101 @@ export const UpdateProfileModal = ({ setShowModal }) => {
 	}
 
 	return (
-		<div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
-			<div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: '500px' }}>
-				<div className="follow-modal-top-div">
-					<div className="follow-modal-title-div" style={{ fontSize: '14px', padding: '0px' }}>Edit <br /> Profile</div>
-					<div className="login-form_header">
-						<img src={require("../../pictures/dronestlogo3.png")} />
-					</div>
-					<GrClose className="modal-close" onClick={closeModal} />
+		<Modal setShowModal={setShowModal} title={<>Edit <br /> Profile</>} width="500px">
+			<form className="login-form" onSubmit={onUpdateProfile}>
+				<div className='errors-div'>
+					{errors.map((error) => (
+						<div key={nanoid()}>{error}</div>
+					))}
 				</div>
-				<form className="login-form" onSubmit={onUpdateProfile}>
-					<div className='errors-div'>
-						{errors.map((error) => (
-							<div key={nanoid()}>{error}</div>
-						))}
-					</div>
-					{messages.length ? <div className='errors-div' style={{ color: 'green' }}>
-						{messages.map((m) => (
-							<div key={nanoid()}>{m}</div>
-						))}
-					</div> :
-						<>
-							<div className="update-form-element" style={{ width: '300px', marginBottom: '20px' }}>
-								<label htmlFor="changeusernameswitch" style={{ width: '200px' }}>Change Username? </label>
-								<input
-									style={{ width: '30px' }}
-									type="checkbox"
-									name="changeusernameswitch"
-									onClick={e => {
-										e.stopPropagation();
-										setShowChangeUsername(e.target.checked);
-									}}
-									onChange={e => e}
-									checked={showChangeUsername}
-								/>
-							</div>
-							{showChangeUsername && <div className="update-form-element">
-								<label htmlFor="username">Username: </label>
-								<input
-									type="text"
-									name="username"
-									placeholder="Username"
-									onChange={updateUsername}
-									value={username}
-								></input>
-							</div>}
-							<div className="update-form-element">
-								<label htmlFor="name">Name: </label>
-								<input
-									type="text"
-									name="name"
-									placeholder="Name"
-									onChange={updateName}
-									value={name}
-									autoFocus={true}
-								></input>
-							</div>
-							<div className="update-form-element">
-								<label htmlFor="email">Email: </label>
-								<input
-									type="email"
-									name="email"
-									placeholder="Email"
-									onChange={updateEmail}
-									value={email}
-								></input>
-							</div>
-							<div className="update-form-element">
-								<label htmlFor="bio">Bio: </label>
-								<input
-									type="text"
-									name="bio"
-									placeholder="Bio"
-									onChange={updateBio}
-									value={bio}
-								></input>
-							</div>
-							<div className="update-form-element">
-								<label htmlFor="websiteUrl">Website Url: </label>
-								<input
-									type="text"
-									name="websiteUrl"
-									placeholder="Website URL"
-									onChange={updateWebsiteUrl}
-									value={websiteUrl}
-								></input>
-							</div>
-							<div className="update-form-element">
-								<label htmlFor="profilePicUrl">Profile Pic Url: </label>
-								<input
-									type="text"
-									name="profilePicUrl"
-									placeholder="Profile Picture URL"
-									onChange={updateProfilePicUrl}
-									value={profilePicUrl}
-								></input>
-							</div>
-							<div className="buttons">
-								<button type="submit" id="login-button" onClick={onSubmitClick}>Update</button>
-								<button id="cancel-button" className='cancel-button' onClick={e => setShowModal(false)}>Cancel</button>
-							</div>
-						</>}
-				</form>
-			</div>
-		</div>
+				{messages.length ? <div className='errors-div' style={{ color: 'green' }}>
+					{messages.map((m) => (
+						<div key={nanoid()}>{m}</div>
+					))}
+				</div> :
+					<>
+						<div className="update-form-element" style={{ width: '300px', marginBottom: '20px' }}>
+							<label htmlFor="changeusernameswitch" style={{ width: '200px' }}>Change Username? </label>
+							<input
+								style={{ width: '30px' }}
+								type="checkbox"
+								name="changeusernameswitch"
+								onClick={e => {
+									e.stopPropagation();
+									setShowChangeUsername(e.target.checked);
+								}}
+								onChange={e => e}
+								checked={showChangeUsername}
+							/>
+						</div>
+						{showChangeUsername && <div className="update-form-element">
+							<label htmlFor="username">Username: </label>
+							<input
+								type="text"
+								name="username"
+								placeholder="Username"
+								onChange={updateUsername}
+								value={username}
+							></input>
+						</div>}
+						<div className="update-form-element">
+							<label htmlFor="name">Name: </label>
+							<input
+								type="text"
+								name="name"
+								placeholder="Name"
+								onChange={updateName}
+								value={name}
+								autoFocus={true}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="email">Email: </label>
+							<input
+								type="email"
+								name="email"
+								placeholder="Email"
+								onChange={updateEmail}
+								value={email}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="bio">Bio: </label>
+							<input
+								type="text"
+								name="bio"
+								placeholder="Bio"
+								onChange={updateBio}
+								value={bio}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="websiteUrl">Website Url: </label>
+							<input
+								type="text"
+								name="websiteUrl"
+								placeholder="Website URL"
+								onChange={updateWebsiteUrl}
+								value={websiteUrl}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="profilePicUrl">Profile Pic Url: </label>
+							<input
+								type="text"
+								name="profilePicUrl"
+								placeholder="Profile Picture URL"
+								onChange={updateProfilePicUrl}
+								value={profilePicUrl}
+							></input>
+						</div>
+						<div className="buttons">
+							<button type="submit" id="login-button" onClick={onSubmitClick}>Update</button>
+							<button id="cancel-button" className='cancel-button' onClick={e => setShowModal(false)}>Cancel</button>
+						</div>
+					</>}
+			</form>
+		</Modal>
 	);
 };
 

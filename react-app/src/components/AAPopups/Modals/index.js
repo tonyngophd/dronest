@@ -1,7 +1,7 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
 
-const Modal = ({ setShowModal, children, title, action }) => {
+const Modal = ({ setShowModal, children, title, action, width }) => {
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -18,10 +18,9 @@ const Modal = ({ setShowModal, children, title, action }) => {
     if (e.key === 'Escape')
       setShowModal(false);
   }
-
   return (
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
-      <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: width?width:"noAdditionalEffect" }}>
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div" style={{fontSize: '14px', padding: '0px'}}>{title}</div>
           <div className="login-form_header">
