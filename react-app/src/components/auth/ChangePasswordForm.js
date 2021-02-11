@@ -38,7 +38,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
       } else {
         setErrors([]);
         setMessages([resJson.success])
-        setTimeout(() => setShowModal(false), 2000);
+        setTimeout(() => setShowModal(false), 1500);
       }
     }
   };

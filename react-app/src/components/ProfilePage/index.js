@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { GrClose } from "react-icons/gr";
+import Modal from '../AAPopups/Modals';
 
 import ProfilePostsNav from "../ProfilePostsNav";
 import ProfileFeed from "../ProfileFeed";
@@ -86,7 +87,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
     }
   }
 
-  const FollowModal = ({ listOfUsers = [], title = "Followers" }) => {
+  const FollowModal = ({ setShowModal, listOfUsers = [], title = "Followers" }) => {
     const [listOfUsersWithoutMe] = useState(
       listOfUsers.filter((user) => user.id !== myself.id)
     );
@@ -95,12 +96,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
     );
 
     return (
-      <div className="modal" onClick={hideModal}>
-        <div className="modal-content">
-          <div className="follow-modal-top-div">
-            <div className="follow-modal-title-div">{title}</div>
-            <GrClose className="modal-close" onClick={hideModal} />
-          </div>
+      <Modal setShowModal={setShowModal} title={title} dronestLogo={false} needsEscapeInput={true}>
           <div className="modal-content-scroll">
             {amIIntheList && (
               <UserRow
@@ -126,14 +122,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
               </div>
             ))}
           </div>
-        </div>
-        <input
-          autoFocus={true}
-          type='text'
-          onKeyUp={escapeHideModal}
-          style={{ position: 'fixed', top: '-100px', left: '-10px' }}
-        />
-      </div>
+      </Modal>
     );
   };
 
@@ -247,10 +236,10 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} />}
       {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
       {showFollowersModal && (
-        <FollowModal listOfUsers={profile.user.followers} title="Followers" />
+        <FollowModal setShowModal={setShowFollowersModal} listOfUsers={profile.user.followers} title="Followers" />
       )}
       {showFollowingModal && (
-        <FollowModal listOfUsers={profile.user.following} title="Following" />
+        <FollowModal setShowModal={setShowFollowingModal} listOfUsers={profile.user.following} title="Following" />
       )}
       {showChangePasswordModal && 
         <ChangePasswordForm setShowModal={setShowChangePasswordModal} />
