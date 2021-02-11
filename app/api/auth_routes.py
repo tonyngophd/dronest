@@ -128,8 +128,6 @@ def update():
         websiteUrl=form.data['websiteUrl'],
         profilePicUrl=form.data['profilePicUrl']
 
-        print(username[0], name[0], email[0], bio[0], websiteUrl[0], profilePicUrl)
-
         user = current_user
 
         if username: user.username = username[0]
@@ -140,7 +138,6 @@ def update():
         if profilePicUrl: user.profilePicUrl = profilePicUrl
 
         db.session.commit()
-        # login_user(user)
         return user.to_dict_for_self()
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
