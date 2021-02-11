@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash
-from app.models import db, Post, Category, Album
+from app.models import db, Post, Category, Album, Equipment
 from faker import Faker
 from random import randint
 fake = Faker()

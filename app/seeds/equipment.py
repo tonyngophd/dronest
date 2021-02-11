@@ -5,20 +5,20 @@ from app.models import db, Equipment
 def seed_equipment():
 
   eqps = [
-    "Magestic 1",       #1
-    "Magestic 2",       #2
-    "Magestic Mini 1",  #3
-    "Magestic Mini 2",  #4
-    "Aspire 1",         #5
-    "Aspire 2",         #6
-    "Epic 1",           #7
-    "Epic 2",           #8
-    "Epic 3",           #9
-    "Unknown",          #99
+    {"name": "Magestic Mini 1", "level": 1}, 
+    {"name": "Magestic Mini 2", "level": 1}, 
+    {"name": "Magestic 1", "level": 2}, 
+    {"name": "Magestic 2", "level": 2}, 
+    {"name": "Aspire 1", "level": 3},
+    {"name": "Aspire 2", "level": 3},
+    {"name": "Epic 1", "level": 4},
+    {"name": "Epic 2", "level": 4},
+    {"name": "Epic 3", "level": 4},
+    {"name": "Unknown", "level": 0},
   ]
 
   for i in range(len(eqps)):
-    eqp = Category(name=eqps[i])
+    eqp = Equipment(name=eqps[i]["name"], level=eqps[i]["level"])
     db.session.add(eqp)
 
   db.session.commit()
