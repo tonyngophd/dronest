@@ -14,6 +14,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let loc = "Great city"
   let timestamp;
   let views = 0;
+  let loves = 20;
 
   if (user && user.ownPosts && user.ownPosts.length > 0) {
     timestamp = timeStamp(new Date(user.ownPosts[0].createdAt), true, true);
@@ -21,6 +22,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     loc = user.ownPosts[0].location.city;
     cat = user.ownPosts[0].category.name;
     views = user.ownPosts[0].views;
+    loves += Object.keys(user.ownPosts[0].likingUsers).length;
   }
 
 
@@ -50,7 +52,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           <div className="single-card-love-view-div">
             <div>
               <AiOutlineHeart />
-              <span>15</span>
+              <span>{loves}</span>
             </div>
             <div>
               <FiEye />
