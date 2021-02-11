@@ -60,8 +60,10 @@ const ChangePasswordForm = ({ setShowModal }) => {
     setNewCPasswordIsSubmitting(true);
   }
 
+  const Title = <>Change <br/> Password</>;
+
   return (
-    <Modal setShowModal={setShowModal}>
+    <Modal setShowModal={setShowModal} title={Title}>
       <form className="login-form" onSubmit={onChangePassword}>
         <div className='errors-div'>
           {errors.map((error) => (
