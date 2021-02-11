@@ -36,13 +36,10 @@ class User(db.Model, UserMixin):
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
 
-  @validates('username', 'email')
-  def convert_lower(self, key, value):
-    return value.lower()
 
-  @validates('username', 'email')
-  def convert_lower(self, key, value):
-    return value.lower()
+  # @validates('username', 'email')
+  # def convert_lower(self, key, value):
+  #   return value.lower()
 
   @property
   def password(self):

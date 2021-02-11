@@ -20,7 +20,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    const resJson = await dispatch(loginUser(credential.toLocaleLowerCase(), password));
+    const resJson = await dispatch(loginUser(credential, password));
     if (resJson.errors) {
       setErrors(resJson.errors);
     }
