@@ -1,6 +1,6 @@
 from app.models import db, Media
 from faker import Faker
-import random
+from random import randint
 fake = Faker()
 from .data import mediadata
 
@@ -24,7 +24,7 @@ def seed_media():
   # db.session.add(demo5)
 
   for i in range(len(mediadata)):
-    media = Media(postId=i+1, mediaUrl=mediadata[i]["url"])
+    media = Media(postId=i+1, mediaUrl=mediadata[i]["url"], views = randint(0, 1000))
     db.session.add(media)
 
   db.session.commit()

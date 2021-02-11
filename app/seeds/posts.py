@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash
-from app.models import db, Post, Category, Album
+from app.models import db, Post, Category, Album, Equipment
 from faker import Faker
 from random import randint
 fake = Faker()
@@ -31,6 +31,9 @@ def seed_posts():
         albums = Album.query.filter(Album.userId == userid).all()
         album = albums[randint(0, len(albums)-1)]
         albumid = album.id
+        equipments = Equipment.query.all()
+        equip = equipments[randint(0, len(equipments)-1)]
+        equipmentid = equip.id
 
         month = randint(1,12)
         maxday = 28
@@ -42,6 +45,7 @@ def seed_posts():
                 captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
                 categoryId = mediadata[i]['catid'],
                 albumId = albumid,
+                equipmentId = equipmentid,
                 createdAt = datetime(year=randint(2016, 2021), month=month, day=day, hour=randint(0,23), minute=randint(0,59), second=randint(0, 59)),
                 updatedAt = datetime(year=randint(2016, 2021), month=month, day=day, hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))
             )

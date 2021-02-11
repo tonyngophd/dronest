@@ -8,6 +8,7 @@ class Media(db.Model):
     postId = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     mediaUrl = db.Column(db.Text, nullable=False)
     mediaType = db.Column(db.Text, nullable=True, default="image/jpg")
+    views = db.Column(db.Integer, nullable=True, default=0)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -18,10 +19,11 @@ class Media(db.Model):
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):
         return {
-        "id": self.id,
-        "postId": self.postId,
-        "mediaUrl": self.mediaUrl,
-        "mediaType": self.mediaType,
+            "id": self.id,
+            "postId": self.postId,
+            "mediaUrl": self.mediaUrl,
+            "mediaType": self.mediaType,
+            "views": self.views,
         }
         
 

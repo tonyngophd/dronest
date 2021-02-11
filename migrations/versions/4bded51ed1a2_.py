@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e35b4ec714d8
+Revision ID: 4bded51ed1a2
 Revises: 
-Create Date: 2021-02-08 10:34:27.098857
+Create Date: 2021-02-10 22:32:47.785070
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e35b4ec714d8'
+revision = '4bded51ed1a2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,6 +21,15 @@ def upgrade():
     op.create_table('Categories',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
+    op.create_table('Equipment',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('level', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
@@ -119,10 +128,12 @@ def upgrade():
     sa.Column('captionRawData', sa.Text(), nullable=True),
     sa.Column('categoryId', sa.Integer(), nullable=True),
     sa.Column('albumId', sa.Integer(), nullable=True),
+    sa.Column('equipmentId', sa.Integer(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['albumId'], ['Albums.id'], ),
     sa.ForeignKeyConstraint(['categoryId'], ['Categories.id'], ),
+    sa.ForeignKeyConstraint(['equipmentId'], ['Equipment.id'], ),
     sa.ForeignKeyConstraint(['locationId'], ['locations.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -163,6 +174,7 @@ def upgrade():
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('mediaUrl', sa.Text(), nullable=False),
     sa.Column('mediaType', sa.Text(), nullable=True),
+    sa.Column('views', sa.Integer(), nullable=True),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
@@ -232,5 +244,6 @@ def downgrade():
     op.drop_table('hashtags')
     op.drop_table('Users')
     op.drop_table('SubCategories')
+    op.drop_table('Equipment')
     op.drop_table('Categories')
     # ### end Alembic commands ###

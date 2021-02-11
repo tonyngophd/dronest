@@ -255,7 +255,7 @@ export function Bands() {
   return (
     <div className="homepage-bands-container">
       {
-        showLoginForm && <LoginForm />
+        showLoginForm && <LoginForm setShowModal={setShowLoginForm}/>
       }
 
       <ThreeJSBanner />

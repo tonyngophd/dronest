@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
@@ -13,15 +13,20 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let cat = "Generic";
   let loc = "Great city"
   let timestamp;
+  let views = 0;
+  let loves = 20;
+  let album = 'Generic';
+  let equipment = 'Unknown';
 
   if (user && user.ownPosts && user.ownPosts.length > 0) {
     timestamp = timeStamp(new Date(user.ownPosts[0].createdAt), true, true);
-  }
-
-  if (user && user.ownPosts && user.ownPosts.length) {
     src = user.ownPosts[0].images[0].mediaUrl;
     loc = user.ownPosts[0].location.city;
     cat = user.ownPosts[0].category.name;
+    views = user.ownPosts[0].views;
+    loves += Object.keys(user.ownPosts[0].likingUsers).length;
+    album = user.ownPosts[0].album.name;
+    equipment = user.ownPosts[0].equipment.name;
   }
 
 
@@ -46,16 +51,16 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
       }
       {moreInfo &&
         <div className='single-card-info-div'>
-          <div><b>Album</b>: Grand Canyon</div>
-          <div>Equipment: Drone 1</div>
+          <div><b>Album</b>: {album}</div>
+          <div>Equipment: {equipment}</div>
           <div className="single-card-love-view-div">
             <div>
               <AiOutlineHeart />
-              <span>15</span>
+              <span>{loves}</span>
             </div>
             <div>
               <FiEye />
-              <span>93</span>
+              <span>{views}</span>
             </div>
           </div>
         </div>
