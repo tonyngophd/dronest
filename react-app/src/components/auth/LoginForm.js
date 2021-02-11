@@ -20,9 +20,9 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     // e.stopPropagation();
-    dispatch(loginUser(credential.toLocaleLowerCase(), password));
-    if (errors) {
-      setErrors(errors);
+    const resJson = await dispatch(loginUser(credential, password));
+    if (resJson.errors) {
+      setErrors(resJson.errors);
     }
   };
 
@@ -56,28 +56,22 @@ const LoginForm = () => {
   }
 
   const escapeHideModal = e => {
-    if(e.key === 'Escape')
+    if (e.key === 'Escape')
       closeModal();
   }
 
   return (
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
-      {/* <div className="login-img">
-        <img src={require("../../pictures/signuppicture1.jpg")}/>
-      </div> */}
-      {/* <input type='text' onKeyUp={escapeHideModal}/> */}
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center' }}>
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div">Login</div>
           <div className="login-form_header">
-            {/* <h1>Instavibes</h1> */}
             <img src={require("../../pictures/dronestlogo3.png")} />
           </div>
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
         <form className="login-form" onSubmit={onLogin}>
-
-          <div>
+          <div className='errors-div'>
             {errors.map((error) => (
               <div key={nanoid()}>{error}</div>
             ))}

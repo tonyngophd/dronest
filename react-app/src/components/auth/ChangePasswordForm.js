@@ -34,7 +34,7 @@ const ChangePasswordForm = ({ setShowModal }) => {
     else {
       const resJson = await changePassword(user.email, password, newPassword);
       if (resJson.errors) {
-        setErrors([resJson.errors]);
+        setErrors(resJson.errors);
       } else {
         setErrors([]);
         setMessages([resJson.success])

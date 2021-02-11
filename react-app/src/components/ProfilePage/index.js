@@ -11,6 +11,7 @@ import UserRow, { handleFollowClick } from "./UserRow";
 import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
+import { UpdateProfileModal } from '../auth/SignUpForm';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -32,6 +33,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -140,6 +142,11 @@ const ProfilePage = ({ tagged, liked, saved }) => {
     setShowChangePasswordModal(true);
   }
 
+  const handleEditProfile = e => {
+    e.preventDefault();
+    setShowUpdateProfileModal(true);
+  }
+
   return (
     <div className="profile-page-container">
       {profile.user && (
@@ -169,7 +176,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                 </button>
               ) : myself.id === profile.user.id ? (
                 <>
-                  <button className="profile-edit-button">Edit Profile</button>
+                  <button className="profile-edit-button"
+                    onClick={handleEditProfile}
+                  >Edit Profile</button>
                   <button className="profile-edit-button"
                     style={{fontSize: '10px'}}
                     onClick={handelChangePassword}
@@ -216,20 +225,6 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                 <span className="profile-number">{numberOfFollowing}</span>
                 <span className="profile-number-text"> following</span>
               </div>
-              {/* <Link
-                to={`/${username}/followers`}
-                className="profile-follower-numbers"
-              >
-                <span className="profile-number">{numberOfFollowers}</span>
-                <span className="profile-number-text"> followers</span>
-              </Link> */}
-              {/* <Link
-                to={`/${username}/following`}
-                className="profile-follower-numbers"
-              >
-                <span className="profile-number">{numberOfFollowing}</span>
-                <span className="profile-number-text"> following</span>
-              </Link> */}
             </div>
             <div className="profile-display-name">{profile.user.name}</div>
             <div className="profile-bio">{profile.user.bio}</div>
@@ -259,6 +254,10 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       )}
       {showChangePasswordModal && 
         <ChangePasswordForm setShowModal={setShowChangePasswordModal} />
+      }
+      {
+        showUpdateProfileModal && 
+          <UpdateProfileModal setShowModal={setShowUpdateProfileModal} />
       }
     </div>
   );

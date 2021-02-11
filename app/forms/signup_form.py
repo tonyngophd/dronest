@@ -20,3 +20,11 @@ class SignUpForm(FlaskForm):
     bio = StringField('bio', validators=[DataRequired()])
     websiteUrl = StringField('websiteUrl', validators=[DataRequired()])
     profilePicUrl = StringField('profilePicUrl', validators=[DataRequired()])
+
+class UpdateProfileForm(FlaskForm):
+    username = StringField('username', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired()])
+    bio = StringField('bio', validators=[DataRequired()])
+    websiteUrl = StringField('websiteUrl', validators=[DataRequired()])
+    profilePicUrl = StringField('profilePicUrl', validators=[DataRequired()])
