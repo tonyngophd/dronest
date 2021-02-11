@@ -15,6 +15,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let timestamp;
   let views = 0;
   let loves = 20;
+  let album = 'Generic';
 
   if (user && user.ownPosts && user.ownPosts.length > 0) {
     timestamp = timeStamp(new Date(user.ownPosts[0].createdAt), true, true);
@@ -23,6 +24,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     cat = user.ownPosts[0].category.name;
     views = user.ownPosts[0].views;
     loves += Object.keys(user.ownPosts[0].likingUsers).length;
+    album = user.ownPosts[0].album.name;
   }
 
 
@@ -47,7 +49,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
       }
       {moreInfo &&
         <div className='single-card-info-div'>
-          <div><b>Album</b>: Grand Canyon</div>
+          <div><b>Album</b>: {album}</div>
           <div>Equipment: Drone 1</div>
           <div className="single-card-love-view-div">
             <div>
