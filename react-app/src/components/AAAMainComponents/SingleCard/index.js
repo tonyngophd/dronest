@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
@@ -13,15 +13,14 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let cat = "Generic";
   let loc = "Great city"
   let timestamp;
+  let views = 0;
 
   if (user && user.ownPosts && user.ownPosts.length > 0) {
     timestamp = timeStamp(new Date(user.ownPosts[0].createdAt), true, true);
-  }
-
-  if (user && user.ownPosts && user.ownPosts.length) {
     src = user.ownPosts[0].images[0].mediaUrl;
     loc = user.ownPosts[0].location.city;
     cat = user.ownPosts[0].category.name;
+    views = user.ownPosts[0].views;
   }
 
 
@@ -55,7 +54,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
             </div>
             <div>
               <FiEye />
-              <span>93</span>
+              <span>{views}</span>
             </div>
           </div>
         </div>
