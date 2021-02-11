@@ -4,6 +4,7 @@ import { Redirect  } from "react-router-dom";
 import { nanoid } from 'nanoid';
 import './LoginForm.css'
 import { GrClose } from "react-icons/gr";
+import Modal from '../AAPopups/Modals';
 
 import { changePassword } from '../../services/auth';
 
