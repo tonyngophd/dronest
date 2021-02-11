@@ -51,6 +51,13 @@ class Post(db.Model):
         HashtagPost.query.filter(HashtagPost.postId == self.id).delete()
         db.session.commit()
 
+
+    def get_views(self):
+        views = 0
+        for image in self.images:
+            views += image.views
+        return views
+
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):       
         return {
@@ -65,11 +72,12 @@ class Post(db.Model):
             "albumId": self.albumId,
             "album": self.album.to_dict(),
             "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
+            "views": self.get_views(),
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
             "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers},
-            "userSaves": {user.id:user.id for user in self.userSaves}
+            "userSaves": {user.id:user.id for user in self.userSaves},
         }
 
     def to_dict_for_self(self):       
@@ -80,6 +88,7 @@ class Post(db.Model):
             "captionRawData": self.captionRawData,
             "categoryId": self.categoryId,
             "category": self.category.to_dict(),
+            "views": self.get_views(),            
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
