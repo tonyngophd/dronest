@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { nanoid } from 'nanoid';
-import { Route } from 'react'
-// import SignUpForm from './SignUpForm'
 import './LoginForm.css'
 import { GrClose } from "react-icons/gr";
+import Modal from '../AAPopups/Modals';
+
 
 import { loginUser } from "../../store/session";
 

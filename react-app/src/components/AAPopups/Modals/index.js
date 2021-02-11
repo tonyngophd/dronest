@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Redirect  } from "react-router-dom";
-import { nanoid } from 'nanoid';
-import './LoginForm.css'
+import React from "react";
 import { GrClose } from "react-icons/gr";
-
-import { changePassword } from '../../services/auth';
 
 const Modal = ({ setShowModal, children }) => {
 
@@ -31,7 +25,7 @@ const Modal = ({ setShowModal, children }) => {
         <div className="follow-modal-top-div">
           <div className="follow-modal-title-div" style={{fontSize: '14px', padding: '0px'}}>Change <br/> Password</div>
           <div className="login-form_header">
-            <img src={require("../../pictures/dronestlogo3.png")} />
+            <img src={require("../../../pictures/dronestlogo3.png")} />
           </div>
           <GrClose className="modal-close" onClick={closeModal} />
         </div>
