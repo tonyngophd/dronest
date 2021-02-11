@@ -18,6 +18,7 @@ class Post(db.Model):
     captionRawData = db.Column(db.Text, nullable=True)
     categoryId = db.Column(db.Integer, db.ForeignKey('Categories.id'), nullable=True, default=18)
     albumId = db.Column(db.Integer, db.ForeignKey('Albums.id'), nullable=True, default=1)
+    equipmentId = db.Column(db.Integer, db.ForeignKey('Equipment.id'), nullable=True, default=1)
     createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now()) #func.sysdate())
     updatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -31,6 +32,7 @@ class Post(db.Model):
     userSaves = db.relationship('User', secondary='savedposts')
     category = db.relationship('Category', foreign_keys=categoryId)
     album = db.relationship('Album', foreign_keys=albumId)
+    equipment = db.relationship('Equipment', foreign_keys=equipmentId)
     location = db.relationship('Location', foreign_keys=locationId)
     # hastags = db.relationship('Hashtag', secondary='hashtagposts')
 
@@ -71,6 +73,7 @@ class Post(db.Model):
             "category": self.category.to_dict(),
             "albumId": self.albumId,
             "album": self.album.to_dict(),
+            "equipment": self.equipment.to_dict(),
             "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
             "views": self.get_views(),
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
@@ -88,6 +91,9 @@ class Post(db.Model):
             "captionRawData": self.captionRawData,
             "categoryId": self.categoryId,
             "category": self.category.to_dict(),
+            "albumId": self.albumId,
+            "album": self.album.to_dict(),
+            "equipment": self.equipment.to_dict(),            
             "views": self.get_views(),            
             "taggedUsers": [user.to_dict_no_posts() for user in self.taggedUsers],
             "comments": [comment.to_dict() for comment in self.comments],
