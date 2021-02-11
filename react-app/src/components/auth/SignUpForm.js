@@ -180,13 +180,12 @@ export const UpdateProfileModal = ({ setShowModal }) => {
 
 	const onUpdateProfile = async (e) => {
 		e.preventDefault();
-		if (true) {
-			const resJson = await dispatch(updateUser(username, name, email, bio, websiteUrl, profilePicUrl));
-			if (resJson.errors) {
-				setErrors(resJson.errors);
-			}
+
+		const resJson = await dispatch(updateUser(username, name, email, bio, websiteUrl, profilePicUrl));
+		if (resJson.errors) {
+			setErrors(resJson.errors);
 		} else {
-			setErrors(['Passwords do not match']);
+			setShowModal(false);
 		}
 	};
 
@@ -244,7 +243,7 @@ export const UpdateProfileModal = ({ setShowModal }) => {
 		<div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
 			<div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: '500px' }}>
 				<div className="follow-modal-top-div">
-					<div className="follow-modal-title-div" style={{ fontSize: '14px', padding: '0px' }}>Change <br /> Password</div>
+					<div className="follow-modal-title-div" style={{ fontSize: '14px', padding: '0px' }}>Edit <br /> Profile</div>
 					<div className="login-form_header">
 						<img src={require("../../pictures/dronestlogo3.png")} />
 					</div>
@@ -256,10 +255,10 @@ export const UpdateProfileModal = ({ setShowModal }) => {
 							<div key={nanoid()}>{error}</div>
 						))}
 					</div>
-					<div className="update-form-element" style={{width: '300px', marginBottom: '20px'}}>
-						<label htmlFor="changeusernameswitch" style={{width: '200px'}}>Change Username? </label>
+					<div className="update-form-element" style={{ width: '300px', marginBottom: '20px' }}>
+						<label htmlFor="changeusernameswitch" style={{ width: '200px' }}>Change Username? </label>
 						<input
-							style={{width: '30px'}}
+							style={{ width: '30px' }}
 							type="checkbox"
 							name="changeusernameswitch"
 							onClick={e => {
@@ -288,7 +287,7 @@ export const UpdateProfileModal = ({ setShowModal }) => {
 							placeholder="Name"
 							onChange={updateName}
 							value={name}
-							autoFocus={true}							
+							autoFocus={true}
 						></input>
 					</div>
 					<div className="update-form-element">

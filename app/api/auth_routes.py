@@ -113,6 +113,7 @@ def sign_up():
 
 
 @auth_routes.route('/update', methods=['POST'])
+@login_required
 def update():
     """
     Creates a new user and logs them in
@@ -125,18 +126,21 @@ def update():
         email=form.data['email'],
         bio=form.data['bio'],
         websiteUrl=form.data['websiteUrl'],
-        profilePicUrl=form.data['profilePicUrl']        
+        profilePicUrl=form.data['profilePicUrl']
+
+        print(username[0], name[0], email[0], bio[0], websiteUrl[0], profilePicUrl)
 
         user = current_user
 
-        if username: user.username = username
-        if email: user.email = email
-        if bio: user.bio = bio
-        if websiteUrl: user.websiteUrl = websiteUrl
+        if username: user.username = username[0]
+        if name: user.name = name[0]
+        if email: user.email = email[0]
+        if bio: user.bio = bio[0]
+        if websiteUrl: user.websiteUrl = websiteUrl[0]
         if profilePicUrl: user.profilePicUrl = profilePicUrl
 
         db.session.commit()
-        login_user(user)
+        # login_user(user)
         return user.to_dict_for_self()
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
