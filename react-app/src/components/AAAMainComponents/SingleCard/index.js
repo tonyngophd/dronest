@@ -6,6 +6,7 @@ import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
 import LoginForm from '../../auth/LoginForm';
+import { nanoid } from 'nanoid';
 
 import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
 
@@ -23,15 +24,23 @@ import { RiShareForwardLine } from 'react-icons/ri';
 
 import {
   EmailShareButton,
+  EmailIcon,
   FacebookShareButton,
   FacebookIcon,
   LinkedinShareButton,
+  LinkedinIcon,
   PinterestShareButton,
+  PinterestIcon,
   RedditShareButton,
+  RedditIcon,
   TumblrShareButton,
+  TumblrIcon,
   TwitterShareButton,
+  TwitterIcon,
   ViberShareButton,
+  ViberIcon,
   WhatsappShareButton,
+  WhatsappIcon
 } from "react-share";
 
 import UserRow from '../../ProfilePage/UserRow';
@@ -63,20 +72,53 @@ export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
   );
 }
 
-function ShareButtonsWindow({ setShowModal}) {
+function ShareButtonsWindow({ setShowModal }) {
+  const ListOfButtons = [
+    EmailShareButton,
+    FacebookShareButton,
+    LinkedinShareButton,
+    PinterestShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    ViberShareButton,
+    WhatsappShareButton,
+  ];
+  const ListOfIcons = [
+    EmailIcon,
+    FacebookIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    RedditIcon,
+    TumblrIcon,
+    TwitterIcon,
+    ViberIcon,
+    WhatsappIcon,
+  ]
 
   return (
     // <div className='share-buttons-div'>
-    <Modal setShowModal={setShowModal} shieldBackground={false}>
-      <FacebookShareButton
-        url={'www.facebook.com'}
-        quote={"share on facebook"}
-        className="Demo__some-network__share-button"
-      >
-        <FacebookIcon size={32} round />
-      </FacebookShareButton>
-      <TwitterShareButton />
-      <EmailShareButton />
+    <Modal setShowModal={setShowModal}
+      shieldBackground={false} title="Share this post"
+      dronestLogo={false}
+      width={'200px'}
+    >
+      <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
+        {
+          ListOfButtons.map((El, i) =>
+            <div key={nanoid()} style={{margin: 'auto 2px'}}>
+              <El
+                url={'www.dronest.com'}
+                quote={"Share on your social media"}
+              >
+                {
+                  ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()}/> : false)
+                }
+              </El>
+            </div>
+          )
+        }
+      </div>
     </Modal>
     // </div>
   );
@@ -95,7 +137,7 @@ export function PostModal({ setShowModal, user, post }) {
 
   const handleLikeClick = async (e) => {
     if (!myself) {
-      updateConfirmLogin(true);
+      return updateConfirmLogin(true);
     }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
     if (res)
@@ -103,7 +145,7 @@ export function PostModal({ setShowModal, user, post }) {
   }
   const handleFaveClick = async (e) => {
     if (!myself) {
-      updateConfirmLogin(true);
+      return updateConfirmLogin(true);
     }
     const res = await dispatch(iFavedThisPost ? unsavePost(post.id) : savePost(post.id));
     if (res)
@@ -113,6 +155,9 @@ export function PostModal({ setShowModal, user, post }) {
   const handleShareClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    if (!myself) {
+      return updateConfirmLogin(true);
+    }    
     setShowShareButtons(!showShareButtons);
   }
 
@@ -144,7 +189,7 @@ export function PostModal({ setShowModal, user, post }) {
           </div>
           <div className='post-modal-like-div' onClick={handleShareClick}>
             {
-              showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons}/>
+              showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
             }
             <RiShareForwardLine />
             <div className='share-button-div'> Share</div>

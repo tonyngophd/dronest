@@ -79,7 +79,7 @@
 .modal-content-dep-parents {
   background-color: #fefefe;
   border: 1px solid rgb(220 220 220);
-  box-shadow: 0 7px 13px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.507);
   border-radius: 10px;
   width: fit-content;
   min-width: 400px;
@@ -89,6 +89,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   /* z-index: 10; */
   overflow: hidden;
   /* position: relative; */
