@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
@@ -7,6 +7,7 @@ import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
 import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
+import { NextOrPrevious } from '../Bands';
 
 import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
 
@@ -106,13 +107,13 @@ function ShareButtonsWindow({ setShowModal }) {
       <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
         {
           ListOfButtons.map((El, i) =>
-            <div key={nanoid()} style={{margin: 'auto 2px'}}>
+            <div key={nanoid()} style={{ margin: 'auto 2px' }}>
               <El
                 url={'www.dronest.com'}
                 quote={"Share on your social media"}
               >
                 {
-                  ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()}/> : false)
+                  ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()} /> : false)
                 }
               </El>
             </div>
@@ -124,9 +125,11 @@ function ShareButtonsWindow({ setShowModal }) {
   );
 }
 
-export function PostModal({ setShowModal, user, post }) {
+export function PostModal({ setShowModal, user, posts }) {
   const myself = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const [postIndex, setPostIndex] = useState(0)
+  const [post, setPost] = useState(posts[postIndex]);
   const [iLikedThisPost, updateILikedThisPost] =
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
   const [iFavedThisPost, updateIFavedThisPost] =
@@ -134,6 +137,17 @@ export function PostModal({ setShowModal, user, post }) {
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
+
+  useEffect(() => {
+    if (postIndex >= 0 && postIndex < posts.length)
+      setPost(posts[postIndex]);
+  }, [postIndex]);
+
+  useEffect(() => {
+    if (!myself) return;
+    updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
+    updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
+  }, [post, myself]);
 
   const handleLikeClick = async (e) => {
     if (!myself) {
@@ -157,63 +171,81 @@ export function PostModal({ setShowModal, user, post }) {
     e.stopPropagation();
     if (!myself) {
       return updateConfirmLogin(true);
-    }    
+    }
     setShowShareButtons(!showShareButtons);
   }
 
+  const onNextClick = e => {
+    e.preventDefault();
+    let index = postIndex + 1;
+    if (index > posts.length) index = 0;
+    setPostIndex(index);
+  }
+
+  const onPrevClick = e => {
+    e.preventDefault();
+    let index = postIndex - 1;
+    if (index < 0) index = posts.length - 1;
+    setPostIndex(index);
+  }
+
   return (
-    <Modal setShowModal={setShowModal} width={'1000px'}
-      dronestLogo={false} needsEscapeInput={true}
-      closeXOutSide={true} noTopDiv={true}
-    >
-      <div className="custom-modal-top-div">
-        <div className='post-modal-user-row-div'>
-          <UserRow showFollowButtonOrText={true} user={user} />
-        </div>
-        <div className='post-modal-like-share-save-div'>
-          <div className='post-modal-like-div' onClick={handleLikeClick}>
-            {iLikedThisPost ?
-              <BsHeartFill /> :
-              <BsHeart />
-            }
-            <div className='share-button-div'>
-              {post.likes}
+    <>
+      <NextOrPrevious next={false} onClick={onPrevClick} />
+      <Modal setShowModal={setShowModal} width={'1000px'}
+        dronestLogo={false} needsEscapeInput={true}
+        closeXOutSide={true} noTopDiv={true}
+      >
+        <div className="custom-modal-top-div">
+          <div className='post-modal-user-row-div'>
+            <UserRow showFollowButtonOrText={true} user={user} />
+          </div>
+          <div className='post-modal-like-share-save-div'>
+            <div className='post-modal-like-div' onClick={handleLikeClick}>
+              {iLikedThisPost ?
+                <BsHeartFill /> :
+                <BsHeart />
+              }
+              <div className='share-button-div'>
+                {post.likes}
+              </div>
             </div>
-          </div>
-          <div className='post-modal-like-div' onClick={handleFaveClick}>
-            {iFavedThisPost ?
-              <BsStarFill /> :
-              <BsStar />
-            }
-            <div className='share-button-div'> Save</div>
-          </div>
-          <div className='post-modal-like-div' onClick={handleShareClick}>
-            {
-              showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
-            }
-            <RiShareForwardLine />
-            <div className='share-button-div'> Share</div>
-          </div>
+            <div className='post-modal-like-div' onClick={handleFaveClick}>
+              {iFavedThisPost ?
+                <BsStarFill /> :
+                <BsStar />
+              }
+              <div className='share-button-div'> Save</div>
+            </div>
+            <div className='post-modal-like-div' onClick={handleShareClick}>
+              {
+                showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
+              }
+              <RiShareForwardLine />
+              <div className='share-button-div'> Share</div>
+            </div>
 
+          </div>
         </div>
-      </div>
-      <div className="single-card-modal-images-div">
-        <div>
-          <img src={post.images[0].mediaUrl} alt="individual picture" />
-        </div>
-        <div>
+        <div className="single-card-modal-images-div">
+          <div>
+            <img src={post.images[0].mediaUrl} alt="individual picture" />
+          </div>
+          <div>
 
+          </div>
         </div>
-      </div>
-      <div></div>
-      {
-        showConfirmLogin && <ConfirmIWantToLogInModal
-          setShowModal={updateConfirmLogin}
-          setShowLoginForm={setShowLoginForm}
-        />
-      }
-      {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
-    </Modal>
+        <div></div>
+        {
+          showConfirmLogin && <ConfirmIWantToLogInModal
+            setShowModal={updateConfirmLogin}
+            setShowLoginForm={setShowLoginForm}
+          />
+        }
+        {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
+      </Modal>
+      <NextOrPrevious onClick={onNextClick} />
+    </>
   );
 }
 
@@ -291,7 +323,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
         </>
       }
       {
-        showPostModal && <PostModal user={user} post={user.ownPosts[0]} setShowModal={setShowPostModal} />
+        showPostModal && <PostModal user={user} posts={user.ownPosts} setShowModal={setShowPostModal} />
       }
     </div>
   );
