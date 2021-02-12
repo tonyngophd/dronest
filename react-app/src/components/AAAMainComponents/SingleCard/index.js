@@ -67,7 +67,7 @@ function ShareButtonsWindow({ setShowModal}) {
 
   return (
     // <div className='share-buttons-div'>
-    <Modal setShowModal={setShowModal}>
+    <Modal setShowModal={setShowModal} shieldBackground={false}>
       <FacebookShareButton
         url={'www.facebook.com'}
         quote={"share on facebook"}
@@ -112,6 +112,7 @@ export function PostModal({ setShowModal, user, post }) {
 
   const handleShareClick = e => {
     e.preventDefault();
+    e.stopPropagation();
     setShowShareButtons(!showShareButtons);
   }
 

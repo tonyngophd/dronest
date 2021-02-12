@@ -5,7 +5,7 @@ import './Modals.css';
 
 const Modal = ({ setShowModal, children, title, action,
   width, dronestLogo = true, needsEscapeInput = false,
-  closeXOutSide = false, noTopDiv = false
+  closeXOutSide = false, noTopDiv = false, shieldBackground = true
 }) => {
 
   const closeModal = (e) => {
@@ -23,8 +23,13 @@ const Modal = ({ setShowModal, children, title, action,
     }
   }
   return (
-    <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
-      <div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect" }}>
+    <div className={shieldBackground?'modal':'gibberish'}
+      onClick={closeModal} onKeyUp={escapeHideModal}
+    >
+      <div className={shieldBackground?'modal-content':'modal-content-dep-parents'}
+        style={{
+          display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect",
+        }}>
         {noTopDiv ?
           <GrClose className='modal-close-top-right-screen' onClick={e => setShowModal(false)} />
           :
