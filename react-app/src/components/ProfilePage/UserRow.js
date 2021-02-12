@@ -32,6 +32,7 @@ function UserRow({
   followlist,
   modal,
   online = false,
+  short = false,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -87,7 +88,7 @@ function UserRow({
           )}
           <div className="user-row-info-div">
             <div className="user-row-username">{user.username}</div>
-            <div className="user-row-display-name">{user.name}</div>
+            <div className="user-row-display-name">{short?user.name.slice(0, 16):user.name}</div>
           </div>
         </div>
         {showFollowButtonOrText &&

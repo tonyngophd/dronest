@@ -138,6 +138,10 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
 
+  // useEffect(() => {
+  //   if(user && !user.)
+  // }, [user]);
+
   useEffect(() => {
     if (postIndex >= 0 && postIndex < posts.length)
       setPost(posts[postIndex]);
@@ -244,7 +248,9 @@ export function PostModal({ setShowModal, user, posts }) {
 
               </div>
             </div>
-            <div></div>
+            <div>
+
+            </div>
             {
               showConfirmLogin && <ConfirmIWantToLogInModal
                 setShowModal={updateConfirmLogin}
@@ -331,7 +337,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           <hr className='single-card-hr'></hr>
           <div className='single-card-user-and-date-div'>
             <div className='single-card-user-info-div'>
-              <UserRow showFollowButtonOrText={false} user={user} />
+              <UserRow showFollowButtonOrText={false} user={user} short={true}/>
             </div>
             <div>
               {timestamp}
