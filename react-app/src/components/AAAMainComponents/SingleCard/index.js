@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
@@ -22,6 +22,11 @@ import {
 } from "react-icons/bs";
 import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import Editor from "@draft-js-plugins/editor";
+import { EditorState, convertFromRaw } from "draft-js";
+import createMentionPlugin from "@draft-js-plugins/mention";
+import { Plugins } from '../../utils';
 
 import {
   EmailShareButton,
@@ -45,6 +50,8 @@ import {
 } from "react-share";
 
 import UserRow from '../../ProfilePage/UserRow';
+import CommentInput from "../../CommentInput";
+import Comment from "../../Comment";
 
 import './SingleCard.css';
 
@@ -137,6 +144,12 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
+  const history = useHistory();
+  const comments = post.comments;
+
+  // useEffect(() => {
+  //   if(user && !user.)
+  // }, [user]);
 
   useEffect(() => {
     if (postIndex >= 0 && postIndex < posts.length)
@@ -189,13 +202,31 @@ export function PostModal({ setShowModal, user, posts }) {
     setPostIndex(index);
   }
 
+  const plugins = Plugins();
+  let data = "";
+  if (post.captionRawData) {
+    data = JSON.parse(post.captionRawData);
+    data = convertFromRaw(data);
+  }
+  const [editorState, setEditorState] = useState(
+    (data ? EditorState.createWithContent(data) : EditorState.createEmpty())
+  );
+  let timestamp = timeStamp(new Date(post.createdAt));
+
+
   return (
     <>
       <Modal setShowModal={setShowModal} width={'1000px'}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
+        width='1200px'
       >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center', width: '100%'
+
+        }}>
           {posts.length > 1 && <div style={{
             position: 'fixed',
             left: '30px', zIndex: '200',
@@ -204,7 +235,7 @@ export function PostModal({ setShowModal, user, posts }) {
           }}>
             <NextOrPrevious next={false} onClick={onPrevClick} />
           </div>}
-          <div>
+          <div style={{ width: '100%' }}>
             <div className="custom-modal-top-div">
               <div className='post-modal-user-row-div'>
                 <UserRow showFollowButtonOrText={true} user={user} />
@@ -237,14 +268,38 @@ export function PostModal({ setShowModal, user, posts }) {
               </div>
             </div>
             <div className="single-card-modal-images-div">
+              <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
               <div>
-                <img src={post.images[0].mediaUrl} alt="individual picture" />
-              </div>
-              <div>
-
+                <div>
+                  <div className="post-caption">
+                    <Editor
+                      editorState={editorState}
+                      readOnly={true}
+                      plugins={plugins}
+                      onChange={(editorState) => setEditorState(editorState)}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="post-comments-container">
+                    {comments &&
+                      comments.map((comment) => {
+                        return <Comment home={true} comment={comment} key={nanoid()} />;
+                      })}
+                  </div>
+                  <Link to={`/p/${post.id}`}>
+                    <div className="post-timestamp">{timestamp}</div>
+                  </Link>
+                  <div className="post-new-comment">
+                    <CommentInput post={post} />
+                  </div>
+                </div>
               </div>
             </div>
-            <div></div>
+
+            <div>
+
+            </div>
             {
               showConfirmLogin && <ConfirmIWantToLogInModal
                 setShowModal={updateConfirmLogin}
@@ -331,7 +386,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           <hr className='single-card-hr'></hr>
           <div className='single-card-user-and-date-div'>
             <div className='single-card-user-info-div'>
-              <UserRow showFollowButtonOrText={false} user={user} />
+              <UserRow showFollowButtonOrText={false} user={user} short={true} />
             </div>
             <div>
               {timestamp}

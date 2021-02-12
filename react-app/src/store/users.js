@@ -32,6 +32,18 @@ export const fetchAllUsers = () => async (dispatch) => {
   }
 };
 
+export const fetchOneUser = () => async (dispatch, userId) => {
+  try {
+    const res = await fetch(`/api/users/${userId}`);
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(updateAUsersPOJO(data.user));
+    }
+  } catch (e) {
+
+  }
+};
+
 const initialState = {
   allUsers: [],
 };
@@ -47,13 +59,17 @@ const reducer = (state = initialState, action) => {
     case UPDATE_A_USER:
       newState = Object.assign({}, state);
       user = newState.allUsers.find(u => u.id === action.payload.id);
-      for (let key in action.payload)
-        user[key] = action.payload[key]
+      if (user) {
+        for (let key in action.payload)
+          user[key] = action.payload[key]
+      } else {
+        newState.allUsers.push(action.payload);
+      }
       return newState;
     case UPDATE_A_USER_POST:
       newState = Object.assign({}, state);
       user = newState.allUsers.find(u => u.id === action.payload.userId);
-      if (user.ownPosts.length) {
+      if (user && user.ownPosts.length) {
         const post = user.ownPosts.find(p => p.id === action.payload.id);
         for (let key in action.payload)
           post[key] = action.payload[key]

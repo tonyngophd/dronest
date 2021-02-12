@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
+import { PostModal } from '../AAAMainComponents/SingleCard';
 
 
 const Feed = () => {
@@ -72,6 +73,8 @@ export const AllPosts = () => {
   const user = useSelector((state) => state.session.user);
   const feed = useSelector((state) => state.posts.allFeed);
   const [page, setPage] = useState(0);
+  const [postToPop, setPostToPop] = useState(undefined);
+  const [showPostModal, setShowPostModal] = useState(false);
 
   // useEffect(() => {
   //   dispatch(fetchNotifications());
@@ -79,6 +82,11 @@ export const AllPosts = () => {
   useEffect(() => {
     dispatch(fetchAllPosts(page));
   }, [dispatch, page]);
+
+  const handleClick = (e, post) => {
+    setPostToPop(post);
+    setShowPostModal(true);
+  }
 
 
   return (
@@ -110,9 +118,15 @@ export const AllPosts = () => {
                   .filter((p, i) => i % 3 === index)
                   .map((post) => (
                     // <BarePost post={post} key={nanoid()} />
-                    <img src={post.images[0].mediaUrl} key={nanoid()}/>
+                    <img src={post.images[0].mediaUrl} key={nanoid()}
+                      onClick={e => handleClick(e, post)}
+                    />
                   ))}
               </div>)
+          }
+          {
+            showPostModal && postToPop && 
+              <PostModal setShowModal={setShowPostModal} posts={[postToPop]} user={postToPop.user}/>
           }
         </InfiniteScroll>
       )}

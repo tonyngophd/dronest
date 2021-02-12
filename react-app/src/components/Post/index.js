@@ -20,6 +20,7 @@ import { likePost, unlikePost, savePost, unsavePost } from "../../store/posts";
 import { useDispatch, useSelector } from "react-redux";
 import timeStamp from '../utils';
 import { deleteAPost } from '../../store/posts';
+import { Plugins } from '../utils';
 
 function Post({ post }) {
   const history = useHistory();
@@ -30,47 +31,8 @@ function Post({ post }) {
   const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [clicks, setClicks] = useState(0);
-  const [userMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/${mentionProps.mention.name}`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionPrefix: "@",
-    })
-  );
-  const [hashtagMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/explore/tags/${mentionProps.mention.name}/`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionTrigger: "#",
-      mentionPrefix: "#",
-    })
-  );
 
-  const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  const plugins = Plugins();
   let data = "";
   if (post.captionRawData) {
     data = JSON.parse(post.captionRawData);
@@ -228,47 +190,8 @@ export function BarePost({ post }) {
   const [saved, setSaved] = useState(post.userSaves[user.id]);
   const [likes, setLikes] = useState(Object.values(post.likingUsers).length);
   const [clicks, setClicks] = useState(0);
-  const [userMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/${mentionProps.mention.name}`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionPrefix: "@",
-    })
-  );
-  const [hashtagMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/explore/tags/${mentionProps.mention.name}/`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionTrigger: "#",
-      mentionPrefix: "#",
-    })
-  );
-
-  const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  
+  const plugins = Plugins();
   let data = "";
   if (post.captionRawData) {
     data = JSON.parse(post.captionRawData);

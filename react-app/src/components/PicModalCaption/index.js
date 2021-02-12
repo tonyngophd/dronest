@@ -5,50 +5,12 @@ import createMentionPlugin from "@draft-js-plugins/mention";
 import { useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./PicModalCaption.css";
+import { Plugins } from '../utils';
 
 function PicModalCaption({ post }) {
   const profile = useSelector((state) => state.profile);
   const history = useHistory();
-  const [userMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/${mentionProps.mention.name}`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionPrefix: "@",
-    })
-  );
-  const [hashtagMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/explore/tags/${mentionProps.mention.name}/`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionTrigger: "#",
-      mentionPrefix: "#",
-    })
-  );
-  const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  const plugins = Plugins();
   let data = "";
   if (post.captionRawData) {
     data = JSON.parse(post.captionRawData);

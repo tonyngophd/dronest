@@ -84,7 +84,9 @@
 }
 
 .single-card-modal-images-div{
-  max-height: 900px;
+  max-height: 800px;
+  display: flex;
+  width: 1200px;
 }
 
 .ok-button{
@@ -124,4 +126,7 @@
   min-width: 200px;
   min-height: 100px;
   background-color: rgba(255, 255, 255, 0.856);
+}
+.post-modal-img{
+  max-height: 700px;
 }
