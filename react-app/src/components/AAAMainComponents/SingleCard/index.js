@@ -25,8 +25,9 @@ import './SingleCard.css';
 export function PostModal({ setShowModal, user, post }) {
   const dispatch = useDispatch();
   
-  const handleLikeClick = (e) => {
-    dispatch(likePost(post.id))
+  const handleLikeClick = async (e) => {
+    const res = await dispatch(likePost(post.id));
+    console.log('30', res);
   }
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
@@ -74,7 +75,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let loc = "Great city"
   let timestamp;
   let views = 0;
-  let loves = 20;
+  let likes = 20;
   let album = 'Generic';
   let equipment = 'Unknown';
   const [showPostModal, setShowPostModal] = useState(false);
@@ -85,7 +86,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     loc = user.ownPosts[0].location.city;
     cat = user.ownPosts[0].category.name;
     views = user.ownPosts[0].views;
-    loves += Object.keys(user.ownPosts[0].likingUsers).length;
+    likes += user.ownPosts[0].likes;
     album = user.ownPosts[0].album.name;
     equipment = user.ownPosts[0].equipment.name;
   }
@@ -118,7 +119,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           <div className="single-card-love-view-div">
             <div>
               <AiOutlineHeart />
-              <span>{loves}</span>
+              <span>{likes}</span>
             </div>
             <div>
               <FiEye />

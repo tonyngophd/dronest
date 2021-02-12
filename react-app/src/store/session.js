@@ -4,6 +4,8 @@ import { loadProfileBasicInfoPOJO } from './profile';
 const SET_USER = "session/SET_USER";
 const ADD_A_MESSAGE = "session/ADD_A_MESSAGE";
 const REMOVE_USER = "session/REMOVE_USER";
+const ADD_USER_LIKE = "session/ADD_USER_LIKE";
+const REMOVE_USER_LIKE = "session/REMOVE_USER_LIKE";
 // const RESTORE_USER = 'user/RESTORE_USER';
 
 export const setUserPOJO = (user) => ({
@@ -17,6 +19,11 @@ export const setUserAddAMessagePOJO = (message) => ({
 
 const removeUserPOJO = () => ({
   type: REMOVE_USER,
+});
+
+export const updateUsersLikePOJO = (post, type="like") => ({
+  type: type === "like" ? ADD_USER_LIKE : REMOVE_USER_LIKE,
+  post,
 });
 
 export const loginUser = (credential, password) => async (dispatch) => {
@@ -64,6 +71,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   let newState;
+  let post;
   switch (action.type) {
     case SET_USER:
       newState = Object.assign({}, state);
@@ -76,6 +84,14 @@ const reducer = (state = initialState, action) => {
     case ADD_A_MESSAGE:
       newState = Object.assign({}, state);
       newState.user.messages.push(action.message);
+      return newState;
+    case ADD_USER_LIKE:
+      newState = Object.assign({}, state);
+      newState.user.likedPosts.push(action.post);
+      return newState;
+    case REMOVE_USER_LIKE:
+      newState = Object.assign({}, state);
+      newState.user.likedPosts = newState.user.likedPosts.filter(p => p.id !== action.post.id);
       return newState;
     default:
       return state;

@@ -52,7 +52,6 @@ const reducer = (state = initialState, action) => {
       return newState;
     case UPDATE_A_USER_POST:
       newState = Object.assign({}, state);
-      console.log('55 action.payload', action.payload);
       user = newState.allUsers.find(u => u.id === action.payload.userId);
       if (user.ownPosts.length) {
         const post = user.ownPosts.find(p => p.id === action.payload.id);

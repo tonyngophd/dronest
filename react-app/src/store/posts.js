@@ -1,4 +1,5 @@
 import { updateAUsersPostPOJO } from './users';
+import { updateUsersLikePOJO } from './session';
 
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -154,6 +155,7 @@ export const likePost = (postId) => async (dispatch) => {
   if(res.ok){
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateUsersLikePOJO(res2.post));
     return res2;
   }
 };
