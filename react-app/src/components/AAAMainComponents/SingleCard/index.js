@@ -191,60 +191,64 @@ export function PostModal({ setShowModal, user, posts }) {
 
   return (
     <>
-      <NextOrPrevious next={false} onClick={onPrevClick} />
       <Modal setShowModal={setShowModal} width={'1000px'}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
       >
-        <div className="custom-modal-top-div">
-          <div className='post-modal-user-row-div'>
-            <UserRow showFollowButtonOrText={true} user={user} />
-          </div>
-          <div className='post-modal-like-share-save-div'>
-            <div className='post-modal-like-div' onClick={handleLikeClick}>
-              {iLikedThisPost ?
-                <BsHeartFill /> :
-                <BsHeart />
-              }
-              <div className='share-button-div'>
-                {post.likes}
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <NextOrPrevious next={false} onClick={onPrevClick} />
+          <div>
+            <div className="custom-modal-top-div">
+              <div className='post-modal-user-row-div'>
+                <UserRow showFollowButtonOrText={true} user={user} />
+              </div>
+              <div className='post-modal-like-share-save-div'>
+                <div className='post-modal-like-div' onClick={handleLikeClick}>
+                  {iLikedThisPost ?
+                    <BsHeartFill /> :
+                    <BsHeart />
+                  }
+                  <div className='share-button-div'>
+                    {post.likes}
+                  </div>
+                </div>
+                <div className='post-modal-like-div' onClick={handleFaveClick}>
+                  {iFavedThisPost ?
+                    <BsStarFill /> :
+                    <BsStar />
+                  }
+                  <div className='share-button-div'> Save</div>
+                </div>
+                <div className='post-modal-like-div' onClick={handleShareClick}>
+                  {
+                    showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
+                  }
+                  <RiShareForwardLine />
+                  <div className='share-button-div'> Share</div>
+                </div>
+
               </div>
             </div>
-            <div className='post-modal-like-div' onClick={handleFaveClick}>
-              {iFavedThisPost ?
-                <BsStarFill /> :
-                <BsStar />
-              }
-              <div className='share-button-div'> Save</div>
-            </div>
-            <div className='post-modal-like-div' onClick={handleShareClick}>
-              {
-                showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
-              }
-              <RiShareForwardLine />
-              <div className='share-button-div'> Share</div>
-            </div>
+            <div className="single-card-modal-images-div">
+              <div>
+                <img src={post.images[0].mediaUrl} alt="individual picture" />
+              </div>
+              <div>
 
+              </div>
+            </div>
+            <div></div>
+            {
+              showConfirmLogin && <ConfirmIWantToLogInModal
+                setShowModal={updateConfirmLogin}
+                setShowLoginForm={setShowLoginForm}
+              />
+            }
+            {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
           </div>
+          <NextOrPrevious onClick={onNextClick} />
         </div>
-        <div className="single-card-modal-images-div">
-          <div>
-            <img src={post.images[0].mediaUrl} alt="individual picture" />
-          </div>
-          <div>
-
-          </div>
-        </div>
-        <div></div>
-        {
-          showConfirmLogin && <ConfirmIWantToLogInModal
-            setShowModal={updateConfirmLogin}
-            setShowLoginForm={setShowLoginForm}
-          />
-        }
-        {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
       </Modal>
-      <NextOrPrevious onClick={onNextClick} />
     </>
   );
 }
