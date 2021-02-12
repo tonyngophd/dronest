@@ -59,9 +59,6 @@ function App() {
               </div>
             </div> */}
           </Route>
-          {/* <Route path="/login" exact={true}>
-            <LoginForm />
-          </Route> */}
           <Route path="/sign-up" exact={true}>
             <SignUpForm />
           </Route>

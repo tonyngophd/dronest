@@ -8,7 +8,7 @@ import Modal from '../AAPopups/Modals';
 
 import { loginUser } from "../../store/session";
 
-const LoginForm = ({ setShowModal }) => {
+const LoginForm = ({ setShowModal, redirect = true }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
@@ -25,6 +25,11 @@ const LoginForm = ({ setShowModal }) => {
     }
   };
 
+  const handleClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   const updateCredential = (e) => {
     setCredential(e.target.value);
   };
@@ -34,7 +39,11 @@ const LoginForm = ({ setShowModal }) => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    if(redirect)
+      return <Redirect to="/" />;
+    else {
+      //Do something else if needed
+    }
   }
 
   const demoUser = (e) => {
@@ -44,7 +53,7 @@ const LoginForm = ({ setShowModal }) => {
   }
 
   return (
-    <Modal setShowModal={setShowModal} title="Login" action={() => history.push('/')}>
+    <Modal setShowModal={setShowModal} title="Login">
       <form className="login-form" onSubmit={onLogin}>
         <div className='errors-div'>
           {errors.map((error) => (
@@ -73,7 +82,7 @@ const LoginForm = ({ setShowModal }) => {
           />
         </div>
         <div className="buttons">
-          <button type="submit" id="login-button" onClick={e => e.stopPropagation()}>Log in</button>
+          <button type="submit" id="login-button" onClick={handleClick}>Log in</button>
           <button onClick={demoUser} type="submit" id="demo-login-button">Demo</button>
         </div>
         <p className="OR">OR</p>

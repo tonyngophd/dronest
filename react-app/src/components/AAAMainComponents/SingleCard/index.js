@@ -5,6 +5,7 @@ import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
+import LoginForm from '../../auth/LoginForm';
 
 import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
 
@@ -17,14 +18,33 @@ import {
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
+import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
+
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
 import UserRow from '../../ProfilePage/UserRow';
 
 import './SingleCard.css';
 
-export function ConfirmIWantToLogInModal({ setShowModal }) {
+export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
   const history = useHistory();
+
+  const handelOkClick = e => {
+    setShowModal(false);
+    setShowLoginForm(true);
+  }
 
   return (
     <Modal setShowModal={setShowModal}
@@ -36,13 +56,31 @@ export function ConfirmIWantToLogInModal({ setShowModal }) {
           <button id="cancel-button" className='cancel-button'
             onClick={e => setShowModal(false)}
           >Cancel</button>
-          <button onClick={e=>history.push('/login')}>OK</button>
+          <button onClick={handelOkClick}>OK</button>
         </div>
       </div>
     </Modal>
   );
 }
 
+function ShareButtonsWindow({ setShowModal}) {
+
+  return (
+    // <div className='share-buttons-div'>
+    <Modal setShowModal={setShowModal}>
+      <FacebookShareButton
+        url={'www.facebook.com'}
+        quote={"share on facebook"}
+        className="Demo__some-network__share-button"
+      >
+        <FacebookIcon size={32} round />
+      </FacebookShareButton>
+      <TwitterShareButton />
+      <EmailShareButton />
+    </Modal>
+    // </div>
+  );
+}
 
 export function PostModal({ setShowModal, user, post }) {
   const myself = useSelector(state => state.session.user);
@@ -52,6 +90,8 @@ export function PostModal({ setShowModal, user, post }) {
   const [iFavedThisPost, updateIFavedThisPost] =
     useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showShareButtons, setShowShareButtons] = useState(false);
 
   const handleLikeClick = async (e) => {
     if (!myself) {
@@ -69,6 +109,12 @@ export function PostModal({ setShowModal, user, post }) {
     if (res)
       updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
   }
+
+  const handleShareClick = e => {
+    e.preventDefault();
+    setShowShareButtons(!showShareButtons);
+  }
+
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
       dronestLogo={false} needsEscapeInput={true}
@@ -88,16 +134,19 @@ export function PostModal({ setShowModal, user, post }) {
               {post.likes}
             </div>
           </div>
-          <div className='post-modal-like-div'>
-            <RiShareForwardLine />
-            <div className='share-button-div'> Share</div>
-          </div>
           <div className='post-modal-like-div' onClick={handleFaveClick}>
             {iFavedThisPost ?
               <BsStarFill /> :
               <BsStar />
             }
             <div className='share-button-div'> Save</div>
+          </div>
+          <div className='post-modal-like-div' onClick={handleShareClick}>
+            {
+              showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons}/>
+            }
+            <RiShareForwardLine />
+            <div className='share-button-div'> Share</div>
           </div>
 
         </div>
@@ -112,8 +161,12 @@ export function PostModal({ setShowModal, user, post }) {
       </div>
       <div></div>
       {
-        showConfirmLogin && <ConfirmIWantToLogInModal setShowModal={updateConfirmLogin} />
+        showConfirmLogin && <ConfirmIWantToLogInModal
+          setShowModal={updateConfirmLogin}
+          setShowLoginForm={setShowLoginForm}
+        />
       }
+      {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
     </Modal>
   );
 }
