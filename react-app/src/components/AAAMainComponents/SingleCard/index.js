@@ -195,8 +195,15 @@ export function PostModal({ setShowModal, user, posts }) {
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
       >
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <NextOrPrevious next={false} onClick={onPrevClick} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {posts.length > 1 && <div style={{
+            position: 'fixed',
+            left: '30px', zIndex: '200',
+            backgroundColor: 'lightgreen',
+            borderRadius: '5px', overflow: 'hidden'
+          }}>
+            <NextOrPrevious next={false} onClick={onPrevClick} />
+          </div>}
           <div>
             <div className="custom-modal-top-div">
               <div className='post-modal-user-row-div'>
@@ -246,7 +253,14 @@ export function PostModal({ setShowModal, user, posts }) {
             }
             {showLoginForm && <LoginForm setShowModal={setShowLoginForm} redirect={false} />}
           </div>
-          <NextOrPrevious onClick={onNextClick} />
+          {posts.length > 1 && <div style={{
+            position: 'fixed',
+            right: '30px', zIndex: '200',
+            backgroundColor: 'lightgreen',
+            borderRadius: '5px', overflow: 'hidden'
+          }}>
+            <NextOrPrevious onClick={onNextClick} />
+          </div>}
         </div>
       </Modal>
     </>
