@@ -2,11 +2,29 @@ import React, { useState } from 'react';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
+import Modal from '../../AAPopups/Modals';
 
 import UserRow from '../../ProfilePage/UserRow';
 
 import './SingleCard.css';
 
+
+export function PostModal({ setShowModal, post}) {
+  return (
+    <Modal setShowModal={setShowModal} width={'1000px'} dronestLogo={false} needsEscapeInput={true}>
+      <div></div>
+      <div>
+        <div>
+          <img src={post.images[0].mediaUrl} alt="individual picture"/>
+        </div>
+        <div>
+
+        </div>
+      </div>
+      <div></div>
+    </Modal>
+  );
+}
 
 export default function SingleCard({ user, moreInfo = true, category = false, location = false }) {
   let src = 'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s720x720/146887222_10224900286638677_3698840883103249499_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=ymzZQjKFmpwAX8sKlQ_&_nc_ht=scontent-iad3-1.xx&tp=7&oh=f9f9313ef82e283cda40f81d16ae8365&oe=604764F6';
@@ -17,6 +35,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let loves = 20;
   let album = 'Generic';
   let equipment = 'Unknown';
+  const [showPostModal, setShowPostModal] = useState(false);
 
   if (user && user.ownPosts && user.ownPosts.length > 0) {
     timestamp = timeStamp(new Date(user.ownPosts[0].createdAt), true, true);
@@ -37,6 +56,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           className='single-card-main-img'
           // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
           src={src}
+          onClick={e=>setShowPostModal(true)}
           alt='good band picture' />
       </div>
       {category &&
@@ -78,6 +98,9 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
             </div>
           </div>
         </>
+      }
+      {
+        showPostModal && <PostModal post={user.ownPosts[0]} setShowModal={setShowPostModal}/>
       }
     </div>
   );
