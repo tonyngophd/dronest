@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
@@ -14,7 +14,7 @@ import {
   BsHeartFill,
   BsBookmarkFill,
 } from "react-icons/bs";
-import {RiShareForwardLine} from 'react-icons/ri';
+import { RiShareForwardLine } from 'react-icons/ri';
 
 import UserRow from '../../ProfilePage/UserRow';
 
@@ -23,11 +23,17 @@ import './SingleCard.css';
 
 
 export function PostModal({ setShowModal, user, post }) {
+  const myself = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  
+  const [iLikedThisPost, updateILikedThisPost] = 
+    useState(myself && myself.likedPosts.find(p => p.id === post.id)?true:false);
+  console.log(myself, myself.likedPosts);
+
   const handleLikeClick = async (e) => {
     const res = await dispatch(likePost(post.id));
-    console.log('30', res);
+    if(res)
+      updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id)?true:false);
+    console.log('33', myself.likedPosts.find(p => p.id === post.id), res);
   }
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
@@ -40,7 +46,10 @@ export function PostModal({ setShowModal, user, post }) {
         </div>
         <div className='post-modal-like-share-save-div'>
           <div className='post-modal-like-div' onClick={handleLikeClick}>
-            <BsHeart />
+            {iLikedThisPost?
+              <BsHeartFill />:
+              <BsHeart />
+            }
             <div className='share-button-div'>
               {post.likes}
             </div>
