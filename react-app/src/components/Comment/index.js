@@ -11,7 +11,7 @@ import createMentionPlugin, {
 import { useHistory, Link } from "react-router-dom";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";
-import timeStamp from '../utils';
+import timeStamp, { Plugins } from '../utils';
 
 function Comment({ home, comment, inputMessage = undefined, replaceText = undefined }) {
   const user = useSelector((state) => state.session.user);
@@ -34,47 +34,7 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
     }
   }, []);
 
-  const [userMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/${mentionProps.mention.name}`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionPrefix: "@",
-    })
-  );
-  const [hashtagMentionPlugin] = useState(
-    createMentionPlugin({
-      mentionComponent: (mentionProps) => (
-        <span
-          className={`${mentionProps.className} post-mention`}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.push(`/explore/tags/${mentionProps.mention.name}/`);
-          }}
-        >
-          {mentionProps.children}
-        </span>
-      ),
-      theme: {
-        mention: "mention",
-      },
-      mentionTrigger: "#",
-      mentionPrefix: "#",
-    })
-  );
-
-  const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  const plugins = Plugins();
   let data;
   let messageIsPlainText = false;
   try {

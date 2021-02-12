@@ -22,6 +22,11 @@ import {
 } from "react-icons/bs";
 import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import Editor from "@draft-js-plugins/editor";
+import { EditorState, convertFromRaw } from "draft-js";
+import createMentionPlugin from "@draft-js-plugins/mention";
+import { Plugins } from '../../utils';
 
 import {
   EmailShareButton,
@@ -137,6 +142,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
+  const history = useHistory();
 
   // useEffect(() => {
   //   if(user && !user.)
@@ -193,6 +199,18 @@ export function PostModal({ setShowModal, user, posts }) {
     setPostIndex(index);
   }
 
+  const plugins = Plugins();  
+  let data = "";
+  if (post.captionRawData) {
+    data = JSON.parse(post.captionRawData);
+    data = convertFromRaw(data);
+  }
+  const [editorState, setEditorState] = useState(
+    (data?EditorState.createWithContent(data):EditorState.createEmpty())
+  );
+  let timestamp = timeStamp(new Date(post.createdAt));
+
+
   return (
     <>
       <Modal setShowModal={setShowModal} width={'1000px'}
@@ -242,7 +260,15 @@ export function PostModal({ setShowModal, user, posts }) {
             </div>
             <div className="single-card-modal-images-div">
               <div>
-                <img src={post.images[0].mediaUrl} alt="individual picture" />
+                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img'/>
+                <div className="post-caption">
+                  <Editor
+                    editorState={editorState}
+                    readOnly={true}
+                    plugins={plugins}
+                    onChange={(editorState) => setEditorState(editorState)}
+                  />
+                </div>
               </div>
               <div>
 
@@ -337,7 +363,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           <hr className='single-card-hr'></hr>
           <div className='single-card-user-and-date-div'>
             <div className='single-card-user-info-div'>
-              <UserRow showFollowButtonOrText={false} user={user} short={true}/>
+              <UserRow showFollowButtonOrText={false} user={user} short={true} />
             </div>
             <div>
               {timestamp}

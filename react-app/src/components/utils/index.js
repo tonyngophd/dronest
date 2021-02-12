@@ -1,3 +1,53 @@
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import createMentionPlugin from "@draft-js-plugins/mention";
+
+export function Plugins() {
+  const history = useHistory();
+
+  const [userMentionPlugin] = useState(
+    createMentionPlugin({
+      mentionComponent: (mentionProps) => (
+        <span
+          className={`${mentionProps.className} post-mention`}
+          onClick={(event) => {
+            event.stopPropagation();
+            history.push(`/${mentionProps.mention.name}`);
+          }}
+        >
+          {mentionProps.children}
+        </span>
+      ),
+      theme: {
+        mention: "mention",
+      },
+      mentionPrefix: "@",
+    })
+  );
+  const [hashtagMentionPlugin] = useState(
+    createMentionPlugin({
+      mentionComponent: (mentionProps) => (
+        <span
+          className={`${mentionProps.className} post-mention`}
+          onClick={(event) => {
+            event.stopPropagation();
+            history.push(`/explore/tags/${mentionProps.mention.name}/`);
+          }}
+        >
+          {mentionProps.children}
+        </span>
+      ),
+      theme: {
+        mention: "mention",
+      },
+      mentionTrigger: "#",
+      mentionPrefix: "#",
+    })
+  );
+  
+  return [userMentionPlugin, hashtagMentionPlugin];
+}
+
 export default function timeStamp(createdAt, short = false, yearIncluded = false) {
   let now = Date.now();
   let elapsed = now - createdAt;
@@ -30,7 +80,7 @@ export default function timeStamp(createdAt, short = false, yearIncluded = false
     timestamp = `${Math.floor(elapsed / 3600000)}${space}${h}`;
   } else {
     timestamp = createdAt.toDateString().split(" ")
-      .splice(1, yearIncluded?3:2).join(" ");
+      .splice(1, yearIncluded ? 3 : 2).join(" ");
   }
 
   return timestamp;
