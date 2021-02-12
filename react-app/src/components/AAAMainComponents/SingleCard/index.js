@@ -195,7 +195,7 @@ export function PostModal({ setShowModal, user, posts }) {
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
       >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           {posts.length > 1 && <div style={{
             position: 'fixed',
             left: '30px', zIndex: '200',
@@ -204,7 +204,7 @@ export function PostModal({ setShowModal, user, posts }) {
           }}>
             <NextOrPrevious next={false} onClick={onPrevClick} />
           </div>}
-          <div>
+          <div style={{ width: '100%' }}>
             <div className="custom-modal-top-div">
               <div className='post-modal-user-row-div'>
                 <UserRow showFollowButtonOrText={true} user={user} />
