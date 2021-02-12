@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
@@ -50,6 +50,8 @@ import {
 } from "react-share";
 
 import UserRow from '../../ProfilePage/UserRow';
+import CommentInput from "../../CommentInput";
+import Comment from "../../Comment";
 
 import './SingleCard.css';
 
@@ -143,6 +145,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
   const history = useHistory();
+  const comments = post.comments; 
 
   // useEffect(() => {
   //   if(user && !user.)
@@ -199,14 +202,14 @@ export function PostModal({ setShowModal, user, posts }) {
     setPostIndex(index);
   }
 
-  const plugins = Plugins();  
+  const plugins = Plugins();
   let data = "";
   if (post.captionRawData) {
     data = JSON.parse(post.captionRawData);
     data = convertFromRaw(data);
   }
   const [editorState, setEditorState] = useState(
-    (data?EditorState.createWithContent(data):EditorState.createEmpty())
+    (data ? EditorState.createWithContent(data) : EditorState.createEmpty())
   );
   let timestamp = timeStamp(new Date(post.createdAt));
 
@@ -260,7 +263,7 @@ export function PostModal({ setShowModal, user, posts }) {
             </div>
             <div className="single-card-modal-images-div">
               <div>
-                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img'/>
+                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
                 <div className="post-caption">
                   <Editor
                     editorState={editorState}
@@ -271,7 +274,18 @@ export function PostModal({ setShowModal, user, posts }) {
                 </div>
               </div>
               <div>
-
+                <div className="post-comments-container">
+                  {comments &&
+                    comments.map((comment) => {
+                      return <Comment home={true} comment={comment} key={nanoid()} />;
+                    })}
+                </div>
+                <Link to={`/p/${post.id}`}>
+                  <div className="post-timestamp">{timestamp}</div>
+                </Link>
+                <div className="post-new-comment">
+                  <CommentInput post={post} />
+                </div>
               </div>
             </div>
             <div>

@@ -152,7 +152,7 @@ export const unlikeComment = (commentId) => async (dispatch) => {
 
 export const likePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/like`);
-  if(res.ok){
+  if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateUsersLikePOJO(res2.post));
@@ -162,37 +162,37 @@ export const likePost = (postId) => async (dispatch) => {
 
 export const unlikePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unlike`);
-  if(res.ok){
+  if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateUsersLikePOJO(res2.post, 'unlike'));
     return res2;
-  }  
+  }
 };
 
 export const savePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/save`);
-  if(res.ok){
+  if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateUsersFavePOJO(res2.post));
     return res2;
-  }   
+  }
 };
 
 export const unsavePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unsave`);
-  if(res.ok){
+  if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateUsersFavePOJO(res2.post, 'unsave'));
     return res2;
-  }   
+  }
 };
 
 export const deleteAPost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/delete`);
-  if(res.ok){
+  if (res.ok) {
     const res2 = await res.json();
     dispatch(deleteAPostPOJO(res2['postId']));
   }
@@ -212,20 +212,29 @@ const reducer = (state = initialState, action) => {
     case CREATE_POST:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...action.payload, ...newState.homeFeed };
+      newState.allFeed = { ...action.payload, ...newState.homeFeed };
       return newState;
     case DELETE_POST:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...newState.homeFeed };
+      newState.allFeed = { ...newState.homeFeed };
       delete newState.homeFeed[action.payload]
+      delete newState.allFeed[action.payload]
       // newState.homeFeed = { ...(newState.homeFeed.filter(feed => feed.id !== action.payload)) };
       return newState;
     case CREATE_COMMENT:
       newState = Object.assign({}, state);
       const parentPostId = action.payload.parentPostId;
-      newState.homeFeed[parentPostId].comments = [
-        ...newState.homeFeed[parentPostId].comments,
-        action.payload,
-      ];
+      if (newState.homeFeed[parentPostId])
+        newState.homeFeed[parentPostId].comments = [
+          ...newState.homeFeed[parentPostId].comments,
+          action.payload,
+        ];
+      if (newState.allFeed[parentPostId])
+        newState.allFeed[parentPostId].comments = [
+          ...newState.allFeed[parentPostId].comments,
+          action.payload,
+        ];
       return newState;
     case CREATE_MODAL_COMMENT:
       newState = Object.assign({}, state);
