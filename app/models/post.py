@@ -80,6 +80,7 @@ class Post(db.Model):
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
             "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers},
+            "likes": len(self.likingUsers),
             "userSaves": {user.id:user.id for user in self.userSaves},
         }
 
@@ -99,5 +100,6 @@ class Post(db.Model):
             "comments": [comment.to_dict() for comment in self.comments],
             "images": [image.to_dict() for image in self.images],
             "likingUsers": {user.id:[user.username, user.profilePicUrl] for user in self.likingUsers},
+            "likes": len(self.likingUsers),
             "userSaves": {user.id:user.id for user in self.userSaves}
         }

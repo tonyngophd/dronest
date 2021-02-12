@@ -97,6 +97,22 @@
   font-weight: bold;
 }
 
+.custom-modal-top-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px 22px 15px;
+  margin: 10px 0px;
+  height: 20px;
+  width: 100%;
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.post-modal-like-share-save-div{
+  display: flex;
+  justify-content: space-between;
+}
+
 .modal-close {
   z-index: 100;
   padding: 0px;

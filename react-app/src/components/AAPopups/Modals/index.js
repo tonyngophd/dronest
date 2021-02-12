@@ -5,14 +5,15 @@ import './Modals.css';
 
 const Modal = ({ setShowModal, children, title, action,
   width, dronestLogo = true, needsEscapeInput = false,
-  closeXOutSide=false
+  closeXOutSide = false, noTopDiv = false
 }) => {
 
   const closeModal = (e) => {
     e.preventDefault();
+    if(e.target.className.animVal) console.log(e.target.className.animVal);
     if (
       e.target.className === "modal" ||
-      e.target.className.animVal !== undefined
+      (e.target.className.animVal !== undefined && e.target.className.animVal.includes("modal-close"))
     ) {
       setShowModal(false);
       if (action) return action();
@@ -26,13 +27,18 @@ const Modal = ({ setShowModal, children, title, action,
   return (
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect" }}>
-        <div className="follow-modal-top-div">
-          <div className="follow-modal-title-div" style={{ fontSize: '14px', padding: '0px' }}>{title}</div>
-          {dronestLogo && <div className="login-form_header">
-            <img src={require("../../../pictures/dronestlogo3.png")} />
-          </div>}
-          <GrClose className={closeXOutSide?'modal-close-top-right-screen':"modal-close"} onClick={closeModal} />
-        </div>
+        {noTopDiv ?
+          <GrClose className='modal-close-top-right-screen' onClick={closeModal} />
+          :
+          <>
+            <div className="follow-modal-top-div">
+              <div className="follow-modal-title-div" style={{ fontSize: '14px', padding: '0px' }}>{title}</div>
+              {dronestLogo && <div className="login-form_header">
+                <img src={require("../../../pictures/dronestlogo3.png")} />
+              </div>}
+              <GrClose className={closeXOutSide ? 'modal-close-top-right-screen' : "modal-close"} onClick={closeModal} />
+            </div>
+          </>}
         {children}
         {needsEscapeInput &&
           <input
