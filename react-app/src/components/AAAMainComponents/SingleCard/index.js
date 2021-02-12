@@ -25,17 +25,23 @@ export function PostModal({ setShowModal, user, post }) {
       closeXOutSide={true} noTopDiv={true}
     >
       <div className="custom-modal-top-div">
-        <UserRow showFollowButtonOrText={true} user={user} />
+        <div className='post-modal-user-row-div'>
+          <UserRow showFollowButtonOrText={true} user={user} />
+        </div>
         <div className='post-modal-like-share-save-div'>
-          <div>
+          <div className='post-modal-like-div'>
             <BsHeart />
-            <div>
-              
+            <div className='share-button-div'>
+              {post.likes}
             </div>
           </div>
-          <div>
+          <div className='post-modal-like-div'>
             <RiShareForwardLine />
-            <div> Share</div>
+            <div className='share-button-div'> Share</div>
+          </div>
+          <div className='post-modal-like-div'>
+            <BsBookmark />
+            <div className='share-button-div'> Save</div>
           </div>
 
         </div>
