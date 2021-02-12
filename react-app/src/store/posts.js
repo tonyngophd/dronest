@@ -165,6 +165,7 @@ export const unlikePost = (postId) => async (dispatch) => {
   if(res.ok){
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateUsersLikePOJO(res2.post, 'unlike'));
     return res2;
   }  
 };

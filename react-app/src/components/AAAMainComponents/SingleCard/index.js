@@ -27,13 +27,11 @@ export function PostModal({ setShowModal, user, post }) {
   const dispatch = useDispatch();
   const [iLikedThisPost, updateILikedThisPost] = 
     useState(myself && myself.likedPosts.find(p => p.id === post.id)?true:false);
-  console.log(myself, myself.likedPosts);
 
   const handleLikeClick = async (e) => {
-    const res = await dispatch(likePost(post.id));
+    const res = await dispatch(iLikedThisPost?unlikePost(post.id):likePost(post.id));
     if(res)
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id)?true:false);
-    console.log('33', myself.likedPosts.find(p => p.id === post.id), res);
   }
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
