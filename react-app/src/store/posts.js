@@ -1,3 +1,5 @@
+import { updateAUsersPostPOJO } from "./users";
+
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
 const CREATE_COMMENT = "posts/CREATE_COMMENT";
@@ -149,10 +151,18 @@ export const unlikeComment = (commentId) => async (dispatch) => {
 
 export const likePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/like`);
+  if(res.ok){
+    const res2 = await res.json();
+    dispatch(updateAUsersPostPOJO(res2.post))
+  }
 };
 
 export const unlikePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unlike`);
+  if(res.ok){
+    const res2 = await res.json();
+    dispatch(updateAUsersPostPOJO(res2.post))
+  }  
 };
 
 export const savePost = (postId) => async (dispatch) => {
