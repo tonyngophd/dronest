@@ -32,12 +32,11 @@ export function ConfirmIWantToLogInModal({ setShowModal }) {
       title="Please login to like, save or share"
     >
       <div style={{ marginBottom: '20px' }}>
-        <div className="buttons" style={{ display: 'flex', flexDirection: 'row', width: '80px' }}>
+        <div className="short-buttons">
           <button id="cancel-button" className='cancel-button'
             onClick={e => setShowModal(false)}
-            style={{ width: '70px', margin: 'auto 5px' }}
           >Cancel</button>
-          <button style={{ margin: 'auto 5px' }}>OK</button>
+          <button onClick={e=>history.push('/login')}>OK</button>
         </div>
       </div>
     </Modal>
@@ -52,13 +51,11 @@ export function PostModal({ setShowModal, user, post }) {
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
   const [iFavedThisPost, updateIFavedThisPost] =
     useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
-  const history = useHistory();
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
 
   const handleLikeClick = async (e) => {
     if (!myself) {
       updateConfirmLogin(true);
-      // history.push('/login');
     }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
     if (res)
@@ -67,7 +64,6 @@ export function PostModal({ setShowModal, user, post }) {
   const handleFaveClick = async (e) => {
     if (!myself) {
       updateConfirmLogin(true);
-      // history.push('/login');
     }
     const res = await dispatch(iFavedThisPost ? unsavePost(post.id) : savePost(post.id));
     if (res)
