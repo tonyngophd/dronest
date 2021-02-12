@@ -38,6 +38,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   let newState;
+  let user;
   switch (action.type) {
     case ADD_ALL_USERS:
       newState = Object.assign({}, state);
@@ -45,13 +46,14 @@ const reducer = (state = initialState, action) => {
       return newState;
     case UPDATE_A_USER:
       newState = Object.assign({}, state);
-      const user = newState.allUsers.find(u => u.id === action.payload.id);
+      user = newState.allUsers.find(u => u.id === action.payload.id);
       for (let key in action.payload)
         user[key] = action.payload[key]
       return newState;
     case UPDATE_A_USER_POST:
       newState = Object.assign({}, state);
-      const user = newState.allUsers.find(u => u.id === action.payload.id);
+      console.log('55 action.payload', action.payload);
+      user = newState.allUsers.find(u => u.id === action.payload.userId);
       if (user.ownPosts.length) {
         const post = user.ownPosts.find(p => p.id === action.payload.id);
         for (let key in action.payload)

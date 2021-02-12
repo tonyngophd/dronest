@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
+
+import { likePost, unlikePost } from '../../../store/posts';
 
 import {
   BsHeart,
@@ -18,7 +21,13 @@ import UserRow from '../../ProfilePage/UserRow';
 import './SingleCard.css';
 
 
+
 export function PostModal({ setShowModal, user, post }) {
+  const dispatch = useDispatch();
+  
+  const handleLikeClick = (e) => {
+    dispatch(likePost(post.id))
+  }
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
       dronestLogo={false} needsEscapeInput={true}
@@ -29,7 +38,7 @@ export function PostModal({ setShowModal, user, post }) {
           <UserRow showFollowButtonOrText={true} user={user} />
         </div>
         <div className='post-modal-like-share-save-div'>
-          <div className='post-modal-like-div'>
+          <div className='post-modal-like-div' onClick={handleLikeClick}>
             <BsHeart />
             <div className='share-button-div'>
               {post.likes}

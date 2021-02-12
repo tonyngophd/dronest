@@ -1,4 +1,4 @@
-import { updateAUsersPostPOJO } from "./users";
+import { updateAUsersPostPOJO } from './users';
 
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -153,7 +153,8 @@ export const likePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/like`);
   if(res.ok){
     const res2 = await res.json();
-    dispatch(updateAUsersPostPOJO(res2.post))
+    dispatch(updateAUsersPostPOJO(res2.post));
+    return res2;
   }
 };
 
@@ -161,7 +162,8 @@ export const unlikePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unlike`);
   if(res.ok){
     const res2 = await res.json();
-    dispatch(updateAUsersPostPOJO(res2.post))
+    dispatch(updateAUsersPostPOJO(res2.post));
+    return res2;
   }  
 };
 
