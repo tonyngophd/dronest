@@ -10,11 +10,7 @@ const Modal = ({ setShowModal, children, title, action,
 
   const closeModal = (e) => {
     e.preventDefault();
-    if(e.target.className.animVal) console.log(e.target.className.animVal);
-    if (
-      e.target.className === "modal" ||
-      (e.target.className.animVal !== undefined && e.target.className.animVal.includes("modal-close"))
-    ) {
+    if (e.target.className === "modal") {
       setShowModal(false);
       if (action) return action();
     }
@@ -28,7 +24,7 @@ const Modal = ({ setShowModal, children, title, action,
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
       <div className="modal-content" style={{ display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect" }}>
         {noTopDiv ?
-          <GrClose className='modal-close-top-right-screen' onClick={closeModal} />
+          <GrClose className='modal-close-top-right-screen' onClick={e => setShowModal(false)} />
           :
           <>
             <div className="follow-modal-top-div">
@@ -36,7 +32,7 @@ const Modal = ({ setShowModal, children, title, action,
               {dronestLogo && <div className="login-form_header">
                 <img src={require("../../../pictures/dronestlogo3.png")} />
               </div>}
-              <GrClose className={closeXOutSide ? 'modal-close-top-right-screen' : "modal-close"} onClick={closeModal} />
+              <GrClose className={closeXOutSide ? 'modal-close-top-right-screen' : "modal-close"} onClick={e => setShowModal(false)} />
             </div>
           </>}
         {children}
