@@ -84,7 +84,9 @@
 }
 
 .single-card-modal-images-div{
-  max-height: 900px;
+  max-height: 800px;
+  display: flex;
+  width: 1200px;
 }
 
 .ok-button{

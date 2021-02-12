@@ -145,7 +145,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
   const history = useHistory();
-  const comments = post.comments; 
+  const comments = post.comments;
 
   // useEffect(() => {
   //   if(user && !user.)
@@ -219,8 +219,14 @@ export function PostModal({ setShowModal, user, posts }) {
       <Modal setShowModal={setShowModal} width={'1000px'}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
+        width='1200px'
       >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center', width: '100%'
+
+        }}>
           {posts.length > 1 && <div style={{
             position: 'fixed',
             left: '30px', zIndex: '200',
@@ -262,32 +268,35 @@ export function PostModal({ setShowModal, user, posts }) {
               </div>
             </div>
             <div className="single-card-modal-images-div">
+              <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
               <div>
-                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
-                <div className="post-caption">
-                  <Editor
-                    editorState={editorState}
-                    readOnly={true}
-                    plugins={plugins}
-                    onChange={(editorState) => setEditorState(editorState)}
-                  />
+                <div>
+                  <div className="post-caption">
+                    <Editor
+                      editorState={editorState}
+                      readOnly={true}
+                      plugins={plugins}
+                      onChange={(editorState) => setEditorState(editorState)}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="post-comments-container">
-                  {comments &&
-                    comments.map((comment) => {
-                      return <Comment home={true} comment={comment} key={nanoid()} />;
-                    })}
-                </div>
-                <Link to={`/p/${post.id}`}>
-                  <div className="post-timestamp">{timestamp}</div>
-                </Link>
-                <div className="post-new-comment">
-                  <CommentInput post={post} />
+                <div>
+                  <div className="post-comments-container">
+                    {comments &&
+                      comments.map((comment) => {
+                        return <Comment home={true} comment={comment} key={nanoid()} />;
+                      })}
+                  </div>
+                  <Link to={`/p/${post.id}`}>
+                    <div className="post-timestamp">{timestamp}</div>
+                  </Link>
+                  <div className="post-new-comment">
+                    <CommentInput post={post} />
+                  </div>
                 </div>
               </div>
             </div>
+
             <div>
 
             </div>
