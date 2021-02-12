@@ -5,7 +5,7 @@ import { FiEye } from 'react-icons/fi';
 import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
 
-import { likePost, unlikePost } from '../../../store/posts';
+import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
 
 import {
   BsHeart,
@@ -13,6 +13,8 @@ import {
   BsBookmark,
   BsHeartFill,
   BsBookmarkFill,
+  BsStar,
+  BsStarFill,
 } from "react-icons/bs";
 import { RiShareForwardLine } from 'react-icons/ri';
 
@@ -25,13 +27,20 @@ import './SingleCard.css';
 export function PostModal({ setShowModal, user, post }) {
   const myself = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  const [iLikedThisPost, updateILikedThisPost] = 
-    useState(myself && myself.likedPosts.find(p => p.id === post.id)?true:false);
+  const [iLikedThisPost, updateILikedThisPost] =
+    useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
+  const [iFavedThisPost, updateIFavedThisPost] =
+    useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
 
   const handleLikeClick = async (e) => {
-    const res = await dispatch(iLikedThisPost?unlikePost(post.id):likePost(post.id));
-    if(res)
-      updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id)?true:false);
+    const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
+    if (res)
+      updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
+  }
+  const handleFaveClick = async (e) => {
+    const res = await dispatch(iFavedThisPost ? unsavePost(post.id) : savePost(post.id));
+    if (res)
+      updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
   }
   return (
     <Modal setShowModal={setShowModal} width={'1000px'}
@@ -44,8 +53,8 @@ export function PostModal({ setShowModal, user, post }) {
         </div>
         <div className='post-modal-like-share-save-div'>
           <div className='post-modal-like-div' onClick={handleLikeClick}>
-            {iLikedThisPost?
-              <BsHeartFill />:
+            {iLikedThisPost ?
+              <BsHeartFill /> :
               <BsHeart />
             }
             <div className='share-button-div'>
@@ -56,8 +65,11 @@ export function PostModal({ setShowModal, user, post }) {
             <RiShareForwardLine />
             <div className='share-button-div'> Share</div>
           </div>
-          <div className='post-modal-like-div'>
-            <BsBookmark />
+          <div className='post-modal-like-div' onClick={handleFaveClick}>
+            {iFavedThisPost ?
+              <BsStarFill /> :
+              <BsStar />
+            }
             <div className='share-button-div'> Save</div>
           </div>
 

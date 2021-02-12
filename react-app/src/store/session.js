@@ -6,6 +6,8 @@ const ADD_A_MESSAGE = "session/ADD_A_MESSAGE";
 const REMOVE_USER = "session/REMOVE_USER";
 const ADD_USER_LIKE = "session/ADD_USER_LIKE";
 const REMOVE_USER_LIKE = "session/REMOVE_USER_LIKE";
+const ADD_USER_FAVE = "session/ADD_USER_FAVE";
+const REMOVE_USER_FAVE = "session/REMOVE_USER_FAVE";
 // const RESTORE_USER = 'user/RESTORE_USER';
 
 export const setUserPOJO = (user) => ({
@@ -23,6 +25,10 @@ const removeUserPOJO = () => ({
 
 export const updateUsersLikePOJO = (post, type="like") => ({
   type: type === "like" ? ADD_USER_LIKE : REMOVE_USER_LIKE,
+  post,
+});
+export const updateUsersFavePOJO = (post, type="fave") => ({
+  type: type === "fave" ? ADD_USER_FAVE : REMOVE_USER_FAVE,
   post,
 });
 
@@ -92,6 +98,14 @@ const reducer = (state = initialState, action) => {
     case REMOVE_USER_LIKE:
       newState = Object.assign({}, state);
       newState.user.likedPosts = newState.user.likedPosts.filter(p => p.id !== action.post.id);
+      return newState;
+    case ADD_USER_FAVE:
+      newState = Object.assign({}, state);
+      newState.user.savedPosts.push(action.post);
+      return newState;
+    case REMOVE_USER_FAVE:
+      newState = Object.assign({}, state);
+      newState.user.savedPosts = newState.user.savedPosts.filter(p => p.id !== action.post.id);
       return newState;
     default:
       return state;

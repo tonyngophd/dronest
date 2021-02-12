@@ -1,5 +1,5 @@
 import { updateAUsersPostPOJO } from './users';
-import { updateUsersLikePOJO } from './session';
+import { updateUsersLikePOJO, updateUsersFavePOJO } from './session';
 
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -172,10 +172,22 @@ export const unlikePost = (postId) => async (dispatch) => {
 
 export const savePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/save`);
+  if(res.ok){
+    const res2 = await res.json();
+    dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateUsersFavePOJO(res2.post));
+    return res2;
+  }   
 };
 
 export const unsavePost = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/unsave`);
+  if(res.ok){
+    const res2 = await res.json();
+    dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateUsersFavePOJO(res2.post, 'unsave'));
+    return res2;
+  }   
 };
 
 export const deleteAPost = (postId) => async (dispatch) => {
