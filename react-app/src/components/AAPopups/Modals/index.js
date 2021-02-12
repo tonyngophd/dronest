@@ -1,7 +1,12 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
 
-const Modal = ({ setShowModal, children, title, action, width, dronestLogo = true, needsEscapeInput=false }) => {
+import './Modals.css';
+
+const Modal = ({ setShowModal, children, title, action,
+  width, dronestLogo = true, needsEscapeInput = false,
+  closeXOutSide=false
+}) => {
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -26,7 +31,7 @@ const Modal = ({ setShowModal, children, title, action, width, dronestLogo = tru
           {dronestLogo && <div className="login-form_header">
             <img src={require("../../../pictures/dronestlogo3.png")} />
           </div>}
-          <GrClose className="modal-close" onClick={closeModal} />
+          <GrClose className={closeXOutSide?'modal-close-top-right-screen':"modal-close"} onClick={closeModal} />
         </div>
         {children}
         {needsEscapeInput &&
