@@ -141,14 +141,16 @@ def like_post(postId):
   )
   db.session.add(postLike)
   db.session.commit()
-  return {'message': "Success"}
+  post = Post.query.get(postId)
+  return {'post': post.to_dict_for_self()}
 
 @post_routes.route("/<int:postId>/unlike")
 def unlike_post(postId):
   postLike = LikedPost.query.filter(LikedPost.postId==postId,LikedPost.userId==current_user.id).first()
   db.session.delete(postLike)
   db.session.commit()
-  return {'message': "Success"}
+  post = Post.query.get(postId)
+  return {'post': post.to_dict_for_self()}
 
 
 @post_routes.route("/<int:postId>/save")
@@ -159,7 +161,8 @@ def save_post(postId):
   )
   db.session.add(postSave)
   db.session.commit()
-  return {'message': "Success"}
+  post = Post.query.get(postId)
+  return {'post': post.to_dict_for_self()}
 
 
 @post_routes.route("/<int:postId>/unsave")
@@ -167,7 +170,8 @@ def unsave_post(postId):
   postSave = SavedPost.query.filter(SavedPost.postId==postId,SavedPost.userId==current_user.id).first()
   db.session.delete(postSave)
   db.session.commit()
-  return {'message': "Success"}
+  post = Post.query.get(postId)
+  return {'post': post.to_dict_for_self()}
 
 @post_routes.route("/comments/<int:commentId>/like")
 def like_comment(commentId):

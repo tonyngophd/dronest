@@ -80,19 +80,7 @@ export const AllPosts = () => {
     dispatch(fetchAllPosts(page));
   }, [dispatch, page]);
 
-  useEffect(() => {
-    console.log('FEEED', feed)
-  }, [feed]);
 
-  const setPost = (arr, num) => {
-    let newArr = []
-    for (let i = 0; i < num; i++) {
-      newArr.push(arr[i]);
-    }
-    return newArr;
-  }
-
-  let num = 5;
   return (
     <>
       {feed && (
@@ -114,7 +102,7 @@ export const AllPosts = () => {
         >
           {
             new Array(3).fill(1).map((_, index) =>
-              <div className='feed_grid_container_column'>
+              <div className='feed_grid_container_column' key={nanoid()}>
                 {Object.values(feed)
                   .sort((a, b) =>
                     new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
@@ -122,7 +110,7 @@ export const AllPosts = () => {
                   .filter((p, i) => i % 3 === index)
                   .map((post) => (
                     // <BarePost post={post} key={nanoid()} />
-                    <img src={post.images[0].mediaUrl} />
+                    <img src={post.images[0].mediaUrl} key={nanoid()}/>
                   ))}
               </div>)
           }

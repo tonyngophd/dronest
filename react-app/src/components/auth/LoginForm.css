@@ -161,3 +161,8 @@ body {
 .cancel-button{
     background-color: rgb(189, 76, 76) !important;
 }
+
+.cancel-button:hover {
+    background-color: rgb(189, 100, 100) !important;
+    transition: 0.3s;
+}
