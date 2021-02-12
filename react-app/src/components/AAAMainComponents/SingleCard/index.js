@@ -178,7 +178,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const onNextClick = e => {
     e.preventDefault();
     let index = postIndex + 1;
-    if (index > posts.length) index = 0;
+    if (index > posts.length - 1) index = 0;
     setPostIndex(index);
   }
 
