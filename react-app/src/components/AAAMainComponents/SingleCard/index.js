@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
@@ -22,6 +23,26 @@ import UserRow from '../../ProfilePage/UserRow';
 
 import './SingleCard.css';
 
+export function ConfirmIWantToLogInModal({ setShowModal }) {
+  const history = useHistory();
+
+  return (
+    <Modal setShowModal={setShowModal}
+      dronestLogo={false} needsEscapeInput={true}
+      title="Please login to like, save or share"
+    >
+      <div style={{ marginBottom: '20px' }}>
+        <div className="buttons" style={{ display: 'flex', flexDirection: 'row', width: '80px' }}>
+          <button id="cancel-button" className='cancel-button'
+            onClick={e => setShowModal(false)}
+            style={{ width: '70px', margin: 'auto 5px' }}
+          >Cancel</button>
+          <button style={{ margin: 'auto 5px' }}>OK</button>
+        </div>
+      </div>
+    </Modal>
+  );
+}
 
 
 export function PostModal({ setShowModal, user, post }) {
@@ -31,13 +52,23 @@ export function PostModal({ setShowModal, user, post }) {
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
   const [iFavedThisPost, updateIFavedThisPost] =
     useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
+  const history = useHistory();
+  const [showConfirmLogin, updateConfirmLogin] = useState(false);
 
   const handleLikeClick = async (e) => {
+    if (!myself) {
+      updateConfirmLogin(true);
+      // history.push('/login');
+    }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
     if (res)
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
   }
   const handleFaveClick = async (e) => {
+    if (!myself) {
+      updateConfirmLogin(true);
+      // history.push('/login');
+    }
     const res = await dispatch(iFavedThisPost ? unsavePost(post.id) : savePost(post.id));
     if (res)
       updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
@@ -75,7 +106,7 @@ export function PostModal({ setShowModal, user, post }) {
 
         </div>
       </div>
-      <div>
+      <div className="single-card-modal-images-div">
         <div>
           <img src={post.images[0].mediaUrl} alt="individual picture" />
         </div>
@@ -84,6 +115,9 @@ export function PostModal({ setShowModal, user, post }) {
         </div>
       </div>
       <div></div>
+      {
+        showConfirmLogin && <ConfirmIWantToLogInModal setShowModal={updateConfirmLogin} />
+      }
     </Modal>
   );
 }

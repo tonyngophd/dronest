@@ -17,8 +17,10 @@ const Modal = ({ setShowModal, children, title, action,
   }
 
   const escapeHideModal = e => {
-    if (e.key === 'Escape')
+    if (e.key === 'Escape') {
+      e.stopPropagation();
       setShowModal(false);
+    }
   }
   return (
     <div className="modal" onClick={closeModal} onKeyUp={escapeHideModal}>
