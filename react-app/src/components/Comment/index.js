@@ -13,7 +13,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";
 import timeStamp, { Plugins } from '../utils';
 
-function Comment({ home, comment, inputMessage = undefined, replaceText = undefined }) {
+function Comment({ insideCN = "", home, comment, inputMessage = undefined, replaceText = undefined }) {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
     (typeof (inputMessage) === "string" && inputMessage.includes(replaceText) ?
       inputMessage.replaceAll(replaceText, ":") : inputMessage)
     : undefined;
-    ;
+  ;
   let timestamp = timeStamp(new Date(comment ? comment.createdAt : message.createdAt), true);
 
   useEffect(() => {
@@ -41,12 +41,12 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
     data = JSON.parse(message ? message : comment.captionRawData);
     data = convertFromRaw(data);
   } catch (e) {
-    message? data = message: data="";
+    message ? data = message : data = "";
     messageIsPlainText = true;
   }
 
   const [editorState, setEditorState] = useState(
-    messageIsPlainText ? undefined : (data?EditorState.createWithContent(data):EditorState.createEmpty())
+    messageIsPlainText ? undefined : (data ? EditorState.createWithContent(data) : EditorState.createEmpty())
   );
 
   const likeHandler = () => {
@@ -62,11 +62,15 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
   };
 
   return (
-    <div className={home ? "comment-wrapper" : "comment-modal-wrapper"}>
+    <div className={insideCN ?
+      insideCN : (home ? "comment-wrapper" : "comment-modal-wrapper")}
+    >
       <div className="comment">
         {!message && comment && (
           <Link to={`/${comment.commenter}`}>
             <div className="comment-user">{comment.commenter}</div>
+            {!home && !message && <div className="comment-timestamp"
+              style={{ fontWeight: 'normal', fontSize: '14px' }}>{timestamp}</div>}
           </Link>
         )}
         {messageIsPlainText ? (
@@ -80,22 +84,28 @@ function Comment({ home, comment, inputMessage = undefined, replaceText = undefi
             />
           )}
       </div>
-      {!home && !message && (
+      {/* {!home && !message && (
         <div className="time-and-likes-comment">
-          <div className="comment-timestamp">{timestamp}</div>
           {likes > 0 && (
             <span className={"comment-likes"}>
               {likes} {likes === 1 ? "like" : "likes"}
             </span>
           )}
         </div>
-      )}
-      {!message && liked && (
-        <BsHeartFill onClick={likeHandler} className="comment-heart filled" />
-      )}
-      {!message && !liked && (
-        <BsHeart onClick={likeHandler} className="comment-heart" />
-      )}
+      )} */}
+      <div style={{display: 'flex', flexDirection: 'column', width: '20px'}}>
+        {!message && liked && (
+          <BsHeartFill onClick={likeHandler} className="comment-heart filled" />
+        )}
+        {!message && !liked && (
+          <BsHeart onClick={likeHandler} className="comment-heart" />
+        )}
+        {!home && !message && likes > 0 && (
+          <div className="comment-heart" style={{marginTop: '10px', marginLeft: '-40px', transform: 'translateX(-10px)'}}>
+            {likes}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

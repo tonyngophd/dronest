@@ -133,7 +133,7 @@
   height: 20px;
   width: 100%;
   /* max-width: 800px; */
-  border-bottom: 1px solid rgb(219, 219, 219);
+  /* border-bottom: 1px solid rgb(219, 219, 219); */
 }
 
 .post-modal-like-share-save-div{
@@ -150,7 +150,7 @@
   border-radius: 5px;
   height: 35px;
   min-width: 50px;
-  font-size: 22px;
+  font-size: 20px;
 }
 .share-button-div{
   margin: auto 3px;

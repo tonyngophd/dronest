@@ -129,7 +129,7 @@
 }
 .post-modal-img-div{
   max-height: 900px;
-  min-width: 1000px;
+  min-width: 800px;
   overflow-x: scroll;
   display: flex;
   justify-content: center;
@@ -144,7 +144,10 @@
   display: none;
 }
 .post-modal-img{
-  max-height: 900px; 
+  max-height: 750px; 
   object-fit: contain;
   border-radius: 5px;
+}
+.post-modal-commentinput-div{
+  width: 340px;
 }

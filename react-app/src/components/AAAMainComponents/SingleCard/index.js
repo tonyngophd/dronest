@@ -52,6 +52,8 @@ import {
 import UserRow from '../../ProfilePage/UserRow';
 import CommentInput from "../../CommentInput";
 import Comment from "../../Comment";
+import PicModalCaption from "../../PicModalCaption";
+
 
 import './SingleCard.css';
 
@@ -269,31 +271,27 @@ export function PostModal({ setShowModal, user, posts }) {
             </div>
             <div className="single-card-modal-images-div">
               <div className='post-modal-img-div'>
-                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
+                <img src={post.images[0].mediaUrl} alt="individual picture"
+                  className='post-modal-img'
+                // onLoad={e=>console.log(e.target.width)}  
+                />
               </div>
               <div>
-                <div>
-                  <div className="post-caption" style={{width: '350px'}}>
-                    <Editor
-                      editorState={editorState}
-                      readOnly={true}
-                      plugins={plugins}
-                      onChange={(editorState) => setEditorState(editorState)}
-                    />
-                  </div>
-                </div>
+                <PicModalCaption post={post} />
                 <div>
                   <div className="post-comments-container">
                     {comments &&
-                      comments.map((comment) => {
-                        return <Comment home={false} comment={comment} key={nanoid()} />;
-                      })}
+                      comments.map((comment) =>
+                        <div className="modal-comment" key={nanoid()}>
+                          <img
+                            className="commenter-pic"
+                            src={comment.commenterPic}
+                          />
+                          <Comment comment={comment} home={false}/>
+                        </div>)}
                   </div>
-                  <Link to={`/p/${post.id}`}>
-                    <div className="post-timestamp">{timestamp}</div>
-                  </Link>
                   <div className="post-new-comment">
-                    <CommentInput post={post} />
+                    <CommentInput post={post} insideCN='post-modal-commentinput-div' />
                   </div>
                 </div>
               </div>
