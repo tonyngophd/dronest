@@ -79,4 +79,23 @@ def seed_test():
     #   datetime.time(hour=randint(0,23), minute=randint(0,59), second=randint(0, 59))
     # )
 
-seed_test()
+# seed_test()
+
+import json
+
+with open('addresses-us-all.json') as json_file:
+  data = json.load(json_file)
+  l = set()
+  while len(l) <= 100:
+    l.add(randint(0, len(data['addresses'])))
+  for i in range(len(data['addresses'])):
+    if i in l:
+      # print(data['addresses'][i])      
+      add = data['addresses'][i]
+      try:
+        city = add['city']
+      except:
+        city = 'Unknown'     
+      if city == 'Unknown':
+        print(city) 
+

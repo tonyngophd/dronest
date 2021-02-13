@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash
-from app.models import db, Post, Category, Album, Equipment
+from app.models import db, Post, Category, Album, Equipment, Location
 from faker import Faker
 from random import randint
 fake = Faker()
@@ -25,6 +25,7 @@ def seed_posts():
     # demo4 = Post(userId=5, locationId=1, captionRawData='{"blocks":[{"key":"7ahvi","text":"Just a couple of friends!","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
     # db.session.add(demo4)
 
+    locations = Location.query.all()
     for i in range(len(mediadata)):
         text = fake.sentence(nb_words=10)
         userid = randint(1,20)
@@ -41,7 +42,7 @@ def seed_posts():
         elif(month in [4, 6, 9, 11]): maxday = 30
         day = randint(1,maxday)
 
-        post = Post(userId = userid, locationId=randint(1,30),
+        post = Post(userId = userid, locationId=randint(1,len(locations)),
                 captionRawData='{"blocks":[{"key":"a12d1","text":' + f'"{text}"' + ',"type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
                 categoryId = mediadata[i]['catid'],
                 albumId = albumid,

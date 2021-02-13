@@ -54,6 +54,7 @@ import UserRow from '../../ProfilePage/UserRow';
 import CommentInput from "../../CommentInput";
 import Comment from "../../Comment";
 import PicModalCaption from "../../PicModalCaption";
+import { MapWithMarkerClusterer } from '../../GoogleMaps';
 
 
 import './SingleCard.css';
@@ -149,11 +150,19 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showShareButtons, setShowShareButtons] = useState(false);
   const history = useHistory();
   const comments = useSelector(state => state.posts.singlePost.comments);
+  const [spot, setSpot] = useState(undefined);
 
   useEffect(() => {
     if (postIndex >= 0 && postIndex < posts.length) {
       setPost(posts[postIndex]);
       dispatch(loadSinglePost(posts[postIndex]));
+      setSpot({
+        city: post.location.city,
+        stateProvince: post.location.state,
+        zipCode: post.location.zipCode,
+        country: post.location.country,
+        gpsLocation: [post.location.latitude, post.location.longitude]
+      })
     }
   }, [postIndex]);
 
@@ -180,6 +189,16 @@ export function PostModal({ setShowModal, user, posts }) {
       updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
   }
 
+
+  // const tryfetchLatLong = async () => {
+  //   const res = await fetch('http://api.positionstack.com/v1/forward?access_key=a085731167a663896cade0e428d324ec&query=1600 Pennsylvania Ave NW, Washington DC\
+  //   &limit=1\
+  //   &output=json');
+  //   const res2 = await res.json();
+  //   console.log('map', res2);
+  // }
+
+
   const handleShareClick = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -187,6 +206,7 @@ export function PostModal({ setShowModal, user, posts }) {
       return updateConfirmLogin(true);
     }
     setShowShareButtons(!showShareButtons);
+    // tryfetchLatLong();
   }
 
   const onNextClick = e => {
@@ -292,7 +312,7 @@ export function PostModal({ setShowModal, user, posts }) {
                   <div className="postmodal-comments-container">
                     {comments &&
                       comments.map((comment) =>
-                        <div className="modal-comment" key={nanoid()} style={{marginBottom: '0px'}}>
+                        <div className="modal-comment" key={nanoid()} style={{ marginBottom: '0px' }}>
                           <img
                             className="commenter-pic"
                             src={comment.commenterPic}
@@ -301,8 +321,16 @@ export function PostModal({ setShowModal, user, posts }) {
                         </div>)}
                   </div>
                   <div className="post-new-comment">
-                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true}/>
+                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true} />
                   </div>
+                </div>
+                <div className='home-side-map'>
+                  {
+                    spot && <MapWithMarkerClusterer
+                      center={{ lat: spot.gpsLocation[0], lng: spot.gpsLocation[1] }}
+                      zoom={5}
+                      spots={[spot]} />
+                  }
                 </div>
               </div>
             </div>
