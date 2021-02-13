@@ -139,6 +139,7 @@
   scrollbar-width: none;  
   /* Firefox */  
   /* object-fit: contain; */
+  margin-right: 5px;
 }
 .post-modal-img-div::-webkit-scrollbar {
   display: none;

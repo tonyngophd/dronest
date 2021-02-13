@@ -238,37 +238,9 @@ export function PostModal({ setShowModal, user, posts }) {
             <NextOrPrevious next={false} onClick={onPrevClick} />
           </div>}
           <div style={{ width: '100%' }}>
-            <div className="custom-modal-top-div">
-              <div className='post-modal-user-row-div'>
-                <UserRow showFollowButtonOrText={true} user={user} />
-              </div>
-              <div className='post-modal-like-share-save-div'>
-                <div className='post-modal-like-div' onClick={handleLikeClick}>
-                  {iLikedThisPost ?
-                    <BsHeartFill /> :
-                    <BsHeart />
-                  }
-                  <div className='share-button-div'>
-                    {post.likes}
-                  </div>
-                </div>
-                <div className='post-modal-like-div' onClick={handleFaveClick}>
-                  {iFavedThisPost ?
-                    <BsStarFill /> :
-                    <BsStar />
-                  }
-                  <div className='share-button-div'> Save</div>
-                </div>
-                <div className='post-modal-like-div' onClick={handleShareClick}>
-                  {
-                    showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
-                  }
-                  <RiShareForwardLine />
-                  <div className='share-button-div'> Share</div>
-                </div>
+            {/* <div className="custom-modal-top-div">
 
-              </div>
-            </div>
+            </div> */}
             <div className="single-card-modal-images-div">
               <div className='post-modal-img-div'>
                 <img src={post.images[0].mediaUrl} alt="individual picture"
@@ -277,6 +249,35 @@ export function PostModal({ setShowModal, user, posts }) {
                 />
               </div>
               <div>
+                <div className='post-modal-user-row-div'>
+                  <UserRow showFollowButtonOrText={true} user={user} />
+                </div>
+                <div className='post-modal-like-share-save-div'>
+                  <div className='post-modal-like-div' onClick={handleLikeClick}>
+                    {iLikedThisPost ?
+                      <BsHeartFill /> :
+                      <BsHeart />
+                    }
+                    <div className='share-button-div'>
+                      {post.likes}
+                    </div>
+                  </div>
+                  <div className='post-modal-like-div' onClick={handleFaveClick}>
+                    {iFavedThisPost ?
+                      <BsStarFill /> :
+                      <BsStar />
+                    }
+                    <div className='share-button-div'> Save</div>
+                  </div>
+                  <div className='post-modal-like-div' onClick={handleShareClick}>
+                    {
+                      showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
+                    }
+                    <RiShareForwardLine />
+                    <div className='share-button-div'> Share</div>
+                  </div>
+
+                </div>
                 <PicModalCaption post={post} />
                 <div>
                   <div className="post-comments-container">
@@ -287,7 +288,7 @@ export function PostModal({ setShowModal, user, posts }) {
                             className="commenter-pic"
                             src={comment.commenterPic}
                           />
-                          <Comment comment={comment} home={false}/>
+                          <Comment comment={comment} home={false} />
                         </div>)}
                   </div>
                   <div className="post-new-comment">
