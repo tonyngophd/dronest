@@ -127,6 +127,24 @@
   min-height: 100px;
   background-color: rgba(255, 255, 255, 0.856);
 }
+.post-modal-img-div{
+  max-height: 900px;
+  min-width: 1000px;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -ms-overflow-style: none; 
+   /* IE and Edge */
+  scrollbar-width: none;  
+  /* Firefox */  
+  /* object-fit: contain; */
+}
+.post-modal-img-div::-webkit-scrollbar {
+  display: none;
+}
 .post-modal-img{
-  max-height: 700px;
+  max-height: 900px; 
+  object-fit: contain;
+  border-radius: 5px;
 }

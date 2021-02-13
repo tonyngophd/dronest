@@ -268,10 +268,12 @@ export function PostModal({ setShowModal, user, posts }) {
               </div>
             </div>
             <div className="single-card-modal-images-div">
-              <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
+              <div className='post-modal-img-div'>
+                <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
+              </div>
               <div>
                 <div>
-                  <div className="post-caption">
+                  <div className="post-caption" style={{width: '350px'}}>
                     <Editor
                       editorState={editorState}
                       readOnly={true}
@@ -284,7 +286,7 @@ export function PostModal({ setShowModal, user, posts }) {
                   <div className="post-comments-container">
                     {comments &&
                       comments.map((comment) => {
-                        return <Comment home={true} comment={comment} key={nanoid()} />;
+                        return <Comment home={false} comment={comment} key={nanoid()} />;
                       })}
                   </div>
                   <Link to={`/p/${post.id}`}>
