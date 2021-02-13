@@ -152,3 +152,7 @@
 .post-modal-commentinput-div{
   width: 340px;
 }
+.post-modal-user-like-save-share{
+  display: flex;
+  flex-direction: column;
+}

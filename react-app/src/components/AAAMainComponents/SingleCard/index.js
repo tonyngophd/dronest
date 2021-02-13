@@ -27,6 +27,7 @@ import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
 import { Plugins } from '../../utils';
+import { notFollowedYet } from "../../ProfilePage";
 
 import {
   EmailShareButton,
@@ -249,34 +250,42 @@ export function PostModal({ setShowModal, user, posts }) {
                 />
               </div>
               <div>
-                <div className='post-modal-user-row-div'>
-                  <UserRow showFollowButtonOrText={true} user={user} />
-                </div>
-                <div className='post-modal-like-share-save-div'>
-                  <div className='post-modal-like-div' onClick={handleLikeClick}>
-                    {iLikedThisPost ?
-                      <BsHeartFill /> :
-                      <BsHeart />
-                    }
-                    <div className='share-button-div'>
-                      {post.likes}
+                <div className='post-modal-user-like-save-share'>
+                  <div className='post-modal-user-row-div'>
+                    <UserRow
+                      user={user}
+                      // searchable={searchable}
+                      myId={myself.id}
+                      notFollowedYet={notFollowedYet(user.id, myself)}
+                      key={nanoid()}
+                      followAsButton={true}
+                    />
+                  </div>
+                  <div className='post-modal-like-share-save-div'>
+                    <div className='post-modal-like-div' onClick={handleLikeClick}>
+                      {iLikedThisPost ?
+                        <BsHeartFill /> :
+                        <BsHeart />
+                      }
+                      <div className='share-button-div'>
+                        {post.likes}
+                      </div>
+                    </div>
+                    <div className='post-modal-like-div' onClick={handleFaveClick}>
+                      {iFavedThisPost ?
+                        <BsStarFill /> :
+                        <BsStar />
+                      }
+                      <div className='share-button-div'> Save</div>
+                    </div>
+                    <div className='post-modal-like-div' onClick={handleShareClick}>
+                      {
+                        showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
+                      }
+                      <RiShareForwardLine />
+                      <div className='share-button-div'> Share</div>
                     </div>
                   </div>
-                  <div className='post-modal-like-div' onClick={handleFaveClick}>
-                    {iFavedThisPost ?
-                      <BsStarFill /> :
-                      <BsStar />
-                    }
-                    <div className='share-button-div'> Save</div>
-                  </div>
-                  <div className='post-modal-like-div' onClick={handleShareClick}>
-                    {
-                      showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
-                    }
-                    <RiShareForwardLine />
-                    <div className='share-button-div'> Share</div>
-                  </div>
-
                 </div>
                 <PicModalCaption post={post} />
                 <div>

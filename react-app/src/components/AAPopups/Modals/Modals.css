@@ -138,7 +138,9 @@
 
 .post-modal-like-share-save-div{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  /* border-bottom: 1px solid gray; */
+  margin-bottom: 10px;
 }
 .post-modal-like-div{
   display: flex;
@@ -148,7 +150,7 @@
   border: 1px solid gray;
   padding: 5px;
   border-radius: 5px;
-  height: 35px;
+  height: 30px;
   min-width: 50px;
   font-size: 20px;
 }
@@ -158,7 +160,7 @@
 }
 
 .post-modal-user-row-div{
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .modal-close {
