@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import fetchAFollowing from "../../store/follow";
 import { useDispatch, useSelector } from "react-redux";
 
 import MiniProfile from "../MiniProfile";
 
-export const handleFollowClick = (
+export const handleFollowClick = async (
   e,
   personToFollowId,
   profilePersonId,
   do_follow = true,
-  dispatch
+  dispatch,
+  setNotFollowed = (() => {})
 ) => {
   e.preventDefault();
   e.stopPropagation();
   // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
-  fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
+  const res = await fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
+  if(res)
+    setNotFollowed(!do_follow);
 };
 
 function UserRow({
@@ -42,6 +45,8 @@ function UserRow({
   const profilePerson = useSelector((state) => state.profile.user);
   const [showMiniProfile, setShowMiniProfile] = useState(false);
   const [hover, setHover] = useState(false);
+  const [notFollowed, setNotFollowed] = useState(notFollowedYet);
+
   const handleClick = (e) => {
     e.preventDefault();
     if (onClose) {
@@ -95,7 +100,7 @@ function UserRow({
           </div>
         </div>
         {showFollowButtonOrText &&
-          (notFollowedYet ? (
+          (notFollowed ? (
             <button
               className={
                 followAsButton
@@ -108,7 +113,8 @@ function UserRow({
                   user.id,
                   profilePerson && profilePerson.id,
                   true,
-                  dispatch
+                  dispatch,
+                  setNotFollowed
                 )
               }
             >
@@ -127,7 +133,8 @@ function UserRow({
                   user.id,
                   profilePerson && profilePerson.id,
                   false,
-                  dispatch
+                  dispatch,
+                  setNotFollowed
                 )
               }
             >

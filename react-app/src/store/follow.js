@@ -20,6 +20,7 @@ const fetchAFollowing = async (personToFollowId, profilePersonId, do_follow, dis
     // console.log("personToFollowId", personToFollowId, "\nprofilePersonId", profilePersonId);
     if(personToFollowId === profilePersonId)
       dispatch(loadProfileBasicInfoPOJO(res2.followee))
+    return true;
   }
 };
 
