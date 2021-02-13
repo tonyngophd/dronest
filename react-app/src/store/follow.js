@@ -1,7 +1,7 @@
 // This is not really a reducer, it is just a helper
 
 import { loadProfileBasicInfoPOJO } from './profile';
-import { setUserPOJO } from './session';
+import { setUserPOJO, updateAFollowingPOJO } from './session';
 //(personToFollowId, myId, profile.user.id
 const fetchAFollowing = async (personToFollowId, profilePersonId, do_follow, dispatch) => {
   const res1 = await fetch(`/api/users/follow/${personToFollowId}`, {
@@ -15,7 +15,8 @@ const fetchAFollowing = async (personToFollowId, profilePersonId, do_follow, dis
   // console.log('\n\n\nres2', res2, '\ndispatch', dispatch);
   // dispatch(loadProfileBasicInfoPOJO(user));
   if(!res2.errors){
-    dispatch(setUserPOJO(res2.follower));
+    // dispatch(setUserPOJO(res2.follower));
+    dispatch(updateAFollowingPOJO(res2.followee, do_follow));
     // console.log("personToFollowId", personToFollowId, "\nprofilePersonId", profilePersonId);
     if(personToFollowId === profilePersonId)
       dispatch(loadProfileBasicInfoPOJO(res2.followee))

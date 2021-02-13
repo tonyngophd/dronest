@@ -8,11 +8,17 @@ const ADD_USER_LIKE = "session/ADD_USER_LIKE";
 const REMOVE_USER_LIKE = "session/REMOVE_USER_LIKE";
 const ADD_USER_FAVE = "session/ADD_USER_FAVE";
 const REMOVE_USER_FAVE = "session/REMOVE_USER_FAVE";
+const UPDATE_A_FOLLOWING = 'session/UPDATE_A_FOLLOWING';
 // const RESTORE_USER = 'user/RESTORE_USER';
 
 export const setUserPOJO = (user) => ({
   type: SET_USER,
   user,
+});
+export const updateAFollowingPOJO = (followee, add = true) => ({
+  type: UPDATE_A_FOLLOWING,
+  followee,
+  add,
 });
 export const setUserAddAMessagePOJO = (message) => ({
   type: ADD_A_MESSAGE,
@@ -79,6 +85,14 @@ const reducer = (state = initialState, action) => {
   let newState;
   let post;
   switch (action.type) {
+    case UPDATE_A_FOLLOWING:
+      newState = Object.assign({}, state);
+      if(action.add){
+        newState.user.following.push(action.followee);
+      } else {
+        newState.user.following = newState.user.following.filter(u => u.id !== action.followee.id);
+      }
+      return newState;
     case SET_USER:
       newState = Object.assign({}, state);
       newState.user = action.user;

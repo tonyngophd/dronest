@@ -13,6 +13,7 @@ export const handleFollowClick = (
   dispatch
 ) => {
   e.preventDefault();
+  e.stopPropagation();
   // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
   fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
 };
@@ -34,6 +35,7 @@ function UserRow({
   modal,
   online = false,
   short = false,
+  nameFieldWidth = 'auto',
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -87,7 +89,7 @@ function UserRow({
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}
-          <div className="user-row-info-div" style={{fontSize: fontSize}}>
+          <div className="user-row-info-div" style={{fontSize: fontSize, width: nameFieldWidth}}>
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{short?user.name.slice(0, 16):user.name}</div>
           </div>

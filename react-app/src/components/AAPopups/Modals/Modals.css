@@ -160,7 +160,8 @@
 }
 
 .post-modal-user-row-div{
-  max-width: 250px;
+  max-width: 350px;
+  width: fit-content;
 }
 
 .modal-close {
