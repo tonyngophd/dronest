@@ -289,10 +289,10 @@ export function PostModal({ setShowModal, user, posts }) {
                   <PicModalCaption post={post} />
                 </div>
                 <div>
-                  <div className="post-comments-container">
+                  <div className="postmodal-comments-container">
                     {comments &&
                       comments.map((comment) =>
-                        <div className="modal-comment" key={nanoid()}>
+                        <div className="modal-comment" key={nanoid()} style={{marginBottom: '0px'}}>
                           <img
                             className="commenter-pic"
                             src={comment.commenterPic}

@@ -156,3 +156,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.postmodal-comments-container {
+  padding-left: 15px;
+  padding-bottom: 5px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
