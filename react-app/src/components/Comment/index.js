@@ -13,7 +13,10 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { likeComment, unlikeComment } from "../../store/posts";
 import timeStamp, { Plugins } from '../utils';
 
-function Comment({ insideCN = "", home, comment, inputMessage = undefined, replaceText = undefined }) {
+function Comment({
+  insideCN = "", home, comment, inputMessage = undefined, replaceText = undefined,
+  nameFontSize = '14px'
+}) {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -68,9 +71,9 @@ function Comment({ insideCN = "", home, comment, inputMessage = undefined, repla
       <div className="comment">
         {!message && comment && (
           <Link to={`/${comment.commenter}`}>
-            <div className="comment-user">{comment.commenter}</div>
+            <div className="comment-user" style={{fontSize: nameFontSize}}>{comment.commenter}</div>
             {!home && !message && <div className="comment-timestamp"
-              style={{ fontWeight: 'normal', fontSize: '14px' }}>{timestamp}</div>}
+              style={{ fontWeight: 'normal', fontSize: nameFontSize }}>{timestamp}</div>}
           </Link>
         )}
         {messageIsPlainText ? (
@@ -93,7 +96,7 @@ function Comment({ insideCN = "", home, comment, inputMessage = undefined, repla
           )}
         </div>
       )} */}
-      <div style={{display: 'flex', flexDirection: 'column', width: '20px'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '20px' }}>
         {!message && liked && (
           <BsHeartFill onClick={likeHandler} className="comment-heart filled" />
         )}
@@ -101,7 +104,7 @@ function Comment({ insideCN = "", home, comment, inputMessage = undefined, repla
           <BsHeart onClick={likeHandler} className="comment-heart" />
         )}
         {!home && !message && likes > 0 && (
-          <div className="comment-heart" style={{marginTop: '10px', marginLeft: '-40px', transform: 'translateX(-10px)'}}>
+          <div className="comment-heart" style={{ marginTop: '10px', marginLeft: '-40px', transform: 'translateX(-10px)' }}>
             {likes}
           </div>
         )}

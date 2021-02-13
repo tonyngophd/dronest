@@ -312,12 +312,13 @@ export function PostModal({ setShowModal, user, posts }) {
                   <div className="postmodal-comments-container">
                     {comments &&
                       comments.map((comment) =>
-                        <div className="modal-comment" key={nanoid()} style={{ marginBottom: '0px' }}>
+                        <div className="modal-comment" key={nanoid()} style={{ marginBottom: '0px', marginTop: '0px' }}>
                           <img
                             className="commenter-pic"
                             src={comment.commenterPic}
+                            style={{width: '30px', height: '30px', marginLeft: '0px', marginRight: '5px'}}
                           />
-                          <Comment comment={comment} home={false} />
+                          <Comment comment={comment} home={false} nameFontSize='12px'/>
                         </div>)}
                   </div>
                   <div className="post-new-comment">

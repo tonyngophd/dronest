@@ -22,6 +22,7 @@ function UserRow({
   myId = undefined,
   notFollowedYet = true,
   imageSize = "35px",
+  fontSize = '16px',
   followAsButton = true,
   showFollowButtonOrText = true,
   gotoUserPage = true,
@@ -86,7 +87,7 @@ function UserRow({
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}
-          <div className="user-row-info-div">
+          <div className="user-row-info-div" style={{fontSize: fontSize}}>
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{short?user.name.slice(0, 16):user.name}</div>
           </div>
