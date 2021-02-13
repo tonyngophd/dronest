@@ -9,7 +9,7 @@ import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
 import { NextOrPrevious } from '../Bands';
 
-import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
+import { likePost, unlikePost, savePost, unsavePost, loadSinglePost } from '../../../store/posts';
 
 import {
   BsHeart,
@@ -148,15 +148,13 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
   const history = useHistory();
-  const comments = post.comments;
-
-  // useEffect(() => {
-  //   if(user && !user.)
-  // }, [user]);
+  const comments = useSelector(state => state.posts.singlePost.comments);
 
   useEffect(() => {
-    if (postIndex >= 0 && postIndex < posts.length)
+    if (postIndex >= 0 && postIndex < posts.length) {
       setPost(posts[postIndex]);
+      dispatch(loadSinglePost(posts[postIndex]));
+    }
   }, [postIndex]);
 
   useEffect(() => {
@@ -287,7 +285,9 @@ export function PostModal({ setShowModal, user, posts }) {
                     </div>
                   </div>
                 </div>
-                <PicModalCaption post={post} />
+                <div className='post-modal-like-share-save-div'>
+                  <PicModalCaption post={post} />
+                </div>
                 <div>
                   <div className="post-comments-container">
                     {comments &&
@@ -301,7 +301,7 @@ export function PostModal({ setShowModal, user, posts }) {
                         </div>)}
                   </div>
                   <div className="post-new-comment">
-                    <CommentInput post={post} insideCN='post-modal-commentinput-div' />
+                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true}/>
                   </div>
                 </div>
               </div>

@@ -51,7 +51,7 @@ const loadExploreFeed = (feed) => ({
   payload: feed,
 });
 
-const loadSinglePost = (post) => ({
+export const loadSinglePost = (post) => ({
   type: FETCH_SINGLE_POST,
   payload: post,
 });
@@ -203,7 +203,7 @@ const initialState = {
   homeFeed: {},
   exploreFeed: {},
   hashtagFeed: {},
-  singlePost: {},
+  singlePost: {comments: []},
 };
 
 const reducer = (state = initialState, action) => {
