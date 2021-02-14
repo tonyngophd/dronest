@@ -383,6 +383,9 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     equipment = user.ownPosts[0].equipment.name;
   }
 
+  const handleClick = e => {
+    setShowPostModal(true);
+  }
 
   return (
     <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
@@ -391,7 +394,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           className='single-card-main-img'
           // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
           src={src}
-          onClick={e => setShowPostModal(true)}
+          onClick={handleClick}
           alt='good band picture' />
       </div>
       {category &&

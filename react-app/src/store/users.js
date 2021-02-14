@@ -20,6 +20,19 @@ export const updateAUsersPostPOJO = (post) => ({
   payload: post,
 });
 
+export const fetchAPostView = () => async (dispatch, postId, mediaId) => {
+  try {
+    const res = await fetch(`/api/users/posts/${postId}/addaview/${mediaId}`);
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(addAllUsersPOJO(data.users));
+    }
+  } catch (e) {
+
+  }
+
+}
+
 export const fetchAllUsers = () => async (dispatch) => {
   try {
     const res = await fetch("/api/users");
