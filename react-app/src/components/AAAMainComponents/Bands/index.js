@@ -104,7 +104,6 @@ export function MainBanner() {
 }
 
 export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, location, title = 'Nature', link = '/' }) {
-  const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
   const changeStartNumber = (diff = 4, fixedStart = false) => {
@@ -135,7 +134,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
       <div className='band-container'>
         <NextOrPrevious next={false} onClick={() => changeStartNumber(-4)} />
         {
-          cardArr.map((el, i) =>
+          new Array(numberOfCards).fill(true).map((_, i) =>
             <SingleCard
               key={nanoid()}
               user={objects && objects[i + startNumber]}
