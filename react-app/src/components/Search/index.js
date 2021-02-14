@@ -31,6 +31,13 @@ export default function MainSearchBar({
     dispatch(searchActions.setSearchPOJO({ text: searchValue }));
     setSearchValue("");
   };
+
+  const handleEscapeKey = e => {
+    if(e.key === 'Escape'){
+      setSearchValue("");
+    }
+  }
+
   return (
     <div
       className={
@@ -58,6 +65,7 @@ export default function MainSearchBar({
           autoFocus={
             window.location.pathname.includes("allspots") ? true : false
           }
+          onKeyUp={handleEscapeKey}
         ></input>
         <BsX
           className="search-icon-x"
