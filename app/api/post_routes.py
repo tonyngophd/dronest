@@ -196,7 +196,6 @@ def unlike_comment(commentId):
 
 @post_routes.route("/<int:postId>/addaview/<int:mediaId>")
 def add_a_view(postId, mediaId):
-  print('postId', postId, 'mediaId', mediaId)
   media = Media.query.get(mediaId)
   if media: 
     media.views += 1
@@ -204,6 +203,7 @@ def add_a_view(postId, mediaId):
   post = Post.query.get(postId)
   if post:
     return {'post': post.to_dict()}
+    #return {'post': {'views': post.get_views(), 'images': [image.to_dict() for image in post.images]}}
   else:
     return {"errors": "post not found"}
 
