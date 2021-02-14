@@ -30,10 +30,10 @@ def unum_users():
     # right now, there is no distinction yet because the info is kind of NOT too sensitive
     startNum = request.json["startNum"]
     unum = request.json["unum"]
-    print("\n\n\nstartNum, unum", startNum, unum)
     users = User.query.order_by(User.createdAt.desc()).offset(startNum).limit(unum)
     # return {"users": [user.to_dict() for user in users]}
-    return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
+    # return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
+    return {"users": [user.to_dict_with_posts() for user in users]}
 
 
 @user_routes.route('/<int:id>')
@@ -151,7 +151,6 @@ def follow_user(userId):
 @login_required
 def message_index(receiverId):
     senderId = request.json['senderId']
-    # print("\n\n\n\n\nrequest.json", request.json)
     message = request.json['messageBody']
     dm = DirectMessage(senderId=senderId, receiverId=receiverId,message=message,viewStatus=0)
     db.session.add(dm)

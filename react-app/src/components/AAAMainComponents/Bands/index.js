@@ -185,7 +185,11 @@ export function Bands() {
   useEffect(() => {
     // if (myself && !allUsers.length) dispatch(fetchAllUsers());
     // if (!allUsers.length) dispatch(fetchAllUsers());
-    if (!allUsers.length) dispatch(fetchANumberOfUsers(0, 6));
+    if (!allUsers.length) {
+      dispatch(fetchAllUsers());
+      // dispatch(fetchANumberOfUsers(0, 10));
+      // setTimeout(() => dispatch(fetchAllUsers()), 1000);
+    }
   }, [dispatch]);
 
   useEffect(() => {
