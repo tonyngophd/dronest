@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Suggestions from "../Suggestions";
 import { BareUserList } from "../UserLists";
@@ -15,6 +15,8 @@ export default function MainSearchBar({
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const [focused, setFocused] = useState(false);
+  const [allowedClear, setAllowedClear] = useState(true);
+  const dropdownRef = useRef();
 
   useEffect(() => {
     dispatch(searchActions.setSearchPOJO({ text: searchValue }));
@@ -33,10 +35,20 @@ export default function MainSearchBar({
   };
 
   const handleEscapeKey = e => {
-    if(e.key === 'Escape'){
+    if (e.key === 'Escape') {
       setSearchValue("");
     }
   }
+
+  const handleBlur = (e) => {
+    e.preventDefault();
+    if (allowedClear) {
+      setTimeout(() => {
+        setFocused(false);
+        setSearchValue("");
+      }, 1000);
+    }
+  };
 
   return (
     <div
@@ -52,13 +64,7 @@ export default function MainSearchBar({
           className={focused ? "main-search-bar focused" : "main-search-bar"}
           type="text"
           placeholder="Search..."
-          onBlur={(e) => {
-            e.preventDefault();
-            setTimeout(() => {
-              setFocused(false);
-              setSearchValue("");
-            }, 100);
-          }}
+          onBlur={handleBlur}
           value={searchValue}
           onChange={onInputChange}
           onFocus={() => setFocused(true)}
@@ -75,7 +81,11 @@ export default function MainSearchBar({
           }}
         />
       </form>
-      <div className="search-dropdown">
+      <div className="search-dropdown"
+        onClick={e => {setAllowedClear(false); console.log(e.target)}}
+        onBlur={e => {setAllowedClear(true); console.log(dropdownRef.current)}}
+        ref={dropdownRef}
+      >
         {searchValue && (
           loggedInUser ?
             <Suggestions
@@ -93,9 +103,9 @@ export default function MainSearchBar({
               <p></p>
               <p></p>
               <p></p>
-              <p>Search function when not logged in</p> 
+              <p>Search function when not logged in</p>
               <p>is being implemented</p>
-          </div>)
+            </div>)
         }
       </div>
     </div>
