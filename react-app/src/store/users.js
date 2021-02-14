@@ -1,6 +1,7 @@
 const ADD_ALL_USERS = "users/ADD_ALL_USERS";
 const UPDATE_A_USER = "users/UPDATE_A_USER";
 const UPDATE_A_USER_POST = "users/UPDATE_A_USER_POST";
+const UPDATE_A_USER_POST_VIEW = "users/UPDATE_A_USER_POST_VIEW";
 // const ADD_SUGGESTED_USERS = "users/ADD_SUGGESTED_USERS";
 
 //TODO: work on an algorithm to suggest a small list of people only
@@ -10,15 +11,35 @@ export const addAllUsersPOJO = (allUsers) => ({
   payload: allUsers,
 });
 
-export const updateAUsersPOJO = (user) => ({
+export const updateAUserPOJO = (user) => ({
   type: UPDATE_A_USER,
   payload: user,
+});
+
+export const updateAUsersPostViewPOJO = (post) => ({
+  type: UPDATE_A_USER_POST_VIEW,
+  payload: post,
 });
 
 export const updateAUsersPostPOJO = (post) => ({
   type: UPDATE_A_USER_POST,
   payload: post,
 });
+
+export const fetchAUsersPostView = (postId, mediaId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/posts/${postId}/addaview/${mediaId}`);
+    console.log(`/api/posts/${postId}/addaview/${mediaId}`);
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(updateAUsersPostViewPOJO(data.post));
+      return true;
+    }
+  } catch (e) {
+
+  }
+
+}
 
 export const fetchAllUsers = () => async (dispatch) => {
   try {
@@ -32,12 +53,30 @@ export const fetchAllUsers = () => async (dispatch) => {
   }
 };
 
-export const fetchOneUser = () => async (dispatch, userId) => {
+export const fetchANumberOfUsers = (startNum, unum) => async (dispatch) => {
+  try {
+    const res = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({startNum, unum})
+    });
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(addAllUsersPOJO(data.users));
+    }
+  } catch (e) {
+
+  }
+};
+
+export const fetchOneUser = (userId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/users/${userId}`);
     if (res.ok) {
       const data = await res.json();
-      dispatch(updateAUsersPOJO(data.user));
+      dispatch(updateAUserPOJO(data.user));
     }
   } catch (e) {
 
@@ -73,6 +112,17 @@ const reducer = (state = initialState, action) => {
         const post = user.ownPosts.find(p => p.id === action.payload.id);
         for (let key in action.payload)
           post[key] = action.payload[key]
+      }
+      return newState;
+    case UPDATE_A_USER_POST_VIEW:
+      newState = Object.assign({}, state);
+      user = newState.allUsers.find(u => u.id === action.payload.userId);
+      if (user && user.ownPosts.length) {
+        const post = user.ownPosts.find(p => p.id === action.payload.id);
+        if(post){
+          post.views = action.payload.views;
+          post.images = action.payload.images;
+        }
       }
       return newState;
     default:

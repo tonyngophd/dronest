@@ -7,6 +7,8 @@ from .media import seed_media, undo_media
 from .category import seed_categories, undo_categories
 from .album import seed_albums, undo_albums
 from .equipment import seed_equipment, undo_equipment
+from .likedposts import seed_likedposts, undo_likedposts
+from .savedposts import seed_savedposts, undo_savedposts
 # from .testcode import seed_test
 
 from .userfollowers import seed_followers, undo_followers
@@ -25,12 +27,16 @@ def seed():
     seed_posts()
     seed_media()
     seed_followers()
+    seed_likedposts()
+    seed_savedposts()
     # Add other seed functions here
     # pass
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_savedposts()
+    undo_likedposts()
     undo_locations()
     undo_posts()
     undo_followers()

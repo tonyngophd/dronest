@@ -14,6 +14,9 @@
 .post-new-comment {
   border-radius: 5px;
 }
+.with-border{
+  border: 1px solid gray;
+}
 
 .comment-submit {
   background-color: white;

@@ -24,7 +24,7 @@ def seed_media():
   # db.session.add(demo5)
 
   for i in range(len(mediadata)):
-    media = Media(postId=i+1, mediaUrl=mediadata[i]["url"], views = randint(0, 1000))
+    media = Media(postId=i+1, mediaUrl=mediadata[i]["url"], views = randint(0, 100))
     db.session.add(media)
 
   db.session.commit()

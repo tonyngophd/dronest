@@ -77,6 +77,7 @@ const CommentInput = ({
   receiverId,
   receiverName,
   sendChat = null,
+  hasBorder = false,
 }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
@@ -237,6 +238,7 @@ const CommentInput = ({
         }
         onBlur={() => setFocused(false)}
         onFocus={setfocus}
+        style={{border: hasBorder?'1px solid gray':'none', borderRadius: '5px'}}
       >
         <Editor
           allowUndo={true}

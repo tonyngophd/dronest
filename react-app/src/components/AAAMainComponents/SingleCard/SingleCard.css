@@ -118,15 +118,50 @@
   cursor: pointer;
 }
 .share-buttons-div{
-  position: fixed;
-  top: 100px;
+  position: absolute;
+  top: 30px;
   right: 0px;
-  border: 1px solid gray;
+  /* border: 1px solid gray;
   border-radius: 5px;
   min-width: 200px;
-  min-height: 100px;
+  min-height: 100px; */
   background-color: rgba(255, 255, 255, 0.856);
+  z-index: 200;
+}
+.post-modal-img-div{
+  max-height: 900px;
+  min-width: 800px;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -ms-overflow-style: none; 
+   /* IE and Edge */
+  scrollbar-width: none;  
+  /* Firefox */  
+  /* object-fit: contain; */
+  margin-right: 5px;
+}
+.post-modal-img-div::-webkit-scrollbar {
+  display: none;
 }
 .post-modal-img{
-  max-height: 700px;
+  max-height: 750px; 
+  object-fit: contain;
+  border-radius: 5px;
 }
+.post-modal-commentinput-div{
+  width: 340px;
+}
+.post-modal-user-like-save-share{
+  display: flex;
+  flex-direction: column;
+}
+
+.postmodal-comments-container {
+  padding-left: 15px;
+  padding-bottom: 5px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+

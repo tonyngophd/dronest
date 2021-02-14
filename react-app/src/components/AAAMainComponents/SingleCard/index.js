@@ -9,7 +9,10 @@ import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
 import { NextOrPrevious } from '../Bands';
 
-import { likePost, unlikePost, savePost, unsavePost } from '../../../store/posts';
+import { 
+  likePost, unlikePost, savePost, unsavePost, loadSinglePost,
+} from '../../../store/posts';
+import { fetchAUsersPostView } from '../../../store/users';
 
 import {
   BsHeart,
@@ -27,6 +30,7 @@ import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
 import { Plugins } from '../../utils';
+import { notFollowedYet } from "../../ProfilePage";
 
 import {
   EmailShareButton,
@@ -52,6 +56,9 @@ import {
 import UserRow from '../../ProfilePage/UserRow';
 import CommentInput from "../../CommentInput";
 import Comment from "../../Comment";
+import PicModalCaption from "../../PicModalCaption";
+import { MapWithMarkerClusterer } from '../../GoogleMaps';
+
 
 import './SingleCard.css';
 
@@ -105,30 +112,31 @@ function ShareButtonsWindow({ setShowModal }) {
   ]
 
   return (
-    // <div className='share-buttons-div'>
-    <Modal setShowModal={setShowModal}
-      shieldBackground={false} title="Share this post"
-      dronestLogo={false}
-      width={'200px'}
-    >
-      <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
-        {
-          ListOfButtons.map((El, i) =>
-            <div key={nanoid()} style={{ margin: 'auto 2px' }}>
-              <El
-                url={'www.dronest.com'}
-                quote={"Share on your social media"}
-              >
-                {
-                  ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()} /> : false)
-                }
-              </El>
-            </div>
-          )
-        }
-      </div>
-    </Modal>
-    // </div>
+    <div className='share-buttons-div'>
+      <Modal setShowModal={setShowModal}
+        shieldBackground={false} title="Share this post"
+        dronestLogo={false}
+        width={'200px'}
+        needsEscapeInput={true}
+      >
+        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly'}}>
+          {
+            ListOfButtons.map((El, i) =>
+              <div key={nanoid()} style={{ margin: 'auto 2px' }}>
+                <El
+                  url={'www.dronest.com'}
+                  quote={"Share on your social media"}
+                >
+                  {
+                    ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()} /> : false)
+                  }
+                </El>
+              </div>
+            )
+          }
+        </div>
+      </Modal>
+    </div>
   );
 }
 
@@ -137,6 +145,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const dispatch = useDispatch();
   const [postIndex, setPostIndex] = useState(0)
   const [post, setPost] = useState(posts[postIndex]);
+  const [mediaIndex, setMediaIndex] = useState(0);
   const [iLikedThisPost, updateILikedThisPost] =
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
   const [iFavedThisPost, updateIFavedThisPost] =
@@ -145,15 +154,22 @@ export function PostModal({ setShowModal, user, posts }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
   const history = useHistory();
-  const comments = post.comments;
-
-  // useEffect(() => {
-  //   if(user && !user.)
-  // }, [user]);
+  const comments = useSelector(state => state.posts.singlePost.comments);
+  const [spot, setSpot] = useState(undefined);
 
   useEffect(() => {
-    if (postIndex >= 0 && postIndex < posts.length)
+    if (postIndex >= 0 && postIndex < posts.length) {
       setPost(posts[postIndex]);
+      dispatch(loadSinglePost(posts[postIndex]));
+      dispatch(fetchAUsersPostView(posts[postIndex].id, posts[postIndex].images[mediaIndex].id));
+      setSpot({
+        city: post.location.city,
+        stateProvince: post.location.state,
+        zipCode: post.location.zipCode,
+        country: post.location.country,
+        gpsLocation: [post.location.latitude, post.location.longitude]
+      })
+    }
   }, [postIndex]);
 
   useEffect(() => {
@@ -179,6 +195,16 @@ export function PostModal({ setShowModal, user, posts }) {
       updateIFavedThisPost(myself.savedPosts.find(p => p.id === post.id) ? true : false);
   }
 
+
+  // const tryfetchLatLong = async () => {
+  //   const res = await fetch('http://api.positionstack.com/v1/forward?access_key=a085731167a663896cade0e428d324ec&query=1600 Pennsylvania Ave NW, Washington DC\
+  //   &limit=1\
+  //   &output=json');
+  //   const res2 = await res.json();
+  //   console.log('map', res2);
+  // }
+
+
   const handleShareClick = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -186,6 +212,7 @@ export function PostModal({ setShowModal, user, posts }) {
       return updateConfirmLogin(true);
     }
     setShowShareButtons(!showShareButtons);
+    // tryfetchLatLong();
   }
 
   const onNextClick = e => {
@@ -236,63 +263,81 @@ export function PostModal({ setShowModal, user, posts }) {
             <NextOrPrevious next={false} onClick={onPrevClick} />
           </div>}
           <div style={{ width: '100%' }}>
-            <div className="custom-modal-top-div">
-              <div className='post-modal-user-row-div'>
-                <UserRow showFollowButtonOrText={true} user={user} />
-              </div>
-              <div className='post-modal-like-share-save-div'>
-                <div className='post-modal-like-div' onClick={handleLikeClick}>
-                  {iLikedThisPost ?
-                    <BsHeartFill /> :
-                    <BsHeart />
-                  }
-                  <div className='share-button-div'>
-                    {post.likes}
-                  </div>
-                </div>
-                <div className='post-modal-like-div' onClick={handleFaveClick}>
-                  {iFavedThisPost ?
-                    <BsStarFill /> :
-                    <BsStar />
-                  }
-                  <div className='share-button-div'> Save</div>
-                </div>
-                <div className='post-modal-like-div' onClick={handleShareClick}>
-                  {
-                    showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
-                  }
-                  <RiShareForwardLine />
-                  <div className='share-button-div'> Share</div>
-                </div>
+            {/* <div className="custom-modal-top-div">
 
-              </div>
-            </div>
+            </div> */}
             <div className="single-card-modal-images-div">
-              <img src={post.images[0].mediaUrl} alt="individual picture" className='post-modal-img' />
+              <div className='post-modal-img-div'>
+                <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
+                  className='post-modal-img'
+                // onLoad={e=>console.log(e.target.width)}  
+                />
+              </div>
               <div>
-                <div>
-                  <div className="post-caption">
-                    <Editor
-                      editorState={editorState}
-                      readOnly={true}
-                      plugins={plugins}
-                      onChange={(editorState) => setEditorState(editorState)}
+                <div className='post-modal-user-like-save-share'>
+                  <div className='post-modal-user-row-div'>
+                    <UserRow
+                      user={user}
+                      // searchable={searchable}
+                      myId={myself ? myself.id : 0}
+                      notFollowedYet={myself ? notFollowedYet(user.id, myself) : true}
+                      key={nanoid()}
+                      followAsButton={true}
                     />
                   </div>
+                  <div className='post-modal-like-share-save-div'>
+                    <div className='post-modal-like-div' onClick={handleLikeClick}>
+                      {iLikedThisPost ?
+                        <BsHeartFill /> :
+                        <BsHeart />
+                      }
+                      <div className='share-button-div'>
+                        {post.likes}
+                      </div>
+                    </div>
+                    <div className='post-modal-like-div' onClick={handleFaveClick}>
+                      {iFavedThisPost ?
+                        <BsStarFill /> :
+                        <BsStar />
+                      }
+                      <div className='share-button-div'> Save</div>
+                    </div>
+                    <div className='post-modal-like-div' onClick={handleShareClick}>
+                      {
+                        showShareButtons && <ShareButtonsWindow setShowModal={setShowShareButtons} />
+                      }
+                      <RiShareForwardLine />
+                      <div className='share-button-div'> Share</div>
+                    </div>
+                  </div>
+                </div>
+                <div className='post-modal-like-share-save-div'>
+                  <PicModalCaption post={post} />
                 </div>
                 <div>
-                  <div className="post-comments-container">
+                  <div className="postmodal-comments-container">
                     {comments &&
-                      comments.map((comment) => {
-                        return <Comment home={true} comment={comment} key={nanoid()} />;
-                      })}
+                      comments.map((comment) =>
+                        <div className="modal-comment" key={nanoid()} style={{ marginBottom: '0px', marginTop: '0px' }}>
+                          <img
+                            className="commenter-pic"
+                            src={comment.commenterPic}
+                            style={{ width: '30px', height: '30px', marginLeft: '0px', marginRight: '5px' }}
+                          />
+                          <Comment comment={comment} home={false} nameFontSize='12px' />
+                        </div>)}
                   </div>
-                  <Link to={`/p/${post.id}`}>
-                    <div className="post-timestamp">{timestamp}</div>
-                  </Link>
                   <div className="post-new-comment">
-                    <CommentInput post={post} />
+                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true} />
                   </div>
+                </div>
+                <div className='home-side-map'>
+                  {
+                    spot && <MapWithMarkerClusterer
+                      center={{ lat: spot.gpsLocation[0], lng: spot.gpsLocation[1] }}
+                      zoom={5}
+                      spots={[spot]} />
+                  }
                 </div>
               </div>
             </div>
@@ -328,7 +373,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let loc = "Great city"
   let timestamp;
   let views = 0;
-  let likes = 20;
+  let likes = 0;
   let album = 'Generic';
   let equipment = 'Unknown';
   const [showPostModal, setShowPostModal] = useState(false);
@@ -342,8 +387,13 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     likes += user.ownPosts[0].likes;
     album = user.ownPosts[0].album.name;
     equipment = user.ownPosts[0].equipment.name;
+  } else {
+    return <></>;
   }
 
+  const handleClick = e => {
+    setShowPostModal(true);
+  }
 
   return (
     <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
@@ -352,7 +402,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           className='single-card-main-img'
           // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
           src={src}
-          onClick={e => setShowPostModal(true)}
+          onClick={handleClick}
           alt='good band picture' />
       </div>
       {category &&

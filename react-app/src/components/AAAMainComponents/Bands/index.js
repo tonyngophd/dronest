@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 
-import { fetchAllUsers } from "../../../store/users";
+import { fetchAllUsers, fetchANumberOfUsers } from "../../../store/users";
 import SingleCard from '../SingleCard';
 import { ThreeJSBanner } from '../ThreeJS';
 import LoginForm from '../../auth/LoginForm';
@@ -104,7 +104,6 @@ export function MainBanner() {
 }
 
 export default function Band({ objects, numberOfCards = 4, moreInfo = true, categories, location, title = 'Nature', link = '/' }) {
-  const cardArr = new Array(numberOfCards).fill(true);
   const [startNumber, setStartNumber] = useState(0);
 
   const changeStartNumber = (diff = 4, fixedStart = false) => {
@@ -135,7 +134,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
       <div className='band-container'>
         <NextOrPrevious next={false} onClick={() => changeStartNumber(-4)} />
         {
-          cardArr.map((el, i) =>
+          new Array(numberOfCards).fill(true).map((_, i) =>
             <SingleCard
               key={nanoid()}
               user={objects && objects[i + startNumber]}
@@ -157,7 +156,7 @@ export function Bands() {
   const dispatch = useDispatch();
   const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
   const [categorizedUserPosts, updateCategorizedUserPosts] = useState([]);
-  const [categorizedUsers, updateCategorizedUsers] = useState([[]]);
+  const [categorizedUsers, updateCategorizedUsers] = useState([]);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const location = useLocation();
 
@@ -185,7 +184,12 @@ export function Bands() {
 
   useEffect(() => {
     // if (myself && !allUsers.length) dispatch(fetchAllUsers());
-    if (!allUsers.length) dispatch(fetchAllUsers());
+    // if (!allUsers.length) dispatch(fetchAllUsers());
+    if (!allUsers.length) {
+      dispatch(fetchAllUsers());
+      // dispatch(fetchANumberOfUsers(0, 10));
+      // setTimeout(() => dispatch(fetchAllUsers()), 1000);
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -246,26 +250,32 @@ export function Bands() {
           }
         }
       }
-      if (users.length) catdUsers.push(users);
+      if (users.length) {
+        catdUsers.push(users);
+        updateCategorizedUsers(catdUsers);
+      }
     }
-    updateCategorizedUsers(catdUsers);
   }, [allUsers])
 
 
   return (
     <div className="homepage-bands-container">
       {
-        showLoginForm && <LoginForm setShowModal={setShowLoginForm}/>
+        showLoginForm && <LoginForm setShowModal={setShowLoginForm} />
       }
 
       <ThreeJSBanner />
       {/* <MainBanner /> */}
-      <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
       {
-        new Array(maxNumberOfBands).fill(1).map((el, i) =>
+        locatedUserPosts.length > 0 && <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
+      }
+      {
+        categorizedUsers.length > 0 && new Array(maxNumberOfBands).fill(1).map((el, i) =>
           <Band objects={categorizedUsers[i]} title={titles[i]} key={nanoid()} />)
       }
-      <Band objects={categorizedUserPosts} numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
+      {
+        categorizedUserPosts.length > 0 && <Band objects={categorizedUserPosts} numberOfCards={6} title='Trendy Tags' moreInfo={false} categories={tags} />
+      }
     </div>
   )
 }

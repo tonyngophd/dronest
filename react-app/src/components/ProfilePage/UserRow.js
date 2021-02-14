@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import fetchAFollowing from "../../store/follow";
 import { useDispatch, useSelector } from "react-redux";
 
 import MiniProfile from "../MiniProfile";
 
-export const handleFollowClick = (
+export const handleFollowClick = async (
   e,
   personToFollowId,
   profilePersonId,
   do_follow = true,
-  dispatch
+  dispatch,
+  setNotFollowed = (() => { })
 ) => {
   e.preventDefault();
+  e.stopPropagation();
   // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
-  fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
+  const res = await fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
+  if (res)
+    setNotFollowed(!do_follow);
 };
 
 function UserRow({
@@ -22,6 +26,7 @@ function UserRow({
   myId = undefined,
   notFollowedYet = true,
   imageSize = "35px",
+  fontSize = '16px',
   followAsButton = true,
   showFollowButtonOrText = true,
   gotoUserPage = true,
@@ -33,12 +38,15 @@ function UserRow({
   modal,
   online = false,
   short = false,
+  nameFieldWidth = 'auto',
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const profilePerson = useSelector((state) => state.profile.user);
   const [showMiniProfile, setShowMiniProfile] = useState(false);
   const [hover, setHover] = useState(false);
+  const [notFollowed, setNotFollowed] = useState(notFollowedYet);
+
   const handleClick = (e) => {
     e.preventDefault();
     if (onClose) {
@@ -64,8 +72,8 @@ function UserRow({
                 ? "user-row-left-div myself-header modal-me"
                 : "user-row-left-div"
               : user.id === myId
-              ? "user-row-left-div myself-header"
-              : "user-row-left-div"
+                ? "user-row-left-div myself-header"
+                : "user-row-left-div"
           }
         >
           <img
@@ -86,13 +94,13 @@ function UserRow({
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}
-          <div className="user-row-info-div">
+          <div className="user-row-info-div" style={{ fontSize: fontSize, width: nameFieldWidth }}>
             <div className="user-row-username">{user.username}</div>
-            <div className="user-row-display-name">{short?user.name.slice(0, 16):user.name}</div>
+            <div className="user-row-display-name">{short ? user.name.slice(0, 16) : user.name}</div>
           </div>
         </div>
         {showFollowButtonOrText &&
-          (notFollowedYet ? (
+          (notFollowed ? (
             <button
               className={
                 followAsButton
@@ -100,13 +108,16 @@ function UserRow({
                   : "user-row-minimal-button-to-follow"
               }
               onClick={(e) =>
-                handleFollowClick(
-                  e,
-                  user.id,
-                  profilePerson && profilePerson.id,
-                  true,
-                  dispatch
-                )
+                myId ?
+                  handleFollowClick(
+                    e,
+                    user.id,
+                    profilePerson && profilePerson.id,
+                    true,
+                    dispatch,
+                    setNotFollowed
+                  ) :
+                  history.push('/login')
               }
             >
               Follow
@@ -124,17 +135,18 @@ function UserRow({
                   user.id,
                   profilePerson && profilePerson.id,
                   false,
-                  dispatch
+                  dispatch,
+                  setNotFollowed
                 )
               }
             >
               Following
             </button>
           ) : (
-            !suggestionBox && (
-              <span className=" user-row-button myself">Me</span>
-            )
-          ))}
+                !suggestionBox && (
+                  <span className=" user-row-button myself">Me</span>
+                )
+              ))}
       </div>
     )
   );

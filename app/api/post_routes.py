@@ -2,7 +2,10 @@ from flask import Blueprint, jsonify, redirect, request
 from sqlalchemy import and_
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from app.models import db, Post, Media, TaggedUser, Hashtag, HashtagPost, User, LikedPost, CommentLike, SavedPost
+from app.models import (
+  db, Post, Media, TaggedUser, Hashtag, 
+  HashtagPost, User, LikedPost, CommentLike, SavedPost,
+)
 from ..helpers import *
 from ..config import Config
 import json
@@ -135,6 +138,7 @@ def delete_single_post(postId):
 
 @post_routes.route("/<int:postId>/like")
 def like_post(postId):
+  print('141 postId', postId)
   postLike = LikedPost(
     postId=postId,
     userId=current_user.id
@@ -189,4 +193,17 @@ def unlike_comment(commentId):
   db.session.delete(commentLike)
   db.session.commit()
   return {'message': "Success"}
+
+@post_routes.route("/<int:postId>/addaview/<int:mediaId>")
+def add_a_view(postId, mediaId):
+  media = Media.query.get(mediaId)
+  if media: 
+    media.views += 1
+    db.session.commit()
+  post = Post.query.get(postId)
+  if post:
+    return {'post': post.to_dict()}
+    #return {'post': {'views': post.get_views(), 'images': [image.to_dict() for image in post.images]}}
+  else:
+    return {"errors": "post not found"}
 
