@@ -53,6 +53,24 @@ export const fetchAllUsers = () => async (dispatch) => {
   }
 };
 
+export const fetchANumberOfUsers = (startNum, unum) => async (dispatch) => {
+  try {
+    const res = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({startNum, unum})
+    });
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(addAllUsersPOJO(data.users));
+    }
+  } catch (e) {
+
+  }
+};
+
 export const fetchOneUser = (userId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/users/${userId}`);

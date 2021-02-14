@@ -20,6 +20,21 @@ def users():
     # return {"users": [user.to_dict() for user in users]}
     return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
 
+@user_routes.route('', methods = ["POST"])
+# @login_required
+def unum_users():
+    # TODO: need to check if there is current_user (logged in) or 
+    # just a generic unauthorized user to return different kind of information
+    # 1) withOUT a current_user (unauthorized): return generic public info
+    # 2) with current_user (authorized): can return more sensitive info.
+    # right now, there is no distinction yet because the info is kind of NOT too sensitive
+    startNum = request.json["startNum"]
+    unum = request.json["unum"]
+    print("\n\n\nstartNum, unum", startNum, unum)
+    users = User.query.order_by(User.createdAt.desc()).offset(startNum).limit(unum)
+    # return {"users": [user.to_dict() for user in users]}
+    return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
+
 
 @user_routes.route('/<int:id>')
 @login_required

@@ -387,6 +387,8 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     likes += user.ownPosts[0].likes;
     album = user.ownPosts[0].album.name;
     equipment = user.ownPosts[0].equipment.name;
+  } else {
+    return <></>;
   }
 
   const handleClick = e => {
