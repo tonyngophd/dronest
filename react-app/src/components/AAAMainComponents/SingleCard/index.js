@@ -9,7 +9,10 @@ import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
 import { NextOrPrevious } from '../Bands';
 
-import { likePost, unlikePost, savePost, unsavePost, loadSinglePost } from '../../../store/posts';
+import { 
+  likePost, unlikePost, savePost, unsavePost, loadSinglePost,
+} from '../../../store/posts';
+import { fetchAUsersPostView } from '../../../store/users';
 
 import {
   BsHeart,
@@ -142,6 +145,7 @@ export function PostModal({ setShowModal, user, posts }) {
   const dispatch = useDispatch();
   const [postIndex, setPostIndex] = useState(0)
   const [post, setPost] = useState(posts[postIndex]);
+  const [mediaIndex, setMediaIndex] = useState(0);
   const [iLikedThisPost, updateILikedThisPost] =
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
   const [iFavedThisPost, updateIFavedThisPost] =
@@ -157,6 +161,7 @@ export function PostModal({ setShowModal, user, posts }) {
     if (postIndex >= 0 && postIndex < posts.length) {
       setPost(posts[postIndex]);
       dispatch(loadSinglePost(posts[postIndex]));
+      dispatch(fetchAUsersPostView(posts[postIndex].id, posts[postIndex].images[mediaIndex].id));
       setSpot({
         city: post.location.city,
         stateProvince: post.location.state,
@@ -263,7 +268,7 @@ export function PostModal({ setShowModal, user, posts }) {
             </div> */}
             <div className="single-card-modal-images-div">
               <div className='post-modal-img-div'>
-                <img src={post.images[0].mediaUrl} alt="individual picture"
+                <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
                   className='post-modal-img'
                 // onLoad={e=>console.log(e.target.width)}  
                 />

@@ -16,9 +16,9 @@ export const updateAUserPOJO = (user) => ({
   payload: user,
 });
 
-export const updateAUsersPostViewPOJO = (user) => ({
+export const updateAUsersPostViewPOJO = (post) => ({
   type: UPDATE_A_USER_POST_VIEW,
-  payload: user,
+  payload: post,
 });
 
 export const updateAUsersPostPOJO = (post) => ({
@@ -26,12 +26,14 @@ export const updateAUsersPostPOJO = (post) => ({
   payload: post,
 });
 
-export const fetchAPostView = () => async (dispatch, postId, mediaId) => {
+export const fetchAUsersPostView = (postId, mediaId) => async (dispatch) => {
   try {
-    const res = await fetch(`/api/users/posts/${postId}/addaview/${mediaId}`);
+    const res = await fetch(`/api/posts/${postId}/addaview/${mediaId}`);
+    console.log(`/api/posts/${postId}/addaview/${mediaId}`);
     if (res.ok) {
       const data = await res.json();
-      dispatch(updateAUserPOJO(data.user));
+      dispatch(updateAUsersPostViewPOJO(data.post));
+      return true;
     }
   } catch (e) {
 
@@ -51,7 +53,7 @@ export const fetchAllUsers = () => async (dispatch) => {
   }
 };
 
-export const fetchOneUser = () => async (dispatch, userId) => {
+export const fetchOneUser = (userId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/users/${userId}`);
     if (res.ok) {
@@ -92,6 +94,17 @@ const reducer = (state = initialState, action) => {
         const post = user.ownPosts.find(p => p.id === action.payload.id);
         for (let key in action.payload)
           post[key] = action.payload[key]
+      }
+      return newState;
+    case UPDATE_A_USER_POST_VIEW:
+      newState = Object.assign({}, state);
+      user = newState.allUsers.find(u => u.id === action.payload.userId);
+      if (user && user.ownPosts.length) {
+        const post = user.ownPosts.find(p => p.id === action.payload.id);
+        if(post){
+          post.views = action.payload.views;
+          post.images = action.payload.images;
+        }
       }
       return newState;
     default:
