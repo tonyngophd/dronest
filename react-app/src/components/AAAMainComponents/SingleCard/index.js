@@ -373,7 +373,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   let loc = "Great city"
   let timestamp;
   let views = 0;
-  let likes = 20;
+  let likes = 0;
   let album = 'Generic';
   let equipment = 'Unknown';
   const [showPostModal, setShowPostModal] = useState(false);
