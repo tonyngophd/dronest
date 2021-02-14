@@ -194,14 +194,16 @@ def unlike_comment(commentId):
   db.session.commit()
   return {'message': "Success"}
 
-  @post_routes.route("/<int:postId>/addaview/<int:mediaId>")
-  def add_a_view(postId, mediaId):
-    print('postId', postId, 'mediaId', mediaId)
-    media = Media.query.get(mediaId)
-    if media: media.views += 1
-    post = Post.query.get(postId)
-    if post:
-      return {'post': post}
-    else:
-      return {"errors": "post not found"}
+@post_routes.route("/<int:postId>/addaview/<int:mediaId>")
+def add_a_view(postId, mediaId):
+  print('postId', postId, 'mediaId', mediaId)
+  media = Media.query.get(mediaId)
+  if media: 
+    media.views += 1
+    db.session.commit()
+  post = Post.query.get(postId)
+  if post:
+    return {'post': post.to_dict()}
+  else:
+    return {"errors": "post not found"}
 
