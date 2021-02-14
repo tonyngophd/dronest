@@ -118,14 +118,15 @@
   cursor: pointer;
 }
 .share-buttons-div{
-  position: fixed;
-  top: 100px;
+  position: absolute;
+  top: 30px;
   right: 0px;
-  border: 1px solid gray;
+  /* border: 1px solid gray;
   border-radius: 5px;
   min-width: 200px;
-  min-height: 100px;
+  min-height: 100px; */
   background-color: rgba(255, 255, 255, 0.856);
+  z-index: 200;
 }
 .post-modal-img-div{
   max-height: 900px;

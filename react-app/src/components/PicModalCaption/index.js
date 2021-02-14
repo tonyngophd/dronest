@@ -21,7 +21,7 @@ function PicModalCaption({ post }) {
   );
 
   return (
-    <div className="pic-modal-caption">
+    <div className="pic-modal-caption-wrapper">
       <Editor
         editorState={editorState}
         readOnly={true}

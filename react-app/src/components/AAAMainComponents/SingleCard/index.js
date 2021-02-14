@@ -109,30 +109,31 @@ function ShareButtonsWindow({ setShowModal }) {
   ]
 
   return (
-    // <div className='share-buttons-div'>
-    <Modal setShowModal={setShowModal}
-      shieldBackground={false} title="Share this post"
-      dronestLogo={false}
-      width={'200px'}
-    >
-      <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
-        {
-          ListOfButtons.map((El, i) =>
-            <div key={nanoid()} style={{ margin: 'auto 2px' }}>
-              <El
-                url={'www.dronest.com'}
-                quote={"Share on your social media"}
-              >
-                {
-                  ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()} /> : false)
-                }
-              </El>
-            </div>
-          )
-        }
-      </div>
-    </Modal>
-    // </div>
+    <div className='share-buttons-div'>
+      <Modal setShowModal={setShowModal}
+        shieldBackground={false} title="Share this post"
+        dronestLogo={false}
+        width={'200px'}
+        needsEscapeInput={true}
+      >
+        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly'}}>
+          {
+            ListOfButtons.map((El, i) =>
+              <div key={nanoid()} style={{ margin: 'auto 2px' }}>
+                <El
+                  url={'www.dronest.com'}
+                  quote={"Share on your social media"}
+                >
+                  {
+                    ListOfIcons.map((Icon, j) => j === i ? <Icon size={32} round key={nanoid()} /> : false)
+                  }
+                </El>
+              </div>
+            )
+          }
+        </div>
+      </Modal>
+    </div>
   );
 }
 
@@ -273,8 +274,8 @@ export function PostModal({ setShowModal, user, posts }) {
                     <UserRow
                       user={user}
                       // searchable={searchable}
-                      myId={myself?myself.id:0}
-                      notFollowedYet={myself?notFollowedYet(user.id, myself):true}
+                      myId={myself ? myself.id : 0}
+                      notFollowedYet={myself ? notFollowedYet(user.id, myself) : true}
                       key={nanoid()}
                       followAsButton={true}
                     />
@@ -316,9 +317,9 @@ export function PostModal({ setShowModal, user, posts }) {
                           <img
                             className="commenter-pic"
                             src={comment.commenterPic}
-                            style={{width: '30px', height: '30px', marginLeft: '0px', marginRight: '5px'}}
+                            style={{ width: '30px', height: '30px', marginLeft: '0px', marginRight: '5px' }}
                           />
-                          <Comment comment={comment} home={false} nameFontSize='12px'/>
+                          <Comment comment={comment} home={false} nameFontSize='12px' />
                         </div>)}
                   </div>
                   <div className="post-new-comment">
