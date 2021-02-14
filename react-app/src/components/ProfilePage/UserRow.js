@@ -11,13 +11,13 @@ export const handleFollowClick = async (
   profilePersonId,
   do_follow = true,
   dispatch,
-  setNotFollowed = (() => {})
+  setNotFollowed = (() => { })
 ) => {
   e.preventDefault();
   e.stopPropagation();
   // console.log(`\n\nme of id ${myId} will follow user with id ${personToFollowId}`);
   const res = await fetchAFollowing(personToFollowId, profilePersonId, do_follow, dispatch);
-  if(res)
+  if (res)
     setNotFollowed(!do_follow);
 };
 
@@ -72,8 +72,8 @@ function UserRow({
                 ? "user-row-left-div myself-header modal-me"
                 : "user-row-left-div"
               : user.id === myId
-              ? "user-row-left-div myself-header"
-              : "user-row-left-div"
+                ? "user-row-left-div myself-header"
+                : "user-row-left-div"
           }
         >
           <img
@@ -94,9 +94,9 @@ function UserRow({
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}
-          <div className="user-row-info-div" style={{fontSize: fontSize, width: nameFieldWidth}}>
+          <div className="user-row-info-div" style={{ fontSize: fontSize, width: nameFieldWidth }}>
             <div className="user-row-username">{user.username}</div>
-            <div className="user-row-display-name">{short?user.name.slice(0, 16):user.name}</div>
+            <div className="user-row-display-name">{short ? user.name.slice(0, 16) : user.name}</div>
           </div>
         </div>
         {showFollowButtonOrText &&
@@ -108,14 +108,16 @@ function UserRow({
                   : "user-row-minimal-button-to-follow"
               }
               onClick={(e) =>
-                handleFollowClick(
-                  e,
-                  user.id,
-                  profilePerson && profilePerson.id,
-                  true,
-                  dispatch,
-                  setNotFollowed
-                )
+                myId ?
+                  handleFollowClick(
+                    e,
+                    user.id,
+                    profilePerson && profilePerson.id,
+                    true,
+                    dispatch,
+                    setNotFollowed
+                  ) :
+                  history.push('/login')
               }
             >
               Follow
@@ -141,10 +143,10 @@ function UserRow({
               Following
             </button>
           ) : (
-            !suggestionBox && (
-              <span className=" user-row-button myself">Me</span>
-            )
-          ))}
+                !suggestionBox && (
+                  <span className=" user-row-button myself">Me</span>
+                )
+              ))}
       </div>
     )
   );

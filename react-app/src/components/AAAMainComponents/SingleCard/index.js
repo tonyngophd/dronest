@@ -273,8 +273,8 @@ export function PostModal({ setShowModal, user, posts }) {
                     <UserRow
                       user={user}
                       // searchable={searchable}
-                      myId={myself.id}
-                      notFollowedYet={notFollowedYet(user.id, myself)}
+                      myId={myself?myself.id:0}
+                      notFollowedYet={myself?notFollowedYet(user.id, myself):true}
                       key={nanoid()}
                       followAsButton={true}
                     />

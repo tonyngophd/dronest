@@ -1,6 +1,7 @@
 const ADD_ALL_USERS = "users/ADD_ALL_USERS";
 const UPDATE_A_USER = "users/UPDATE_A_USER";
 const UPDATE_A_USER_POST = "users/UPDATE_A_USER_POST";
+const UPDATE_A_USER_POST_VIEW = "users/UPDATE_A_USER_POST_VIEW";
 // const ADD_SUGGESTED_USERS = "users/ADD_SUGGESTED_USERS";
 
 //TODO: work on an algorithm to suggest a small list of people only
@@ -10,8 +11,13 @@ export const addAllUsersPOJO = (allUsers) => ({
   payload: allUsers,
 });
 
-export const updateAUsersPOJO = (user) => ({
+export const updateAUserPOJO = (user) => ({
   type: UPDATE_A_USER,
+  payload: user,
+});
+
+export const updateAUsersPostViewPOJO = (user) => ({
+  type: UPDATE_A_USER_POST_VIEW,
   payload: user,
 });
 
@@ -25,7 +31,7 @@ export const fetchAPostView = () => async (dispatch, postId, mediaId) => {
     const res = await fetch(`/api/users/posts/${postId}/addaview/${mediaId}`);
     if (res.ok) {
       const data = await res.json();
-      dispatch(addAllUsersPOJO(data.users));
+      dispatch(updateAUserPOJO(data.user));
     }
   } catch (e) {
 
@@ -50,7 +56,7 @@ export const fetchOneUser = () => async (dispatch, userId) => {
     const res = await fetch(`/api/users/${userId}`);
     if (res.ok) {
       const data = await res.json();
-      dispatch(updateAUsersPOJO(data.user));
+      dispatch(updateAUserPOJO(data.user));
     }
   } catch (e) {
 

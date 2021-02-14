@@ -9,7 +9,7 @@ from random import randint
 # Adds a demo location, you can add other locations here if you want
 # Address data cloned from this gibub: https://github.com/EthanRBrown/rrad
 def seed_locations():
-  with open('/home/tony/appacademy/capstone/dronest/app/seeds/addresses-us-all.json') as json_file:
+  with open('./app/seeds/addresses-us-all.json') as json_file:
     data = json.load(json_file)
     l = set()
     while len(l) < 200:
