@@ -1,5 +1,6 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
+import { isMobile } from '../../utils';
 
 import './Modals.css';
 
@@ -43,7 +44,7 @@ const Modal = ({ setShowModal, children, title, action,
             </div>
           </>}
         {children}
-        {needsEscapeInput &&
+        {!isMobile() && needsEscapeInput &&
           <input
             autoFocus={true}
             type='text'
