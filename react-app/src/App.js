@@ -7,7 +7,6 @@ import NavBar from "./components/NavBar/index";
 import Feed, { AllPosts } from "./components/Feed/index";
 import Suggestions from "./components/Suggestions/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import User from "./components/User";
 import UsersList from "./components/UserLists";
 import ProfilePage from "./components/ProfilePage";
 import NewPostTab from "./components/NewPostTab";
@@ -68,9 +67,6 @@ function App() {
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true}>
-            <User />
-          </ProtectedRoute>
           <ProtectedRoute path="/messages/:userId(\d*)" >
             <MessagePage />
           </ProtectedRoute>
@@ -83,7 +79,7 @@ function App() {
           <ProtectedRoute path="/explore/tags/:hashtag">
             <HashtagPage />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/:username">
+          <ProtectedRoute exact path="/users/:username">
             <ProfilePage tagged={false} />
           </ProtectedRoute>
           <ProtectedRoute path="/:username/tagged">

@@ -17,7 +17,7 @@ const ProfilePostsNav = () => {
       }
     >
       <NavLink
-        to={`/${username}`}
+        to={`/users/${username}`}
         className="profile-posts-nav-option"
         exact
         activeClassName="profile-posts-nav-option-active"
@@ -26,7 +26,7 @@ const ProfilePostsNav = () => {
       </NavLink>
       {profile.user && user.id === profile.user.id && (
         <NavLink
-          to={`/${username}/saved`}
+          to={`/users/${username}/saved`}
           className="profile-posts-nav-option"
           exact
           activeClassName="profile-posts-nav-option-active"
@@ -35,7 +35,7 @@ const ProfilePostsNav = () => {
         </NavLink>
       )}
       <NavLink
-        to={`/${username}/tagged`}
+        to={`/users/${username}/tagged`}
         className="profile-posts-nav-option"
         exact
         activeClassName="profile-posts-nav-option-active"
@@ -44,7 +44,7 @@ const ProfilePostsNav = () => {
       </NavLink>
       {profile.user && user.id === profile.user.id && (
         <NavLink
-          to={`/${username}/liked`}
+          to={`/users/${username}/liked`}
           className="profile-posts-nav-option"
           exact
           activeClassName="profile-posts-nav-option-active"

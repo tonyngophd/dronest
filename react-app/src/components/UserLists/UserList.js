@@ -27,7 +27,7 @@ export function MinimalUserList({
   const userComponents = allUsers.map((user) => {
     return (
       <li key={user.id}>
-        <NavLink to={`/${user.username}`}>{user.username}</NavLink>
+        <NavLink to={`/users/${user.username}`}>{user.username}</NavLink>
       </li>
     );
   });

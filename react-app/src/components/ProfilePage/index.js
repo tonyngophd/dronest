@@ -97,31 +97,31 @@ const ProfilePage = ({ tagged, liked, saved }) => {
 
     return (
       <Modal setShowModal={setShowModal} title={title} dronestLogo={false} needsEscapeInput={true}>
-          <div className="modal-content-scroll">
-            {amIIntheList && (
+        <div className="modal-content-scroll">
+          {amIIntheList && (
+            <UserRow
+              user={myself}
+              modal={true}
+              myId={myself.id}
+              notFollowedYet={false}
+            />
+          )}
+          {listOfUsersWithoutMe.map((u) => (
+            <div key={nanoid()}>
               <UserRow
-                user={myself}
                 modal={true}
+                onClose={() => {
+                  setShowFollowersModal(false);
+                  setShowFollowingModal(false);
+                }}
+                user={u}
                 myId={myself.id}
-                notFollowedYet={false}
+                notFollowedYet={notFollowedYet(u.id, myself)}
+                followlist={true}
               />
-            )}
-            {listOfUsersWithoutMe.map((u) => (
-              <div key={nanoid()}>
-                <UserRow
-                  modal={true}
-                  onClose={() => {
-                    setShowFollowersModal(false);
-                    setShowFollowingModal(false);
-                  }}
-                  user={u}
-                  myId={myself.id}
-                  notFollowedYet={notFollowedYet(u.id, myself)}
-                  followlist={true}
-                />
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
       </Modal>
     );
   };
@@ -169,9 +169,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                     onClick={handleEditProfile}
                   >Edit Profile</button>
                   <button className="profile-edit-button"
-                    style={{fontSize: '10px'}}
+                    style={{ fontSize: '10px' }}
                     onClick={handelChangePassword}
-                    >Change <br/>Password</button>
+                  >Change <br />Password</button>
                 </>
               ) : (
                     <>
@@ -241,12 +241,11 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       {showFollowingModal && (
         <FollowModal setShowModal={setShowFollowingModal} listOfUsers={profile.user.following} title="Following" />
       )}
-      {showChangePasswordModal && 
+      {showChangePasswordModal &&
         <ChangePasswordForm setShowModal={setShowChangePasswordModal} />
       }
-      {
-        showUpdateProfileModal && 
-          <UpdateProfileModal setShowModal={setShowUpdateProfileModal} />
+      {showUpdateProfileModal &&
+        <UpdateProfileModal setShowModal={setShowUpdateProfileModal} />
       }
     </div>
   );

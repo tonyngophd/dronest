@@ -215,7 +215,7 @@ const NewPost = ({ onPost }) => {
       {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
       {user && (
         <div className="new-post-username">
-          <Link to={`/${user.username}`}>{user.username}</Link>
+          <Link to={`/users/${user.username}`}>{user.username}</Link>
         </div>
       )}
       <div className="editor-wrapper">

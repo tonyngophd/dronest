@@ -53,14 +53,14 @@ function UserRow({
       onClose();
     }
     if (gotoUserPage) {
-      history.push(`/${user.username}`);
+      history.push(`/users/${user.username}`);
     }
   };
 
   return (
     user && (
       <div
-        onClick={() => searchable && history.push(`/${user.username}`)}
+        onClick={() => searchable && history.push(`/users/${user.username}`)}
         className={
           !searchable ? "user-row-main-div" : "user-row-main-div search-row"
         }

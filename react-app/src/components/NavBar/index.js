@@ -85,7 +85,7 @@ const NavBar = () => {
               <FaWpexplorer className="navbar-icon home-page hvr-shrink " />
             </NavLink>
             <NavLink
-              to={`/${user.username}/liked`}
+              to={`/users/${user.username}/liked`}
               exact={true}
               activeclassname="active"
             >
@@ -98,7 +98,7 @@ const NavBar = () => {
             >
               <IoImagesOutline className="navbar-icon home-page hvr-shrink heart-button "/>
             </NavLink>
-            <NavLink to={`/${user.username}`}>
+            <NavLink to={`/users/${user.username}`}>
               <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />
             </NavLink>
             <LogoutButton className="navbar-icon home-page der hvr-grow" setShowLoggedOut={setShowLoggedOut} />
