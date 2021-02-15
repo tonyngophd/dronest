@@ -13,6 +13,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
+import { AddAPostModal } from '../Post';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -35,6 +36,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
+  const [showAddAPostModal, setShowAddAPostModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -227,6 +229,10 @@ const ProfilePage = ({ tagged, liked, saved }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
+      <button onClick={e=> {e.preventDefault(); setShowAddAPostModal(true);}}>Add A Post</button>
+      {showAddAPostModal &&
+        <AddAPostModal setShowModal={setShowAddAPostModal} />
+      }
       {profile.user && !tagged && !liked && !saved && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
