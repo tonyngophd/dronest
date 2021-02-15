@@ -64,9 +64,9 @@ function App() {
           <Route path='/allposts'>
             <AllPosts />
           </Route>
-          <ProtectedRoute path="/users" exact={true}>
+          <Route path="/users" exact={true}>
             <UsersList />
-          </ProtectedRoute>
+          </Route>
           <ProtectedRoute path="/messages/:userId(\d*)" >
             <MessagePage />
           </ProtectedRoute>
