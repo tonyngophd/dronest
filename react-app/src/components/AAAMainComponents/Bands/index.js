@@ -61,13 +61,13 @@ export function MainBanner() {
   ];
   const maxPicNumber = pictureSrc.length;
 
-  // useEffect(() => {
-  //   const intvl = setInterval(() => {
-  //     next++;
-  //     if (next >= maxPicNumber) next = 0;
-  //     setCurrentPic(next);
-  //   }, 5000);
-  // }, [maxPicNumber]);
+  useEffect(() => {
+    const intvl = setInterval(() => {
+      next++;
+      if (next >= maxPicNumber) next = 0;
+      setCurrentPic(next);
+    }, 5000);
+  }, [maxPicNumber]);
 
   const nextOrPrevClick = (e, next = true, currentPic) => {
     e.preventDefault();
@@ -76,7 +76,6 @@ export function MainBanner() {
     else current--;
     if(current > 3 ) current = 0;
     if(current < 0) current = 3;
-    console.log(currentPic, current);
     setCurrentPic(current);
   }
 
