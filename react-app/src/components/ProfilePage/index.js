@@ -13,7 +13,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
-import { AddAPostModal } from '../Post';
+import { AddAPostModal, AddAPostForm } from '../Post';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -232,8 +232,11 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       {profile.user && create &&
         <button onClick={e => { e.preventDefault(); setShowAddAPostModal(true); }}>Add A Post</button>
       }
-      {showAddAPostModal &&
+      {/* {showAddAPostModal &&
         <AddAPostModal setShowModal={setShowAddAPostModal} />
+      } */}
+      {showAddAPostModal &&
+        <AddAPostForm setShowForm={setShowAddAPostModal} />
       }
       {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />
@@ -264,7 +267,7 @@ export function CreateAPostPage(){
   return (
     <div>
       <form>
-        
+
       </form>
     </div>
   );
