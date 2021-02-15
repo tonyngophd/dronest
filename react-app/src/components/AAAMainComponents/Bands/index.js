@@ -82,11 +82,6 @@ export function MainBanner() {
 
   return (
     <div className='main-banner-container'>
-      <div className='band-title-div'>
-        <div className='squares-view-more-div'>
-          <Squares />
-        </div>
-      </div>
       <div className='banner-container'>
         <NextOrPrevious next={false} onClick={e => nextOrPrevClick(e, false, currentPic)}/>
         <div className='banner-img-container'>
