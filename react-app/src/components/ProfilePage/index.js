@@ -36,7 +36,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
-  const [showAddAPostModal, setShowAddAPostModal] = useState(false);
+  const [showAddAPostForm, setShowAddAPostForm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -229,14 +229,14 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      {profile.user && create &&
-        <button onClick={e => { e.preventDefault(); setShowAddAPostModal(true); }}>Add A Post</button>
+      {myself && create &&
+        <button onClick={e => { e.preventDefault(); setShowAddAPostForm(true); }}>Add A Post</button>
       }
-      {/* {showAddAPostModal &&
-        <AddAPostModal setShowModal={setShowAddAPostModal} />
+      {/* {showAddAPostForm &&
+        <AddAPostModal setShowModal={setShowAddAPostForm} />
       } */}
-      {showAddAPostModal &&
-        <AddAPostForm setShowForm={setShowAddAPostModal} />
+      {showAddAPostForm &&
+        <AddAPostForm setShowForm={setShowAddAPostForm} />
       }
       {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />

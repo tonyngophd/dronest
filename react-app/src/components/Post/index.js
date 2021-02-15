@@ -482,9 +482,9 @@ export function AddAPostForm({ setShowForm }) {
     <div>
       <NewPost onPost={() => {
         dispatch(clearMentions());
-        setShowForm(false);
+        // setShowForm(false);
       }} />
-      <form className="login-form" onSubmit={onUpdateProfile}>
+      {/* <form className="login-form" onSubmit={onUpdateProfile}>
         <div className='errors-div'>
           {errors.map((error) => (
             <div key={nanoid()}>{error}</div>
@@ -512,7 +512,7 @@ export function AddAPostForm({ setShowForm }) {
               <button id="cancel-button" className='cancel-button' onClick={e => setShowForm(false)}>Cancel</button>
             </div>
           </>}
-      </form>
+      </form> */}
     </div>
   );
 }
