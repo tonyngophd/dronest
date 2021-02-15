@@ -64,6 +64,8 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   useEffect(() => {
     if(myself && create && profile.user && myself.id === profile.user.id){
       setShowAddAPostForm(true)
+    } else {
+      setShowAddAPostForm(false);
     }
   }, [create]);
 
