@@ -202,6 +202,13 @@ const NewPost = ({ onPost }) => {
 
   return (
     <div className="new-post-input-container">
+      {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
+      {/* {!imgSrc && <div className="image-preview" />} */}
+      {/* {user && (
+        <div className="new-post-username">
+          <Link to={`/users/${user.username}`}>{user.username}</Link>
+        </div>
+      )} */}
       {!imgSrc && (
         <>
           <div className="image-placeholder">
@@ -211,13 +218,17 @@ const NewPost = ({ onPost }) => {
             <input id={"image-input"} type="file" onChange={updateFile}></input>
           </div>
         </>
-      )}
-      {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
-      {user && (
-        <div className="new-post-username">
-          <Link to={`/users/${user.username}`}>{user.username}</Link>
-        </div>
-      )}
+      )}      
+      {imgSrc && (
+        <>
+          <div className="add-image-button">
+            <label htmlFor={"image-input"} className="image-upload">
+              <i className="las la-plus-square image-upload-plus"></i>
+            </label>
+            <input id={"image-input"} type="file" onChange={updateFile}></input>
+          </div>
+        </>
+      )}      
       <div className="editor-wrapper">
         <div className="editor" onFocus={focus}>
           <Editor

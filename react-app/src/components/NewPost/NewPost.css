@@ -5,8 +5,15 @@
   background-color: rgb(219, 219, 219);
 }
 
+.add-image-button{
+  position: relative;
+  background-color: rgb(219, 219, 219);
+}
+
 .image-preview {
   width: 460px;
+  height: 460px;
+  object-fit: cover;
   border-top: 1px solid rgb(235, 238, 240);
   border-bottom: 1px solid rgb(235, 238, 240);
 }
