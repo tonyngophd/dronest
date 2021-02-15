@@ -44,12 +44,16 @@ export function MinimalUserList({
     return false;
   };
   let allUsersWithoutMyself;
-  if (searchable) {
-    allUsersWithoutMyself = allUsers.filter(
-      (user) => user.id !== myself.id && searchFunction(user, searchText)
-    );
+  if (myself) {
+    if (searchable) {
+      allUsersWithoutMyself = allUsers.filter(
+        (user) => user.id !== myself.id && searchFunction(user, searchText)
+      );
+    } else {
+      allUsersWithoutMyself = allUsers.filter((user) => user.id !== myself.id);
+    }
   } else {
-    allUsersWithoutMyself = allUsers.filter((user) => user.id !== myself.id);
+    allUsersWithoutMyself = allUsers;
   }
 
   return (
@@ -58,20 +62,20 @@ export function MinimalUserList({
         searchable ? "all-users-div search-dropdown-box" : "all-users-div"
       }
     >
-      {includeMyself && (
+      {myself && includeMyself && (
         <UserRow user={myself} myId={myself.id} notFollowedYet={false} />
       )}
       {allUsersWithoutMyself
         .filter((user) => {
-          return searchable? true : notFollowedYet(user.id, myself);
+          return searchable ? true : (myself ? notFollowedYet(user.id, myself) : true);
         })
-        .slice(0, searchable?10000:7)
+        .slice(0, searchable ? 10000 : 20)
         .map((user) => (
           <UserRow
             user={user}
             searchable={searchable}
-            myId={myself.id}
-            notFollowedYet={notFollowedYet(user.id, myself)}
+            myId={myself && myself.id}
+            notFollowedYet={myself ? notFollowedYet(user.id, myself) : true}
             key={nanoid()}
             followAsButton={followAsButton}
           />
