@@ -82,13 +82,13 @@ function App() {
           <ProtectedRoute exact path="/users/:username">
             <ProfilePage tagged={false} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/tagged">
+          <ProtectedRoute path="/users/:username/tagged">
             <ProfilePage tagged={true} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/liked">
+          <ProtectedRoute path="/users/:username/liked">
             <ProfilePage liked={true} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/saved">
+          <ProtectedRoute path="/users/:username/saved">
             <ProfilePage saved={true} />
           </ProtectedRoute>
           <ProtectedRoute path="/stories/:username">
