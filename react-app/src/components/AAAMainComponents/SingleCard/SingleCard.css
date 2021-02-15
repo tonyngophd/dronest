@@ -130,7 +130,8 @@
 }
 .post-modal-img-div{
   max-height: 900px;
-  min-width: 800px;
+  min-width: 650px;
+  max-width: 700px;
   overflow-x: scroll;
   display: flex;
   justify-content: center;
@@ -156,6 +157,7 @@
 .post-modal-user-like-save-share{
   display: flex;
   flex-direction: column;
+  min-width: 350px;
 }
 
 .postmodal-comments-container {
