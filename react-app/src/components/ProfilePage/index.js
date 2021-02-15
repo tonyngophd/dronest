@@ -13,6 +13,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
+import { AddAPostModal, AddAPostForm } from '../Post';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -22,7 +23,7 @@ export const notFollowedYet = (userId, myself) => {
   return true;
 };
 
-const ProfilePage = ({ tagged, liked, saved }) => {
+const ProfilePage = ({ tagged, liked, saved, create }) => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -35,6 +36,7 @@ const ProfilePage = ({ tagged, liked, saved }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
+  const [showAddAPostForm, setShowAddAPostForm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -58,6 +60,14 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
     }
   }, [profile]);
+
+  useEffect(() => {
+    if(myself && create && profile.user && myself.id === profile.user.id){
+      setShowAddAPostForm(true)
+    } else {
+      setShowAddAPostForm(false);
+    }
+  }, [create]);
 
   const handleFollowersClick = (e) => {
     e.preventDefault();
@@ -97,31 +107,31 @@ const ProfilePage = ({ tagged, liked, saved }) => {
 
     return (
       <Modal setShowModal={setShowModal} title={title} dronestLogo={false} needsEscapeInput={true}>
-          <div className="modal-content-scroll">
-            {amIIntheList && (
+        <div className="modal-content-scroll">
+          {amIIntheList && (
+            <UserRow
+              user={myself}
+              modal={true}
+              myId={myself.id}
+              notFollowedYet={false}
+            />
+          )}
+          {listOfUsersWithoutMe.map((u) => (
+            <div key={nanoid()}>
               <UserRow
-                user={myself}
                 modal={true}
+                onClose={() => {
+                  setShowFollowersModal(false);
+                  setShowFollowingModal(false);
+                }}
+                user={u}
                 myId={myself.id}
-                notFollowedYet={false}
+                notFollowedYet={notFollowedYet(u.id, myself)}
+                followlist={true}
               />
-            )}
-            {listOfUsersWithoutMe.map((u) => (
-              <div key={nanoid()}>
-                <UserRow
-                  modal={true}
-                  onClose={() => {
-                    setShowFollowersModal(false);
-                    setShowFollowingModal(false);
-                  }}
-                  user={u}
-                  myId={myself.id}
-                  notFollowedYet={notFollowedYet(u.id, myself)}
-                  followlist={true}
-                />
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
       </Modal>
     );
   };
@@ -169,9 +179,9 @@ const ProfilePage = ({ tagged, liked, saved }) => {
                     onClick={handleEditProfile}
                   >Edit Profile</button>
                   <button className="profile-edit-button"
-                    style={{fontSize: '10px'}}
+                    style={{ fontSize: '10px' }}
                     onClick={handelChangePassword}
-                    >Change <br/>Password</button>
+                  >Change <br />Password</button>
                 </>
               ) : (
                     <>
@@ -227,7 +237,13 @@ const ProfilePage = ({ tagged, liked, saved }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      {profile.user && !tagged && !liked && !saved && (
+      {/* {showAddAPostForm &&
+        <AddAPostModal setShowModal={setShowAddAPostForm} />
+      } */}
+      {showAddAPostForm &&
+        <AddAPostForm setShowForm={setShowAddAPostForm} />
+      }
+      {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
       {profile.user && tagged && (
@@ -241,15 +257,25 @@ const ProfilePage = ({ tagged, liked, saved }) => {
       {showFollowingModal && (
         <FollowModal setShowModal={setShowFollowingModal} listOfUsers={profile.user.following} title="Following" />
       )}
-      {showChangePasswordModal && 
+      {showChangePasswordModal &&
         <ChangePasswordForm setShowModal={setShowChangePasswordModal} />
       }
-      {
-        showUpdateProfileModal && 
-          <UpdateProfileModal setShowModal={setShowUpdateProfileModal} />
+      {showUpdateProfileModal &&
+        <UpdateProfileModal setShowModal={setShowUpdateProfileModal} />
       }
     </div>
   );
 };
+
+export function CreateAPostPage(){
+
+  return (
+    <div>
+      <form>
+
+      </form>
+    </div>
+  );
+}
 
 export default ProfilePage;

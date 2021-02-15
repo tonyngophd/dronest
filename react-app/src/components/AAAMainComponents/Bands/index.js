@@ -54,10 +54,10 @@ export function MainBanner() {
   const [currentPic, setCurrentPic] = useState(0);
   let next = currentPic;
   const pictureSrc = [
-    'https://tripcamp.s3.amazonaws.com/resources/images/official/spots/glamping/smalls/Valley%20Views%20Glamping,%20NZ.jpg',
-    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home2.jpg',
-    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home5.jpg',
-    'https://tripcamp.s3.amazonaws.com/resources/images/official/tripcamp-home6.jpg',
+    'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE',
+    'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148320108_10160467443344338_6638501313697117140_o.jpg?_nc_cat=100&ccb=3&_nc_sid=b9115d&_nc_ohc=GrZHWBY-Bm0AX8TQGeH&_nc_oc=AQmp5SXuP8M8mGZgJwUvclNQvxl61p-X8t241HbM2_rA-4Vx-fRK-o7Oh-Kr38aTFW0&_nc_ht=scontent-iad3-1.xx&oh=40b1cbc8637db1fa8907029fc48b3e0d&oe=604EB68E',
+    'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/150109958_10160587926132646_7976725861019250203_o.jpg?_nc_cat=108&ccb=3&_nc_sid=b9115d&_nc_ohc=k0eRr9Z6GQwAX_VwI6f&_nc_ht=scontent-iad3-1.xx&oh=e37f2c3314536a0aeec64bc61ddc363f&oe=6050A94E',
+    'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/150932344_4244345375593598_2408695030024088538_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=Bd3mcsolmLgAX9HKq1j&_nc_ht=scontent-iad3-1.xx&oh=3d7dad4a25b010560149766cef7c7639&oe=605029BB',
   ];
   const maxPicNumber = pictureSrc.length;
 
@@ -69,16 +69,21 @@ export function MainBanner() {
     }, 5000);
   }, [maxPicNumber]);
 
+  const nextOrPrevClick = (e, next = true, currentPic) => {
+    e.preventDefault();
+    let current = currentPic;
+    if(next) current++;
+    else current--;
+    if(current > 3 ) current = 0;
+    if(current < 0) current = 3;
+    setCurrentPic(current);
+  }
+
 
   return (
     <div className='main-banner-container'>
-      {/* <div className='band-title-div'>
-        <div className='squares-view-more-div'>
-          <Squares />
-        </div>
-      </div> */}
       <div className='banner-container'>
-        <NextOrPrevious next={false} />
+        <NextOrPrevious next={false} onClick={e => nextOrPrevClick(e, false, currentPic)}/>
         <div className='banner-img-container'>
           {
             new Array(maxPicNumber).fill(true).map((el, i) =>
@@ -94,7 +99,7 @@ export function MainBanner() {
             )
           }
         </div>
-        <NextOrPrevious />
+        <NextOrPrevious  onClick={e => nextOrPrevClick(e, true, currentPic)}/>
       </div>
       <div className='banner-squares'>
         <Squares repeat={4} onClick={setCurrentPic} numberOfCards={1} currentActiveSquare={currentPic} />
@@ -264,8 +269,8 @@ export function Bands() {
         showLoginForm && <LoginForm setShowModal={setShowLoginForm} />
       }
 
-      <ThreeJSBanner />
-      {/* <MainBanner /> */}
+      {/* <ThreeJSBanner /> */}
+      <MainBanner />
       {
         locatedUserPosts.length > 0 && <Band objects={locatedUserPosts} numberOfCards={6} title='Locations' moreInfo={false} location={true} />
       }

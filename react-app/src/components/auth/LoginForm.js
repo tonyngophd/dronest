@@ -18,7 +18,7 @@ const LoginForm = ({ setShowModal, redirect = true }) => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    // e.stopPropagation();
+    e.stopPropagation();
     const resJson = await dispatch(loginUser(credential, password));
     if (resJson.errors) {
       setErrors(resJson.errors);
@@ -28,6 +28,7 @@ const LoginForm = ({ setShowModal, redirect = true }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    onLogin(e);
   }
 
   const updateCredential = (e) => {
@@ -83,7 +84,7 @@ const LoginForm = ({ setShowModal, redirect = true }) => {
         </div>
         <div className="buttons">
           <button type="submit" id="login-button" onClick={handleClick}>Log in</button>
-          <button onClick={demoUser} type="submit" id="demo-login-button">Demo</button>
+          <button onClick={demoUser} id="demo-login-button">Demo</button>
         </div>
         <p className="OR">OR</p>
         <div className="login-form-footer">

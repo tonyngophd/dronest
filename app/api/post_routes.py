@@ -41,9 +41,11 @@ def create_post():
     hashtags = request.form["hashtags"]
     hashtags = json.loads(hashtags)
     raw_data = request.form["rawData"]
+    locationId = 1 #TODO update this to have actual one from user from frontend
 
     post = Post(
       userId=user_id,
+      locationId = locationId,
       captionRawData = raw_data
     )
     db.session.add(post)

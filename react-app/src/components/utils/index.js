@@ -44,7 +44,7 @@ export function Plugins() {
       mentionPrefix: "#",
     })
   );
-  
+
   return [userMentionPlugin, hashtagMentionPlugin];
 }
 
@@ -97,3 +97,6 @@ export function getRandomIntInclusive(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
+
+export const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+

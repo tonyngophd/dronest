@@ -16,7 +16,6 @@ import { setUserAddAMessagePOJO } from '../../store/session';
 
 import "./MessagePage.css";
 import { nanoid } from "nanoid";
-import User from "../User";
 import { GrUp } from "react-icons/gr";
 import CommentInput from "../CommentInput";
 

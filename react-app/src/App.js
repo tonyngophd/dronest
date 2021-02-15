@@ -7,7 +7,6 @@ import NavBar from "./components/NavBar/index";
 import Feed, { AllPosts } from "./components/Feed/index";
 import Suggestions from "./components/Suggestions/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import User from "./components/User";
 import UsersList from "./components/UserLists";
 import ProfilePage from "./components/ProfilePage";
 import NewPostTab from "./components/NewPostTab";
@@ -65,12 +64,9 @@ function App() {
           <Route path='/allposts'>
             <AllPosts />
           </Route>
-          <ProtectedRoute path="/users" exact={true}>
+          <Route path="/users" exact={true}>
             <UsersList />
-          </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true}>
-            <User />
-          </ProtectedRoute>
+          </Route>
           <ProtectedRoute path="/messages/:userId(\d*)" >
             <MessagePage />
           </ProtectedRoute>
@@ -83,16 +79,19 @@ function App() {
           <ProtectedRoute path="/explore/tags/:hashtag">
             <HashtagPage />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/:username">
+          <ProtectedRoute exact path="/users/:username">
             <ProfilePage tagged={false} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/tagged">
+          <ProtectedRoute path="/users/:username/create">
+            <ProfilePage create={true} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:username/tagged">
             <ProfilePage tagged={true} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/liked">
+          <ProtectedRoute path="/users/:username/liked">
             <ProfilePage liked={true} />
           </ProtectedRoute>
-          <ProtectedRoute path="/:username/saved">
+          <ProtectedRoute path="/users/:username/saved">
             <ProfilePage saved={true} />
           </ProtectedRoute>
           <ProtectedRoute path="/stories/:username">

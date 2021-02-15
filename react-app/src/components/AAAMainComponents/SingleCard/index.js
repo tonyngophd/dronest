@@ -243,10 +243,10 @@ export function PostModal({ setShowModal, user, posts }) {
 
   return (
     <>
-      <Modal setShowModal={setShowModal} width={'1000px'}
+      <Modal setShowModal={setShowModal}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
-        width='1200px'
+        width='1100px'
       >
         <div style={{
           display: 'flex',
