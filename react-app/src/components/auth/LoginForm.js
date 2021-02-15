@@ -19,9 +19,7 @@ const LoginForm = ({ setShowModal, redirect = true }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(credential, password);
     const resJson = await dispatch(loginUser(credential, password));
-    console.log(resJson);
     if (resJson.errors) {
       setErrors(resJson.errors);
     }

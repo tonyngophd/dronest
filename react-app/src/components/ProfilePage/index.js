@@ -61,6 +61,12 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     }
   }, [profile]);
 
+  useEffect(() => {
+    if(myself && create && profile.user && myself.id === profile.user.id){
+      setShowAddAPostForm(true)
+    }
+  }, [create]);
+
   const handleFollowersClick = (e) => {
     e.preventDefault();
     setShowFollowersModal(true);
@@ -229,9 +235,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      {myself && create &&
-        <button onClick={e => { e.preventDefault(); setShowAddAPostForm(true); }}>Add A Post</button>
-      }
       {/* {showAddAPostForm &&
         <AddAPostModal setShowModal={setShowAddAPostForm} />
       } */}
