@@ -82,6 +82,9 @@ function App() {
           <ProtectedRoute exact path="/users/:username">
             <ProfilePage tagged={false} />
           </ProtectedRoute>
+          <ProtectedRoute path="/users/:username/create">
+            <ProfilePage create={true} />
+          </ProtectedRoute>
           <ProtectedRoute path="/users/:username/tagged">
             <ProfilePage tagged={true} />
           </ProtectedRoute>

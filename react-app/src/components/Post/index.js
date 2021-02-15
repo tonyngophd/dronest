@@ -438,5 +438,178 @@ export function AddAPostModal({setShowModal}) {
     </Modal>
   );
 }
+export function AddAPostForm({setShowModal}) {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.session.user);
+	const [errors, setErrors] = useState([]);
+	const [messages, setMessages] = useState([]);
+	const [username, setUsername] = useState(user && user.username);
+	const [name, setName] = useState(user && user.name);
+	const [email, setEmail] = useState(user && user.email);
+	const [bio, setBio] = useState(user && user.bio);
+	const [websiteUrl, setWebsiteUrl] = useState(user && user.websiteUrl);
+	const [profilePicUrl, setProfilePicUrl] = useState(user && user.profilePicUrl);
+	const [showChangeUsername, setShowChangeUsername] = useState(false);
+
+	const onUpdateProfile = async (e) => {
+		e.preventDefault();
+
+		// const resJson = await dispatch(updateUser(username, name, email, bio, websiteUrl, profilePicUrl));
+		// if (resJson.errors) {
+		// 	setErrors(resJson.errors);
+		// } else {
+		// 	setErrors([]);
+		// 	setMessages(["Profile updated successfully!"])
+		// 	setTimeout(() => setShowModal(false), 1500);
+		// }
+	};
+
+	const updateUsername = (e) => {
+		setUsername(e.target.value);
+	};
+
+	const updateName = (e) => {
+		setName(e.target.value);
+	};
+
+	const updateEmail = (e) => {
+		setEmail(e.target.value);
+	};
+
+	const updateBio = (e) => {
+		setBio(e.target.value);
+	};
+
+	const updateWebsiteUrl = (e) => {
+		setWebsiteUrl(e.target.value);
+	};
+
+	const updateProfilePicUrl = (e) => {
+		setProfilePicUrl(e.target.value);
+	};
+
+	// if (!user) {
+	// 	return <Redirect to="/login" />;
+	// }
+
+	const closeModal = (e) => {
+		e.preventDefault();
+		if (
+			e.target.className === "modal" ||
+			e.target.className.animVal !== undefined
+		) {
+			setShowModal(false);
+		}
+	}
+
+	const escapeHideModal = e => {
+		if (e.key === 'Escape')
+			setShowModal(false);
+	}
+
+	const onSubmitClick = e => {
+		e.stopPropagation();
+		// setPasswordIsSubmitting(true);
+		// setNewPasswordIsSubmitting(true);
+		// setNewCPasswordIsSubmitting(true);    
+	}
+  return (
+    <Modal setShowModal={setShowModal}>
+			<form className="login-form" onSubmit={onUpdateProfile}>
+				<div className='errors-div'>
+					{errors.map((error) => (
+						<div key={nanoid()}>{error}</div>
+					))}
+				</div>
+				{messages.length ? <div className='errors-div' style={{ color: 'green' }}>
+					{messages.map((m) => (
+						<div key={nanoid()}>{m}</div>
+					))}
+				</div> :
+					<>
+						<div className="update-form-element" style={{ width: '300px', marginBottom: '20px' }}>
+							<label htmlFor="changeusernameswitch" style={{ width: '200px' }}>Change Username? </label>
+							<input
+								style={{ width: '30px' }}
+								type="checkbox"
+								name="changeusernameswitch"
+								onClick={e => {
+									e.stopPropagation();
+									setShowChangeUsername(e.target.checked);
+								}}
+								onChange={e => e}
+								checked={showChangeUsername}
+							/>
+						</div>
+						{showChangeUsername && <div className="update-form-element">
+							<label htmlFor="username">Username: </label>
+							<input
+								type="text"
+								name="username"
+								placeholder="Username"
+								onChange={updateUsername}
+								value={username}
+							></input>
+						</div>}
+						<div className="update-form-element">
+							<label htmlFor="name">Name: </label>
+							<input
+								type="text"
+								name="name"
+								placeholder="Name"
+								onChange={updateName}
+								value={name}
+								autoFocus={true}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="email">Email: </label>
+							<input
+								type="email"
+								name="email"
+								placeholder="Email"
+								onChange={updateEmail}
+								value={email}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="bio">Bio: </label>
+							<input
+								type="text"
+								name="bio"
+								placeholder="Bio"
+								onChange={updateBio}
+								value={bio}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="websiteUrl">Website Url: </label>
+							<input
+								type="text"
+								name="websiteUrl"
+								placeholder="Website URL"
+								onChange={updateWebsiteUrl}
+								value={websiteUrl}
+							></input>
+						</div>
+						<div className="update-form-element">
+							<label htmlFor="profilePicUrl">Profile Pic Url: </label>
+							<input
+								type="text"
+								name="profilePicUrl"
+								placeholder="Profile Picture URL"
+								onChange={updateProfilePicUrl}
+								value={profilePicUrl}
+							></input>
+						</div>
+						<div className="buttons">
+							<button type="submit" id="login-button" onClick={onSubmitClick}>Update</button>
+							<button id="cancel-button" className='cancel-button' onClick={e => setShowModal(false)}>Cancel</button>
+						</div>
+					</>}
+			</form>
+    </Modal>
+  );
+}
 
 export default Post;

@@ -23,7 +23,7 @@ export const notFollowedYet = (userId, myself) => {
   return true;
 };
 
-const ProfilePage = ({ tagged, liked, saved }) => {
+const ProfilePage = ({ tagged, liked, saved, create }) => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -229,11 +229,13 @@ const ProfilePage = ({ tagged, liked, saved }) => {
         </div>
       )}
       {profile && <ProfilePostsNav />}
-      <button onClick={e=> {e.preventDefault(); setShowAddAPostModal(true);}}>Add A Post</button>
+      {profile.user && create &&
+        <button onClick={e => { e.preventDefault(); setShowAddAPostModal(true); }}>Add A Post</button>
+      }
       {showAddAPostModal &&
         <AddAPostModal setShowModal={setShowAddAPostModal} />
       }
-      {profile.user && !tagged && !liked && !saved && (
+      {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
       {profile.user && tagged && (
@@ -256,5 +258,16 @@ const ProfilePage = ({ tagged, liked, saved }) => {
     </div>
   );
 };
+
+export function CreateAPostPage(){
+
+  return (
+    <div>
+      <form>
+        
+      </form>
+    </div>
+  );
+}
 
 export default ProfilePage;
