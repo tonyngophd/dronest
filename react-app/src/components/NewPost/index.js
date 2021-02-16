@@ -222,22 +222,55 @@ const NewPost = ({ onPost }) => {
 
   const handleDeleteClick = (e, index) => {
     e.preventDefault();
-    console.log(images, imgSrcs);
-    setImgSrcs(imgSrcs.filter((_,i) => i !== index));
-    let imgs = {...images};
+    setImgSrcs(imgSrcs.filter((_, i) => i !== index));
+    let imgs = { ...images };
     delete imgs[index];
     setImages(imgs);
+  }
+
+  const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
+  // const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
+  const handleSingleImageDragStart = (e, index) => {
+    setCurrentDraggedIndex(index);
+  }
+  const handleSingleImageDragEnd = (e, index) => {
+    console.log('currentDraggedIndex', currentDraggedIndex);
+    setCurrentDraggedIndex(null);
+  }
+
+  const handleSingleImageDrop = (e, droppedIndex) => {
+    e.preventDefault();
+    console.log('drop', droppedIndex, currentDraggedIndex);
+    if(currentDraggedIndex + 1){
+      const srcs = imgSrcs;
+      const draggedSrc = srcs[currentDraggedIndex];
+      srcs[currentDraggedIndex] = srcs[droppedIndex];
+      srcs[droppedIndex] = draggedSrc;
+      setImgSrcs(srcs);
+      const imgs = images;
+      const draggedImg = imgs[currentDraggedIndex];
+      const droppedImg = imgs[currentDragdroppedIndexgedIndex];
+
+      setImages(imgs);
+    }
+  }
+  const handleSingleImageOverCapture = (e, index) => {
+    e.preventDefault();
+    // console.log('over capture', index, currentDraggedIndex);
   }
 
   return (
     <div className="new-post-input-container">
       <div className='new-post-img-previews'>
         {imgSrcs.map((src, index) =>
-          <div className='image-preview-container' alt="" key={nanoid()} draggable={true}  
-            onDragStart={e=> console.log(e.target)}
+          <div className='image-preview-container' alt="" key={nanoid()} draggable={true}
+            onDragStart={e => handleSingleImageDragStart(e, index)}
+            onDragEnd={e => handleSingleImageDragEnd(e, index)}
+            onDrop={e => handleSingleImageDrop(e, index)}
+            onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
           >
             <img className="image-preview" src={src} />
-            <RiDeleteBin6Line className='img-prev-delete-button' 
+            <RiDeleteBin6Line className='img-prev-delete-button'
               onClick={e => handleDeleteClick(e, index)}
             />
             <div className='img-prev-number'>
@@ -253,9 +286,9 @@ const NewPost = ({ onPost }) => {
         onDrop={handleDrop}
       >
         <label htmlFor={"image-input"} className="image-upload">
-          <RiDragDropLine className="las la-plus-square image-upload-plus"/>
+          <RiDragDropLine className="las la-plus-square image-upload-plus" />
           <i className="las la-plus-square image-upload-plus"></i>
-          <GrDropbox className="las la-plus-square image-upload-plus"/>
+          <GrDropbox className="las la-plus-square image-upload-plus" />
         </label>
         <input
           className="image-placeholder"
