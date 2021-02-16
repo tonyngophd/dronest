@@ -1,10 +1,11 @@
 .image-placeholder {
   width: 460px;
-  height: 50px;
+  height: 100px;
   position: relative;
-  background-color: rgb(122, 147, 230);
+  background-color: rgba(52, 65, 94, 0.603);
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -32,10 +33,10 @@
 .image-upload {
   font-size: 50px;
   color: rgb(190, 190, 190);
-  position: absolute;
+  /* position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   cursor: pointer;
 }
 

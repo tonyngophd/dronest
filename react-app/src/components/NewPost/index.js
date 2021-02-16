@@ -15,7 +15,8 @@ import { uploadPost } from "../../store/posts";
 import { fetchHomeFeed } from "../../store/posts";
 import { fetchUserProfile } from "../../store/profile";
 import { nanoid } from "nanoid";
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { RiDeleteBin6Line, RiDragDropLine } from 'react-icons/ri';
+import { GrDropbox } from 'react-icons/gr';
 
 
 const UserTag = (props) => {
@@ -225,7 +226,18 @@ const NewPost = ({ onPost }) => {
         {imgSrcs.map((src, index) =>
           <div className='image-preview-container' alt="" key={nanoid()} >
             <img className="image-preview" src={src} />
-            <RiDeleteBin6Line className='img-prev-delete-button' />
+            <RiDeleteBin6Line className='img-prev-delete-button' 
+              onClick={e => {
+                e.preventDefault();
+                console.log(images, imgSrcs);
+                setImgSrcs(imgSrcs.filter((_,i) => i !== index));
+                let imgs = {...images};
+                console.log('before', imgs);
+                delete imgs[index];
+                console.log('after', imgs);
+                setImages(imgs);
+              }}
+            />
             <div className='img-prev-number'>
               {index}
             </div>
@@ -239,7 +251,9 @@ const NewPost = ({ onPost }) => {
         onDrop={handleDrop}
       >
         <label htmlFor={"image-input"} className="image-upload">
+          <RiDragDropLine className="las la-plus-square image-upload-plus"/>
           <i className="las la-plus-square image-upload-plus"></i>
+          <GrDropbox className="las la-plus-square image-upload-plus"/>
         </label>
         <input
           className="image-placeholder"
