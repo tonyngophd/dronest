@@ -61,7 +61,7 @@ export const uploadPost = (
   mentionedUsers,
   hashtags,
   rawData,
-  image
+  images
 ) => async (dispatch) => {
   mentionedUsers = mentionedUsers.map((user) => {
     return user.id;
@@ -72,7 +72,9 @@ export const uploadPost = (
   form.append("mentionedUsers", JSON.stringify(mentionedUsers));
   form.append("hashtags", JSON.stringify(hashtags));
   form.append("rawData", JSON.stringify(rawData));
-  form.append("image", image);
+  form.append('numberOfImages', images.length);
+  images.forEach((image, i) => form.append(`image_${i}`, image));
+  
   const res = await fetch("/api/posts/", {
     method: "POST",
     body: form,

@@ -33,8 +33,10 @@ def explore_infinite(page):
 @post_routes.route("/", methods=["POST"])
 @login_required
 def create_post():
-
-    image = request.files["image"]
+    numberOfImages = int(request.form["numberOfImages"])
+    images = []
+    for i in range(numberOfImages):
+      images.append(request.files[f'image_{i}'])
     user_id = request.form["userId"]
     mentioned_users = request.form["mentionedUsers"]
     mentioned_users = json.loads(mentioned_users)
@@ -51,14 +53,16 @@ def create_post():
     db.session.add(post)
     db.session.flush()
 
-    image.filename = f'images/{secure_filename(image.filename)}'
-    mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
-    # print(mediaUrl)
-    new_image = Media(
-      postId = post.id,
-      mediaUrl=mediaUrl
-    )
-    db.session.add(new_image)
+    for image in images:
+      image.filename = f'images/{secure_filename(image.filename)}'
+      mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
+      # print(mediaUrl)
+      new_image = Media(
+        postId = post.id,
+        mediaUrl=mediaUrl,
+        mediaType=secure_filename(image.filename).split(".")[-1]
+      )
+      db.session.add(new_image)
 
     for i in range(len(mentioned_users)):
       user_mention = TaggedUser(
