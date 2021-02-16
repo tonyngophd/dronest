@@ -71,7 +71,7 @@ export function FullScreenPicModal({ setShowModal, media }) {
     <Modal setShowModal={setShowModal}
       dronestLogo={false} needsEscapeInput={true}
       closeXOutSide={true} noTopDiv={true}
-      width='100vw'
+      width='100vw' noScrollBar={true}
     >
       <div className='fullscreen-img-container'>
         <img src={media.mediaUrl} alt={media.mediaUrl}
