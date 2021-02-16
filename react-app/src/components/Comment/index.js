@@ -32,7 +32,7 @@ function Comment({
 
   useEffect(() => {
     if (!message) {
-      setLiked(comment.likingUsers[user.id]);
+      if(user) setLiked(comment.likingUsers[user.id]);
       setLikes(Object.values(comment.likingUsers).length);
     }
   }, []);

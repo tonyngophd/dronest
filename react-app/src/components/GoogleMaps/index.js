@@ -25,7 +25,7 @@ const options = {
 
 const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let containerStyle = {
-  width: '400px',
+  width: '360px',
   height: '500px',
 };
 

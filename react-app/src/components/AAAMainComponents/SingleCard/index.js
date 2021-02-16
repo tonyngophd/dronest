@@ -9,7 +9,7 @@ import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
 import { NextOrPrevious } from '../Bands';
 
-import { 
+import {
   likePost, unlikePost, savePost, unsavePost, loadSinglePost,
 } from '../../../store/posts';
 import { fetchAUsersPostView } from '../../../store/users';
@@ -61,6 +61,26 @@ import { MapWithMarkerClusterer } from '../../GoogleMaps';
 
 
 import './SingleCard.css';
+
+export function FullScreenPicModal({ setShowModal, media }) {
+  let src = media.imgUrl;
+  useEffect(() => {
+    console.log(media.imgUrl);
+  }, [media]);
+  return (
+    <Modal setShowModal={setShowModal}
+      dronestLogo={false} needsEscapeInput={true}
+      closeXOutSide={true} noTopDiv={true}
+      width='100vw'
+    >
+      <div className='fullscreen-img-container'>
+        <img src={media.mediaUrl} alt={media.mediaUrl}
+          className='fullscreen-img'
+        />
+      </div>
+    </Modal>
+  );
+}
 
 export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
   const history = useHistory();
@@ -119,7 +139,7 @@ function ShareButtonsWindow({ setShowModal }) {
         width={'200px'}
         needsEscapeInput={true}
       >
-        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly'}}>
+        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
           {
             ListOfButtons.map((El, i) =>
               <div key={nanoid()} style={{ margin: 'auto 2px' }}>
@@ -156,6 +176,8 @@ export function PostModal({ setShowModal, user, posts }) {
   const history = useHistory();
   const comments = useSelector(state => state.posts.singlePost.comments);
   const [spot, setSpot] = useState(undefined);
+  const [showPicFullScreen, setShowPicFullScreen] = useState(false);
+  const [currentPic, setCurrentPic] = useState(null);
 
   useEffect(() => {
     if (postIndex >= 0 && postIndex < posts.length) {
@@ -270,7 +292,11 @@ export function PostModal({ setShowModal, user, posts }) {
               <div className='post-modal-img-div'>
                 <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
                   className='post-modal-img'
-                // onLoad={e=>console.log(e.target.width)}  
+                  // onLoad={e=>console.log(e.target.width)} 
+                  onClick={e => {
+                    setCurrentPic(post.images[mediaIndex]);
+                    setShowPicFullScreen(true);
+                  }}
                 />
               </div>
               <div>
@@ -328,7 +354,10 @@ export function PostModal({ setShowModal, user, posts }) {
                         </div>)}
                   </div>
                   <div className="post-new-comment">
-                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true} />
+                    <CommentInput
+                      post={post} className='modal-comment-editor-wrapper'
+                      insideCN='post-modal-commentinput-div' modal={true}
+                      hasBorder={true} />
                   </div>
                 </div>
                 <div className='home-side-map'>
@@ -363,6 +392,9 @@ export function PostModal({ setShowModal, user, posts }) {
           </div>}
         </div>
       </Modal>
+      {
+        showPicFullScreen && <FullScreenPicModal setShowModal={setShowPicFullScreen} media={currentPic} />
+      }
     </>
   );
 }

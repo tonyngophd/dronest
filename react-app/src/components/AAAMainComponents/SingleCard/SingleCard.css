@@ -84,9 +84,10 @@
 }
 
 .single-card-modal-images-div{
-  max-height: 800px;
+  max-height: 750px;
   display: flex;
   width: 1200px;
+  /* justify-content: space-around; */
 }
 
 .ok-button{
@@ -131,7 +132,7 @@
 .post-modal-img-div{
   max-height: 900px;
   min-width: 650px;
-  max-width: 700px;
+  max-width: 730px;
   overflow-x: scroll;
   display: flex;
   justify-content: center;
@@ -151,19 +152,87 @@
   object-fit: contain;
   border-radius: 5px;
 }
+.post-modal-img:hover{
+  cursor: zoom-in;
+}
 .post-modal-commentinput-div{
-  width: 340px;
+  width: 350px;
+  height: 50px;
 }
 .post-modal-user-like-save-share{
   display: flex;
   flex-direction: column;
   min-width: 350px;
+  max-width: 360px;
 }
 
+.fullscreen-img{
+  object-fit: contain;
+  min-width: 1200px;
+  min-height: 800px;
+  max-height: 95vh;
+  max-width: 95vw;
+}
+.fullscreen-img-container{
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-img-container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.fullscreen-img-container::-webkit-scrollbar {
+  display: none;
+}
+
+
 .postmodal-comments-container {
-  padding-left: 15px;
+  padding-left: 0px;
   padding-bottom: 5px;
+  padding-right: 0px;
   max-height: 250px;
   overflow-y: scroll;
+  max-width: 380px;
+}
+
+.post-modal-like-share-save-div{
+  display: flex;
+  /* justify-content: space-between; */
+  /* border-bottom: 1px solid gray; */
+  margin-bottom: 10px;
+  max-width: 300px;
+}
+.post-modal-like-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 10px;
+  border: 1px solid gray;
+  padding: 5px;
+  border-radius: 5px;
+  height: 30px;
+  min-width: 50px;
+  font-size: 20px;
+}
+.share-button-div{
+  margin: auto 3px;
+  font-size: 16px;
+}
+
+.modal-comment-editor-wrapper {
+  display: flex;
+  justify-content: space-between;
+  min-height: 60px;
+  max-width: 370px;
+}
+.post-modal-user-row-div{
+  max-width: 350px;
+  width: fit-content;
 }
 
