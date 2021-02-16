@@ -62,9 +62,9 @@ const Hashtag = (props) => {
 };
 
 const NewPost = ({ onPost }) => {
-  const [image, setImage] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
-  const user = useSelector((state) => state.session.user);
+  const [images, setImages] = useState([]);
+  const [imgSrcs, setImgSrcs] = useState([]);
+  const myself = useSelector((state) => state.session.user);
   const profile = useSelector((state) => state.profile.user);
   const userMentions = useSelector((state) => state.mentions.users);
   const hashtagMentions = useSelector((state) => state.mentions.hashtags);
@@ -73,17 +73,25 @@ const NewPost = ({ onPost }) => {
   const [mentionOpen, setMentionOpen] = useState(false);
   const onMentionOpenChange = useCallback((_open) => {
     setMentionOpen(_open);
-  }, []);  
+  }, []);
   const [hashtagOpen, setHastagOpen] = useState(false);
   const onHastangOpenChange = useCallback((_open) => {
     setHastagOpen(_open);
-  }, []);  
+  }, []);
 
   const updateFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setImgSrc(URL.createObjectURL(file));
+    // const file = e.target.files[0];
+    // if (file) {
+    //   setImage(file);
+    //   setImgSrc(URL.createObjectURL(file));
+    // }
+
+    const files = e.target.files;
+    console.log(files);
+    console.log(Object.values(files));
+    if (files.length) {
+      setImages(files);
+      setImgSrcs(Object.values(files).map(file => URL.createObjectURL(file)));
     }
   };
 
@@ -170,7 +178,7 @@ const NewPost = ({ onPost }) => {
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
   const submitPost = async () => {
-    if (!image) return;
+    if (!images.length) return;
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
     setEditorState(EditorState.createEmpty());
@@ -189,37 +197,37 @@ const NewPost = ({ onPost }) => {
           break;
       }
     }
-    setImage(null);
-    setImgSrc(null);
+    setImages([]);
+    setImgSrcs([]);
     onPost();
     await dispatch(
-      uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
+      uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
     );
-    if (profile && profile.id === user.id) {
+    if (profile && profile.id === myself.id) {
       dispatch(fetchUserProfile(profile.username));
     }
   };
 
   return (
     <div className="new-post-input-container">
-      {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
+      {
+        imgSrcs.map(src => <img className="image-preview" src={src} alt="" />)
+      }
       {/* {!imgSrc && <div className="image-preview" />} */}
-      {/* {user && (
+      {/* {myself && (
         <div className="new-post-username">
-          <Link to={`/users/${user.username}`}>{user.username}</Link>
+          <Link to={`/users/${myself.username}`}>{myself.username}</Link>
         </div>
       )} */}
-      {!imgSrc && (
-        <>
-          <div className="image-placeholder">
-            <label htmlFor={"image-input"} className="image-upload">
-              <i className="las la-plus-square image-upload-plus"></i>
-            </label>
-            <input id={"image-input"} type="file" onChange={updateFile}></input>
-          </div>
-        </>
-      )}      
-      {imgSrc && (
+      {
+        <div className="image-placeholder">
+          <label htmlFor={"image-input"} className="image-upload">
+            <i className="las la-plus-square image-upload-plus"></i>
+          </label>
+          <input id={"image-input"} type="file" multiple={true} onChange={updateFile}></input>
+        </div>
+      }
+      {/* {imgSrcs.map( src =>
         <>
           <div className="add-image-button">
             <label htmlFor={"image-input"} className="image-upload">
@@ -228,7 +236,7 @@ const NewPost = ({ onPost }) => {
             <input id={"image-input"} type="file" onChange={updateFile}></input>
           </div>
         </>
-      )}      
+      )} */}
       <div className="editor-wrapper">
         <div className="editor" onFocus={focus}>
           <Editor
