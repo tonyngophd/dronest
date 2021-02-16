@@ -14,6 +14,9 @@ import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
 import { fetchHomeFeed } from "../../store/posts";
 import { fetchUserProfile } from "../../store/profile";
+import { nanoid } from "nanoid";
+import { RiDeleteBin6Line } from 'react-icons/ri';
+
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -79,16 +82,9 @@ const NewPost = ({ onPost }) => {
     setHastagOpen(_open);
   }, []);
 
-  const updateFile = (e) => {
-    // const file = e.target.files[0];
-    // if (file) {
-    //   setImage(file);
-    //   setImgSrc(URL.createObjectURL(file));
-    // }
-
+  const updateFiles = (e) => {
     const files = e.target.files;
-    console.log(files);
-    console.log(Object.values(files));
+
     if (files.length) {
       setImages(files);
       setImgSrcs(Object.values(files).map(file => URL.createObjectURL(file)));
@@ -208,32 +204,47 @@ const NewPost = ({ onPost }) => {
     }
   };
 
+  const handleDragOver = e => {
+    e.preventDefault();
+    console.log('drag', e.target);
+  }
+  const handleDrop = e => {
+    e.preventDefault();
+    console.log('drop', e.target);
+  }
+
   return (
     <div className="new-post-input-container">
-      {
-        imgSrcs.map(src => <img className="image-preview" src={src} alt="" />)
-      }
-      {/* {!imgSrc && <div className="image-preview" />} */}
-      {/* {myself && (
-        <div className="new-post-username">
-          <Link to={`/users/${myself.username}`}>{myself.username}</Link>
-        </div>
-      )} */}
-      {
-        <div className="image-placeholder">
-          <label htmlFor={"image-input"} className="image-upload">
-            <i className="las la-plus-square image-upload-plus"></i>
-          </label>
-          <input id={"image-input"} type="file" multiple={true} onChange={updateFile}></input>
-        </div>
-      }
+      <div className='new-post-img-previews'>
+        {imgSrcs.map((src, index) =>
+          <div className='image-preview-container'>
+            <img className="image-preview" src={src} alt="" key={nanoid()} />
+            <RiDeleteBin6Line className='img-prev-delete-button' />
+            <div className='img-prev-number'>
+              {index}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="image-placeholder" >
+        <label htmlFor={"image-input"} className="image-upload">
+          <i className="las la-plus-square image-upload-plus"></i>
+        </label>
+        <input id={"image-input"}
+          type="file" multiple={true}
+          onChange={updateFiles}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragOver}
+          onDrop={handleDrop}
+        />
+      </div>
       {/* {imgSrcs.map( src =>
         <>
           <div className="add-image-button">
             <label htmlFor={"image-input"} className="image-upload">
               <i className="las la-plus-square image-upload-plus"></i>
             </label>
-            <input id={"image-input"} type="file" onChange={updateFile}></input>
+            <input id={"image-input"} type="file" onChange={updateFiles}></input>
           </div>
         </>
       )} */}

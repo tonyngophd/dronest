@@ -25,7 +25,6 @@ import {
 } from "react-icons/bs";
 import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
