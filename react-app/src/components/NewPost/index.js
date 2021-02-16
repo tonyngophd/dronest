@@ -200,8 +200,8 @@ const NewPost = ({ onPost }) => {
     const files = e.target.files;
 
     if (files.length) {
-      setImages([...files]);
-      setImgSrcs(Object.values(files).map(file => URL.createObjectURL(file)));
+      setImages([...images, ...files]);
+      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
     }
   };
 
@@ -227,15 +227,18 @@ const NewPost = ({ onPost }) => {
   }
 
   const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
-  const handleSingleImageDragStart = (e, index) => {
+  const handleSingleImageDrag = (e, index) => {
+    console.log('start', currentDraggedIndex, index);
     setCurrentDraggedIndex(index);
   }
   const handleSingleImageDragEnd = (e, index) => {
+    console.log('end', currentDraggedIndex, index);
     setCurrentDraggedIndex(null);
   }
 
   const handleSingleImageDrop = (e, droppedIndex) => {
-    if(currentDraggedIndex + 1){
+    console.log('drop', currentDraggedIndex, droppedIndex);
+    if (currentDraggedIndex !== null) {
       const srcs = imgSrcs;
       const draggedSrc = srcs[currentDraggedIndex];
       srcs[currentDraggedIndex] = srcs[droppedIndex];
@@ -247,29 +250,32 @@ const NewPost = ({ onPost }) => {
       imgs[droppedIndex] = draggedImg;
       setImages(imgs);
     }
-    e.preventDefault();    
+    // e.preventDefault();    
   }
-  const handleSingleImageOverCapture = (e) => {
+  const handleSingleImageOverCapture = (e, index) => {
+    console.log('over', currentDraggedIndex, index);
     e.preventDefault();
   }
 
   return (
     <div className="new-post-input-container">
-      <div className='new-post-img-previews'>
+      <div className='new-post-img-previews' >
         {imgSrcs.map((src, index) =>
-          <div className='image-preview-container' key={nanoid()} draggable={true}
-            onDragStart={e => handleSingleImageDragStart(e, index)}
-            // onDragEnd={e => handleSingleImageDragEnd(e, index)}
-            // onDrop={e => handleSingleImageDrop(e, index)}
-            // onDragOverCapture={e => handleSingleImageOverCapture(e)}
+          <div className='image-preview-container' key={nanoid()}
+
           >
-            <img className="image-preview" src={src} alt="" />
-            {/* <RiDeleteBin6Line className='img-prev-delete-button'
+            <img className="image-preview" src={src} alt="" draggable={true}
+              onDragStart={e => handleSingleImageDrag(e, index)}
+              onDragEnd={e => handleSingleImageDragEnd(e, index)}
+              onDrop={e => handleSingleImageDrop(e, index)}
+              onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
+            />
+            <RiDeleteBin6Line className='img-prev-delete-button'
               onClick={e => handleDeleteClick(e, index)}
             />
             <div className='img-prev-number'>
               {index}
-            </div> */}
+            </div>
           </div>
         )}
       </div>
