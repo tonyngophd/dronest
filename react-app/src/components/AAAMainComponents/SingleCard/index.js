@@ -315,6 +315,15 @@ export function PostModal({ setShowModal, user, posts }) {
                   post.images.length > 1 && 
                   <div className='post-modal-img-preview-div'>
                     <NextOrPrevious next={false} onClick={onPrevMediaClick} />
+                    {
+                      post.images.map((m, i) => 
+                      <div key={nanoid()}>
+                        <img src={m.mediaUrl} alt='' 
+                          className={i===mediaIndex?'post-modal-img-preview-current':'post-modal-img-preview'}
+                          onClick={e => setMediaIndex(i)}
+                        />
+                      </div>)
+                    }
                     <NextOrPrevious next={true} onClick={onNextMediaClick} />
                   </div>
                 }

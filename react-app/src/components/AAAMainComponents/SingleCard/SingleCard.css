@@ -171,6 +171,22 @@
   display: flex;
   justify-content: space-evenly;
 }
+.post-modal-img-preview-current{
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  margin: 5px 3px;
+}
+.post-modal-img-preview{
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  margin: 5px 3px;
+  opacity: 0.5;
+}
+.post-modal-img-preview:hover{
+  opacity: 0.8;
+}
 
 .fullscreen-img{
   object-fit: contain;
