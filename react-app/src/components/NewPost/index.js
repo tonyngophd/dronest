@@ -82,15 +82,6 @@ const NewPost = ({ onPost }) => {
     setHastagOpen(_open);
   }, []);
 
-  const updateFiles = (e) => {
-    const files = e.target.files;
-
-    if (files.length) {
-      setImages(files);
-      setImgSrcs(Object.values(files).map(file => URL.createObjectURL(file)));
-    }
-  };
-
   const focus = () => {
     ref.current.focus();
   };
@@ -204,21 +195,36 @@ const NewPost = ({ onPost }) => {
     }
   };
 
+  const updateFiles = (e) => {
+    const files = e.target.files;
+
+    if (files.length) {
+      setImages(files);
+      setImgSrcs(Object.values(files).map(file => URL.createObjectURL(file)));
+    }
+  };
+
   const handleDragOver = e => {
     e.preventDefault();
-    console.log('drag', e.target);
   }
   const handleDrop = e => {
+    //https://stackoverflow.com/questions/8006715/drag-drop-files-into-standard-html-file-input
+    const files = e.dataTransfer.files;
+
+    if (files.length) {
+      setImages([...images, ...files]);
+      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+    }
+
     e.preventDefault();
-    console.log('drop', e.target);
   }
 
   return (
     <div className="new-post-input-container">
       <div className='new-post-img-previews'>
         {imgSrcs.map((src, index) =>
-          <div className='image-preview-container'>
-            <img className="image-preview" src={src} alt="" key={nanoid()} />
+          <div className='image-preview-container' alt="" key={nanoid()} >
+            <img className="image-preview" src={src} />
             <RiDeleteBin6Line className='img-prev-delete-button' />
             <div className='img-prev-number'>
               {index}
@@ -226,17 +232,21 @@ const NewPost = ({ onPost }) => {
           </div>
         )}
       </div>
-      <div className="image-placeholder" >
+      <div className="image-placeholder"
+        onChange={updateFiles}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragOver}
+        onDrop={handleDrop}
+      >
         <label htmlFor={"image-input"} className="image-upload">
           <i className="las la-plus-square image-upload-plus"></i>
         </label>
-        <input id={"image-input"}
+        <input
+          className="image-placeholder"
+          id={"image-input"}
           type="file" multiple={true}
-          onChange={updateFiles}
-          onDragOver={handleDragOver}
-          onDragEnter={handleDragOver}
-          onDrop={handleDrop}
         />
+        <span>Click to add files or Drag and Drop files here to add them</span>
       </div>
       {/* {imgSrcs.map( src =>
         <>
@@ -278,7 +288,11 @@ const NewPost = ({ onPost }) => {
         </div>
       </div>
       <div className="new-post-buttons">
-        <div className="new-post-cancel" onClick={onPost}>
+        <div className="new-post-cancel" onClick={e => {
+          onPost();
+          setImages([]);
+          setImgSrcs([]);
+        }}>
           Cancel
         </div>
         <div className="new-post-submit" onClick={submitPost}>

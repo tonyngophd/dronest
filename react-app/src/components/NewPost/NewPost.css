@@ -4,6 +4,9 @@
   position: relative;
   background-color: rgb(122, 147, 230);
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-image-button{
