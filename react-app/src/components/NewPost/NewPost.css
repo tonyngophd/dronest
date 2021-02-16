@@ -23,7 +23,7 @@
   border-bottom: 1px solid rgb(235, 238, 240);
   margin: 3px;
   border: 1px solid green;
-  cursor: pointer;
+  cursor: move;
 }
 
 #image-input {
@@ -214,14 +214,22 @@
   flex-wrap: wrap;
 }
 .img-prev-delete-button{
-  font-size: 26px;
+  font-size: 22px;
   position: absolute;
   top: 10px;
   right: 10px;
   color: darkblue;
 }
-.img-prev-number{
+.img-prev-delete-button:hover{
+  color: rgb(76, 76, 190);
   font-size: 26px;
+  transition: 0.1s;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+.img-prev-number{
+  font-size: 22px;
   position: absolute;
   top: 10px;
   left: 10px;

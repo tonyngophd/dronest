@@ -220,23 +220,25 @@ const NewPost = ({ onPost }) => {
     e.preventDefault();
   }
 
+  const handleDeleteClick = (e, index) => {
+    e.preventDefault();
+    console.log(images, imgSrcs);
+    setImgSrcs(imgSrcs.filter((_,i) => i !== index));
+    let imgs = {...images};
+    delete imgs[index];
+    setImages(imgs);
+  }
+
   return (
     <div className="new-post-input-container">
       <div className='new-post-img-previews'>
         {imgSrcs.map((src, index) =>
-          <div className='image-preview-container' alt="" key={nanoid()} >
+          <div className='image-preview-container' alt="" key={nanoid()} draggable={true}  
+            onDragStart={e=> console.log(e.target)}
+          >
             <img className="image-preview" src={src} />
             <RiDeleteBin6Line className='img-prev-delete-button' 
-              onClick={e => {
-                e.preventDefault();
-                console.log(images, imgSrcs);
-                setImgSrcs(imgSrcs.filter((_,i) => i !== index));
-                let imgs = {...images};
-                console.log('before', imgs);
-                delete imgs[index];
-                console.log('after', imgs);
-                setImages(imgs);
-              }}
+              onClick={e => handleDeleteClick(e, index)}
             />
             <div className='img-prev-number'>
               {index}
