@@ -236,18 +236,32 @@ export function PostModal({ setShowModal, user, posts }) {
     // tryfetchLatLong();
   }
 
-  const onNextClick = e => {
+  const onNextPostClick = e => {
     e.preventDefault();
     let index = postIndex + 1;
     if (index > posts.length - 1) index = 0;
     setPostIndex(index);
   }
 
-  const onPrevClick = e => {
+  const onPrevPostClick = e => {
     e.preventDefault();
     let index = postIndex - 1;
     if (index < 0) index = posts.length - 1;
     setPostIndex(index);
+  }
+
+  const onNextMediaClick = e => {
+    e.preventDefault();
+    let index = mediaIndex + 1;
+    if (index > post.images.length - 1) index = 0;
+    setMediaIndex(index);
+  }
+
+  const onPrevMediaClick = e => {
+    e.preventDefault();
+    let index = mediaIndex - 1;
+    if (index < 0) index = post.images.length - 1;
+    setMediaIndex(index);
   }
 
   const plugins = Plugins();
@@ -281,7 +295,7 @@ export function PostModal({ setShowModal, user, posts }) {
             backgroundColor: 'lightgreen',
             borderRadius: '5px', overflow: 'hidden'
           }}>
-            <NextOrPrevious next={false} onClick={onPrevClick} />
+            <NextOrPrevious next={false} onClick={onPrevPostClick} />
           </div>}
           <div style={{ width: '100%' }}>
             {/* <div className="custom-modal-top-div">
@@ -297,6 +311,13 @@ export function PostModal({ setShowModal, user, posts }) {
                     setShowPicFullScreen(true);
                   }}
                 />
+                {
+                  post.images.length > 1 && 
+                  <div className='post-modal-img-preview-div'>
+                    <NextOrPrevious next={false} onClick={onPrevMediaClick} />
+                    <NextOrPrevious next={true} onClick={onNextMediaClick} />
+                  </div>
+                }
               </div>
               <div>
                 <div className='post-modal-user-like-save-share'>
@@ -387,7 +408,7 @@ export function PostModal({ setShowModal, user, posts }) {
             backgroundColor: 'lightgreen',
             borderRadius: '5px', overflow: 'hidden'
           }}>
-            <NextOrPrevious onClick={onNextClick} />
+            <NextOrPrevious onClick={onNextPostClick} />
           </div>}
         </div>
       </Modal>

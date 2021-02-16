@@ -135,6 +135,7 @@
   max-width: 730px;
   overflow-x: scroll;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   -ms-overflow-style: none; 
@@ -164,6 +165,11 @@
   flex-direction: column;
   min-width: 350px;
   max-width: 360px;
+}
+
+.post-modal-img-preview-div{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .fullscreen-img{
