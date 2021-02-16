@@ -36,7 +36,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
-  const [showAddAPostForm, setShowAddAPostForm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -60,14 +59,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
     }
   }, [profile]);
-
-  useEffect(() => {
-    if (myself && create && profile.user && myself.id === profile.user.id) {
-      setShowAddAPostForm(true)
-    } else {
-      setShowAddAPostForm(false);
-    }
-  }, [create]);
 
   const handleFollowersClick = (e) => {
     e.preventDefault();
@@ -247,18 +238,11 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
         </>
       )}
       {profile && <ProfilePostsNav />}
-      {/* {showAddAPostForm &&
-        <AddAPostModal setShowModal={setShowAddAPostForm} />
-      } */}
-      {showAddAPostForm &&
-        <AddAPostForm setShowForm={setShowAddAPostForm} />
-      }
       {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
-      {profile.user && tagged && (
-        <ProfileFeed posts={profile.user.taggedInPosts} />
-      )}
+      {profile.user && create && <AddAPostForm />}
+      {profile.user && tagged && <ProfileFeed posts={profile.user.taggedInPosts} />}
       {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} />}
       {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
       {showFollowersModal && (
