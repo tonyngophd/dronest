@@ -22,10 +22,10 @@ import {
   savePost,
   unsavePost,
 } from "../../store/posts";
-import timeStamp from '../utils';
+import timeStamp, { MediaDisplayer } from '../utils';
 import { deleteAPost } from '../../store/posts';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import ReactPlayer from 'react-player';
+import { PostModal } from '../AAAMainComponents/SingleCard';
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
@@ -38,6 +38,8 @@ const ProfilePost = ({ post }) => {
   const singlePost = useSelector((state) => state.posts.singlePost);
   const profile = useSelector((state) => state.profile);
   const [isPicOpen, setIsPicOpen] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
+
   const likeHandler = () => {
     if (liked) {
       dispatch(unlikePost(post.id));
@@ -69,6 +71,10 @@ const ProfilePost = ({ post }) => {
       dispatch(deleteAPost(postId));
   };
 
+  const handleClick = e => {
+    setShowPostModal(true);
+  }
+
 
   return (
     <>
@@ -81,37 +87,13 @@ const ProfilePost = ({ post }) => {
           setIsPicOpen(true);
         }}
       >
-        {
-          post.images[0].mediaType.includes('jpg') ?
-            <img
-              draggable="false"
-              className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-              src={post.images[0].mediaUrl}
-              alt="pic"
-            /> :
-            <div>
-              <ReactPlayer
-                // url='https://www.facebook.com/100012533494609/videos/493072851120494'
-                // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
-                url={post.images[0].mediaUrl}
-                controls={true}
-                config={{
-                  // youtube: {
-                  //   playerVars: { showinfo: 1 }
-                  // },
-                  // facebook: {
-                  //   appId: '119913890036904'
-                  // }
-                  // file: {
-                  //   forceFLV: true
-                  // }
-                }}
-                // width='100%'
-                height='100%'
-              // style={{marginBottom: '-50px', marginTop: '20px'}}
-              />
-            </div>
-        }
+        <MediaDisplayer mediaUrl={post.images[0].mediaUrl}
+          imgClassname={hover ? "profile-post-pic hovered" : "profile-post-pic"}
+          vidClassname="image-preview"
+          imgHandleClick={handleClick}
+          vidHandleClick={handleClick}
+          // fileType={post.images[0].type}
+        />
         <div
           className={
             hover
@@ -134,7 +116,14 @@ const ProfilePost = ({ post }) => {
           </div>
         </div>
       </div>
-      <PicModal open={isPicOpen} onClose={() => setIsPicOpen(false)}>
+
+      {
+        // showPostModal && <PostModal user={user} posts={user.ownPosts} setShowModal={setShowPostModal} />
+        showPostModal && <PostModal user={user} posts={[post]} setShowModal={setShowPostModal} />
+      }
+
+
+      {/* <PicModal open={isPicOpen} onClose={() => setIsPicOpen(false)}>
         <div className="pic-modal-container">
           <img className="modal-img" src={post.images[0].mediaUrl} />
           <div className="pic-modal-right">
@@ -210,7 +199,7 @@ const ProfilePost = ({ post }) => {
             </div>
           </div>
         </div>
-      </PicModal>
+      </PicModal> */}
     </>
   );
 };

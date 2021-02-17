@@ -456,38 +456,11 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   return (
     <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
       <div className={category || location ? 'single-card-top-image-div-catloc' : 'single-card-top-image-div'}>
-        <MediaDisplayer 
+        <MediaDisplayer
           mediaUrl={src}
           imgHandleClick={handleClick}
           vidHandleClick={handleClick}
         />
-        {/* {
-          Math.random() < 0.5 ? <img
-            className='single-card-main-img'
-            src={src}
-            onClick={handleClick}
-            alt='good band picture' /> :
-            <div className='single-card-main-vid' onClick={handleClick}>
-              <ReactPlayer
-                // url='https://www.facebook.com/100012533494609/videos/493072851120494'
-                // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
-                url='https://www.youtube.com/watch?v=Xnnr_JqRjg0'
-                controls={true}
-                light={true}
-                config={{
-                  // youtube: {
-                  //   playerVars: { showinfo: 1 }
-                  // },
-                  // facebook: {
-                  //   appId: '119913890036904'
-                  // }
-                }}
-                // width='100%'
-                height='100%'
-                // style={{marginBottom: '-50px', marginTop: '20px'}}
-              />
-            </div>
-        } */}
       </div>
       {category &&
         <div className='single-card-info-div'>

@@ -10,7 +10,6 @@ export function MediaDisplayer({
   light = false, config, height = '100%', style, fileType
 }) {
   let mediatType = 'image';
-  console.log(mediaUrl, fileType, fileType.toLowerCase().includes('vid'));
   if (mediaUrl.toLowerCase().includes('facebook') ||
     mediaUrl.toLowerCase().includes('youtu') ||
     mediaUrl.toLowerCase().includes('mp4') || 
