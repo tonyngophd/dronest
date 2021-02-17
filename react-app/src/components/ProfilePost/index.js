@@ -93,10 +93,11 @@ const ProfilePost = ({ post }) => {
               : "profile-post-pic-overlay"
           }
         >
-          <RiDeleteBin6Line className='profile-post-overlay-delete' 
-            onClick={e => deleteHandler(e, post.id)}
-          />
-
+          {
+            (user.id === post.user.id) && <RiDeleteBin6Line className='profile-post-overlay-delete'
+              onClick={e => deleteHandler(e, post.id)}
+            />
+          }
           <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-heart"></i>
             {likes}
