@@ -69,23 +69,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     setShowFollowingModal(true);
   };
 
-  const hideModal = (e) => {
-    e.preventDefault();
-    if (
-      e.target.className === "modal" ||
-      e.target.className.animVal !== undefined
-    ) {
-      setShowFollowersModal(false);
-      setShowFollowingModal(false);
-    }
-  };
-
-  const escapeHideModal = e => {
-    if (e.key === 'Escape') {
-      setShowFollowersModal(false);
-      setShowFollowingModal(false);
-    }
-  }
 
   const FollowModal = ({ setShowModal, listOfUsers = [], title = "Followers" }) => {
     const [listOfUsersWithoutMe] = useState(

@@ -199,6 +199,7 @@ const NewPost = ({ onPost }) => {
   const updateFiles = (e) => {
     const files = e.target.files;
 
+    console.log(files, typeof(files));
     if (files.length) {
       setImages([...images, ...files]);
       setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);

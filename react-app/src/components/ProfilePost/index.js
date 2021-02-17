@@ -89,13 +89,12 @@ const ProfilePost = ({ post }) => {
               src={post.images[0].mediaUrl}
               alt="pic"
             /> :
-            <div className='single-card-main-vid'>
+            <div>
               <ReactPlayer
                 // url='https://www.facebook.com/100012533494609/videos/493072851120494'
                 // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
                 url={post.images[0].mediaUrl}
                 controls={true}
-                light={true}
                 config={{
                   // youtube: {
                   //   playerVars: { showinfo: 1 }
