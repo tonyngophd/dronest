@@ -3,7 +3,6 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
-import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
 import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
@@ -28,7 +27,6 @@ import { RiShareForwardLine } from 'react-icons/ri';
 import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
-import { Plugins } from '../../utils';
 import { notFollowedYet } from "../../ProfilePage";
 
 import {
@@ -58,7 +56,7 @@ import Comment from "../../Comment";
 import PicModalCaption from "../../PicModalCaption";
 import { MapWithMarkerClusterer } from '../../GoogleMaps';
 
-import ReactPlayer from 'react-player';
+import timeStamp, { MediaDisplayer, Plugins } from '../../utils';
 
 
 import './SingleCard.css';
@@ -458,7 +456,12 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   return (
     <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
       <div className={category || location ? 'single-card-top-image-div-catloc' : 'single-card-top-image-div'}>
-        {
+        <MediaDisplayer 
+          mediaUrl={src}
+          imgHandleClick={handleClick}
+          vidHandleClick={handleClick}
+        />
+        {/* {
           Math.random() < 0.5 ? <img
             className='single-card-main-img'
             src={src}
@@ -484,7 +487,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
                 // style={{marginBottom: '-50px', marginTop: '20px'}}
               />
             </div>
-        }
+        } */}
       </div>
       {category &&
         <div className='single-card-info-div'>

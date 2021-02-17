@@ -17,7 +17,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { nanoid } from "nanoid";
 import { RiDeleteBin6Line, RiDragDropLine } from 'react-icons/ri';
 import { GrDropbox } from 'react-icons/gr';
-import ReactPlayer from 'react-player';
+import { MediaDisplayer } from '../utils';
 
 
 const UserTag = (props) => {
