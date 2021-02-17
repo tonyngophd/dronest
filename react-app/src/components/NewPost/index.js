@@ -300,14 +300,15 @@ const NewPost = ({ onPost }) => {
       </div>
       <div className='new-post-img-previews' >
         {mediaSrcs.map((src, index) =>
-          <div className='image-preview-container' key={nanoid()}
-
+          <div className='image-preview-container' key={nanoid()} draggable={true}
+            onDragStart={e => handleSingleImageDrag(e, index)}
+            onDragEnd={e => handleSingleImageDragEnd(e, index)}
+            onDrop={e => handleSingleImageDrop(e, index)}
+            onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
           >
-            <img className="image-preview" src={src} alt="" draggable={true}
-              onDragStart={e => handleSingleImageDrag(e, index)}
-              onDragEnd={e => handleSingleImageDragEnd(e, index)}
-              onDrop={e => handleSingleImageDrop(e, index)}
-              onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
+            <MediaDisplayer mediaUrl={src} imgClassname="image-preview"
+              vidClassname="image-preview"
+              fileType={images[index].type}
             />
             <RiDeleteBin6Line className='img-prev-delete-button'
               onClick={e => handleDeleteClick(e, index)}
