@@ -165,6 +165,8 @@ const NewPost = ({ onPost }) => {
   const { MentionSuggestions } = userMentionPlugin;
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  const [messages, setMessages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const submitPost = async () => {
     if (!images.length) return;
@@ -189,11 +191,18 @@ const NewPost = ({ onPost }) => {
     setMedia([]);
     setMediaSrcs([]);
     onPost();
-    await dispatch(
+    const res = await dispatch(
       uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
     );
-    if (profile && profile.id === myself.id) {
-      dispatch(fetchUserProfile(profile.username));
+    if (!res.errors) {
+      if (profile && profile.id === myself.id) {
+        dispatch(fetchUserProfile(profile.username));
+        setMessages(["Successfully posted"]);
+        setTimeout(() => setMessages([]), 3000);
+      }
+    } else {
+      setErrors(res.errors);
+      setTimeout(() => setErrors([]), 3000);
     }
   };
 
@@ -205,6 +214,8 @@ const NewPost = ({ onPost }) => {
     'image/bmp',
   ]
   const updateFiles = (e) => {
+    setMessages([]);
+    setErrors([]);
     const files = Array.from(e.target.files)
       .filter(file =>
         acceptedFileTypes.includes(file.type)
@@ -220,6 +231,8 @@ const NewPost = ({ onPost }) => {
     e.preventDefault();
   }
   const handleDrop = e => {
+    setMessages([]);
+    setErrors([]);
     //https://stackoverflow.com/questions/8006715/drag-drop-files-into-standard-html-file-input
     const files = Array.from(e.dataTransfer.files)
       .filter(file =>
@@ -242,16 +255,13 @@ const NewPost = ({ onPost }) => {
 
   const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
   const handleSingleImageDrag = (e, index) => {
-    console.log('start', currentDraggedIndex, index);
     setCurrentDraggedIndex(index);
   }
   const handleSingleImageDragEnd = (e, index) => {
-    console.log('end', currentDraggedIndex, index);
     setCurrentDraggedIndex(null);
   }
 
   const handleSingleImageDrop = (e, droppedIndex) => {
-    console.log('drop', currentDraggedIndex, droppedIndex);
     if (currentDraggedIndex !== null) {
       const srcs = mediaSrcs;
       const draggedSrc = srcs[currentDraggedIndex];
@@ -267,12 +277,17 @@ const NewPost = ({ onPost }) => {
     // e.preventDefault();    
   }
   const handleSingleImageOverCapture = (e, index) => {
-    console.log('over', currentDraggedIndex, index);
     e.preventDefault();
   }
 
   return (
     <div className="new-post-input-container">
+      <div className="upload-message-div">
+        {messages.map(m => <div key={nanoid()}>{m}</div>)}
+      </div>
+      <div className="upload-error-div">
+        {errors.map(e => <div key={nanoid()}>{e}</div>)}
+      </div>
       <div className="image-placeholder"
         onChange={updateFiles}
         onDragOver={handleDragOver}

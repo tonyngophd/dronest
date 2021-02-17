@@ -48,7 +48,7 @@ def create_post():
       if mfile and mfile.content_type in acceptedFileTypes:
         images.append(mfile)
     if len(images) == 0:
-      return {"errors": "no valid media file found"}, 401
+      return {"errors": ["Post could not be posted", "No valid media file found"]}
     user_id = request.form["userId"]
     mentioned_users = request.form["mentionedUsers"]
     mentioned_users = json.loads(mentioned_users)

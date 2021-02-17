@@ -254,3 +254,18 @@
 .image-preview-container{
   position: relative;
 }
+.upload-message-div{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: green;
+}
+.upload-error-div{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: red;
+}

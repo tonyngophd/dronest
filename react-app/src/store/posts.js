@@ -1,9 +1,9 @@
 import { updateAUsersPostPOJO } from './users';
 import { updateAProfilePostPOJO } from './profile';
-import { 
+import {
   updateUsersLikePOJO,
   updateUsersFavePOJO,
-  removeAPostOfSessionUserPOJO 
+  removeAPostOfSessionUserPOJO
 } from './session';
 
 import { removeAPostOfProfileUserPOJO } from './profile';
@@ -81,13 +81,17 @@ export const uploadPost = (
   form.append("rawData", JSON.stringify(rawData));
   form.append('numberOfImages', images.length);
   images.forEach((image, i) => form.append(`image_${i}`, image));
-  
+
   const res = await fetch("/api/posts/", {
     method: "POST",
     body: form,
   });
-  const newPost = await res.json();
-  dispatch(createNewPost(newPost));
+  if (res.ok) {
+    const newPost = await res.json();
+    if(!newPost.errors)
+      dispatch(createNewPost(newPost));
+    return newPost;
+  }
 };
 
 export const uploadComment = (
@@ -222,7 +226,7 @@ const initialState = {
   homeFeed: {},
   exploreFeed: {},
   hashtagFeed: {},
-  singlePost: {comments: []},
+  singlePost: { comments: [] },
 };
 
 const reducer = (state = initialState, action) => {
