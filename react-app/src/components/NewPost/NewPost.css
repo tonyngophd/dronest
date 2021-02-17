@@ -25,11 +25,15 @@
   width: 300px;
   height: 300px;
   object-fit: contain;
-  border-top: 1px solid rgb(235, 238, 240);
-  border-bottom: 1px solid rgb(235, 238, 240);
+  /* border-top: 1px solid rgb(235, 238, 240);
+  border-bottom: 1px solid rgb(235, 238, 240); */
   margin: 3px;
   border: 1px solid green;
+  border-radius: 5px;
   cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #image-input {
