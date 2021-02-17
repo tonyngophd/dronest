@@ -21,11 +21,7 @@ import {
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
-import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
-import Editor from "@draft-js-plugins/editor";
-import { EditorState, convertFromRaw } from "draft-js";
-import createMentionPlugin from "@draft-js-plugins/mention";
 import { notFollowedYet } from "../../ProfilePage";
 
 import {
@@ -61,10 +57,7 @@ import timeStamp, { MediaDisplayer, Plugins } from '../../utils';
 import './SingleCard.css';
 
 export function FullScreenPicModal({ setShowModal, media }) {
-  let src = media.imgUrl;
-  useEffect(() => {
-    console.log(media.imgUrl);
-  }, [media]);
+
   return (
     <Modal setShowModal={setShowModal}
       dronestLogo={false} needsEscapeInput={true}
@@ -266,19 +259,13 @@ export function PostModal({ setShowModal, user, posts }) {
     setMediaIndex(index);
   }
 
-  const plugins = Plugins();
-  let data = "";
-  if (post.captionRawData) {
-    data = JSON.parse(post.captionRawData);
-    data = convertFromRaw(data);
-  }
-
   return (
     <>
       <Modal setShowModal={setShowModal}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
-        width='1100px'
+        width='1100px' 
+        // height='900px'
       >
         <div style={{
           display: 'flex',

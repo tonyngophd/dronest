@@ -5,7 +5,7 @@ import { isMobile } from '../../utils';
 import './Modals.css';
 
 const Modal = ({ setShowModal, children, title, action,
-  width, dronestLogo = true, needsEscapeInput = false,
+  width, height, dronestLogo = true, needsEscapeInput = false,
   closeXOutSide = false, noTopDiv = false, shieldBackground = true,
   noScrollBar = false,
 }) => {
@@ -32,6 +32,7 @@ const Modal = ({ setShowModal, children, title, action,
         (noScrollBar ? 'modal-content-no-scrollbar' : 'modal-content') : 'modal-content-dep-parents'}
         style={{
           display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect",
+          height: height ? height : "noAdditionalEffect",
         }}>
         {noTopDiv ?
           <GrClose className='modal-close-top-right-screen' onClick={e => setShowModal(false)} />
