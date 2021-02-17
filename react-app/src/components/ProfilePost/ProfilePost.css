@@ -38,3 +38,9 @@
 .profile-post-pic-overlay-inner > i {
   padding-right: 5px;
 }
+
+.profile-post-overlay-delete{
+  position: absolute;
+  top: -100px;
+  right: 20px;
+}

@@ -9,6 +9,7 @@ const REMOVE_USER_LIKE = "session/REMOVE_USER_LIKE";
 const ADD_USER_FAVE = "session/ADD_USER_FAVE";
 const REMOVE_USER_FAVE = "session/REMOVE_USER_FAVE";
 const UPDATE_A_FOLLOWING = 'session/UPDATE_A_FOLLOWING';
+const REMOVE_A_POST = "session/REMOVE_A_POST";
 // const RESTORE_USER = 'user/RESTORE_USER';
 
 export const setUserPOJO = (user) => ({
@@ -23,6 +24,11 @@ export const updateAFollowingPOJO = (followee, add = true) => ({
 export const setUserAddAMessagePOJO = (message) => ({
   type: ADD_A_MESSAGE,
   message,
+});
+
+export const removeAPostOfSessionUserPOJO = (postId) => ({
+  type: REMOVE_A_POST,
+  postId
 });
 
 const removeUserPOJO = () => ({
@@ -120,6 +126,10 @@ const reducer = (state = initialState, action) => {
     case REMOVE_USER_FAVE:
       newState = Object.assign({}, state);
       newState.user.savedPosts = newState.user.savedPosts.filter(p => p.id !== action.post.id);
+      return newState;
+    case REMOVE_A_POST:
+      newState = Object.assign({}, state);
+      newState.user.ownPosts = newState.user.ownPosts.filter(p => p.id !== action.postId);
       return newState;
     default:
       return state;

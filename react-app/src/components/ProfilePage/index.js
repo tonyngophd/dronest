@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
-import { GrClose } from "react-icons/gr";
 import Modal from '../AAPopups/Modals';
 
 import ProfilePostsNav from "../ProfilePostsNav";
@@ -13,7 +12,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
-import { AddAPostModal, AddAPostForm } from '../Post';
+import { AddAPostForm } from '../Post';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!

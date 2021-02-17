@@ -1,5 +1,11 @@
 import { updateAUsersPostPOJO } from './users';
-import { updateUsersLikePOJO, updateUsersFavePOJO } from './session';
+import { 
+  updateUsersLikePOJO,
+  updateUsersFavePOJO,
+  removeAPostOfSessionUserPOJO 
+} from './session';
+
+import { removeAPostOfProfileUserPOJO } from './profile';
 
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -197,6 +203,8 @@ export const deleteAPost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(deleteAPostPOJO(res2['postId']));
+    dispatch(removeAPostOfSessionUserPOJO(res2['postId']));
+    dispatch(removeAPostOfProfileUserPOJO(res2['postId']));
   }
 };
 

@@ -23,7 +23,8 @@ import {
   unsavePost,
 } from "../../store/posts";
 import timeStamp from '../utils';
-
+import { deleteAPost } from '../../store/posts';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
@@ -59,6 +60,15 @@ const ProfilePost = ({ post }) => {
 
   let timestamp = timeStamp(new Date(post.createdAt));
 
+
+  const deleteHandler = (e, postId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (postId)
+      dispatch(deleteAPost(postId));
+  };
+
+
   return (
     <>
       <div
@@ -83,6 +93,10 @@ const ProfilePost = ({ post }) => {
               : "profile-post-pic-overlay"
           }
         >
+          <RiDeleteBin6Line className='profile-post-overlay-delete' 
+            onClick={e => deleteHandler(e, post.id)}
+          />
+
           <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-heart"></i>
             {likes}
@@ -117,7 +131,7 @@ const ProfilePost = ({ post }) => {
                 {singlePost.comments &&
                   singlePost.comments.map((comment) => {
                     return (
-                      <div className="modal-comment"  key={nanoid()}>
+                      <div className="modal-comment" key={nanoid()}>
                         <img
                           className="commenter-pic"
                           src={comment.commenterPic}
@@ -137,8 +151,8 @@ const ProfilePost = ({ post }) => {
                       className="post-icon heart-full"
                     />
                   ) : (
-                    <BsHeart onClick={likeHandler} className="post-icon" />
-                  )}
+                      <BsHeart onClick={likeHandler} className="post-icon" />
+                    )}
                   <BsChat className="post-icon-comment" />
                 </div>
                 <div className="feed_post-info-icons-right">
@@ -148,11 +162,11 @@ const ProfilePost = ({ post }) => {
                       className="post-icon-bk bk-full"
                     />
                   ) : (
-                    <BsBookmark
-                      onClick={saveHandler}
-                      className="post-icon-bk"
-                    />
-                  )}
+                      <BsBookmark
+                        onClick={saveHandler}
+                        className="post-icon-bk"
+                      />
+                    )}
                 </div>
               </div>
               <p className="info-likes">

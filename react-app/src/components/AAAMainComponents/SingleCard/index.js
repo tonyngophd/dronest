@@ -270,11 +270,6 @@ export function PostModal({ setShowModal, user, posts }) {
     data = JSON.parse(post.captionRawData);
     data = convertFromRaw(data);
   }
-  const [editorState, setEditorState] = useState(
-    (data ? EditorState.createWithContent(data) : EditorState.createEmpty())
-  );
-  let timestamp = timeStamp(new Date(post.createdAt));
-
 
   return (
     <>
