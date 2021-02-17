@@ -7,7 +7,8 @@ export function MediaDisplayer({
   mediaUrl, imgClassname = 'single-card-main-img',
   vidClassname = 'single-card-main-vid',
   imgHandleClick, vidHandleClick, controls = true,
-  light = false, config, height = '100%', style, fileType
+  light = false, config, height = '100%', style, fileType,
+  width
 }) {
   let mediatType = 'image';
   if (mediaUrl.toLowerCase().includes('facebook') ||
@@ -41,6 +42,7 @@ export function MediaDisplayer({
             light={light}
             config={config}
             height={height}
+            width={width}
             style={style}
           />
         </div>

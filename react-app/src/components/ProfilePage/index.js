@@ -65,7 +65,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   }, [profile]);
 
   useEffect(() => {
-    if(showPostModal !== false){
+    if (showPostModal !== false) {
       setModalPost(profile.user.ownPosts.find(p => p.id === showPostModal));
     } else {
       setModalPost(null);
@@ -241,7 +241,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} setShowPostModal={setShowPostModal} />}
       {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} setShowPostModal={setShowPostModal} />}
       {
-        // showPostModal && <PostModal user={user} posts={user.ownPosts} setShowModal={setShowPostModal} />
         modalPost && profile.user && !create &&
         <PostModal user={profile.user} posts={[modalPost]} setShowModal={setShowPostModal} />
       }

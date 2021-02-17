@@ -72,8 +72,11 @@ export function FullScreenPicModal({ setShowModal, media }) {
       width='100vw' noScrollBar={true}
     >
       <div className='fullscreen-img-container'>
-        <img src={media.mediaUrl} alt={media.mediaUrl}
-          className='fullscreen-img'
+        <MediaDisplayer
+          mediaUrl={media.mediaUrl}
+          imgClassname='fullscreen-img'
+          vidClassname='fullscreen-img'
+          width='85vw'
         />
       </div>
     </Modal>
@@ -201,7 +204,7 @@ export function PostModal({ setShowModal, user, posts }) {
       return updateConfirmLogin(true);
     }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
-    if (res){
+    if (res) {
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
       setLikes(post.likes);
     }
@@ -297,13 +300,18 @@ export function PostModal({ setShowModal, user, posts }) {
             </div> */}
             <div className="single-card-modal-images-div">
               <div className='post-modal-img-div'>
-                <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
-                  className='post-modal-img'
-                  // onLoad={e=>console.log(e.target.width)} 
-                  onClick={e => {
+                <MediaDisplayer
+                  mediaUrl={post.images[mediaIndex].mediaUrl}
+                  imgClassname='post-modal-img'
+                  vidClassname='post-modal-img'
+                  imgHandleClick={e => {
                     setCurrentPic(post.images[mediaIndex]);
                     setShowPicFullScreen(true);
                   }}
+                // vidHandleClick={e => {
+                //   setCurrentPic(post.images[mediaIndex]);
+                //   setShowPicFullScreen(true);
+                // }}
                 />
                 {
                   post.images.length > 1 &&
@@ -313,9 +321,18 @@ export function PostModal({ setShowModal, user, posts }) {
                       {
                         post.images.map((m, i) =>
                           <div key={nanoid()}>
-                            <img src={m.mediaUrl} alt=''
+                            {/* <img src={m.mediaUrl} alt=''
                               className={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
                               onClick={e => setMediaIndex(i)}
+                            /> */}
+                            <MediaDisplayer
+                              mediaUrl={m.mediaUrl}
+                              imgClassname={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
+                              vidClassname={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
+                              imgHandleClick={e => setMediaIndex(i)}
+                              vidHandleClick={e => setMediaIndex(i)}
+                              light={true}
+                              width="50px"
                             />
                           </div>)
                       }
