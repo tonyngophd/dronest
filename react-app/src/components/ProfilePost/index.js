@@ -102,6 +102,9 @@ const ProfilePost = ({ post }) => {
                   // facebook: {
                   //   appId: '119913890036904'
                   // }
+                  // file: {
+                  //   forceFLV: true
+                  // }
                 }}
                 // width='100%'
                 height='100%'

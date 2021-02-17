@@ -17,6 +17,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { nanoid } from "nanoid";
 import { RiDeleteBin6Line, RiDragDropLine } from 'react-icons/ri';
 import { GrDropbox } from 'react-icons/gr';
+import ReactPlayer from 'react-player';
 
 
 const UserTag = (props) => {
@@ -66,8 +67,8 @@ const Hashtag = (props) => {
 };
 
 const NewPost = ({ onPost }) => {
-  const [images, setImages] = useState([]);
-  const [imgSrcs, setImgSrcs] = useState([]);
+  const [images, setMedia] = useState([]);
+  const [mediaSrcs, setMediaSrcs] = useState([]);
   const myself = useSelector((state) => state.session.user);
   const profile = useSelector((state) => state.profile.user);
   const userMentions = useSelector((state) => state.mentions.users);
@@ -185,8 +186,8 @@ const NewPost = ({ onPost }) => {
           break;
       }
     }
-    setImages([]);
-    setImgSrcs([]);
+    setMedia([]);
+    setMediaSrcs([]);
     onPost();
     await dispatch(
       uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
@@ -196,13 +197,22 @@ const NewPost = ({ onPost }) => {
     }
   };
 
+  const acceptedFileTypes = [
+    'video/mp4',
+    'image/jpg',
+    'image/jpeg',
+    'image/png',
+    'image/bmp',
+  ]
   const updateFiles = (e) => {
-    const files = e.target.files;
+    const files = Array.from(e.target.files)
+      .filter(file =>
+        acceptedFileTypes.includes(file.type)
+      );
 
-    console.log(files, typeof(files));
     if (files.length) {
-      setImages([...images, ...files]);
-      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+      setMedia([...images, ...files]);
+      setMediaSrcs([...mediaSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
     }
   };
 
@@ -211,11 +221,14 @@ const NewPost = ({ onPost }) => {
   }
   const handleDrop = e => {
     //https://stackoverflow.com/questions/8006715/drag-drop-files-into-standard-html-file-input
-    const files = e.dataTransfer.files;
+    const files = Array.from(e.dataTransfer.files)
+      .filter(file =>
+        acceptedFileTypes.includes(file.type)
+      );
 
     if (files.length) {
-      setImages([...images, ...files]);
-      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+      setMedia([...images, ...files]);
+      setMediaSrcs([...mediaSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
     }
 
     e.preventDefault();
@@ -223,8 +236,8 @@ const NewPost = ({ onPost }) => {
 
   const handleDeleteClick = (e, index) => {
     e.preventDefault();
-    setImgSrcs(imgSrcs.filter((_, i) => i !== index));
-    setImages(images.filter((_, i) => i !== index));
+    setMediaSrcs(mediaSrcs.filter((_, i) => i !== index));
+    setMedia(images.filter((_, i) => i !== index));
   }
 
   const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
@@ -240,16 +253,16 @@ const NewPost = ({ onPost }) => {
   const handleSingleImageDrop = (e, droppedIndex) => {
     console.log('drop', currentDraggedIndex, droppedIndex);
     if (currentDraggedIndex !== null) {
-      const srcs = imgSrcs;
+      const srcs = mediaSrcs;
       const draggedSrc = srcs[currentDraggedIndex];
       srcs[currentDraggedIndex] = srcs[droppedIndex];
       srcs[droppedIndex] = draggedSrc;
-      setImgSrcs(srcs);
+      setMediaSrcs(srcs);
       const imgs = images;
       const draggedImg = imgs[currentDraggedIndex];
       imgs[currentDraggedIndex] = imgs[droppedIndex];
       imgs[droppedIndex] = draggedImg;
-      setImages(imgs);
+      setMedia(imgs);
     }
     // e.preventDefault();    
   }
@@ -260,8 +273,33 @@ const NewPost = ({ onPost }) => {
 
   return (
     <div className="new-post-input-container">
+      <div className="image-placeholder"
+        onChange={updateFiles}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <label htmlFor={"image-input"} className="image-upload">
+          <RiDragDropLine className="las la-plus-square image-upload-plus" />
+          <i className="las la-plus-square image-upload-plus"></i>
+          <GrDropbox className="las la-plus-square image-upload-plus" />
+        </label>
+        <input
+          className="image-placeholder"
+          id={"image-input"}
+          type="file" multiple={true}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <div>
+            Click to add files or Drag and Drop files here to add them
+          </div>
+          <div>
+            Current supported file types: jpg, jpeg, png, mp4
+          </div>
+        </div>
+      </div>
       <div className='new-post-img-previews' >
-        {imgSrcs.map((src, index) =>
+        {mediaSrcs.map((src, index) =>
           <div className='image-preview-container' key={nanoid()}
 
           >
@@ -280,34 +318,6 @@ const NewPost = ({ onPost }) => {
           </div>
         )}
       </div>
-      <div className="image-placeholder"
-        onChange={updateFiles}
-        onDragOver={handleDragOver}
-        onDragEnter={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <label htmlFor={"image-input"} className="image-upload">
-          <RiDragDropLine className="las la-plus-square image-upload-plus" />
-          <i className="las la-plus-square image-upload-plus"></i>
-          <GrDropbox className="las la-plus-square image-upload-plus" />
-        </label>
-        <input
-          className="image-placeholder"
-          id={"image-input"}
-          type="file" multiple={true}
-        />
-        <span>Click to add files or Drag and Drop files here to add them</span>
-      </div>
-      {/* {imgSrcs.map( src =>
-        <>
-          <div className="add-image-button">
-            <label htmlFor={"image-input"} className="image-upload">
-              <i className="las la-plus-square image-upload-plus"></i>
-            </label>
-            <input id={"image-input"} type="file" onChange={updateFiles}></input>
-          </div>
-        </>
-      )} */}
       <div className="editor-wrapper">
         <div className="editor" onFocus={focus}>
           <Editor
@@ -339,9 +349,12 @@ const NewPost = ({ onPost }) => {
       </div>
       <div className="new-post-buttons">
         <div className="new-post-cancel" onClick={e => {
-          onPost();
-          setImages([]);
-          setImgSrcs([]);
+          const conf = window.confirm("Cancel your post?");
+          if (conf) {
+            onPost();
+            setMedia([]);
+            setMediaSrcs([]);
+          }
         }}>
           Cancel
         </div>

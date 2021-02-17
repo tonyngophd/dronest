@@ -4,6 +4,10 @@
   min-height: 60px;
 }
 
+.editor-wrapper{
+  background-color: lightgray;
+}
+
 .comment-editor {
   padding-top: 18px;
   padding-left: 15px;
