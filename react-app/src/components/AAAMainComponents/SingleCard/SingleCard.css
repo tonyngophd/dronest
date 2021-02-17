@@ -170,7 +170,23 @@
 .post-modal-img-preview-div{
   display: flex;
   justify-content: space-evenly;
+  max-width: 90%;   
 }
+
+.post-modal-img-preview-inner{
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 90%;
+  overflow-x: scroll;
+  -ms-overflow-style: none; 
+   /* IE and Edge */
+  scrollbar-width: none;    
+}
+
+.post-modal-img-preview-inner::-webkit-scrollbar {
+  display: none;
+}
+
 .post-modal-img-preview-current{
   width: 60px;
   height: 45px;
@@ -243,8 +259,11 @@
   font-size: 20px;
 }
 .share-button-div{
-  margin: auto 3px;
+  margin: 0px 3px;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-comment-editor-wrapper {
