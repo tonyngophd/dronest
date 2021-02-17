@@ -442,77 +442,19 @@ export function AddAPostModal({ setShowModal }) {
   );
 }
 
-export function AddAPostForm({ setShowForm }) {
+export function AddAPostForm() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const [errors, setErrors] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [name, setName] = useState(user && user.name);
-
-  const onUpdateProfile = async (e) => {
-    e.preventDefault();
-
-    // const resJson = await dispatch(updateUser(username, name, email, bio, websiteUrl, profilePicUrl));
-    // if (resJson.errors) {
-    // 	setErrors(resJson.errors);
-    // } else {
-    // 	setErrors([]);
-    // 	setMessages(["Profile updated successfully!"])
-    // 	setTimeout(() => setShowForm(false), 1500);
-    // }
-  };
-
-
-
-  const updateName = (e) => {
-    setName(e.target.value);
-  };
 
   if (!user) {
     return <Redirect to="/login" />;
   }
 
-  const onSubmitClick = e => {
-    e.stopPropagation();
-    // setPasswordIsSubmitting(true);
-    // setNewPasswordIsSubmitting(true);
-    // setNewCPasswordIsSubmitting(true);    
-  }
   return (
     <div>
       <NewPost onPost={() => {
         dispatch(clearMentions());
-        // setShowForm(false);
       }} />
-      {/* <form className="login-form" onSubmit={onUpdateProfile}>
-        <div className='errors-div'>
-          {errors.map((error) => (
-            <div key={nanoid()}>{error}</div>
-          ))}
-        </div>
-        {messages.length ? <div className='errors-div' style={{ color: 'green' }}>
-          {messages.map((m) => (
-            <div key={nanoid()}>{m}</div>
-          ))}
-        </div> :
-          <>
-            <div className="update-form-element">
-              <label htmlFor="name">Name: </label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={updateName}
-                value={name}
-                autoFocus={true}
-              ></input>
-            </div>
-            <div className="buttons">
-              <button type="submit" id="login-button" onClick={onSubmitClick}>Upload</button>
-              <button id="cancel-button" className='cancel-button' onClick={e => setShowForm(false)}>Cancel</button>
-            </div>
-          </>}
-      </form> */}
     </div>
   );
 }

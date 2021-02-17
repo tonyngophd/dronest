@@ -36,7 +36,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
-  const [showAddAPostForm, setShowAddAPostForm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -60,14 +59,6 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
     }
   }, [profile]);
-
-  useEffect(() => {
-    if(myself && create && profile.user && myself.id === profile.user.id){
-      setShowAddAPostForm(true)
-    } else {
-      setShowAddAPostForm(false);
-    }
-  }, [create]);
 
   const handleFollowersClick = (e) => {
     e.preventDefault();
@@ -147,108 +138,111 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   }
 
   return (
-    <div className="profile-page-container">
+    <div className="profile-page-container" >
       {profile.user && (
-        <div className="profile-info">
-          <img
-            draggable="false"
-            src={`${profile.user.profilePicUrl}`}
-            className="profile-pic"
-          />
-          <div className="profile-text">
-            <div className="profile-username-and-button">
-              <span className="profile-username">{profile.user.username}</span>
-              {notFollowedYet(profile.user.id, myself) ? (
-                <button
-                  className="profile-follow-button"
-                  onClick={(e) =>
-                    handleFollowClick(
-                      e,
-                      profile.user.id,
-                      profile.user.id,
-                      true,
-                      dispatch
-                    )
-                  }
-                >
-                  Follow
-                </button>
-              ) : myself.id === profile.user.id ? (
-                <>
-                  <button className="profile-edit-button"
-                    onClick={handleEditProfile}
-                  >Edit Profile</button>
-                  <button className="profile-edit-button"
-                    style={{ fontSize: '10px' }}
-                    onClick={handelChangePassword}
-                  >Change <br />Password</button>
-                </>
-              ) : (
-                    <>
-                      <button className="profile-edit-button"
-                        onClick={e => history.push(`/messages/${profile.user.id}`)}
-                      >Message</button>
-                      <button
-                        className="profile-following-button"
-                        onClick={(e) =>
-                          handleFollowClick(
-                            e,
-                            profile.user.id,
-                            profile.user.id,
-                            false,
-                            dispatch
-                          )
-                        }
-                      >
-                        Unfollow
+        <>
+          {/* <div className="profile-info-cover">
+            <img 
+              className='profile-cover-photo'
+              src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE'
+            />
+            <div className='profile-cover-photo-filter'>              
+            </div>
+          </div> */}
+          <div className="profile-info">
+            <img
+              draggable="false"
+              src={`${profile.user.profilePicUrl}`}
+              className="profile-pic"
+            />
+            <div className="profile-text">
+              <div className="profile-username-and-button">
+                <span className="profile-username">{profile.user.username}</span>
+                {notFollowedYet(profile.user.id, myself) ? (
+                  <button
+                    className="profile-follow-button"
+                    onClick={(e) =>
+                      handleFollowClick(
+                        e,
+                        profile.user.id,
+                        profile.user.id,
+                        true,
+                        dispatch
+                      )
+                    }
+                  >
+                    Follow
                   </button>
-                    </>
-                  )}
-            </div>
-            <div className="profile-numbers">
-              <div className="profile-posts-numbers">
-                <span className="profile-number">{numberOfOwnPosts}</span>
-                <span className="profile-number-text"> posts</span>
+                ) : myself.id === profile.user.id ? (
+                  <>
+                    <button className="profile-edit-button"
+                      onClick={handleEditProfile}
+                    >Edit Profile</button>
+                    <button className="profile-edit-button"
+                      style={{ fontSize: '10px' }}
+                      onClick={handelChangePassword}
+                    >Change <br />Password</button>
+                  </>
+                ) : (
+                      <>
+                        <button className="profile-edit-button"
+                          onClick={e => history.push(`/messages/${profile.user.id}`)}
+                        >Message</button>
+                        <button
+                          className="profile-following-button"
+                          onClick={(e) =>
+                            handleFollowClick(
+                              e,
+                              profile.user.id,
+                              profile.user.id,
+                              false,
+                              dispatch
+                            )
+                          }
+                        >
+                          Unfollow
+                  </button>
+                      </>
+                    )}
               </div>
-              <div
-                className="profile-follower-numbers"
-                onClick={handleFollowersClick}
+              <div className="profile-numbers">
+                <div className="profile-posts-numbers">
+                  <span className="profile-number">{numberOfOwnPosts}</span>
+                  <span className="profile-number-text"> posts</span>
+                </div>
+                <div
+                  className="profile-follower-numbers"
+                  onClick={handleFollowersClick}
+                >
+                  <span className="profile-number">{numberOfFollowers}</span>
+                  <span className="profile-number-text"> followers</span>
+                </div>
+                <div
+                  className="profile-follower-numbers"
+                  onClick={handleFollowingClick}
+                >
+                  <span className="profile-number">{numberOfFollowing}</span>
+                  <span className="profile-number-text"> following</span>
+                </div>
+              </div>
+              <div className="profile-display-name">{profile.user.name}</div>
+              <div className="profile-bio">{profile.user.bio}</div>
+              <a
+                className="profile-website-url"
+                href={`${profile.user.websiteUrl}`}
               >
-                <span className="profile-number">{numberOfFollowers}</span>
-                <span className="profile-number-text"> followers</span>
-              </div>
-              <div
-                className="profile-follower-numbers"
-                onClick={handleFollowingClick}
-              >
-                <span className="profile-number">{numberOfFollowing}</span>
-                <span className="profile-number-text"> following</span>
-              </div>
+                {profile.user.websiteUrl}
+              </a>
             </div>
-            <div className="profile-display-name">{profile.user.name}</div>
-            <div className="profile-bio">{profile.user.bio}</div>
-            <a
-              className="profile-website-url"
-              href={`${profile.user.websiteUrl}`}
-            >
-              {profile.user.websiteUrl}
-            </a>
           </div>
-        </div>
+        </>
       )}
       {profile && <ProfilePostsNav />}
-      {/* {showAddAPostForm &&
-        <AddAPostModal setShowModal={setShowAddAPostForm} />
-      } */}
-      {showAddAPostForm &&
-        <AddAPostForm setShowForm={setShowAddAPostForm} />
-      }
       {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} />
       )}
-      {profile.user && tagged && (
-        <ProfileFeed posts={profile.user.taggedInPosts} />
-      )}
+      {profile.user && create && <AddAPostForm />}
+      {profile.user && tagged && <ProfileFeed posts={profile.user.taggedInPosts} />}
       {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} />}
       {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
       {showFollowersModal && (
@@ -267,7 +261,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   );
 };
 
-export function CreateAPostPage(){
+export function CreateAPostPage() {
 
   return (
     <div>

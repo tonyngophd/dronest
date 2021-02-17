@@ -9,7 +9,7 @@ import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
 import { NextOrPrevious } from '../Bands';
 
-import { 
+import {
   likePost, unlikePost, savePost, unsavePost, loadSinglePost,
 } from '../../../store/posts';
 import { fetchAUsersPostView } from '../../../store/users';
@@ -25,7 +25,6 @@ import {
 } from "react-icons/bs";
 import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import Editor from "@draft-js-plugins/editor";
 import { EditorState, convertFromRaw } from "draft-js";
 import createMentionPlugin from "@draft-js-plugins/mention";
@@ -61,6 +60,26 @@ import { MapWithMarkerClusterer } from '../../GoogleMaps';
 
 
 import './SingleCard.css';
+
+export function FullScreenPicModal({ setShowModal, media }) {
+  let src = media.imgUrl;
+  useEffect(() => {
+    console.log(media.imgUrl);
+  }, [media]);
+  return (
+    <Modal setShowModal={setShowModal}
+      dronestLogo={false} needsEscapeInput={true}
+      closeXOutSide={true} noTopDiv={true}
+      width='100vw' noScrollBar={true}
+    >
+      <div className='fullscreen-img-container'>
+        <img src={media.mediaUrl} alt={media.mediaUrl}
+          className='fullscreen-img'
+        />
+      </div>
+    </Modal>
+  );
+}
 
 export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
   const history = useHistory();
@@ -119,7 +138,7 @@ function ShareButtonsWindow({ setShowModal }) {
         width={'200px'}
         needsEscapeInput={true}
       >
-        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly'}}>
+        <div style={{ display: 'flex', minWidth: '100px', justifyContent: 'space-evenly' }}>
           {
             ListOfButtons.map((El, i) =>
               <div key={nanoid()} style={{ margin: 'auto 2px' }}>
@@ -156,6 +175,8 @@ export function PostModal({ setShowModal, user, posts }) {
   const history = useHistory();
   const comments = useSelector(state => state.posts.singlePost.comments);
   const [spot, setSpot] = useState(undefined);
+  const [showPicFullScreen, setShowPicFullScreen] = useState(false);
+  const [currentPic, setCurrentPic] = useState(null);
 
   useEffect(() => {
     if (postIndex >= 0 && postIndex < posts.length) {
@@ -215,18 +236,32 @@ export function PostModal({ setShowModal, user, posts }) {
     // tryfetchLatLong();
   }
 
-  const onNextClick = e => {
+  const onNextPostClick = e => {
     e.preventDefault();
     let index = postIndex + 1;
     if (index > posts.length - 1) index = 0;
     setPostIndex(index);
   }
 
-  const onPrevClick = e => {
+  const onPrevPostClick = e => {
     e.preventDefault();
     let index = postIndex - 1;
     if (index < 0) index = posts.length - 1;
     setPostIndex(index);
+  }
+
+  const onNextMediaClick = e => {
+    e.preventDefault();
+    let index = mediaIndex + 1;
+    if (index > post.images.length - 1) index = 0;
+    setMediaIndex(index);
+  }
+
+  const onPrevMediaClick = e => {
+    e.preventDefault();
+    let index = mediaIndex - 1;
+    if (index < 0) index = post.images.length - 1;
+    setMediaIndex(index);
   }
 
   const plugins = Plugins();
@@ -260,7 +295,7 @@ export function PostModal({ setShowModal, user, posts }) {
             backgroundColor: 'lightgreen',
             borderRadius: '5px', overflow: 'hidden'
           }}>
-            <NextOrPrevious next={false} onClick={onPrevClick} />
+            <NextOrPrevious next={false} onClick={onPrevPostClick} />
           </div>}
           <div style={{ width: '100%' }}>
             {/* <div className="custom-modal-top-div">
@@ -270,8 +305,30 @@ export function PostModal({ setShowModal, user, posts }) {
               <div className='post-modal-img-div'>
                 <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
                   className='post-modal-img'
-                // onLoad={e=>console.log(e.target.width)}  
+                  // onLoad={e=>console.log(e.target.width)} 
+                  onClick={e => {
+                    setCurrentPic(post.images[mediaIndex]);
+                    setShowPicFullScreen(true);
+                  }}
                 />
+                {
+                  post.images.length > 1 &&
+                  <div className='post-modal-img-preview-div'>
+                    <NextOrPrevious next={false} onClick={onPrevMediaClick} />
+                    <div className='post-modal-img-preview-inner'>
+                      {
+                        post.images.map((m, i) =>
+                          <div key={nanoid()}>
+                            <img src={m.mediaUrl} alt=''
+                              className={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
+                              onClick={e => setMediaIndex(i)}
+                            />
+                          </div>)
+                      }
+                    </div>
+                    <NextOrPrevious next={true} onClick={onNextMediaClick} />
+                  </div>
+                }
               </div>
               <div>
                 <div className='post-modal-user-like-save-share'>
@@ -328,7 +385,10 @@ export function PostModal({ setShowModal, user, posts }) {
                         </div>)}
                   </div>
                   <div className="post-new-comment">
-                    <CommentInput post={post} insideCN='post-modal-commentinput-div' modal={true} hasBorder={true} />
+                    <CommentInput
+                      post={post} className='modal-comment-editor-wrapper'
+                      insideCN='post-modal-commentinput-div' modal={true}
+                      hasBorder={true} />
                   </div>
                 </div>
                 <div className='home-side-map'>
@@ -359,10 +419,13 @@ export function PostModal({ setShowModal, user, posts }) {
             backgroundColor: 'lightgreen',
             borderRadius: '5px', overflow: 'hidden'
           }}>
-            <NextOrPrevious onClick={onNextClick} />
+            <NextOrPrevious onClick={onNextPostClick} />
           </div>}
         </div>
       </Modal>
+      {
+        showPicFullScreen && <FullScreenPicModal setShowModal={setShowPicFullScreen} media={currentPic} />
+      }
     </>
   );
 }

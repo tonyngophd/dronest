@@ -14,6 +14,10 @@ import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
 import { fetchHomeFeed } from "../../store/posts";
 import { fetchUserProfile } from "../../store/profile";
+import { nanoid } from "nanoid";
+import { RiDeleteBin6Line, RiDragDropLine } from 'react-icons/ri';
+import { GrDropbox } from 'react-icons/gr';
+
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -62,9 +66,9 @@ const Hashtag = (props) => {
 };
 
 const NewPost = ({ onPost }) => {
-  const [image, setImage] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
-  const user = useSelector((state) => state.session.user);
+  const [images, setImages] = useState([]);
+  const [imgSrcs, setImgSrcs] = useState([]);
+  const myself = useSelector((state) => state.session.user);
   const profile = useSelector((state) => state.profile.user);
   const userMentions = useSelector((state) => state.mentions.users);
   const hashtagMentions = useSelector((state) => state.mentions.hashtags);
@@ -73,19 +77,11 @@ const NewPost = ({ onPost }) => {
   const [mentionOpen, setMentionOpen] = useState(false);
   const onMentionOpenChange = useCallback((_open) => {
     setMentionOpen(_open);
-  }, []);  
+  }, []);
   const [hashtagOpen, setHastagOpen] = useState(false);
   const onHastangOpenChange = useCallback((_open) => {
     setHastagOpen(_open);
-  }, []);  
-
-  const updateFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setImgSrc(URL.createObjectURL(file));
-    }
-  };
+  }, []);
 
   const focus = () => {
     ref.current.focus();
@@ -170,7 +166,7 @@ const NewPost = ({ onPost }) => {
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
 
   const submitPost = async () => {
-    if (!image) return;
+    if (!images.length) return;
     const contentState = editorState.getCurrentContent();
     let rawData = convertToRaw(contentState);
     setEditorState(EditorState.createEmpty());
@@ -189,46 +185,128 @@ const NewPost = ({ onPost }) => {
           break;
       }
     }
-    setImage(null);
-    setImgSrc(null);
+    setImages([]);
+    setImgSrcs([]);
     onPost();
     await dispatch(
-      uploadPost(user.id, mentionedUsers, hashtags, rawData, image)
+      uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
     );
-    if (profile && profile.id === user.id) {
+    if (profile && profile.id === myself.id) {
       dispatch(fetchUserProfile(profile.username));
     }
   };
 
+  const updateFiles = (e) => {
+    const files = e.target.files;
+
+    if (files.length) {
+      setImages([...images, ...files]);
+      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+    }
+  };
+
+  const handleDragOver = e => {
+    e.preventDefault();
+  }
+  const handleDrop = e => {
+    //https://stackoverflow.com/questions/8006715/drag-drop-files-into-standard-html-file-input
+    const files = e.dataTransfer.files;
+
+    if (files.length) {
+      setImages([...images, ...files]);
+      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+    }
+
+    e.preventDefault();
+  }
+
+  const handleDeleteClick = (e, index) => {
+    e.preventDefault();
+    setImgSrcs(imgSrcs.filter((_, i) => i !== index));
+    setImages(images.filter((_, i) => i !== index));
+  }
+
+  const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
+  const handleSingleImageDrag = (e, index) => {
+    console.log('start', currentDraggedIndex, index);
+    setCurrentDraggedIndex(index);
+  }
+  const handleSingleImageDragEnd = (e, index) => {
+    console.log('end', currentDraggedIndex, index);
+    setCurrentDraggedIndex(null);
+  }
+
+  const handleSingleImageDrop = (e, droppedIndex) => {
+    console.log('drop', currentDraggedIndex, droppedIndex);
+    if (currentDraggedIndex !== null) {
+      const srcs = imgSrcs;
+      const draggedSrc = srcs[currentDraggedIndex];
+      srcs[currentDraggedIndex] = srcs[droppedIndex];
+      srcs[droppedIndex] = draggedSrc;
+      setImgSrcs(srcs);
+      const imgs = images;
+      const draggedImg = imgs[currentDraggedIndex];
+      imgs[currentDraggedIndex] = imgs[droppedIndex];
+      imgs[droppedIndex] = draggedImg;
+      setImages(imgs);
+    }
+    // e.preventDefault();    
+  }
+  const handleSingleImageOverCapture = (e, index) => {
+    console.log('over', currentDraggedIndex, index);
+    e.preventDefault();
+  }
+
   return (
     <div className="new-post-input-container">
-      {imgSrc && <img className="image-preview" src={imgSrc} alt="" />}
-      {/* {!imgSrc && <div className="image-preview" />} */}
-      {/* {user && (
-        <div className="new-post-username">
-          <Link to={`/users/${user.username}`}>{user.username}</Link>
-        </div>
-      )} */}
-      {!imgSrc && (
-        <>
-          <div className="image-placeholder">
-            <label htmlFor={"image-input"} className="image-upload">
-              <i className="las la-plus-square image-upload-plus"></i>
-            </label>
-            <input id={"image-input"} type="file" onChange={updateFile}></input>
+      <div className='new-post-img-previews' >
+        {imgSrcs.map((src, index) =>
+          <div className='image-preview-container' key={nanoid()}
+
+          >
+            <img className="image-preview" src={src} alt="" draggable={true}
+              onDragStart={e => handleSingleImageDrag(e, index)}
+              onDragEnd={e => handleSingleImageDragEnd(e, index)}
+              onDrop={e => handleSingleImageDrop(e, index)}
+              onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
+            />
+            <RiDeleteBin6Line className='img-prev-delete-button'
+              onClick={e => handleDeleteClick(e, index)}
+            />
+            <div className='img-prev-number'>
+              {index}
+            </div>
           </div>
-        </>
-      )}      
-      {imgSrc && (
+        )}
+      </div>
+      <div className="image-placeholder"
+        onChange={updateFiles}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <label htmlFor={"image-input"} className="image-upload">
+          <RiDragDropLine className="las la-plus-square image-upload-plus" />
+          <i className="las la-plus-square image-upload-plus"></i>
+          <GrDropbox className="las la-plus-square image-upload-plus" />
+        </label>
+        <input
+          className="image-placeholder"
+          id={"image-input"}
+          type="file" multiple={true}
+        />
+        <span>Click to add files or Drag and Drop files here to add them</span>
+      </div>
+      {/* {imgSrcs.map( src =>
         <>
           <div className="add-image-button">
             <label htmlFor={"image-input"} className="image-upload">
               <i className="las la-plus-square image-upload-plus"></i>
             </label>
-            <input id={"image-input"} type="file" onChange={updateFile}></input>
+            <input id={"image-input"} type="file" onChange={updateFiles}></input>
           </div>
         </>
-      )}      
+      )} */}
       <div className="editor-wrapper">
         <div className="editor" onFocus={focus}>
           <Editor
@@ -259,7 +337,11 @@ const NewPost = ({ onPost }) => {
         </div>
       </div>
       <div className="new-post-buttons">
-        <div className="new-post-cancel" onClick={onPost}>
+        <div className="new-post-cancel" onClick={e => {
+          onPost();
+          setImages([]);
+          setImgSrcs([]);
+        }}>
           Cancel
         </div>
         <div className="new-post-submit" onClick={submitPost}>

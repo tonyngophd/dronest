@@ -1,8 +1,13 @@
 .image-placeholder {
   width: 460px;
-  height: 460px;
+  height: 100px;
   position: relative;
-  background-color: rgb(219, 219, 219);
+  background-color: rgba(52, 65, 94, 0.603);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-image-button{
@@ -11,11 +16,14 @@
 }
 
 .image-preview {
-  width: 460px;
-  height: 460px;
-  object-fit: cover;
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
   border-top: 1px solid rgb(235, 238, 240);
   border-bottom: 1px solid rgb(235, 238, 240);
+  margin: 3px;
+  border: 1px solid green;
+  cursor: move;
 }
 
 #image-input {
@@ -25,10 +33,10 @@
 .image-upload {
   font-size: 50px;
   color: rgb(190, 190, 190);
-  position: absolute;
+  /* position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   cursor: pointer;
 }
 
@@ -191,4 +199,44 @@
 .new-post-submit {
   border-bottom-right-radius: 10px;
   color: rgb(38, 38, 38);
+}
+.new-post-input-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.new-post-img-previews{
+  display: flex;
+  /* align-items: center; */
+  max-width: 1200px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.img-prev-delete-button{
+  font-size: 22px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: darkblue;
+}
+.img-prev-delete-button:hover{
+  color: rgb(76, 76, 190);
+  font-size: 26px;
+  transition: 0.1s;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+.img-prev-number{
+  font-size: 22px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.514);
+  border-radius: 5px;
+  color: darkblue;
+}
+.image-preview-container{
+  position: relative;
 }

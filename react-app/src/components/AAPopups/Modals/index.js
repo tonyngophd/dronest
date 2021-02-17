@@ -6,7 +6,8 @@ import './Modals.css';
 
 const Modal = ({ setShowModal, children, title, action,
   width, dronestLogo = true, needsEscapeInput = false,
-  closeXOutSide = false, noTopDiv = false, shieldBackground = true
+  closeXOutSide = false, noTopDiv = false, shieldBackground = true,
+  noScrollBar = false,
 }) => {
 
   const closeModal = (e) => {
@@ -24,10 +25,11 @@ const Modal = ({ setShowModal, children, title, action,
     }
   }
   return (
-    <div className={shieldBackground?'modal':'gibberish'}
+    <div className={shieldBackground ? 'modal' : 'gibberish'}
       onClick={closeModal} onKeyUp={escapeHideModal}
     >
-      <div className={shieldBackground?'modal-content':'modal-content-dep-parents'}
+      <div className={shieldBackground ?
+        (noScrollBar ? 'modal-content-no-scrollbar' : 'modal-content') : 'modal-content-dep-parents'}
         style={{
           display: 'flex', alignItems: 'center', width: width ? width : "noAdditionalEffect",
         }}>
