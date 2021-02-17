@@ -30,13 +30,25 @@ def explore_infinite(page):
   feed_list = [post.to_dict() for post in feed]
   return {'posts': {post["id"]: post for post in feed_list}}
 
+acceptedFileTypes = [
+  'video/mp4',
+  'image/jpg',
+  'image/jpeg',
+  'image/png',
+  'image/bmp',
+]
+
 @post_routes.route("/", methods=["POST"])
 @login_required
 def create_post():
     numberOfImages = int(request.form["numberOfImages"])
     images = []
     for i in range(numberOfImages):
-      images.append(request.files[f'image_{i}'])
+      mfile = request.files[f'image_{i}']
+      if mfile and mfile.content_type in acceptedFileTypes:
+        images.append(mfile)
+    if len(images) == 0:
+      return {"errors": "no valid media file found"}, 401
     user_id = request.form["userId"]
     mentioned_users = request.form["mentionedUsers"]
     mentioned_users = json.loads(mentioned_users)
