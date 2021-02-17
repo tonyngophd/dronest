@@ -25,6 +25,7 @@ import {
 import timeStamp from '../utils';
 import { deleteAPost } from '../../store/posts';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import ReactPlayer from 'react-player';
 
 const ProfilePost = ({ post }) => {
   const [hover, setHover] = useState(false);
@@ -80,12 +81,35 @@ const ProfilePost = ({ post }) => {
           setIsPicOpen(true);
         }}
       >
-        <img
-          draggable="false"
-          className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-          src={post.images[0].mediaUrl}
-          alt="pic"
-        />
+        {
+          post.images[0].mediaType.includes('jpg') ?
+            <img
+              draggable="false"
+              className={hover ? "profile-post-pic hovered" : "profile-post-pic"}
+              src={post.images[0].mediaUrl}
+              alt="pic"
+            /> :
+            <div className='single-card-main-vid'>
+              <ReactPlayer
+                // url='https://www.facebook.com/100012533494609/videos/493072851120494'
+                // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
+                url={post.images[0].mediaUrl}
+                controls={true}
+                light={true}
+                config={{
+                  // youtube: {
+                  //   playerVars: { showinfo: 1 }
+                  // },
+                  // facebook: {
+                  //   appId: '119913890036904'
+                  // }
+                }}
+                // width='100%'
+                height='100%'
+              // style={{marginBottom: '-50px', marginTop: '20px'}}
+              />
+            </div>
+        }
         <div
           className={
             hover
