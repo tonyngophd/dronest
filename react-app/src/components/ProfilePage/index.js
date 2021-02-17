@@ -13,6 +13,8 @@ import { fetchNotifications } from "../../store/notifications";
 import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
 import { AddAPostForm } from '../Post';
+import { PostModal } from '../AAAMainComponents/SingleCard';
+
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -27,6 +29,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const myself = useSelector((state) => state.session.user);
+  const singlePost = useSelector((state) => state.posts.singlePost);
   const history = useHistory();
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
@@ -35,6 +38,8 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showUpdateProfileModal, setShowUpdateProfileModal] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [modalPost, setModalPost] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUserProfile(username));
@@ -58,6 +63,14 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
     }
   }, [profile]);
+
+  useEffect(() => {
+    if(showPostModal !== false){
+      setModalPost(profile.user.ownPosts.find(p => p.id === showPostModal));
+    } else {
+      setModalPost(null);
+    }
+  }, [showPostModal]);
 
   const handleFollowersClick = (e) => {
     e.preventDefault();
@@ -221,12 +234,17 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
       )}
       {profile && <ProfilePostsNav />}
       {profile.user && !tagged && !liked && !saved && !create && (
-        <ProfileFeed posts={profile.user.ownPosts} />
+        <ProfileFeed posts={profile.user.ownPosts} setShowPostModal={setShowPostModal} />
       )}
       {profile.user && create && <AddAPostForm />}
-      {profile.user && tagged && <ProfileFeed posts={profile.user.taggedInPosts} />}
-      {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} />}
-      {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} />}
+      {profile.user && tagged && <ProfileFeed posts={profile.user.taggedInPosts} setShowPostModal={setShowPostModal} />}
+      {profile.user && saved && <ProfileFeed posts={profile.user.savedPosts} setShowPostModal={setShowPostModal} />}
+      {profile.user && liked && <ProfileFeed posts={profile.user.likedPosts} setShowPostModal={setShowPostModal} />}
+      {
+        // showPostModal && <PostModal user={user} posts={user.ownPosts} setShowModal={setShowPostModal} />
+        modalPost && profile.user && !create &&
+        <PostModal user={profile.user} posts={[modalPost]} setShowModal={setShowPostModal} />
+      }
       {showFollowersModal && (
         <FollowModal setShowModal={setShowFollowersModal} listOfUsers={profile.user.followers} title="Followers" />
       )}

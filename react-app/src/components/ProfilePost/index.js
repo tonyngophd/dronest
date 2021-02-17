@@ -17,25 +17,17 @@ import {
 } from "react-icons/bs";
 import {
   fetchSinglePost,
-  likePost,
-  unlikePost,
-  savePost,
-  unsavePost,
 } from "../../store/posts";
-import timeStamp, { MediaDisplayer } from '../utils';
+import { MediaDisplayer } from '../utils';
 import { deleteAPost } from '../../store/posts';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { PostModal } from '../AAAMainComponents/SingleCard';
 
-const ProfilePost = ({ post }) => {
+const ProfilePost = ({ post, setShowPostModal }) => {
   const [hover, setHover] = useState(false);
-  const user = useSelector((state) => state.session.user);
+  const myself = useSelector((state) => state.session.user);
   const [likes, setLikes] = useState(post.likes);
   const [numComments, setNumComments] = useState(post.comments.length);
   const dispatch = useDispatch();
-  const singlePost = useSelector((state) => state.posts.singlePost);
-  const profile = useSelector((state) => state.profile);
-  const [showPostModal, setShowPostModal] = useState(false);
 
   const deleteHandler = (e, postId) => {
     e.preventDefault();
@@ -45,7 +37,7 @@ const ProfilePost = ({ post }) => {
   };
 
   const handleClick = e => {
-    setShowPostModal(true);
+    setShowPostModal(post.id);
   }
 
 
@@ -64,7 +56,6 @@ const ProfilePost = ({ post }) => {
           vidClassname="image-preview"
           imgHandleClick={handleClick}
           vidHandleClick={handleClick}
-          // fileType={post.images[0].type}
         />
         <div
           className={
@@ -74,7 +65,7 @@ const ProfilePost = ({ post }) => {
           }
         >
           {
-            (user.id === post.user.id) && <RiDeleteBin6Line className='profile-post-overlay-delete'
+            (myself.id === post.user.id) && <RiDeleteBin6Line className='profile-post-overlay-delete'
               onClick={e => deleteHandler(e, post.id)}
             />
           }
@@ -87,11 +78,7 @@ const ProfilePost = ({ post }) => {
             {numComments}
           </div>
         </div>
-      </div>
-      {
-        // showPostModal && <PostModal user={user} posts={user.ownPosts} setShowModal={setShowPostModal} />
-        showPostModal && <PostModal user={post.user} posts={[post]} setShowModal={setShowPostModal} />
-      }      
+      </div>     
     </>
   );
 };

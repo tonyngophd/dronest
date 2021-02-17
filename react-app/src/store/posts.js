@@ -1,4 +1,5 @@
 import { updateAUsersPostPOJO } from './users';
+import { updateAProfilePostPOJO } from './profile';
 import { 
   updateUsersLikePOJO,
   updateUsersFavePOJO,
@@ -163,6 +164,8 @@ export const likePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersLikePOJO(res2.post));
     return res2;
   }
@@ -173,6 +176,8 @@ export const unlikePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersLikePOJO(res2.post, 'unlike'));
     return res2;
   }
@@ -183,6 +188,8 @@ export const savePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersFavePOJO(res2.post));
     return res2;
   }
@@ -193,6 +200,8 @@ export const unsavePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersFavePOJO(res2.post, 'unsave'));
     return res2;
   }

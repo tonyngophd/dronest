@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
@@ -82,8 +81,6 @@ export function FullScreenPicModal({ setShowModal, media }) {
 }
 
 export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
-  const history = useHistory();
-
   const handelOkClick = e => {
     setShowModal(false);
     setShowLoginForm(true);
@@ -167,12 +164,12 @@ export function PostModal({ setShowModal, user, posts }) {
   const [mediaIndex, setMediaIndex] = useState(0);
   const [iLikedThisPost, updateILikedThisPost] =
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
+  const [likes, setLikes] = useState(post.likes);
   const [iFavedThisPost, updateIFavedThisPost] =
     useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
-  const history = useHistory();
   const comments = useSelector(state => state.posts.singlePost.comments);
   const [spot, setSpot] = useState(undefined);
   const [showPicFullScreen, setShowPicFullScreen] = useState(false);
@@ -204,8 +201,10 @@ export function PostModal({ setShowModal, user, posts }) {
       return updateConfirmLogin(true);
     }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
-    if (res)
+    if (res){
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
+      setLikes(post.likes);
+    }
   }
   const handleFaveClick = async (e) => {
     if (!myself) {
@@ -344,7 +343,7 @@ export function PostModal({ setShowModal, user, posts }) {
                         <BsHeart />
                       }
                       <div className='share-button-div'>
-                        {post.likes}
+                        {likes}
                       </div>
                     </div>
                     <div className='post-modal-like-div' onClick={handleFaveClick}>
