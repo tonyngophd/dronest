@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiOutlineEye } from 'react-icons/ai';
 import { FiEye } from 'react-icons/fi';
-import timeStamp from '../../utils';
 import Modal from '../../AAPopups/Modals';
 import LoginForm from '../../auth/LoginForm';
 import { nanoid } from 'nanoid';
@@ -23,12 +21,7 @@ import {
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
-import { SiFacebook } from 'react-icons/si';
 import { RiShareForwardLine } from 'react-icons/ri';
-import Editor from "@draft-js-plugins/editor";
-import { EditorState, convertFromRaw } from "draft-js";
-import createMentionPlugin from "@draft-js-plugins/mention";
-import { Plugins } from '../../utils';
 import { notFollowedYet } from "../../ProfilePage";
 
 import {
@@ -58,14 +51,13 @@ import Comment from "../../Comment";
 import PicModalCaption from "../../PicModalCaption";
 import { MapWithMarkerClusterer } from '../../GoogleMaps';
 
+import timeStamp, { MediaDisplayer, Plugins } from '../../utils';
+
 
 import './SingleCard.css';
 
 export function FullScreenPicModal({ setShowModal, media }) {
-  let src = media.imgUrl;
-  useEffect(() => {
-    console.log(media.imgUrl);
-  }, [media]);
+
   return (
     <Modal setShowModal={setShowModal}
       dronestLogo={false} needsEscapeInput={true}
@@ -73,8 +65,11 @@ export function FullScreenPicModal({ setShowModal, media }) {
       width='100vw' noScrollBar={true}
     >
       <div className='fullscreen-img-container'>
-        <img src={media.mediaUrl} alt={media.mediaUrl}
-          className='fullscreen-img'
+        <MediaDisplayer
+          mediaUrl={media.mediaUrl}
+          imgClassname='fullscreen-img'
+          vidClassname='fullscreen-img'
+          width='85vw'
         />
       </div>
     </Modal>
@@ -82,8 +77,6 @@ export function FullScreenPicModal({ setShowModal, media }) {
 }
 
 export function ConfirmIWantToLogInModal({ setShowModal, setShowLoginForm }) {
-  const history = useHistory();
-
   const handelOkClick = e => {
     setShowModal(false);
     setShowLoginForm(true);
@@ -167,12 +160,12 @@ export function PostModal({ setShowModal, user, posts }) {
   const [mediaIndex, setMediaIndex] = useState(0);
   const [iLikedThisPost, updateILikedThisPost] =
     useState(myself && myself.likedPosts.find(p => p.id === post.id) ? true : false);
+  const [likes, setLikes] = useState(post.likes);
   const [iFavedThisPost, updateIFavedThisPost] =
     useState(myself && myself.savedPosts.find(p => p.id === post.id) ? true : false);
   const [showConfirmLogin, updateConfirmLogin] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
-  const history = useHistory();
   const comments = useSelector(state => state.posts.singlePost.comments);
   const [spot, setSpot] = useState(undefined);
   const [showPicFullScreen, setShowPicFullScreen] = useState(false);
@@ -204,8 +197,10 @@ export function PostModal({ setShowModal, user, posts }) {
       return updateConfirmLogin(true);
     }
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
-    if (res)
+    if (res) {
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
+      setLikes(post.likes);
+    }
   }
   const handleFaveClick = async (e) => {
     if (!myself) {
@@ -264,24 +259,13 @@ export function PostModal({ setShowModal, user, posts }) {
     setMediaIndex(index);
   }
 
-  const plugins = Plugins();
-  let data = "";
-  if (post.captionRawData) {
-    data = JSON.parse(post.captionRawData);
-    data = convertFromRaw(data);
-  }
-  const [editorState, setEditorState] = useState(
-    (data ? EditorState.createWithContent(data) : EditorState.createEmpty())
-  );
-  let timestamp = timeStamp(new Date(post.createdAt));
-
-
   return (
     <>
       <Modal setShowModal={setShowModal}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
-        width='1100px'
+        width='1100px' 
+        // height='900px'
       >
         <div style={{
           display: 'flex',
@@ -303,13 +287,18 @@ export function PostModal({ setShowModal, user, posts }) {
             </div> */}
             <div className="single-card-modal-images-div">
               <div className='post-modal-img-div'>
-                <img src={post.images[mediaIndex].mediaUrl} alt="individual picture"
-                  className='post-modal-img'
-                  // onLoad={e=>console.log(e.target.width)} 
-                  onClick={e => {
+                <MediaDisplayer
+                  mediaUrl={post.images[mediaIndex].mediaUrl}
+                  imgClassname='post-modal-img'
+                  vidClassname='post-modal-img'
+                  imgHandleClick={e => {
                     setCurrentPic(post.images[mediaIndex]);
                     setShowPicFullScreen(true);
                   }}
+                // vidHandleClick={e => {
+                //   setCurrentPic(post.images[mediaIndex]);
+                //   setShowPicFullScreen(true);
+                // }}
                 />
                 {
                   post.images.length > 1 &&
@@ -319,9 +308,18 @@ export function PostModal({ setShowModal, user, posts }) {
                       {
                         post.images.map((m, i) =>
                           <div key={nanoid()}>
-                            <img src={m.mediaUrl} alt=''
+                            {/* <img src={m.mediaUrl} alt=''
                               className={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
                               onClick={e => setMediaIndex(i)}
+                            /> */}
+                            <MediaDisplayer
+                              mediaUrl={m.mediaUrl}
+                              imgClassname={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
+                              vidClassname={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
+                              imgHandleClick={e => setMediaIndex(i)}
+                              vidHandleClick={e => setMediaIndex(i)}
+                              light={true}
+                              width="50px"
                             />
                           </div>)
                       }
@@ -349,7 +347,7 @@ export function PostModal({ setShowModal, user, posts }) {
                         <BsHeart />
                       }
                       <div className='share-button-div'>
-                        {post.likes}
+                        {likes}
                       </div>
                     </div>
                     <div className='post-modal-like-div' onClick={handleFaveClick}>
@@ -461,12 +459,11 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
   return (
     <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
       <div className={category || location ? 'single-card-top-image-div-catloc' : 'single-card-top-image-div'}>
-        <img
-          className='single-card-main-img'
-          // src='https://tripcamp.s3.amazonaws.com/resources/images/official/spots/NorthernRim%20Campground.jpg'
-          src={src}
-          onClick={handleClick}
-          alt='good band picture' />
+        <MediaDisplayer
+          mediaUrl={src}
+          imgHandleClick={handleClick}
+          vidHandleClick={handleClick}
+        />
       </div>
       {category &&
         <div className='single-card-info-div'>

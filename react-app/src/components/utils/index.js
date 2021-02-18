@@ -1,6 +1,55 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import createMentionPlugin from "@draft-js-plugins/mention";
+import ReactPlayer from 'react-player';
+
+export function MediaDisplayer({
+  mediaUrl, imgClassname = 'single-card-main-img',
+  vidClassname = 'single-card-main-vid',
+  imgHandleClick, vidHandleClick, controls = true,
+  light = false, config, height = '100%', style, fileType,
+  width
+}) {
+  let mediatType = 'image';
+  if (mediaUrl.toLowerCase().includes('facebook') ||
+    mediaUrl.toLowerCase().includes('youtu') ||
+    mediaUrl.toLowerCase().includes('mp4') || 
+    (fileType && fileType.toLowerCase().includes('vid'))
+  ) {
+    mediatType = 'video';
+  }
+
+  if(mediatType !== 'image' && mediatType !== 'video') 
+  {
+    return <div className={imgClassname}>Unsupported media type</div>;
+  }
+
+  return (
+    <>{
+      mediatType === 'image' ?
+      // Math.random() < 0.7 ?
+        <img
+          className={imgClassname}
+          src={mediaUrl}
+          onClick={imgHandleClick}
+          alt='good band picture' /> :
+        <div className={vidClassname} onClick={vidHandleClick}>
+          <ReactPlayer
+            // url='https://www.facebook.com/100012533494609/videos/493072851120494'
+            // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
+            url={mediaUrl}
+            controls={controls}
+            light={light}
+            config={config}
+            height={height}
+            width={width}
+            style={style}
+          />
+        </div>
+    }
+    </>
+  );
+}
 
 export function Plugins() {
   const history = useHistory();

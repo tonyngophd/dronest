@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import "./ProfileFeed.css";
 import ProfilePost from "../ProfilePost";
 
-const ProfileFeed = ({ posts }) => {
+const ProfileFeed = ({ posts, setShowPostModal }) => {
   return (
     <>
       {posts ? <div className="profile-feed">
@@ -12,7 +12,7 @@ const ProfileFeed = ({ posts }) => {
             new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
           )
           .map((post) => (
-            <ProfilePost post={post} key={nanoid()} />
+            <ProfilePost post={post} key={nanoid()} setShowPostModal={setShowPostModal}/>
           ))}
       </div> : <></>
       }

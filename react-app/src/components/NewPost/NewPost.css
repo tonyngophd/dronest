@@ -1,13 +1,19 @@
 .image-placeholder {
   width: 460px;
-  height: 100px;
+  height: 120px;
   position: relative;
-  background-color: rgba(52, 65, 94, 0.603);
+  background-color: rgba(203, 203, 204, 0.692);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  color: black;
+}
+.image-upload-plus{
+  color: rgba(0, 100, 0, 0.712);
 }
 
 .add-image-button{
@@ -19,11 +25,15 @@
   width: 300px;
   height: 300px;
   object-fit: contain;
-  border-top: 1px solid rgb(235, 238, 240);
-  border-bottom: 1px solid rgb(235, 238, 240);
+  /* border-top: 1px solid rgb(235, 238, 240);
+  border-bottom: 1px solid rgb(235, 238, 240); */
   margin: 3px;
   border: 1px solid green;
+  border-radius: 5px;
   cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #image-input {
@@ -50,8 +60,11 @@
   font-size: 14px;
   color: rgb(34, 34, 34);
   padding: 0px 12px 5px 12px;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(255, 255, 255);
   width: 460px;
+  border: 1px solid rgba(0, 30, 128, 0.863);
+  border-radius: 5px;
+  height: 40px;
 }
 
 .mention {
@@ -212,6 +225,7 @@
   max-width: 1200px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 .img-prev-delete-button{
   font-size: 22px;
@@ -239,4 +253,19 @@
 }
 .image-preview-container{
   position: relative;
+}
+.upload-message-div{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: green;
+}
+.upload-error-div{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: red;
 }

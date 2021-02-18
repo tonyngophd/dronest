@@ -1,5 +1,12 @@
 import { updateAUsersPostPOJO } from './users';
-import { updateUsersLikePOJO, updateUsersFavePOJO } from './session';
+import { updateAProfilePostPOJO } from './profile';
+import {
+  updateUsersLikePOJO,
+  updateUsersFavePOJO,
+  removeAPostOfSessionUserPOJO
+} from './session';
+
+import { removeAPostOfProfileUserPOJO } from './profile';
 
 const CREATE_POST = "posts/CREATE_POST";
 const DELETE_POST = "posts/DELETE_POST";
@@ -74,13 +81,17 @@ export const uploadPost = (
   form.append("rawData", JSON.stringify(rawData));
   form.append('numberOfImages', images.length);
   images.forEach((image, i) => form.append(`image_${i}`, image));
-  
+
   const res = await fetch("/api/posts/", {
     method: "POST",
     body: form,
   });
-  const newPost = await res.json();
-  dispatch(createNewPost(newPost));
+  if (res.ok) {
+    const newPost = await res.json();
+    if(!newPost.errors)
+      dispatch(createNewPost(newPost));
+    return newPost;
+  }
 };
 
 export const uploadComment = (
@@ -157,6 +168,8 @@ export const likePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersLikePOJO(res2.post));
     return res2;
   }
@@ -167,6 +180,8 @@ export const unlikePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersLikePOJO(res2.post, 'unlike'));
     return res2;
   }
@@ -177,6 +192,8 @@ export const savePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersFavePOJO(res2.post));
     return res2;
   }
@@ -187,6 +204,8 @@ export const unsavePost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(updateAUsersPostPOJO(res2.post));
+    dispatch(updateAProfilePostPOJO(res2.post));
+    // dispatch(loadSinglePost(res2.post));
     dispatch(updateUsersFavePOJO(res2.post, 'unsave'));
     return res2;
   }
@@ -197,6 +216,8 @@ export const deleteAPost = (postId) => async (dispatch) => {
   if (res.ok) {
     const res2 = await res.json();
     dispatch(deleteAPostPOJO(res2['postId']));
+    dispatch(removeAPostOfSessionUserPOJO(res2['postId']));
+    dispatch(removeAPostOfProfileUserPOJO(res2['postId']));
   }
 };
 
@@ -205,7 +226,7 @@ const initialState = {
   homeFeed: {},
   exploreFeed: {},
   hashtagFeed: {},
-  singlePost: {comments: []},
+  singlePost: { comments: [] },
 };
 
 const reducer = (state = initialState, action) => {

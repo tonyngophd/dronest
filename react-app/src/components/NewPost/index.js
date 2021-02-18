@@ -17,6 +17,7 @@ import { fetchUserProfile } from "../../store/profile";
 import { nanoid } from "nanoid";
 import { RiDeleteBin6Line, RiDragDropLine } from 'react-icons/ri';
 import { GrDropbox } from 'react-icons/gr';
+import { MediaDisplayer } from '../utils';
 
 
 const UserTag = (props) => {
@@ -66,8 +67,8 @@ const Hashtag = (props) => {
 };
 
 const NewPost = ({ onPost }) => {
-  const [images, setImages] = useState([]);
-  const [imgSrcs, setImgSrcs] = useState([]);
+  const [images, setMedia] = useState([]);
+  const [mediaSrcs, setMediaSrcs] = useState([]);
   const myself = useSelector((state) => state.session.user);
   const profile = useSelector((state) => state.profile.user);
   const userMentions = useSelector((state) => state.mentions.users);
@@ -164,6 +165,8 @@ const NewPost = ({ onPost }) => {
   const { MentionSuggestions } = userMentionPlugin;
   const HashtagMentionSuggestions = hashtagMentionPlugin.MentionSuggestions;
   const plugins = [userMentionPlugin, hashtagMentionPlugin];
+  const [messages, setMessages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const submitPost = async () => {
     if (!images.length) return;
@@ -185,23 +188,42 @@ const NewPost = ({ onPost }) => {
           break;
       }
     }
-    setImages([]);
-    setImgSrcs([]);
+    setMedia([]);
+    setMediaSrcs([]);
     onPost();
-    await dispatch(
+    const res = await dispatch(
       uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
     );
-    if (profile && profile.id === myself.id) {
-      dispatch(fetchUserProfile(profile.username));
+    if (!res.errors) {
+      if (profile && profile.id === myself.id) {
+        dispatch(fetchUserProfile(profile.username));
+        setMessages(["Successfully posted"]);
+        setTimeout(() => setMessages([]), 3000);
+      }
+    } else {
+      setErrors(res.errors);
+      setTimeout(() => setErrors([]), 3000);
     }
   };
 
+  const acceptedFileTypes = [
+    'video/mp4',
+    'image/jpg',
+    'image/jpeg',
+    'image/png',
+    'image/bmp',
+  ]
   const updateFiles = (e) => {
-    const files = e.target.files;
+    setMessages([]);
+    setErrors([]);
+    const files = Array.from(e.target.files)
+      .filter(file =>
+        acceptedFileTypes.includes(file.type)
+      );
 
     if (files.length) {
-      setImages([...images, ...files]);
-      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+      setMedia([...images, ...files]);
+      setMediaSrcs([...mediaSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
     }
   };
 
@@ -209,12 +231,17 @@ const NewPost = ({ onPost }) => {
     e.preventDefault();
   }
   const handleDrop = e => {
+    setMessages([]);
+    setErrors([]);
     //https://stackoverflow.com/questions/8006715/drag-drop-files-into-standard-html-file-input
-    const files = e.dataTransfer.files;
+    const files = Array.from(e.dataTransfer.files)
+      .filter(file =>
+        acceptedFileTypes.includes(file.type)
+      );
 
     if (files.length) {
-      setImages([...images, ...files]);
-      setImgSrcs([...imgSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
+      setMedia([...images, ...files]);
+      setMediaSrcs([...mediaSrcs, ...Object.values(files).map(file => URL.createObjectURL(file))]);
     }
 
     e.preventDefault();
@@ -222,62 +249,44 @@ const NewPost = ({ onPost }) => {
 
   const handleDeleteClick = (e, index) => {
     e.preventDefault();
-    setImgSrcs(imgSrcs.filter((_, i) => i !== index));
-    setImages(images.filter((_, i) => i !== index));
+    setMediaSrcs(mediaSrcs.filter((_, i) => i !== index));
+    setMedia(images.filter((_, i) => i !== index));
   }
 
   const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
   const handleSingleImageDrag = (e, index) => {
-    console.log('start', currentDraggedIndex, index);
     setCurrentDraggedIndex(index);
   }
   const handleSingleImageDragEnd = (e, index) => {
-    console.log('end', currentDraggedIndex, index);
     setCurrentDraggedIndex(null);
   }
 
   const handleSingleImageDrop = (e, droppedIndex) => {
-    console.log('drop', currentDraggedIndex, droppedIndex);
     if (currentDraggedIndex !== null) {
-      const srcs = imgSrcs;
+      const srcs = mediaSrcs;
       const draggedSrc = srcs[currentDraggedIndex];
       srcs[currentDraggedIndex] = srcs[droppedIndex];
       srcs[droppedIndex] = draggedSrc;
-      setImgSrcs(srcs);
+      setMediaSrcs(srcs);
       const imgs = images;
       const draggedImg = imgs[currentDraggedIndex];
       imgs[currentDraggedIndex] = imgs[droppedIndex];
       imgs[droppedIndex] = draggedImg;
-      setImages(imgs);
+      setMedia(imgs);
     }
     // e.preventDefault();    
   }
   const handleSingleImageOverCapture = (e, index) => {
-    console.log('over', currentDraggedIndex, index);
     e.preventDefault();
   }
 
   return (
     <div className="new-post-input-container">
-      <div className='new-post-img-previews' >
-        {imgSrcs.map((src, index) =>
-          <div className='image-preview-container' key={nanoid()}
-
-          >
-            <img className="image-preview" src={src} alt="" draggable={true}
-              onDragStart={e => handleSingleImageDrag(e, index)}
-              onDragEnd={e => handleSingleImageDragEnd(e, index)}
-              onDrop={e => handleSingleImageDrop(e, index)}
-              onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
-            />
-            <RiDeleteBin6Line className='img-prev-delete-button'
-              onClick={e => handleDeleteClick(e, index)}
-            />
-            <div className='img-prev-number'>
-              {index}
-            </div>
-          </div>
-        )}
+      <div className="upload-message-div">
+        {messages.map(m => <div key={nanoid()}>{m}</div>)}
+      </div>
+      <div className="upload-error-div">
+        {errors.map(e => <div key={nanoid()}>{e}</div>)}
       </div>
       <div className="image-placeholder"
         onChange={updateFiles}
@@ -295,18 +304,36 @@ const NewPost = ({ onPost }) => {
           id={"image-input"}
           type="file" multiple={true}
         />
-        <span>Click to add files or Drag and Drop files here to add them</span>
-      </div>
-      {/* {imgSrcs.map( src =>
-        <>
-          <div className="add-image-button">
-            <label htmlFor={"image-input"} className="image-upload">
-              <i className="las la-plus-square image-upload-plus"></i>
-            </label>
-            <input id={"image-input"} type="file" onChange={updateFiles}></input>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <div>
+            Click to add files or Drag and Drop files here to add them
           </div>
-        </>
-      )} */}
+          <div>
+            Current supported file types: jpg, jpeg, png, mp4
+          </div>
+        </div>
+      </div>
+      <div className='new-post-img-previews' >
+        {mediaSrcs.map((src, index) =>
+          <div className='image-preview-container' key={nanoid()} draggable={true}
+            onDragStart={e => handleSingleImageDrag(e, index)}
+            onDragEnd={e => handleSingleImageDragEnd(e, index)}
+            onDrop={e => handleSingleImageDrop(e, index)}
+            onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
+          >
+            <MediaDisplayer mediaUrl={src} imgClassname="image-preview"
+              vidClassname="image-preview"
+              fileType={images[index].type}
+            />
+            <RiDeleteBin6Line className='img-prev-delete-button'
+              onClick={e => handleDeleteClick(e, index)}
+            />
+            <div className='img-prev-number'>
+              {index}
+            </div>
+          </div>
+        )}
+      </div>
       <div className="editor-wrapper">
         <div className="editor" onFocus={focus}>
           <Editor
@@ -338,9 +365,12 @@ const NewPost = ({ onPost }) => {
       </div>
       <div className="new-post-buttons">
         <div className="new-post-cancel" onClick={e => {
-          onPost();
-          setImages([]);
-          setImgSrcs([]);
+          const conf = window.confirm("Cancel your post?");
+          if (conf) {
+            onPost();
+            setMedia([]);
+            setMediaSrcs([]);
+          }
         }}>
           Cancel
         </div>

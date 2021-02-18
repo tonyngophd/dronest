@@ -120,6 +120,7 @@ export const AllPosts = () => {
                     // <BarePost post={post} key={nanoid()} />
                     <img src={post.images[0].mediaUrl} key={nanoid()}
                       onClick={e => handleClick(e, post)}
+                      className='feed_post_img'
                     />
                   ))}
               </div>)

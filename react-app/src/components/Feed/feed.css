@@ -120,3 +120,7 @@
   position: relative;
   bottom: 0px;
 } */
+
+.feed_post_img:hover {
+  filter: brightness(80%);
+}
