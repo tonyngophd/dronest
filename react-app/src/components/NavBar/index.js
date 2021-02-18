@@ -11,8 +11,11 @@ import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
 
 import MainSearchBar from "../Search";
+import { DarkModeButton } from '../utils';
+
 import "./NavBar.css";
 
+ 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showLoggedOut, setShowLoggedOut] = useState(false);
@@ -25,6 +28,7 @@ const NavBar = () => {
 
   return (
     <div className='top-navbar-container' >
+      <DarkModeButton />
       <nav className="top-navbar">
         <NavLink
           to="/"

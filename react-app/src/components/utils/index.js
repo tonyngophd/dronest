@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import createMentionPlugin from "@draft-js-plugins/mention";
 import ReactPlayer from 'react-player';
+import Darkmode from 'darkmode-js';
+
 
 export function MediaDisplayer({
   mediaUrl, imgClassname = 'single-card-main-img',
@@ -13,21 +15,20 @@ export function MediaDisplayer({
   let mediatType = 'image';
   if (mediaUrl.toLowerCase().includes('facebook') ||
     mediaUrl.toLowerCase().includes('youtu') ||
-    mediaUrl.toLowerCase().includes('mp4') || 
+    mediaUrl.toLowerCase().includes('mp4') ||
     (fileType && fileType.toLowerCase().includes('vid'))
   ) {
     mediatType = 'video';
   }
 
-  if(mediatType !== 'image' && mediatType !== 'video') 
-  {
+  if (mediatType !== 'image' && mediatType !== 'video') {
     return <div className={imgClassname}>Unsupported media type</div>;
   }
 
   return (
     <>{
       mediatType === 'image' ?
-      // Math.random() < 0.7 ?
+        // Math.random() < 0.7 ?
         <img
           className={imgClassname}
           src={mediaUrl}
@@ -148,4 +149,49 @@ export function getRandomIntInclusive(min, max) {
 }
 
 export const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+const defaultOptions = {
+  bottom: '800px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+export function DarkModeButton({ top, right, bottom, left }) {
+  const options = defaultOptions;
+  if (top) {
+    delete options.bottom;
+    options.top = top;
+  }
+  if (right) options.right = right;
+  if (bottom) {
+    delete options.top;
+    options.bottom = bottom;
+  }
+  if (left) options.left = left;
+  console.log(options);
+  const darkmode = new Darkmode(options);
+  return (
+    <div className='darkmode-button-div' onClick={e => {
+      darkmode.toggle();
+      console.log(darkmode.isActivated());
+    }}>
+      {
+        // darkmode.showWidget()
+      }
+    </div>
+  );
+}
+export function darkModeButton() {
+  const darkmode = new Darkmode(defaultOptions);
+  darkmode.showWidget()
+}
+
 
