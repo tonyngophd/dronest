@@ -1,9 +1,14 @@
+.homepage-bands-container{
+  margin-top: 80px;
+}
+
 .main-band-container{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   margin: 20px auto;
+  max-width: 1260px;
 }
 
 .band-title-div{
@@ -162,5 +167,6 @@
 .banner-squares{
   position: absolute;
   margin-bottom: 20px;
+  z-index: 1;
   /* bottom: -0px; */
 }

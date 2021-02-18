@@ -134,7 +134,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
 
   return (
     <div className="profile-page-container" >
-      <DarkModeButton />
+      {/* <DarkModeButton /> */}
       {profile.user && (
         <>
           {/* <div className="profile-info-cover">

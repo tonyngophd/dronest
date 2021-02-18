@@ -12,6 +12,7 @@ body {
   font-family: "Open Sans", sans-serif;
   margin: 0px;
   background-color: #fafafa;
+  position: relative;
 }
 
 .homepage {
@@ -20,7 +21,6 @@ body {
   align-items: center;
   position: relative;
   background-color: #eaeaea;
-
 }
 
 .main_body {
@@ -49,9 +49,6 @@ body {
   padding-top: 100px;
 }
 
-.homepage-bands-container{
-  margin-top: 80px;
-}
 .login-form {
   margin-top: 50px;
 }
@@ -393,3 +390,14 @@ body {
     margin: auto !important;
   }
 }
+
+.darkmode-button-div{
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  width: 10vw;
+  height: 10vh;
+  z-index: 10000;
+  /* background-color: #2098d1; */
+}
+

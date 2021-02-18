@@ -151,7 +151,8 @@ export function getRandomIntInclusive(min, max) {
 export const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 const defaultOptions = {
-  bottom: '800px', // default: '32px'
+  // bottom: '800px', // default: '32px'
+  // top: '0px',
   right: 'unset', // default: '32px'
   left: '32px', // default: 'unset'
   time: '0.5s', // default: '0.3s'
@@ -179,12 +180,14 @@ export function DarkModeButton({ top, right, bottom, left }) {
   console.log(options);
   const darkmode = new Darkmode(options);
   return (
-    <div className='darkmode-button-div' onClick={e => {
-      darkmode.toggle();
-      console.log(darkmode.isActivated());
-    }}>
+    <div className='darkmode-button-div' 
+    // onClick={e => {
+    //   darkmode.toggle();
+    //   console.log(darkmode.isActivated());
+    // }}
+    >
       {
-        // darkmode.showWidget()
+        darkmode.showWidget()
       }
     </div>
   );
