@@ -29,7 +29,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const myself = useSelector((state) => state.session.user);
-  const singlePost = useSelector((state) => state.posts.singlePost);
+  // const singlePost = useSelector((state) => state.posts.singlePost);
   const history = useHistory();
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);

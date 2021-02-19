@@ -39,9 +39,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <div className="homepage"> */}
       <DarkModeButton />
-
       {/* <Footer /> */}
       <NavBar />
       {/* {user &&
@@ -102,7 +100,6 @@ function App() {
           <StoriesFullPage />
         </ProtectedRoute>
       </Switch>
-      {/* </div> */}
     </BrowserRouter>
   );
 }

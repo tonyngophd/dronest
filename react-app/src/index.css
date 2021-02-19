@@ -13,6 +13,10 @@ body {
   margin: 0px;
   background-color: #fafafa;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .homepage {
@@ -23,24 +27,6 @@ body {
   background-color: #eaeaea;
 }
 
-.main_body {
-  /* height: 2000px; */
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  position: absolute;
-  left: 38.5%;
-  margin-left: -350px;
-}
-
-.body_container {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  margin-top: 40px;
-  /* align-items: flex-start; */
-}
 
 .stories-and-bands-div{
   display: flex;

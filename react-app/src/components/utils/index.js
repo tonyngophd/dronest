@@ -177,7 +177,8 @@ export function DarkModeButton({ top, right, bottom, left }) {
   console.log(options);
   const darkmode = new Darkmode(options);
   return (
-    <div className='darkmode-button-div' 
+    <div 
+    // className='darkmode-button-div' 
     // onClick={e => {
     //   darkmode.toggle();
     //   console.log(darkmode.isActivated());

@@ -6,7 +6,11 @@
   /* border: 1px solid black; */
   margin: auto;
   margin-top: 50px;
-  position: absolute;
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-info {
@@ -15,6 +19,8 @@
   color: rgb(38, 38, 38);
   border-bottom: 1px solid rgba(219, 219, 219, 0);
   padding-bottom: 50px;
+  align-items: center;
+  justify-content: center;
   /* color: white; */
 }
 
@@ -22,7 +28,7 @@
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  margin-left: 85px;
+  /* margin-left: 85px; */
   margin-right: 85px;
   object-fit: cover;
   user-select: none;
