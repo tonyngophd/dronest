@@ -63,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .single-card-main-vid:hover{
@@ -176,6 +177,16 @@
 }
 .post-modal-img:hover{
   cursor: zoom-in;
+}
+.post-modal-vid{
+  width: 700px;
+  height: 365px;
+  object-fit: cover;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .post-modal-commentinput-div{
   width: 350px;

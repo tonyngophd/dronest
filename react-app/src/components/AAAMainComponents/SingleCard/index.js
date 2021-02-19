@@ -290,7 +290,7 @@ export function PostModal({ setShowModal, user, posts }) {
                 <MediaDisplayer
                   mediaUrl={post.images[mediaIndex].mediaUrl}
                   imgClassname='post-modal-img'
-                  vidClassname='post-modal-img'
+                  vidClassname='post-modal-vid'
                   imgHandleClick={e => {
                     setCurrentPic(post.images[mediaIndex]);
                     setShowPicFullScreen(true);
