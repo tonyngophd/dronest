@@ -32,6 +32,9 @@
   max-height: 178px;
   overflow: hidden;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .single-card-main-img{
@@ -63,7 +66,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  /* z-index: 1; */
+  position: relative;
 }
 
 .single-card-main-vid:hover{
