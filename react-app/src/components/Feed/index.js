@@ -8,6 +8,7 @@ import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 import { PostModal } from '../AAAMainComponents/SingleCard';
+import { MediaDisplayer } from '../utils';
 
 
 const Feed = () => {
@@ -112,16 +113,25 @@ export const AllPosts = () => {
             new Array(3).fill(1).map((_, index) =>
               <div className='feed_grid_container_column' key={nanoid()}>
                 {Object.values(feed)
-                  .sort((a, b) =>
-                    new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-                  )
+                  // .sort((a, b) =>
+                  //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+                  // )
                   .filter((p, i) => i % 3 === index)
                   .map((post) => (
                     // <BarePost post={post} key={nanoid()} />
-                    <img src={post.images[0].mediaUrl} key={nanoid()}
-                      onClick={e => handleClick(e, post)}
-                      className='feed_post_img'
+                    <MediaDisplayer 
+                      mediaUrl={post.images[0].mediaUrl} 
+                      key={nanoid()}
+                      imgClassname='feed_post_img'
+                      vidClassname='feed_post_vid'
+                      width='400px'
+                      imgHandleClick={e => handleClick(e, post)}
+                      vidHandleClick={e => handleClick(e, post)}
                     />
+                    // <img src={post.images[0].mediaUrl} key={nanoid()}
+                    //   onClick={e => handleClick(e, post)}
+                    //   className='feed_post_img'
+                    // />
                   ))}
               </div>)
           }

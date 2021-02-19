@@ -121,6 +121,12 @@
   bottom: 0px;
 } */
 
-.feed_post_img:hover {
+.feed_post_img:hover,
+.feed_post_vid:hover {
   filter: brightness(80%);
+}
+.feed_post_vid{
+  width: 400px;
+  height: 225px;
+  margin: 10px auto;
 }
