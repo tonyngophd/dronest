@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
 import { AiOutlineHome } from "react-icons/ai";
-import { IoPaperPlaneOutline, IoImagesOutline } from "react-icons/io5";
+import { IoPaperPlaneOutline, IoImagesOutline, } from "react-icons/io5";
 import { FaWpexplorer, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsHeart } from "react-icons/bs";
+import { AiOutlineCompass } from 'react-icons/ai';
+import { ImCompass2 } from 'react-icons/im';
 
 import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
@@ -14,7 +16,7 @@ import MainSearchBar from "../Search";
 
 import "./NavBar.css";
 
- 
+
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showLoggedOut, setShowLoggedOut] = useState(false);
@@ -94,22 +96,22 @@ const NavBar = () => {
               <NavLink to="/messages/" exact={true} activeclassname="active">
                 <IoPaperPlaneOutline className="navbar-icon hvr-shrink  " />
               </NavLink>
-              <NavLink to="/explore" exact={true} activeclassname="active">
-                <FaWpexplorer className="navbar-icon home-page hvr-shrink " />
+              <NavLink
+                to='/allposts'
+                exact={true}
+                activeClassName='active'
+              >
+                <AiOutlineCompass className="navbar-icon-26 home-page hvr-shrink heart-button " />
               </NavLink>
+              {/* <NavLink to="/explore" exact={true} activeclassname="active">
+                <FaWpexplorer className="navbar-icon home-page hvr-shrink " />
+              </NavLink> */}
               <NavLink
                 to={`/users/${user.username}/liked`}
                 exact={true}
                 activeclassname="active"
               >
                 <BsHeart className="navbar-icon home-page hvr-shrink heart-button " />
-              </NavLink>
-              <NavLink
-                to='/allposts'
-                exact={true}
-                activeClassName='active'
-              >
-                <IoImagesOutline className="navbar-icon home-page hvr-shrink heart-button " />
               </NavLink>
               <NavLink to={`/users/${user.username}`}>
                 <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />

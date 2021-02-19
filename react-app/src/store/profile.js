@@ -44,8 +44,10 @@ const reducer = (state = initialState, action) => {
       const user = newState.user;
       if (user && user.ownPosts.length) {
         const post = user.ownPosts.find(p => p.id === action.payload.id);
-        for (let key in action.payload)
-          post[key] = action.payload[key]
+        if (post) {
+          for (let key in action.payload)
+            post[key] = action.payload[key]
+        }
       }
       return newState;
     default:

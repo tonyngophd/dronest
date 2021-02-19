@@ -15,6 +15,7 @@ const CREATE_MODAL_COMMENT = "posts/CREATE_MODAL_COMMENT";
 
 const FETCH_HOME_FEED = "posts/FETCH_HOME_FEED";
 const FETCH_ALL_FEED = "posts/FETCH_ALL_FEED";
+const UPDATE_A_POST_LIKE = "posts/UPDATE_A_POST_LIKE";
 const FETCH_SINGLE_POST = "posts/FETCH_SINGLE_POST";
 const FETCH_HASHTAG_FEED = "posts/FETCH_HASHTAG_FEED";
 const FETCH_EXPLORE_FEED = "posts/FETCH_EXPLORE_FEED";
@@ -46,6 +47,11 @@ const loadHomeFeed = (feed) => ({
 const loadAllFeedPOJO = (feed) => ({
   type: FETCH_ALL_FEED,
   payload: feed,
+});
+
+const updateAPostPOJO = (post) => ({
+  type: UPDATE_A_POST_LIKE,
+  payload: post,
 });
 
 const loadHashtagFeed = (feed) => ({
@@ -170,6 +176,7 @@ export const likePost = (postId) => async (dispatch) => {
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateAProfilePostPOJO(res2.post));
     // dispatch(loadSinglePost(res2.post));
+    dispatch(updateAPostPOJO(res2.post));
     dispatch(updateUsersLikePOJO(res2.post));
     return res2;
   }
@@ -182,6 +189,7 @@ export const unlikePost = (postId) => async (dispatch) => {
     dispatch(updateAUsersPostPOJO(res2.post));
     dispatch(updateAProfilePostPOJO(res2.post));
     // dispatch(loadSinglePost(res2.post));
+    dispatch(updateAPostPOJO(res2.post));
     dispatch(updateUsersLikePOJO(res2.post, 'unlike'));
     return res2;
   }
@@ -269,6 +277,10 @@ const reducer = (state = initialState, action) => {
     case FETCH_HOME_FEED:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...newState.homeFeed, ...action.payload };
+      return newState;
+    case UPDATE_A_POST_LIKE:
+      newState = Object.assign({}, state);
+      newState.allFeed[action.payload.id] = action.payload;
       return newState;
     case FETCH_ALL_FEED:
       newState = Object.assign({}, state);

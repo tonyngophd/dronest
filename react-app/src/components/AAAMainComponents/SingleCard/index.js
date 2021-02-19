@@ -199,7 +199,7 @@ export function PostModal({ setShowModal, user, posts }) {
     const res = await dispatch(iLikedThisPost ? unlikePost(post.id) : likePost(post.id));
     if (res) {
       updateILikedThisPost(myself.likedPosts.find(p => p.id === post.id) ? true : false);
-      setLikes(post.likes);
+      setLikes(res.post.likes);
     }
   }
   const handleFaveClick = async (e) => {
