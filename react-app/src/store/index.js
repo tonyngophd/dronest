@@ -6,6 +6,7 @@ import users from "./users";
 import posts from "./posts.js";
 import notifications from "./notifications.js";
 import searchReducer from './search';
+import darkMode from './darkmode';
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   posts,
   notifications,
   search: searchReducer,
+  darkMode,
 });
 
 let enhancer;

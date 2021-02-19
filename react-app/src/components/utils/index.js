@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import createMentionPlugin from "@draft-js-plugins/mention";
 import ReactPlayer from 'react-player';
 import Darkmode from 'darkmode-js';
+import { loadDarkModePOJO } from '../../store/darkmode';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 
 export function MediaDisplayer({
@@ -163,6 +166,16 @@ const defaultOptions = {
 }
 
 export function DarkModeButton({ top, right, bottom, left }) {
+  const dispatch = useDispatch();
+  const [isDarkMode, setDarkMode] = React.useState(false);
+
+  const toggleDarkMode = () => {
+    darkmode.toggle();
+    const isSet = darkmode.isActivated();
+    setDarkMode(isSet);
+    dispatch(loadDarkModePOJO(isSet));
+  };
+
   const options = defaultOptions;
   if (top) {
     delete options.bottom;
@@ -174,19 +187,21 @@ export function DarkModeButton({ top, right, bottom, left }) {
     options.bottom = bottom;
   }
   if (left) options.left = left;
-  console.log(options);
   const darkmode = new Darkmode(options);
+
   return (
-    <div 
-    // className='darkmode-button-div' 
-    // onClick={e => {
-    //   darkmode.toggle();
-    //   console.log(darkmode.isActivated());
-    // }}
+    <div
+      className='darkmode-button-div'
     >
-      {
-        darkmode.showWidget()
-      }
+      <div className={isDarkMode ? 'darkmode-label-div-dark' : 'darkmode-label-div-light'}>
+        Mode: {isDarkMode? "Dark": "Light"}
+      </div>
+      <DarkModeSwitch
+        style={{ marginBottom: '32px', position: 'absolute' }}
+        checked={isDarkMode}
+        onChange={toggleDarkMode}
+        size={60}
+      />
     </div>
   );
 }
