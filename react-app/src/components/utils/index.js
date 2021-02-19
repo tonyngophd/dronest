@@ -28,7 +28,6 @@ export function MediaDisplayer({
   return (
     <>{
       mediatType === 'image' ?
-        // Math.random() < 0.7 ?
         <img
           className={imgClassname}
           src={mediaUrl}
@@ -36,8 +35,6 @@ export function MediaDisplayer({
           alt='good band picture' /> :
         <div className={vidClassname} onClick={vidHandleClick}>
           <ReactPlayer
-            // url='https://www.facebook.com/100012533494609/videos/493072851120494'
-            // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
             url={mediaUrl}
             controls={controls}
             light={light}

@@ -22,7 +22,7 @@
   flex-direction: row;
   justify-content: space-between;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0);
+  /* background-color: rgba(255, 255, 255, 0); */
   /* background: #2b5876; fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #4e4376, #2b5876); */
   /* background: linear-gradient(to right, #4e4376, #2b5876); */
@@ -37,15 +37,15 @@
 }
 
 .nav-title {
-  margin-top: 18px !important;
+  margin-top: 18px;
   letter-spacing: 2.5px;
   font-weight: 360;
   margin-left: -8px;
-  color: rgb(210, 210, 210) !important;
+  /* color: rgb(210, 210, 210); */
 }
 
 .nav-title:active:hover {
-  color: rgb(240, 240, 240) !important;
+  /* color: rgb(240, 240, 240); */
 }
 
 .nav-title-logo {
@@ -59,7 +59,7 @@
   align-items: center;
   font-family: "Open Sans", sans-serif;
   font-size: 20px;
-  color: white;
+  /* color: white; */
 }
 
 .navbar-content.right-side {
@@ -104,7 +104,14 @@ li {
   width: 22px;
   margin-bottom: 3px;
   margin-left: 15px;
-  color: #bebebe;
+  /* color: #1BCBF2; */
+  /* color: #52D98D; */
+  /* color: #F27F1B; */
+  /* color: #7F24A6; */
+  /* color: #52D98D; */
+  /* color: #1BCBF2; */
+  /* color: #F27F1B; */
+  color: #364C59;
 }
 
 .heart-button {
@@ -126,7 +133,7 @@ li {
 }
 
 .navbar-icon:hover {
-  font-weight: 200;
+  font-weight: bold;
 }
 
 .top-navbar p {
@@ -172,7 +179,7 @@ li {
 }
 
 .der {
-  color: #bebebe;
+  /* color: #bebebe; */
   font-size: 30px;
   margin-top: -10px;
   margin-left: 14px;
