@@ -113,9 +113,9 @@ export const AllPosts = () => {
               new Array(columns).fill(1).map((_, index) =>
                 <div className='feed_grid_container_column' key={nanoid()}>
                   {Object.values(feed)
-                    // .sort((a, b) =>
-                    //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-                    // )
+                    .sort((a, b) =>
+                      new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+                    )
                     .filter((p, i) => (i % columns) === index)
                     .map((post) => (
                       <MediaDisplayer

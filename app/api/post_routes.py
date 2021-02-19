@@ -27,8 +27,7 @@ def allPosts():
 @post_routes.route("/explore/<int:page>")
 def explore_infinite(page):
   feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
-  feed_list = [post.to_dict() for post in feed]
-  return {'posts': {post["id"]: post for post in feed_list}}
+  return {'posts': {post.id: post.to_dict() for post in feed}}
 
 acceptedFileTypes = [
   'video/mp4',
@@ -129,9 +128,12 @@ def homeFeedInfinite(userId, page):
 def allFeedInfinite(page):
   # feed = Post.query.order_by(Post.createdAt.desc()).offset(page*9).limit(9)
   # feed = Post.query.order_by(Post.id.desc()).offset(page*9).limit(9)
-  feed = Post.query.order_by(Post.id.asc()).offset(page*9).limit(9)
-  feed_list = [post.to_dict() for post in feed]
-  return {'posts': {post["id"]: post for post in feed_list}}
+  # feed = Post.query.order_by(Post.id.asc()).offset(page*9).limit(9)
+  # feed_list = [post.to_dict() for post in feed]
+  # return {'posts': {post["id"]: post for post in feed_list}}
+
+  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
+  return {'posts': {post.id: post.to_dict() for post in feed}}  
 
 @post_routes.route("/tag/<string:hashtag>/<int:page>")
 def hashtagFeed(hashtag, page):
