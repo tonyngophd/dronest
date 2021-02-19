@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import createMentionPlugin from "@draft-js-plugins/mention";
 import ReactPlayer from 'react-player';
+import Darkmode from 'darkmode-js';
+import { loadDarkModePOJO } from '../../store/darkmode';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { FaSun } from 'react-icons/fa';
+import { BsMoon } from 'react-icons/bs';
+import classes from './styles.module.css';
+
 
 export function MediaDisplayer({
   mediaUrl, imgClassname = 'single-card-main-img',
   vidClassname = 'single-card-main-vid',
   imgHandleClick, vidHandleClick, controls = true,
-  light = false, config, height = '100%', style, fileType,
-  width
+  light = false, config, vidHeight = '100%', style, fileType,
+  vidWidth
 }) {
   let mediatType = 'image';
   if (mediaUrl.toLowerCase().includes('facebook') ||
     mediaUrl.toLowerCase().includes('youtu') ||
-    mediaUrl.toLowerCase().includes('mp4') || 
+    mediaUrl.toLowerCase().includes('mp4') ||
     (fileType && fileType.toLowerCase().includes('vid'))
   ) {
     mediatType = 'video';
   }
 
-  if(mediatType !== 'image' && mediatType !== 'video') 
-  {
+  if (mediatType !== 'image' && mediatType !== 'video') {
     return <div className={imgClassname}>Unsupported media type</div>;
   }
 
   return (
     <>{
       mediatType === 'image' ?
-      // Math.random() < 0.7 ?
         <img
           className={imgClassname}
           src={mediaUrl}
@@ -35,14 +41,12 @@ export function MediaDisplayer({
           alt='good band picture' /> :
         <div className={vidClassname} onClick={vidHandleClick}>
           <ReactPlayer
-            // url='https://www.facebook.com/100012533494609/videos/493072851120494'
-            // url='https://www.facebook.com/gn.aerials/videos/151961382328554'
             url={mediaUrl}
             controls={controls}
             light={light}
             config={config}
-            height={height}
-            width={width}
+            height={vidHeight}
+            width={vidWidth}
             style={style}
           />
         </div>
@@ -148,4 +152,116 @@ export function getRandomIntInclusive(min, max) {
 }
 
 export const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+const defaultOptions = {
+  // bottom: '800px', // default: '32px'
+  // top: '0px',
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+export function DarkModeButton({ top, right, bottom, left }) {
+  const dispatch = useDispatch();
+  const [isDarkMode, setDarkMode] = React.useState(false);
+
+  const toggleDarkMode = () => {
+    darkmode.toggle();
+    const isSet = darkmode.isActivated();
+    setDarkMode(isSet);
+    dispatch(loadDarkModePOJO(isSet));
+  };
+
+  const [isDark, setIsDark] = useState('light');
+
+  // button toggler
+  const darkModeHandler = () => {
+    darkmode.toggle();
+    const isSet = darkmode.isActivated();
+    setIsDark(isSet? 'dark' : 'light');
+    dispatch(loadDarkModePOJO(isSet));    
+  }  
+
+  const options = defaultOptions;
+  if (top) {
+    delete options.bottom;
+    options.top = top;
+  }
+  if (right) options.right = right;
+  if (bottom) {
+    delete options.top;
+    options.bottom = bottom;
+  }
+  if (left) options.left = left;
+  const darkmode = new Darkmode(options);
+
+  return (
+    <div
+      className={classes.darkmode_button_div}
+    >
+      {/* <div className={isDarkMode ? 'darkmode-label-div-dark' : 'darkmode-label-div-light'}>
+        Mode: {isDarkMode? "Dark": "Light"}
+      </div> */}
+      {/* <DarkModeSwitch
+        style={{ marginBottom: '32px', position: 'absolute' }}
+        checked={isDarkMode}
+        onChange={toggleDarkMode}
+        size={40}
+      /> */}
+    <DarkModeToggle
+      size='large'
+      isDark={isDark}
+      onClick={darkModeHandler}
+      border='#000'
+    />      
+    </div>
+  );
+}
+export function darkModeButton() {
+  const darkmode = new Darkmode(defaultOptions);
+  darkmode.showWidget()
+}
+
+
+
+// interface Props {
+//   onClick: () => void
+//   isDark?: 'light' | 'dark'
+//   size?: 'middle' | 'small'
+//   border?: string
+// }
+
+export function DarkModeToggle({
+  onClick,
+  isDark,
+  size,
+  border
+}) {
+  const toggleCSS = [classes.toggle]
+  size === 'small' && toggleCSS.push(classes.small)
+  isDark === 'dark' && toggleCSS.push(classes.dark)
+
+  return (
+    <div
+      style={{ borderColor: isDark === 'dark' ? border : '' }}
+      className={toggleCSS.join(' ')}
+      onClick={onClick}
+    >
+      <div className={classes.toggle__slide} />
+      <span className={classes.toggle__sunlight}>
+        <FaSun />
+      </span>
+      <span className={classes.toggle__moon}>
+        <BsMoon />
+      </span>
+    </div>
+  )
+}
 

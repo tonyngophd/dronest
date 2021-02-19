@@ -235,12 +235,12 @@ const reducer = (state = initialState, action) => {
     case CREATE_POST:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...action.payload, ...newState.homeFeed };
-      newState.allFeed = { ...action.payload, ...newState.homeFeed };
+      newState.allFeed = { ...action.payload, ...newState.allFeed };
       return newState;
     case DELETE_POST:
       newState = Object.assign({}, state);
       newState.homeFeed = { ...newState.homeFeed };
-      newState.allFeed = { ...newState.homeFeed };
+      newState.allFeed = { ...newState.allFeed };
       delete newState.homeFeed[action.payload]
       delete newState.allFeed[action.payload]
       // newState.homeFeed = { ...(newState.homeFeed.filter(feed => feed.id !== action.payload)) };

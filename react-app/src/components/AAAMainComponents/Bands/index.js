@@ -268,7 +268,6 @@ export function Bands() {
       {
         showLoginForm && <LoginForm setShowModal={setShowLoginForm} />
       }
-
       {/* <ThreeJSBanner /> */}
       <MainBanner />
       {

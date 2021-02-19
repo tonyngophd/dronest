@@ -11,8 +11,10 @@ import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
 
 import MainSearchBar from "../Search";
+
 import "./NavBar.css";
 
+ 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showLoggedOut, setShowLoggedOut] = useState(false);

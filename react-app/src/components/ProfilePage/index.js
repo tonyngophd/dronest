@@ -14,7 +14,7 @@ import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
 import { AddAPostForm } from '../Post';
 import { PostModal } from '../AAAMainComponents/SingleCard';
-
+import { DarkModeButton } from '../utils';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -29,7 +29,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const myself = useSelector((state) => state.session.user);
-  const singlePost = useSelector((state) => state.posts.singlePost);
+  // const singlePost = useSelector((state) => state.posts.singlePost);
   const history = useHistory();
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
@@ -134,6 +134,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
 
   return (
     <div className="profile-page-container" >
+      {/* <DarkModeButton /> */}
       {profile.user && (
         <>
           {/* <div className="profile-info-cover">
@@ -232,6 +233,9 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
           </div>
         </>
       )}
+      {
+        // new Darkmode().showWidget()
+      }
       {profile && <ProfilePostsNav />}
       {profile.user && !tagged && !liked && !saved && !create && (
         <ProfileFeed posts={profile.user.ownPosts} setShowPostModal={setShowPostModal} />

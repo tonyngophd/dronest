@@ -53,7 +53,9 @@ const ProfilePost = ({ post, setShowPostModal }) => {
       >
         <MediaDisplayer mediaUrl={post.images[0].mediaUrl}
           imgClassname={hover ? "profile-post-pic hovered" : "profile-post-pic"}
-          vidClassname="image-preview"
+          vidClassname="profile-post-pic"
+          vidWidth='400px'
+          vidHeight='225px'
           imgHandleClick={handleClick}
           vidHandleClick={handleClick}
         />

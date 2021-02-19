@@ -1,14 +1,20 @@
 .profile-post-pic-wrapper {
   position: relative;
   cursor: pointer;
+  /* overflow: hidden; 
+  width: 400px;
+  height: 300px; 
+  object-fit: cover !important; */
+
 }
 
 .profile-post-pic {
-  width: 294px;
-  height: 294px;
-  object-fit: cover !important;
-  margin-right: 30px;
-  margin-bottom: 30px;
+  overflow: hidden; 
+  /* width: 400px;
+  height: 400px; 
+  object-fit: cover !important; */
+  /* margin-right: 30px; */
+  margin-bottom: 5px;
 }
 
 .profile-post-pic.hovered {

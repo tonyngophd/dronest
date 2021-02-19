@@ -333,7 +333,7 @@ function MessagePage() {
                   </form> */}
                   <CommentInput
                     className="message-input-box-draftjs"
-                    insideCN="innner-message-input-box-draftjs"
+                    insideCN="inner-message-input-box-draftjs"
                     action="Send"
                     placeHolder="Type your message"
                     receiverId={currentReceiver.id}

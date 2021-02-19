@@ -8,6 +8,7 @@ import { fetchNotifications } from "../../store/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 import { PostModal } from '../AAAMainComponents/SingleCard';
+import { MediaDisplayer } from '../utils';
 
 
 const Feed = () => {
@@ -22,10 +23,6 @@ const Feed = () => {
   useEffect(() => {
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
-
-  useEffect(() => {
-    console.log('FEEED', feed)
-  }, [feed]);
 
   const setPost = (arr, num) => {
     let newArr = []
@@ -88,7 +85,7 @@ export const AllPosts = () => {
     setShowPostModal(true);
   }
 
-
+  const columns = 3;
   return (
     <>
       {feed && (
@@ -107,27 +104,37 @@ export const AllPosts = () => {
               timeout={1000}
             />
           }
+          scrollThreshold={1.0}
+          hasChildren={true}
+          // inverse={true}
         >
+          <div className='three-column-div'>
+            {
+              new Array(columns).fill(1).map((_, index) =>
+                <div className='feed_grid_container_column' key={nanoid()}>
+                  {Object.values(feed)
+                    // .sort((a, b) =>
+                    //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+                    // )
+                    .filter((p, i) => (i % columns) === index)
+                    .map((post) => (
+                      <MediaDisplayer
+                        mediaUrl={post.images[0].mediaUrl}
+                        key={nanoid()}
+                        imgClassname='feed_post_img'
+                        vidClassname='feed_post_vid'
+                        vidWidth='400px'
+                        imgHandleClick={e => handleClick(e, post)}
+                        vidHandleClick={e => handleClick(e, post)}
+                        light={true}
+                      />
+                    ))}
+                </div>)
+            }
+          </div>
           {
-            new Array(3).fill(1).map((_, index) =>
-              <div className='feed_grid_container_column' key={nanoid()}>
-                {Object.values(feed)
-                  .sort((a, b) =>
-                    new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-                  )
-                  .filter((p, i) => i % 3 === index)
-                  .map((post) => (
-                    // <BarePost post={post} key={nanoid()} />
-                    <img src={post.images[0].mediaUrl} key={nanoid()}
-                      onClick={e => handleClick(e, post)}
-                      className='feed_post_img'
-                    />
-                  ))}
-              </div>)
-          }
-          {
-            showPostModal && postToPop && 
-              <PostModal setShowModal={setShowPostModal} posts={[postToPop]} user={postToPop.user}/>
+            showPostModal && postToPop &&
+            <PostModal setShowModal={setShowPostModal} posts={[postToPop]} user={postToPop.user} />
           }
         </InfiniteScroll>
       )}
