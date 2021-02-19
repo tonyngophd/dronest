@@ -127,7 +127,7 @@ def homeFeedInfinite(userId, page):
 
 @post_routes.route("/feed/<int:page>")
 def allFeedInfinite(page):
-  feed = Post.query.order_by(Post.createdAt.desc()).offset(page*9).limit(9)
+  feed = Post.query.order_by(Post.id.asc()).offset(page*9).limit(9)
   feed_list = [post.to_dict() for post in feed]
   return {'posts': {post["id"]: post for post in feed_list}}
 

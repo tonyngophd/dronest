@@ -105,30 +105,32 @@ export const AllPosts = () => {
             />
           }
         >
+          <div className='three-column-div'>
+            {
+              new Array(3).fill(1).map((_, index) =>
+                <div className='feed_grid_container_column' key={nanoid()}>
+                  {Object.values(feed)
+                    // .sort((a, b) =>
+                    //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+                    // )
+                    .filter((p, i) => (p.id % 3) === index)
+                    .map((post) => (
+                      <MediaDisplayer
+                        mediaUrl={post.images[0].mediaUrl}
+                        key={nanoid()}
+                        imgClassname='feed_post_img'
+                        vidClassname='feed_post_vid'
+                        width='400px'
+                        imgHandleClick={e => handleClick(e, post)}
+                        vidHandleClick={e => handleClick(e, post)}
+                      />
+                    ))}
+                </div>)
+            }
+          </div>
           {
-            new Array(3).fill(1).map((_, index) =>
-              <div className='feed_grid_container_column' key={nanoid()}>
-                {Object.values(feed)
-                  .sort((a, b) =>
-                    new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-                  )
-                  .filter((p, i) => (i % 3) === index)
-                  .map((post) => (
-                    <MediaDisplayer 
-                      mediaUrl={post.images[0].mediaUrl} 
-                      key={nanoid()}
-                      imgClassname='feed_post_img'
-                      vidClassname='feed_post_vid'
-                      width='400px'
-                      imgHandleClick={e => handleClick(e, post)}
-                      vidHandleClick={e => handleClick(e, post)}
-                    />
-                  ))}
-              </div>)
-          }
-          {
-            showPostModal && postToPop && 
-              <PostModal setShowModal={setShowPostModal} posts={[postToPop]} user={postToPop.user}/>
+            showPostModal && postToPop &&
+            <PostModal setShowModal={setShowPostModal} posts={[postToPop]} user={postToPop.user} />
           }
         </InfiniteScroll>
       )}
