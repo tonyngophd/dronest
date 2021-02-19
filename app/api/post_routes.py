@@ -160,7 +160,6 @@ def delete_single_post(postId):
 
 @post_routes.route("/<int:postId>/like")
 def like_post(postId):
-  print('141 postId', postId)
   postLike = LikedPost(
     postId=postId,
     userId=current_user.id
@@ -168,7 +167,7 @@ def like_post(postId):
   db.session.add(postLike)
   db.session.commit()
   post = Post.query.get(postId)
-  return {'post': post.to_dict_for_self()}
+  return {'post': post.to_dict()}
 
 @post_routes.route("/<int:postId>/unlike")
 def unlike_post(postId):
@@ -176,7 +175,7 @@ def unlike_post(postId):
   db.session.delete(postLike)
   db.session.commit()
   post = Post.query.get(postId)
-  return {'post': post.to_dict_for_self()}
+  return {'post': post.to_dict()}
 
 
 @post_routes.route("/<int:postId>/save")

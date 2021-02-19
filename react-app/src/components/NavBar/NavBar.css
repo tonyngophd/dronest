@@ -115,6 +115,21 @@ li {
   /* color: #F27F1B; */
   color: #364C59;
 }
+.navbar-icon-26 {
+  height: 26px;
+  width: 26px;
+  margin-bottom: 3px;
+  margin-left: 15px;
+  /* color: #1BCBF2; */
+  /* color: #52D98D; */
+  /* color: #F27F1B; */
+  /* color: #7F24A6; */
+  /* color: #52D98D; */
+  /* color: #1BCBF2; */
+  /* color: #F27F1B; */
+  color: #364C59;  
+  font-size: 26px;
+}
 
 .heart-button {
   margin-bottom: 2px !important;
