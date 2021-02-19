@@ -85,7 +85,7 @@ export const AllPosts = () => {
     setShowPostModal(true);
   }
 
-
+  const columns = 3;
   return (
     <>
       {feed && (
@@ -107,13 +107,13 @@ export const AllPosts = () => {
         >
           <div className='three-column-div'>
             {
-              new Array(3).fill(1).map((_, index) =>
+              new Array(columns).fill(1).map((_, index) =>
                 <div className='feed_grid_container_column' key={nanoid()}>
                   {Object.values(feed)
                     // .sort((a, b) =>
                     //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
                     // )
-                    .filter((p, i) => (p.id % 3) === index)
+                    .filter((p, i) => (i % columns) === index)
                     .map((post) => (
                       <MediaDisplayer
                         mediaUrl={post.images[0].mediaUrl}
@@ -123,6 +123,7 @@ export const AllPosts = () => {
                         width='400px'
                         imgHandleClick={e => handleClick(e, post)}
                         vidHandleClick={e => handleClick(e, post)}
+                        light={true}
                       />
                     ))}
                 </div>)

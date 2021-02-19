@@ -1,9 +1,9 @@
 
 mediadata = [
-  {
-    "url": "https://www.facebook.com/groups/djimavicgroup/permalink/861650327339009",
-    "catid": "1"
-  },
+  # {
+  #   "url": "https://www.facebook.com/groups/djimavicgroup/permalink/861650327339009",
+  #   "catid": "1"
+  # },
   {
     "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/147191823_2515240598781910_6238767948991145024_o.jpg?_nc_cat=106&ccb=2&_nc_sid=dbeb18&_nc_ohc=hc1VWpBPMCwAX9SxbGV&_nc_ht=scontent-iad3-1.xx&oh=dbabe3bbded3f0de9d72a318cce334c4&oe=6046E365",
     "catid": "1"
