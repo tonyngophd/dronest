@@ -17,6 +17,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  /* color: black; */
   /* max-height: 700px; */
 }
 
@@ -252,6 +253,7 @@ body {
     padding-left: 1.5em !important;
     font-size: 1.4em !important;
     width: 85% !important;
+    /* color: gray; */
   }
 
   .comment-submit {
