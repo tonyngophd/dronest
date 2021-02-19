@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.toggle {
+  width: 63px;
+  height: 32px;
+  border-width: 1px;
+  border-color: #121212;
+  border-style: solid;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+}
+
+.toggle__slide {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 20px;
+  background: #121212;
+  margin: 2px 3px;
+  transition: 0.4s ease-in-out;
+  z-index: 100;
+}
+
+.toggle__moon,
+.toggle__sunlight {
+  font-size: 23px;
+  position: absolute;
+  top: 2px;
+  color: #fdc13c !important;
+}
+
+.toggle__sunlight {
+  right: 3px;
+}
+
+.toggle__moon {
+  top: -2px;
+  left: 3px;
+  transform: rotate(240deg);
+}
+
+.dark .toggle__slide {
+  transform: translateX(31px);
+  background: #efefef;
+}
+
+.dark.toggle {
+  background: #121212;
+  z-index: 1;
+}
+
+/* =========== Small ========== */
+.toggle.small {
+  width: 48px;
+  height: 20px;
+}
+
+.small .toggle__slide {
+  width: 18px;
+  height: 18px;
+  margin: 1px 2px;
+}
+
+.small.dark .toggle__slide {
+  transform: translateX(26px);
+}
+
+.small .toggle__moon,
+.small .toggle__sunlight {
+  font-size: 16px;
+  top: 0px;
+}
+
+.small .toggle__moon {
+  top: 0px;
+}
+
+
+.darkmode_button_div{
+  position: fixed;
+  /* top: 0px; */
+  top: 10px;
+  right: 40px;
+  /* width: 10vw;
+  height: 10vh; */
+  /* z-index: 10000;
+  background-color: #2098d1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+.darkmode_label_div_dark{
+  /* z-index: 2000; */
+  margin-top: 40px;
+  color: white;
+  font-size: 14px;
+}
+.darkmode_label_div_light{
+  /* z-index: 2000; */
+  margin-top: 40px;
+  color: black;
+  font-size: 14px;
+}

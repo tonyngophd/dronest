@@ -6,6 +6,9 @@ import ReactPlayer from 'react-player';
 import Darkmode from 'darkmode-js';
 import { loadDarkModePOJO } from '../../store/darkmode';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { FaSun } from 'react-icons/fa';
+import { BsMoon } from 'react-icons/bs';
+import classes from './styles.module.css';
 
 
 export function MediaDisplayer({
@@ -176,6 +179,16 @@ export function DarkModeButton({ top, right, bottom, left }) {
     dispatch(loadDarkModePOJO(isSet));
   };
 
+  const [isDark, setIsDark] = useState('light');
+
+  // button toggler
+  const darkModeHandler = () => {
+    darkmode.toggle();
+    const isSet = darkmode.isActivated();
+    setIsDark(isSet? 'dark' : 'light');
+    dispatch(loadDarkModePOJO(isSet));    
+  }  
+
   const options = defaultOptions;
   if (top) {
     delete options.bottom;
@@ -191,17 +204,23 @@ export function DarkModeButton({ top, right, bottom, left }) {
 
   return (
     <div
-      className='darkmode-button-div'
+      className={classes.darkmode_button_div}
     >
-      <div className={isDarkMode ? 'darkmode-label-div-dark' : 'darkmode-label-div-light'}>
+      {/* <div className={isDarkMode ? 'darkmode-label-div-dark' : 'darkmode-label-div-light'}>
         Mode: {isDarkMode? "Dark": "Light"}
-      </div>
-      <DarkModeSwitch
+      </div> */}
+      {/* <DarkModeSwitch
         style={{ marginBottom: '32px', position: 'absolute' }}
         checked={isDarkMode}
         onChange={toggleDarkMode}
-        size={60}
-      />
+        size={40}
+      /> */}
+    <DarkModeToggle
+      size='large'
+      isDark={isDark}
+      onClick={darkModeHandler}
+      border='#000'
+    />      
     </div>
   );
 }
@@ -210,4 +229,39 @@ export function darkModeButton() {
   darkmode.showWidget()
 }
 
+
+
+// interface Props {
+//   onClick: () => void
+//   isDark?: 'light' | 'dark'
+//   size?: 'middle' | 'small'
+//   border?: string
+// }
+
+export function DarkModeToggle({
+  onClick,
+  isDark,
+  size,
+  border
+}) {
+  const toggleCSS = [classes.toggle]
+  size === 'small' && toggleCSS.push(classes.small)
+  isDark === 'dark' && toggleCSS.push(classes.dark)
+
+  return (
+    <div
+      style={{ borderColor: isDark === 'dark' ? border : '' }}
+      className={toggleCSS.join(' ')}
+      onClick={onClick}
+    >
+      <div className={classes.toggle__slide} />
+      <span className={classes.toggle__sunlight}>
+        <FaSun />
+      </span>
+      <span className={classes.toggle__moon}>
+        <BsMoon />
+      </span>
+    </div>
+  )
+}
 
