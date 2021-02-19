@@ -24,10 +24,6 @@ const Feed = () => {
     dispatch(fetchHomeFeed(user.id, page));
   }, [dispatch, user, page]);
 
-  useEffect(() => {
-    console.log('FEEED', feed)
-  }, [feed]);
-
   const setPost = (arr, num) => {
     let newArr = []
     for (let i = 0; i < num; i++) {
@@ -113,12 +109,11 @@ export const AllPosts = () => {
             new Array(3).fill(1).map((_, index) =>
               <div className='feed_grid_container_column' key={nanoid()}>
                 {Object.values(feed)
-                  // .sort((a, b) =>
-                  //   new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-                  // )
-                  .filter((p, i) => i % 3 === index)
+                  .sort((a, b) =>
+                    new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+                  )
+                  .filter((p, i) => (i % 3) === index)
                   .map((post) => (
-                    // <BarePost post={post} key={nanoid()} />
                     <MediaDisplayer 
                       mediaUrl={post.images[0].mediaUrl} 
                       key={nanoid()}
@@ -128,10 +123,6 @@ export const AllPosts = () => {
                       imgHandleClick={e => handleClick(e, post)}
                       vidHandleClick={e => handleClick(e, post)}
                     />
-                    // <img src={post.images[0].mediaUrl} key={nanoid()}
-                    //   onClick={e => handleClick(e, post)}
-                    //   className='feed_post_img'
-                    // />
                   ))}
               </div>)
           }
