@@ -6,6 +6,7 @@
 
 .three-dots {
   /* margin-left: 250px; */
+  margin-bottom: 10px;
 }
 
 
@@ -55,6 +56,8 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 5px;
+  /* max-height: 800px;
+  overflow: scroll; */
   /* line-height: 2;
    
   -webkit-column-count: 1;

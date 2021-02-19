@@ -104,6 +104,9 @@ export const AllPosts = () => {
               timeout={1000}
             />
           }
+          scrollThreshold={1.0}
+          hasChildren={true}
+          // inverse={true}
         >
           <div className='three-column-div'>
             {
