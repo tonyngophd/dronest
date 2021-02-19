@@ -12,15 +12,6 @@ const ProfileFeed = ({ posts, setShowPostModal }) => {
   return (
     <>
       {
-        // posts ? <div className="profile-feed">
-        //   {posts
-        //     .sort((a, b) =>
-        //       new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-        //     )
-        //     .map((post) => (
-        //       <ProfilePost post={post} key={nanoid()} setShowPostModal={setShowPostModal} />
-        //     ))}
-        // </div> : <></>
         posts ?
           <InfiniteScroll
             className="feed_grid_container"

@@ -14,7 +14,6 @@ import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
 import { AddAPostForm } from '../Post';
 import { PostModal } from '../AAAMainComponents/SingleCard';
-import { DarkModeButton } from '../utils';
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
