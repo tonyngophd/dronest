@@ -69,7 +69,7 @@ export function FullScreenPicModal({ setShowModal, media }) {
           mediaUrl={media.mediaUrl}
           imgClassname='fullscreen-img'
           vidClassname='fullscreen-img'
-          width='85vw'
+          vidWidth='85vw'
         />
       </div>
     </Modal>
@@ -319,7 +319,7 @@ export function PostModal({ setShowModal, user, posts }) {
                               imgHandleClick={e => setMediaIndex(i)}
                               vidHandleClick={e => setMediaIndex(i)}
                               light={true}
-                              width="50px"
+                              vidWidth="50px"
                             />
                           </div>)
                       }

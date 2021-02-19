@@ -123,7 +123,7 @@ export const AllPosts = () => {
                         key={nanoid()}
                         imgClassname='feed_post_img'
                         vidClassname='feed_post_vid'
-                        width='400px'
+                        vidWidth='400px'
                         imgHandleClick={e => handleClick(e, post)}
                         vidHandleClick={e => handleClick(e, post)}
                         light={true}
