@@ -24,6 +24,12 @@
   transition-delay: 0s;
 }
 
+.miniprofile-container-div.static {
+  position: static;
+  z-index: inherit;
+  margin: 10px 0px;
+}
+
 hr {
   color: rgb(219, 219, 219);
 }

@@ -11,6 +11,7 @@ function MiniProfile({
   imageSize = "60px",
   notFollowedYet = false,
   handleClick,
+  className="miniprofile-container-div"
 }) {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
@@ -51,7 +52,7 @@ function MiniProfile({
   return (
     <div
       className={
-        hover ? "miniprofile-container-div" : "miniprofile-container-div hidden"
+        hover ? className : className + " hidden"
       }
     >
       <div className="user-row-left-div">
