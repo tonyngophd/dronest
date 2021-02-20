@@ -191,6 +191,7 @@ const NewPost = ({ onPost }) => {
     setMedia([]);
     setMediaSrcs([]);
     onPost();
+    setMessages(['Updloading media and post, please wait...']);
     const res = await dispatch(
       uploadPost(myself.id, mentionedUsers, hashtags, rawData, images)
     );
@@ -324,6 +325,7 @@ const NewPost = ({ onPost }) => {
             <MediaDisplayer mediaUrl={src} imgClassname="image-preview"
               vidClassname="image-preview"
               fileType={images[index].type}
+              // light={true}
             />
             <RiDeleteBin6Line className='img-prev-delete-button'
               onClick={e => handleDeleteClick(e, index)}

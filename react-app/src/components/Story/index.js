@@ -114,25 +114,26 @@ export function StoriesFullPage() {
     ))
   }, [users])
 
-  const mediaType = (url) => {
-    if (typeof (url) === 'string' && (url.toLowerCase().includes('youtu')
-      || url.toLowerCase().includes('facebook') || url.toLowerCase().includes('mp4')
-    )) {
-      console.log('video', url);
+  const mediaType = (mediaType, includesYandF = false) => {
+    if (mediaType.includes('image')) {
+      return 'image';
+    } else if(mediaType.includes('mp4')){
+      return 'video';
+    } else if(includesYandF && (mediaType.includes('youtu') || mediaType.includes('facebook'))){
       return 'video';
     }
-    return 'image';
+    return undefined;
   }
 
   useEffect(() => {
     updateAllStories(
       usersWithRecentPosts.map(user => {
         return user.ownPosts
-          .filter(post => mediaType(post.images[0].mediaUrl) === 'image')
+          .filter(post => mediaType(post.images[0].mediaType) !== undefined)
           .map(post => {
             return {
               url: post.images[0].mediaUrl,
-              type: mediaType(post.images[0].mediaUrl),
+              type: mediaType(post.images[0].mediaType),
               duration: 2000,
               header: {
                 heading: user.username,
@@ -264,8 +265,8 @@ export function StoriesFullPage() {
                         </div>
                         <img
                           src={
-                            stories.ownPosts.find(p => mediaType(p.images[0].mediaUrl) === 'image')
-                            .images[0].mediaUrl ||
+                            stories.ownPosts.find(p => mediaType(p.images[0].mediaType) === 'image')
+                              .images[0].mediaUrl ||
                             stories.ownPosts[0].images[0].mediaUrl}
                           alt={stories.ownPosts[0].mediaUrl}
                           style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover' }}
