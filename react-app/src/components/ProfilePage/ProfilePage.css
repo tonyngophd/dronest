@@ -120,6 +120,7 @@
   cursor: pointer;
   background-image: conic-gradient(#00aeef, #fff, #00aeef, #fff, #00aeef);
   animation: spin 5s linear infinite;
+  object-fit: cover;
 }
 
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { IoImagesOutline } from "react-icons/io5";
 
 import "./MiniProfile.css";
 import { nanoid } from "nanoid";
+import { MediaDisplayer } from '../utils';
 
 function MiniProfile({
   hover,
@@ -11,6 +11,7 @@ function MiniProfile({
   imageSize = "60px",
   notFollowedYet = false,
   handleClick,
+  className="miniprofile-container-div"
 }) {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
@@ -36,11 +37,12 @@ function MiniProfile({
           user.ownPosts
             .slice(0, 3)
             .map((post) => (
-              <img
+              <MediaDisplayer
                 key={nanoid()}
-                src={post.images[0].mediaUrl}
-                alt={post.images[0].mediaUrl}
-                className="mini-profile-image-preview"
+                mediaUrl={post.images[0].mediaUrl}
+                imgClassname="mini-profile-image-preview"
+                vidClassname="mini-profile-image-preview"
+                light={true}
               />
             ))}
       </div>
@@ -50,8 +52,9 @@ function MiniProfile({
   return (
     <div
       className={
-        hover ? "miniprofile-container-div" : "miniprofile-container-div hidden"
+        hover ? className : className + " hidden"
       }
+      onClick={handleClick?handleClick:{}}
     >
       <div className="user-row-left-div">
         <img
@@ -77,14 +80,14 @@ function MiniProfile({
         </div>
         <div
           className="profile-follower-numbers"
-          // onClick={handleFollowersClick}
+        // onClick={handleFollowersClick}
         >
           <span className="profile-number">{numberOfFollowers}</span>
           <span className="profile-number-text"> followers</span>
         </div>
         <div
           className="profile-follower-numbers"
-          // onClick={handleFollowingClick}
+        // onClick={handleFollowingClick}
         >
           <span className="profile-number">{numberOfFollowing}</span>
           <span className="profile-number-text"> following</span>
@@ -93,11 +96,11 @@ function MiniProfile({
       {numberOfOwnPosts ? (
         <PostPreview />
       ) : (
-        <div className="no-posts-placeholder">
-          <IoImagesOutline style={{ fontSize: "60px" }} />
-          <div>This user has no posts yet</div>
-        </div>
-      )}
+          <div className="no-posts-placeholder">
+            <IoImagesOutline style={{ fontSize: "60px" }} />
+            <div>This user has no posts yet</div>
+          </div>
+        )}
     </div>
   );
 }

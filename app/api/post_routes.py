@@ -67,11 +67,10 @@ def create_post():
     for image in images:
       image.filename = f'images/{secure_filename(image.filename)}'
       mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
-      # print(mediaUrl)
       new_image = Media(
         postId = post.id,
         mediaUrl=mediaUrl,
-        mediaType=secure_filename(image.filename).split(".")[-1]
+        mediaType=image.content_type
       )
       db.session.add(new_image)
 

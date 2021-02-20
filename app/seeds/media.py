@@ -24,7 +24,17 @@ def seed_media():
   # db.session.add(demo5)
 
   for i in range(len(mediadata)):
-    media = Media(postId=i+1, mediaUrl=mediadata[i]["url"], views = randint(0, 100))
+    mediaType = 'image/jpg'
+    if 'youtu' in mediadata[i]["url"]:
+      mediaType = 'video/youtube'
+    elif 'facebook' in mediadata[i]["url"]:
+      mediaType = 'video/facebook'
+
+    media = Media(postId=i+1, 
+      mediaUrl=mediadata[i]["url"],
+      views = randint(0, 100),
+      mediaType=mediaType
+      )
     db.session.add(media)
 
   db.session.commit()

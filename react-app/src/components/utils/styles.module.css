@@ -84,19 +84,20 @@
 
 
 .darkmode_button_div{
-  position: fixed;
+  /* position: fixed; */
   /* top: 0px; */
-  top: 10px;
-  right: 50px;
+  /* top: 10px; */
+  /* right: 50px; */
   /* width: 10vw;
   height: 10vh; */
   /* z-index: 10000;
   background-color: #2098d1; */
+  margin-left: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
+  /* z-index: 10; */
 }
 .darkmode_label_div_dark{
   /* z-index: 2000; */

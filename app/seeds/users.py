@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash
 from app.models import db, User
 from faker import Faker
-import random
+from random import randint
+from .data import mpics, fpics
 fake = Faker()
 
 
@@ -10,12 +11,12 @@ def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
                 password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
-                name="Klark Kent",profilePicUrl="https://instavibes.s3.amazonaws.com/profiles/profilepics/g0.jpg")
+                name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1541119370235-6c11470cfb1e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDN8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo)
 
     demo2 = User(username='Demo2', email='demo2@aa.io',
                 password='password', bio='Awesome book writer!', websiteUrl="www.google.com",
-                name="Michelle Sanders",profilePicUrl="https://instavibes.s3.amazonaws.com/profiles/profilepics/f15.jpg")
+                name="Michelle Sanders",profilePicUrl="https://images.unsplash.com/photo-1520155707862-5b32817388d6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjU0fHx3b21hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo2)
 
     tony = User(username='TonyRox', email='tony@gmail.com',
@@ -27,6 +28,8 @@ def seed_users():
     F = 1
     M = 1
     i = 0
+    Mpics = mpics
+    Fpics = fpics
     while i < 29:
         while (p := fake.profile()) and p['sex'] not in ['F', 'M']:
             continue
@@ -42,12 +45,18 @@ def seed_users():
         fl = ''
         url = ''
         if p['sex'] == 'F':
-            fl = f'f{F}.jpg'
+            # fl = f'f{F}.jpg'
+            fi = randint(0, len(Fpics) - 1)
+            url = Fpics[fi]
+            Fpics.pop(fi)
             F += 1
         else:
-            fl = f'm{M}.jpg'
+            # fl = f'm{M}.jpg'
+            mi = randint(0, len(Mpics) - 1)
+            url = Mpics[mi]
+            Mpics.pop(mi)
             M += 1
-        url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
+        # url = 'https://instavibes.s3.amazonaws.com/profiles/profilepics/' + fl
         user = User(username=p['username'], email=p['mail'],
             password=f'password', bio=p['job'], websiteUrl=p['website'][0],
             name=p['name'],profilePicUrl=url)

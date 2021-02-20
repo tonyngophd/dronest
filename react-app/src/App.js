@@ -18,7 +18,6 @@ import MessagePage from "./components/MessagePage";
 import SinglePostPage from "./components/SinglePostPage";
 import { StoryTopBox, StoriesFullPage } from "./components/Story";
 import { Bands } from './components/AAAMainComponents/Bands';
-import { DarkModeButton } from './components/utils';
 
 
 function App() {
@@ -39,7 +38,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <DarkModeButton />
       {/* <Footer /> */}
       <NavBar />
       {/* {user &&

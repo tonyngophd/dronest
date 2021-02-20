@@ -12,3 +12,16 @@
   padding: 10px;
   margin-top: 40px;
 }
+
+.all-users-miniprofile-div{
+  display: flex;
+  max-width: 900px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.user-list-and-mini-profiles{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1100px;
+}

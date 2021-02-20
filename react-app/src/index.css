@@ -89,7 +89,7 @@ body {
     margin-left: 75px !important;
   } */
 }
-
+/* 
 @media (max-width: 1060px) {
   .search-and-dropdown-display-main-box {
     left: 50%;
@@ -113,8 +113,8 @@ body {
 
 @media (max-width: 650px) {
   body {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
   }
 
   body::-webkit-scrollbar {
@@ -170,8 +170,8 @@ body {
   }
 
   body {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
 
   body::-webkit-scrollbar {
@@ -202,8 +202,6 @@ body {
   .feed_post-container {
     width: 100vw !important;
     margin-left: auto !important;
-    /* margin-right: auto !important;
-    margin-bottom: 0 !important; */
     margin: 0 !important;
     transition-property: margin-bottom;
     border: none !important;
@@ -235,7 +233,6 @@ body {
     margin-left: 1.4em !important;
     margin-top: 0.2em !important;
     font-size: 1.7em !important;
-    /* padding-left: 4px !important; */
   }
 
   .post-caption {
@@ -259,13 +256,6 @@ body {
     font-size: 1.7em !important;
     margin-left: 0.5em !important;
   }
-  /* 
-  .comment a {
-    font-size: 1.7em !important;
-    font-weight: 600;
-    color: rgb(38, 38, 38);
-    margin-right: 5px;
-  } */
 
   .comment {
     font-size: 1.7em !important;
@@ -276,7 +266,6 @@ body {
     padding-left: 1.5em !important;
     font-size: 1.4em !important;
     width: 85% !important;
-    /* color: gray; */
   }
 
   .comment-submit {
@@ -401,6 +390,6 @@ body {
     width: 100% !important;
     margin: auto !important;
   }
-}
+} */
 
 

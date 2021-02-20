@@ -24,6 +24,17 @@
   transition-delay: 0s;
 }
 
+.miniprofile-container-div.static {
+  position: static;
+  z-index: inherit;
+  margin: 10px 0px;
+}
+.miniprofile-container-div.static:hover {
+  /* filter: brightness(50%); */
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 hr {
   color: rgb(219, 219, 219);
 }
