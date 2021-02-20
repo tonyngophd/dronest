@@ -13,6 +13,8 @@ import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
 
 import MainSearchBar from "../Search";
+import { DarkModeButton } from '../utils';
+
 
 import "./NavBar.css";
 
@@ -117,6 +119,7 @@ const NavBar = () => {
                 <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />
               </NavLink>
               <LogoutButton className="navbar-icon home-page der hvr-grow" setShowLoggedOut={setShowLoggedOut} />
+              <DarkModeButton />
             </>
           )}
           {/* <NavLink to="/users" exact={true} activeclassname="active">
