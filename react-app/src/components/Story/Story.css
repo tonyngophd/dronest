@@ -4,6 +4,8 @@
   margin-top: 30px;
   margin-bottom: 10px;
   overflow-x: scroll;
+  max-width: 1000px;
+  background-color: white;
 }
 .story-topbox-user-div {
   display: flex;

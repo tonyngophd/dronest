@@ -5,7 +5,7 @@ import Stories, { WithSeeMore } from 'react-insta-stories';
 // import Comment from "../Comment";
 import { fetchAllUsers } from '../../store/users';
 import { GrClose, GrNext, GrPrevious } from "react-icons/gr";
-import timeStamp from '../utils';
+import timeStamp, { MediaDisplayer } from '../utils';
 
 
 import './Story.css';
@@ -22,7 +22,7 @@ export function StoryTopBox() {
   useEffect(() => {
     if (!users) return;
     setUsersWithRecentPosts(users.filter(
-      user => user.ownPosts.length
+      (user, i) => user.ownPosts.length && i < 10
     ))
   }, [users])
   useEffect(() => {
@@ -53,24 +53,28 @@ export function StoryTopBox() {
         // openStory && stories.length && <StoriesFullPage stories={stories} />
       }
       <div
-        className="feed_container story-topbox-container"
+        // className='feed_post-container feed_post-info story-topbox-main-div'
+        className='feed_post-container story-topbox-main-div'
       >
-        <div className='feed_post-container feed_post-info story-topbox-main-div'>
-          {
-            usersWithRecentPosts && usersWithRecentPosts.map(user =>
-              <div key={nanoid()}>
-                <Link to={`/stories/${user.username}`}>
-                  <div className="feed_post-header story-topbox-user-div">
-                    <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
-                      style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                    // onClick={e => setOpenStory(true)}
-                    />
-                    <div className="feed_post-username story-username-div">{user.username}</div>
-                  </div>
-                </Link>
-              </div>)
-          }
-        </div>
+        {
+          usersWithRecentPosts && usersWithRecentPosts.map(user =>
+            <div key={nanoid()}>
+              <Link to={`/stories/${user.username}`}>
+                <div className="feed_post-header story-topbox-user-div">
+                  {/* <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
+                    style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                  // onClick={e => setOpenStory(true)}
+                  /> */}
+                  <MediaDisplayer mediaUrl={user.profilePicUrl}
+                    imgClassname="story-profile-image"
+                    vidClassname="story-profile-image"
+                    style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                  />
+                  <div className="feed_post-username story-username-div">{user.username}</div>
+                </div>
+              </Link>
+            </div>)
+        }
       </div>
     </>
   )
@@ -109,23 +113,37 @@ export function StoriesFullPage() {
       user => user.ownPosts.length
     ))
   }, [users])
+
+  const mediaType = (url) => {
+    if (typeof (url) === 'string' && (url.toLowerCase().includes('youtu')
+      || url.toLowerCase().includes('facebook') || url.toLowerCase().includes('mp4')
+    )) {
+      console.log('video', url);
+      return 'video';
+    }
+    return 'image';
+  }
+
   useEffect(() => {
     updateAllStories(
       usersWithRecentPosts.map(user => {
-        return user.ownPosts.map(post => {
-          return {
-            url: post.images[0].mediaUrl,
-            duration: 2000,
-            header: {
-              heading: user.username,
-              subheading: `Posted ${timeStamp(new Date(post.createdAt))}`,
-              profileImage: user.profilePicUrl,
-            },
-            // seeMore: ({ close }) => {
-            //   return <div onClick={close}>Hello, click to close this.</div>;
-            // },
-          }
-        })
+        return user.ownPosts
+          .filter(post => mediaType(post.images[0].mediaUrl) === 'image')
+          .map(post => {
+            return {
+              url: post.images[0].mediaUrl,
+              type: mediaType(post.images[0].mediaUrl),
+              duration: 2000,
+              header: {
+                heading: user.username,
+                subheading: `Posted ${timeStamp(new Date(post.createdAt))}`,
+                profileImage: user.profilePicUrl,
+              },
+              // seeMore: ({ close }) => {
+              //   return <div onClick={close}>Hello, click to close this.</div>;
+              // },
+            }
+          })
       })
     )
     let obj = {};
@@ -167,7 +185,7 @@ export function StoriesFullPage() {
     const len = allStories.length;
 
     let current = currentUser;
-    if (userIndex) {
+    if (userIndex !== undefined) {
       current = userIndex;
     } else {
       if (next) {
@@ -215,7 +233,7 @@ export function StoriesFullPage() {
                             justifyContent: 'center',
                             alignItems: 'center',
                           }}
-                          onAllStoriesEnd={() => setTimeout(() => shiftUser({automatic: true}), 2000)}
+                          onAllStoriesEnd={() => setTimeout(() => shiftUser({ automatic: true }), 2000)}
                         />
                       </div>
                       <GrNext className="stories-next"
@@ -225,28 +243,38 @@ export function StoriesFullPage() {
                     : (stories !== undefined ?
                       <div
                         className="stories-lineup-inactive-user-div"
-                        id={`${currentUser + index - 2}-userstories-div`}
-                        // onClick={e => shiftUser(undefined, e.target.id.split("-")[0])}
-                        onClick={e => shiftUser({ userIndex: e.target.id.split("-")[0] })}
+                        onClick={e => {
+                          shiftUser({ userIndex: currentUser + index - 2 });
+                        }}
                       >
-                        <div className='inactive-story-user-profile-img' id={`${currentUser + index - 2}-userstories-profimgdiv`}>
+                        <div className='inactive-story-user-profile-img'>
                           <img src={stories.profilePicUrl} alt="user-icon" className="story-profile-image"
                             style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                            id={`${currentUser + index - 2}-userstories-img`}
                           />
+                          {/* <MediaDisplayer mediaUrl={stories.profilePicUrl}
+                            imgClassname="story-profile-image"
+                            vidClassname="story-profile-image"
+                            style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                          /> */}
                           <div className="feed_post-username story-username-div"
                             style={{ color: 'white' }}
-                            id={`${currentUser + index - 2}-userstories-text`}
                           >
                             {stories.username}
                           </div>
                         </div>
                         <img
-                          src={stories.ownPosts[0].images[0].mediaUrl}
-                          alt={stories.ownPosts[0].mediaUrl} id={`${index}-${stories.ownPosts[0].mediaUrl}`}
+                          src={
+                            stories.ownPosts.find(p => mediaType(p.images[0].mediaUrl) === 'image')
+                            .images[0].mediaUrl ||
+                            stories.ownPosts[0].images[0].mediaUrl}
+                          alt={stories.ownPosts[0].mediaUrl}
                           style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover' }}
-                          id={`${currentUser + index - 2}-background-img`}
                         />
+                        {/* <MediaDisplayer mediaUrl={stories.ownPosts[0].images[0].mediaUrl}
+                          imgClassname="story-profile-image"
+                          vidClassname="story-profile-image"
+                          style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover' }}
+                        />                         */}
                       </div> :
                       <div className='stories-lineup-dummy-user-div' />
                     )

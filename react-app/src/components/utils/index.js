@@ -38,7 +38,9 @@ export function MediaDisplayer({
           className={imgClassname}
           src={mediaUrl}
           onClick={imgHandleClick}
-          alt='good band picture' /> :
+          alt='good band picture' 
+          style={style}
+        /> :
         <div className={vidClassname} onClick={vidHandleClick}>
           <ReactPlayer
             url={mediaUrl}
