@@ -29,6 +29,9 @@
   z-index: inherit;
   margin: 10px 0px;
 }
+.miniprofile-container-div.static:hover {
+  filter: brightness(95%);
+}
 
 hr {
   color: rgb(219, 219, 219);

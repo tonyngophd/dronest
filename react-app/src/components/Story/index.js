@@ -47,11 +47,14 @@ export function StoryTopBox() {
 
 
   return (
-    <>
+    <div className='feed_post-container  story-topbox-container'>
       {
         // openStory && stories.length && <StoriesFullPageComponent stories={stories}/>
         // openStory && stories.length && <StoriesFullPage stories={stories} />
       }
+      <div className='stories-title-div'>
+        Stories
+      </div>
       <div
         // className='feed_post-container feed_post-info story-topbox-main-div'
         className='feed_post-container story-topbox-main-div'
@@ -76,7 +79,7 @@ export function StoryTopBox() {
             </div>)
         }
       </div>
-    </>
+    </div>
   )
 }
 
@@ -117,9 +120,9 @@ export function StoriesFullPage() {
   const mediaType = (mediaType, includesYandF = false) => {
     if (mediaType.includes('image')) {
       return 'image';
-    } else if(mediaType.includes('mp4')){
+    } else if (mediaType.includes('mp4')) {
       return 'video';
-    } else if(includesYandF && (mediaType.includes('youtu') || mediaType.includes('facebook'))){
+    } else if (includesYandF && (mediaType.includes('youtu') || mediaType.includes('facebook'))) {
       return 'video';
     }
     return undefined;

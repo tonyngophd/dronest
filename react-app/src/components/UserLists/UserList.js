@@ -148,7 +148,7 @@ export function UsersPageOriginal() {
     <div className="users-page-main-div">
       <StoryTopBox />
       <div className='user-list-and-mini-profiles'>
-        <MinimalUserList />
+        <MinimalUserList followAsButton={false} includeMyself={false}/>
         <MiniProfileLists />
       </div>
     </div>

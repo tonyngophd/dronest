@@ -1,11 +1,22 @@
+.story-topbox-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 100px; */
+  margin-top: 30px;
+  margin-bottom: 10px;
+  max-width: 1000px;
+}
+.stories-title-div{
+  font-weight: bold;
+  margin-bottom: 0px;
+}
 .story-topbox-main-div {
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
-  margin-bottom: 10px;
   overflow-x: scroll;
-  max-width: 1000px;
   background-color: white;
+  margin: 0px;
 }
 .story-topbox-user-div {
   display: flex;
