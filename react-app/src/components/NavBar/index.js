@@ -58,19 +58,17 @@ const NavBar = () => {
               className={
                 user
                   ? "navbar-icon hvr-shrink"
-                  : "navbar-icon hvr-shrink logged-out"
+                  : "navbar-icon hvr-shrink"
               }
-              activeclassname="active"
             />
           </NavLink>
           <NavLink to="/users" exact={true} activeclassname="active">
             <FaUsers
               className={
                 user
-                  ? "navbar-icon hvr-shrink"
-                  : "navbar-icon hvr-shrink logged-out"
+                  ? "navbar-icon home-page hvr-shrink"
+                  : "navbar-icon home-page hvr-shrink logged-out"
               }
-              activeclassname="active"
             />
           </NavLink>
           {!user && (
