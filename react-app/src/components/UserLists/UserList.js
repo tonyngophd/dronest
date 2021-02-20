@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
@@ -94,6 +94,7 @@ export function MiniProfileLists({
   const allUsers = useSelector((state) => state.users.allUsers);
   const myself = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (!allUsers.length) dispatch(fetchAllUsers());
@@ -128,6 +129,7 @@ export function MiniProfileLists({
             myId={myself && myself.id}
             notFollowedYet={myself ? notFollowedYet(user.id, myself) : true}
             key={nanoid()}
+            handleClick={e=>history.push(`/users/${user.username}`)}
           />
         ))}
     </div>

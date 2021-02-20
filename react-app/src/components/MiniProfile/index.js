@@ -54,6 +54,7 @@ function MiniProfile({
       className={
         hover ? className : className + " hidden"
       }
+      onClick={handleClick?handleClick:{}}
     >
       <div className="user-row-left-div">
         <img
