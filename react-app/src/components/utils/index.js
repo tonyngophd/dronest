@@ -172,23 +172,20 @@ export function DarkModeButton({ top, right, bottom, left }) {
   const dispatch = useDispatch();
   const darkmode = new Darkmode(defaultOptions);
   const [isDark, setIsDark] = useState('light');
-  const [isSetLocal] = useState(localStorage.getItem("dronest_darkmode"));
+  const [isSetLocal] = useState(localStorage.getItem(`dronest_darkmode_${window.location.host}`));
 
   // button toggler
   const darkModeHandler = () => {
     darkmode.toggle();
     const isSet = darkmode.isActivated();
-    localStorage.setItem("dronest_darkmode", isSet);
+    localStorage.setItem(`dronest_darkmode_${window.location.host}`, isSet);
     setIsDark(isSet ? 'dark' : 'light');
     dispatch(loadDarkModePOJO(isSet));
   }
 
   useEffect(() => {
     if((isSetLocal === 'true' && !darkmode.isActivated() ) ){
-      darkmode.toggle();
-      const isSet = darkmode.isActivated();
-      setIsDark(isSet ? 'dark' : 'light');
-      dispatch(loadDarkModePOJO(isSet));
+      darkModeHandler();
     } 
   }, [isSetLocal]);
   return (
