@@ -174,7 +174,7 @@ export function StoriesFullPage() {
         current++;
         if (current >= len) {
           if (automatic) {
-            return history.push(`/`);
+            return history.push(`/users`);
           }
           current = 0;
         }
@@ -257,7 +257,7 @@ export function StoriesFullPage() {
         </div>
       </div>
       <div className="fullpage-stories-close"
-        onClick={e => history.push('/')}
+        onClick={e => history.push('/users')}
         style={{ color: 'white' }}
       >
         <GrClose />

@@ -170,73 +170,43 @@ const defaultOptions = {
 
 export function DarkModeButton({ top, right, bottom, left }) {
   const dispatch = useDispatch();
-  const [isDarkMode, setDarkMode] = React.useState(false);
-
-  const toggleDarkMode = () => {
-    darkmode.toggle();
-    const isSet = darkmode.isActivated();
-    setDarkMode(isSet);
-    dispatch(loadDarkModePOJO(isSet));
-  };
-
+  const darkmode = new Darkmode(defaultOptions);
   const [isDark, setIsDark] = useState('light');
+  const [isSetLocal] = useState(localStorage.getItem(`dronest_darkmode_${window.location.host}`));
 
   // button toggler
   const darkModeHandler = () => {
     darkmode.toggle();
     const isSet = darkmode.isActivated();
-    setIsDark(isSet? 'dark' : 'light');
-    dispatch(loadDarkModePOJO(isSet));    
-  }  
-
-  const options = defaultOptions;
-  if (top) {
-    delete options.bottom;
-    options.top = top;
+    localStorage.setItem(`dronest_darkmode_${window.location.host}`, isSet);
+    setIsDark(isSet ? 'dark' : 'light');
+    dispatch(loadDarkModePOJO(isSet));
   }
-  if (right) options.right = right;
-  if (bottom) {
-    delete options.top;
-    options.bottom = bottom;
-  }
-  if (left) options.left = left;
-  const darkmode = new Darkmode(options);
 
+  useEffect(() => {
+    if((isSetLocal === 'true' && !darkmode.isActivated() ) ){
+      darkModeHandler();
+    } 
+  }, [isSetLocal]);
   return (
     <div
       className={classes.darkmode_button_div}
     >
-      {/* <div className={isDarkMode ? 'darkmode-label-div-dark' : 'darkmode-label-div-light'}>
-        Mode: {isDarkMode? "Dark": "Light"}
-      </div> */}
       {/* <DarkModeSwitch
         style={{ marginBottom: '32px', position: 'absolute' }}
         checked={isDarkMode}
         onChange={toggleDarkMode}
         size={40}
       /> */}
-    <DarkModeToggle
-      size='large'
-      isDark={isDark}
-      onClick={darkModeHandler}
-      border='#000'
-    />      
+      <DarkModeToggle
+        size='large'
+        isDark={isDark}
+        onClick={darkModeHandler}
+        border='#000'
+      />
     </div>
   );
 }
-export function darkModeButton() {
-  const darkmode = new Darkmode(defaultOptions);
-  darkmode.showWidget()
-}
-
-
-
-// interface Props {
-//   onClick: () => void
-//   isDark?: 'light' | 'dark'
-//   size?: 'middle' | 'small'
-//   border?: string
-// }
 
 export function DarkModeToggle({
   onClick,

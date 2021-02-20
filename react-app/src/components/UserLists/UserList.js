@@ -6,6 +6,7 @@ import { nanoid } from "nanoid";
 import { fetchAllUsers } from "../../store/users";
 import UserRow from "../ProfilePage/UserRow";
 import { notFollowedYet } from "../ProfilePage";
+import { StoryTopBox } from '../Story';
 
 import "./UserLists.css";
 
@@ -88,6 +89,15 @@ function UserList() {
   return (
     <div className="users-page-main-div">
       <h3>User List</h3>
+      <MinimalUserList />
+    </div>
+  );
+}
+
+export function UsersPageOriginal() {
+  return (
+    <div className="users-page-main-div">
+      <StoryTopBox />
       <MinimalUserList />
     </div>
   );
