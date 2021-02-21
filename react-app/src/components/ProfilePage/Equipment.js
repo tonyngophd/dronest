@@ -10,12 +10,14 @@ import { nanoid } from "nanoid";
 export function EquipmentCard({ equipment }) {
 
   return (
-    <div>
-      {equipment.name}
-      <img src={equipment.mediaUrl} 
-        alt={equipment.mediaUrl} 
+    <div className='equipment_card_div'>
+      <img src={equipment.mediaUrl}
+        alt={equipment.mediaUrl}
         className='equipment-img'
       />
+      <div className='equipment_name_div'>
+        {equipment.name}
+      </div>
     </div>
   );
 }
@@ -23,7 +25,7 @@ export function EquipmentCard({ equipment }) {
 export function EquipmentDiv({ equipmentList }) {
 
   return (
-    <div>
+    <div className='equipment_list_container'>
       {
         equipmentList.map(eq =>
           <EquipmentCard

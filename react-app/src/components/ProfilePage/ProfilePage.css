@@ -287,7 +287,28 @@
 }
 
 .equipment-img{
-  height: 200px;
-  width: 300px;
+  height: 150px;
+  width: 200px;
 }
-
+.equipment_name_div{
+  position: absolute;
+  bottom: 10px;
+}
+.equipment_card_div{
+  height: 150px;
+  width: 200px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  overflow: hidden;
+  /* width: 600px; */
+  margin-left: -50px;
+  background-color: white;
+  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);  
+}
+.equipment_list_container{
+  display: flex;
+  width: 600px;
+}
