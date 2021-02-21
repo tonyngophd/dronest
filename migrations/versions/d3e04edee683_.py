@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2eb14d100a08
+Revision ID: d3e04edee683
 Revises: 
-Create Date: 2021-02-21 16:50:47.604862
+Create Date: 2021-02-21 17:19:05.957340
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2eb14d100a08'
+revision = 'd3e04edee683'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -98,6 +98,16 @@ def upgrade():
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['receiverId'], ['Users.id'], ),
     sa.ForeignKeyConstraint(['senderId'], ['Users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('UserEquipment',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('equipmentId', sa.Integer(), nullable=False),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.ForeignKeyConstraint(['equipmentId'], ['Equipment.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('userfollowers',
@@ -239,6 +249,7 @@ def downgrade():
     op.drop_table('posts')
     op.drop_table('messagetaggedusers')
     op.drop_table('userfollowers')
+    op.drop_table('UserEquipment')
     op.drop_table('DirectMessages')
     op.drop_table('Albums')
     op.drop_table('locations')

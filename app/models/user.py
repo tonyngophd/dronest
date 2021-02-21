@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Table, Column, Integer, ForeignKey, or_
 from .directmessage import DirectMessage
+from .userequipment import UserEquipment
+from .equipment import Equipment
 from sqlalchemy.orm import validates
 
 
@@ -35,7 +37,8 @@ class User(db.Model, UserMixin):
   followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
-  equipmentList = db.relationship('Equipment', secondary='UserEquipment')
+  equipmentList = []
+  # db.relationship('Equipment', secondary="UserEquipment")
 
 
   # @validates('username', 'email')
@@ -70,6 +73,17 @@ class User(db.Model, UserMixin):
       .filter(or_(DirectMessage.senderId == self.id, \
         DirectMessage.receiverId == self.id)).order_by(DirectMessage.id).all()
     self.allMessages = msgs
+
+  def get_equipmentList(self):
+    usereqlist = UserEquipment.query.filter(UserEquipment.userId == self.id).all()
+    eqList = []
+    for el in usereqlist:
+      print(el.to_dict())
+      equipment = Equipment.query.get(el.equipmentId)
+      print(equipment)
+      eqList.append(equipment)
+    self.equipmentList = eqList
+
 
 
   def to_dict(self):
@@ -152,6 +166,7 @@ class User(db.Model, UserMixin):
     self.get_followers()
     self.get_following()
     self.get_messages()
+    self.get_equipmentList()
     return {
       "id": self.id,
       "username": self.username,
@@ -170,7 +185,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
-      "equipmentList": [equipment.to_dict() for equipment in equipmentList],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],
     }
 
   def to_dict_as_generic_profile(self):
@@ -181,6 +196,7 @@ class User(db.Model, UserMixin):
     '''
     self.get_followers()
     self.get_following()
+    self.get_equipmentList()
     return {
       "id": self.id,
       "username": self.username,
@@ -197,7 +213,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
-      "equipmentList": [equipment.to_dict() for equipment in equipmentList],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],
     }
 
 
