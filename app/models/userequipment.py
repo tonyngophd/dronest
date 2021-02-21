@@ -1,7 +1,7 @@
 from .db import db
 
 class UserEquipment(db.Model):
-    __tablename__ = 'UserEquipment'
+    __tablename__ = 'UserEquipments'
 
 
     id = db.Column(db.Integer, primary_key=True)

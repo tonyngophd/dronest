@@ -18,6 +18,7 @@ class Equipment(db.Model):
       'id': self.id,
       "name": self.name,
       "level": self.level,
+      "mediaUrl": self.mediaUrl,
       # "createdAt": self.createdAt,
       # "updatedAt": self.updatedAt,
     }

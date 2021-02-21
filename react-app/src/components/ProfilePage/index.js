@@ -14,6 +14,7 @@ import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
 import { AddAPostForm } from '../Post';
 import { PostModal } from '../AAAMainComponents/SingleCard';
+import { EquipmentDiv } from "./Equipment";
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -233,14 +234,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
                 </a>
               </div>
             </div>
-            <div>
-              my equipments
-              fdsf
-              sendFilesdf
-              sendFilesdffsd
-              fsd
-              f
-          </div>
+            <EquipmentDiv equipmentList={profile.user.equipmentList}/>
           </div>
         </>
       )}

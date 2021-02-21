@@ -37,8 +37,8 @@ class User(db.Model, UserMixin):
   followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
-  equipmentList = []
-  # db.relationship('Equipment', secondary="UserEquipment")
+  # equipmentList = []
+  equipmentList = db.relationship('Equipment', secondary="UserEquipments")
 
 
   # @validates('username', 'email')
@@ -74,17 +74,6 @@ class User(db.Model, UserMixin):
         DirectMessage.receiverId == self.id)).order_by(DirectMessage.id).all()
     self.allMessages = msgs
 
-  def get_equipmentList(self):
-    usereqlist = UserEquipment.query.filter(UserEquipment.userId == self.id).all()
-    eqList = []
-    for el in usereqlist:
-      print(el.to_dict())
-      equipment = Equipment.query.get(el.equipmentId)
-      print(equipment)
-      eqList.append(equipment)
-    self.equipmentList = eqList
-
-
 
   def to_dict(self):
     return {
@@ -111,6 +100,7 @@ class User(db.Model, UserMixin):
       "followers": [user.to_dict() for user in self.followers],
       "following": [user.to_dict() for user in self.following],
       "ownPosts": [post.to_dict() for post in self.ownPosts],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],      
     }
 
   def to_dict_with_posts(self):
@@ -166,7 +156,6 @@ class User(db.Model, UserMixin):
     self.get_followers()
     self.get_following()
     self.get_messages()
-    self.get_equipmentList()
     return {
       "id": self.id,
       "username": self.username,
@@ -196,7 +185,6 @@ class User(db.Model, UserMixin):
     '''
     self.get_followers()
     self.get_following()
-    self.get_equipmentList()
     return {
       "id": self.id,
       "username": self.username,

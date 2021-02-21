@@ -72,6 +72,8 @@ def seed_userequipment():
   equipmentList = Equipment.query.all()
   for user in users:
     eqnum = randint(0, len(equipmentList))
+    if user.id < 5 and eqnum < 4:
+      eqnum = 4
     eqset = set()
     for i in range(eqnum):
       while (epId := randint(1, len(equipmentList))) in eqset:
