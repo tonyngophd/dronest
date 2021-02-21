@@ -136,17 +136,16 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
 
   return (
     <div className="profile-page-container" >
-      {/* <DarkModeButton /> */}
       {profile.user && (
         <>
-          {/* <div className="profile-info-cover">
+          <div className="profile-info-cover">
             <img 
               className='profile-cover-photo'
               src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE'
             />
-            <div className='profile-cover-photo-filter'>              
-            </div>
-          </div> */}
+            {/* <div className='profile-cover-photo-filter'>              
+            </div> */}
+          </div>
           <div className="profile-info">
             <img
               draggable="false"
