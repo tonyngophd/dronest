@@ -82,8 +82,8 @@ export default function MainSearchBar({
         />
       </form>
       <div className="search-dropdown"
-        onClick={e => {setAllowedClear(false); console.log(e.target)}}
-        onBlur={e => {setAllowedClear(true); console.log(dropdownRef.current)}}
+        onClick={e => {setAllowedClear(false)}}
+        onBlur={e => {setAllowedClear(true)}}
         ref={dropdownRef}
       >
         {searchValue && (

@@ -88,7 +88,7 @@ const pushChatMsgs = (chatData) => {
   const key = new Set([senderId, receiverId]);
   const data = messageSession.getData(key);
   if (messageSession.conversations[key]) {
-    console.log('messageSession.conversations[key]', messageSession.conversations[key]);
+    // console.log('messageSession.conversations[key]', messageSession.conversations[key]);
     const arr = Array.from(key);
     arr.forEach(el =>
       people.push(persons.find(p => p.id === el))
@@ -128,7 +128,7 @@ const recordChat = async (chatData) => {
       order: [['createdAt', 'DESC']]
     });
     if (latestMessage && latestMessage[0]) {
-      console.log(i,"\nlatestMessage", latestMessage[0].toJSON());
+      // console.log(i,"\nlatestMessage", latestMessage[0].toJSON());
       // messageSession.messages.push(chatData);
       messageSession.messages.push(latestMessage[0].toJSON());
       return pushChatMsgs(latestMessage[0].toJSON());
@@ -146,19 +146,19 @@ const addAChatFriend = (data) => {
     let myself, friend;
     if (messageSession.peopleUnObj[myUsername] !== undefined) {
       myself = messageSession.peopleArr.find(p => p.username === myUsername).getData();
-      if (myself) {
-        console.log("myself", myself);
-        // const convoId = new Set()
-        // messageSession.conversations.push();
-      }
+      // if (myself) {
+      //   console.log("myself", myself);
+      //   // const convoId = new Set()
+      //   // messageSession.conversations.push();
+      // }
     }
     if (messageSession.peopleUnObj[friendUsername] !== undefined) {
-      friend = messageSession.peopleArr.find(p => p.username === friendUsername).getData();
-      if (friend) {
-        console.log("friend", friend);
-        // const convoId = new Set()
-        // messageSession.conversations.push();
-      }
+      // friend = messageSession.peopleArr.find(p => p.username === friendUsername).getData();
+      // if (friend) {
+      //   console.log("friend", friend);
+      //   // const convoId = new Set()
+      //   // messageSession.conversations.push();
+      // }
     }
     if (myself && friend && (myself !== friend)) {
       const convoId = new Set([myself.id, friend.id]);
@@ -166,7 +166,7 @@ const addAChatFriend = (data) => {
         usernames: [myself.username, friend.username],
         userIds: [myself.id, friend.id],
       };
-      console.log(messageSession.conversations);
+      // console.log(messageSession.conversations);
     }
   }
 }
@@ -218,7 +218,7 @@ wss.on('connection', (ws) => {
     if (!messageSession.peopleArr.length) {
       messageSession = null;
     }
-    console.log('closed');
+    // console.log('closed');
   });
 });
 

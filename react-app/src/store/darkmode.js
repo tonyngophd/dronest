@@ -14,7 +14,6 @@ const reducer = (state = initialState, action) => {
     case SET_DARK_MODE:
       newState = Object.assign({}, state);
       newState.isSet = action.payload;
-      console.log('mode', action.payload);
       return newState;
     default:
       return state;
