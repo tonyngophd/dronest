@@ -18,3 +18,4 @@ from .category import Category
 from .subcategory import SubCategory
 from .album import Album
 from .equipment import Equipment
+from .userequipment import UserEquipment

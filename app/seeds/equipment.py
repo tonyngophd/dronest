@@ -1,4 +1,5 @@
-from app.models import db, Equipment
+from app.models import db, Equipment, UserEquipment, User
+from random import randint
 
 
 # Adds a demo location, you can add other locations here if you want
@@ -63,4 +64,24 @@ def seed_equipment():
 # the auto incrementing primary key
 def undo_equipment():
     db.session.execute('TRUNCATE "Equipment";')
+    db.session.commit()
+
+
+def seed_userequipment():
+  users = User.query.all()
+  equipmentList = Equipment.query.all()
+  for user in users:
+    eqnum = randint(0, len(equipmentList))
+    eqset = set()
+    for i in range(eqnum):
+      while (epId := randint(1, len(equipmentList))) in eqset:
+        pass
+      eqset.add(epId)
+      userequipment = UserEquipment(userId = user.id, equipmentId = epId)
+      db.session.add(userequipment)
+
+  db.session.commit()
+
+def undo_userequipment():
+    db.session.execute('TRUNCATE "UserEquipment";')
     db.session.commit()

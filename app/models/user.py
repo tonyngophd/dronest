@@ -35,6 +35,7 @@ class User(db.Model, UserMixin):
   followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
+  equipmentList = db.relationship('Equipment', secondary='UserEquipment')
 
 
   # @validates('username', 'email')
@@ -169,6 +170,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
+      "equipmentList": [equipment.to_dict() for equipment in equipmentList],
     }
 
   def to_dict_as_generic_profile(self):
@@ -195,6 +197,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
+      "equipmentList": [equipment.to_dict() for equipment in equipmentList],
     }
 
 
