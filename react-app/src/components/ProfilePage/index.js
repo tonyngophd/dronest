@@ -65,9 +65,9 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     if (profile.user.ownPosts && Array.isArray(profile.user.ownPosts)) {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
       setNumberOfLikeds(profile.user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current, 0));
-      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));      
+      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));
     }
-    if(profile.user.equipmentList && Array.isArray(profile.user.equipmentList)){
+    if (profile.user.equipmentList && Array.isArray(profile.user.equipmentList)) {
       setNumberOfDrones(profile.user.equipmentList.length);
     }
   }, [profile]);
@@ -208,7 +208,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
                             }
                           >
                             Unfollow
-                  </button>
+                          </button>
                         </>
                       )}
                 </div>
@@ -254,7 +254,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
                 </a>
               </div>
             </div>
-            <EquipmentDiv equipmentList={profile.user.equipmentList}/>
+            <EquipmentDiv equipmentList={profile.user.equipmentList} />
           </div>
         </>
       )}
