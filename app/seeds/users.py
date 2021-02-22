@@ -19,7 +19,7 @@ def seed_users():
                 name="Michelle Sanders",profilePicUrl="https://images.unsplash.com/photo-1520155707862-5b32817388d6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjU0fHx3b21hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo2)
 
-    tony = User(username='TonyRox', email='tony@gmail.com',
+    tony = User(username='TonySE', email='tony@gmail.com',
                 password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
     db.session.add(tony)

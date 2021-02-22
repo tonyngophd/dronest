@@ -18,6 +18,8 @@ function MiniProfile({
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
   const [numberOfLikeds, setNumberOfLikeds] = useState(0);
   const [numberOfVieweds, setNumberOfVieweds] = useState(0);
+  const [numberOfDrones, setNumberOfDrones] = useState(0);
+
 
   useEffect(() => {
     if (!user) return;
@@ -33,6 +35,9 @@ function MiniProfile({
         setNumberOfLikeds(user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current, 0));
         setNumberOfVieweds(user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));
       }
+    }
+    if (user.equipmentList && Array.isArray(user.equipmentList)) {
+      setNumberOfDrones(user.equipmentList.length);
     }
   }, [user]);
 
@@ -91,6 +96,10 @@ function MiniProfile({
         <div className="profile-posts-numbers">
           <span className="profile-number">{numberOfVieweds}</span>
           <span className="profile-number-text"> viewed</span>
+        </div>
+        <div className="profile-posts-numbers">
+          <span className="profile-number">{numberOfDrones}</span>
+          <span className="profile-number-text"> drones</span>
         </div>
         <div
           className="profile-follower-numbers"

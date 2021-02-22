@@ -66,10 +66,11 @@
   border-bottom: 1px solid rgba(219, 219, 219, 0);
   padding-bottom: 50px;
   align-items: center;
-  border: 1px solid goldenrod;
+  /* border: 1px solid rgba(255, 255, 255, 0); */
   border-radius: 10px;
   padding: 10px;
-  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19); 
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  /* , 2px 3px 10px 5px rgba(0, 0, 0, 0.19);  */
   /* justify-content: flex-start; */
   /* width: 100%; */
   /* z-index: 1; */
@@ -136,6 +137,7 @@
 .profile-numbers {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   font-size: 16px;
   margin-bottom: 20px;
