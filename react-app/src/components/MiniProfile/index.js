@@ -30,8 +30,8 @@ function MiniProfile({
     if (user.ownPosts && Array.isArray(user.ownPosts)) {
       setNumberOfOwnPosts(user.ownPosts.length);
       if (user.ownPosts.length) {
-        setNumberOfLikeds(user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current));
-        setNumberOfVieweds(user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current));
+        setNumberOfLikeds(user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current, 0));
+        setNumberOfVieweds(user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));
       }
     }
   }, [user]);

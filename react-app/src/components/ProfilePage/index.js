@@ -36,6 +36,7 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
   const [numberOfLikeds, setNumberOfLikeds] = useState(0);
   const [numberOfVieweds, setNumberOfVieweds] = useState(0);
+  const [numberOfDrones, setNumberOfDrones] = useState(0);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
@@ -63,8 +64,11 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     }
     if (profile.user.ownPosts && Array.isArray(profile.user.ownPosts)) {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
-      setNumberOfLikeds(profile.user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current));
-      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current));      
+      setNumberOfLikeds(profile.user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current, 0));
+      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));      
+    }
+    if(profile.user.equipmentList && Array.isArray(profile.user.equipmentList)){
+      setNumberOfDrones(profile.user.equipmentList.length);
     }
   }, [profile]);
 
@@ -234,6 +238,10 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
                   >
                     <span className="profile-number">{numberOfFollowing}</span>
                     <span className="profile-number-text"> following</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfDrones}</span>
+                    <span className="profile-number-text"> drones</span>
                   </div>
                 </div>
                 <div className="profile-display-name">{profile.user.name}</div>

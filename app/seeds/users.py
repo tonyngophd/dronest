@@ -11,7 +11,7 @@ def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
                 password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
-                name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1541119370235-6c11470cfb1e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDN8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
+                name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1578146024300-a8f9df2224ef?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDV8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo)
 
     demo2 = User(username='Demo2', email='demo2@aa.io',
