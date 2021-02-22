@@ -132,9 +132,9 @@ const NavBar = () => {
                 <CgProfile className="navbar-icon home-page hvr-shrink profile-button " />
               </NavLink>
               <LogoutButton className="navbar-icon home-page der hvr-grow" setShowLoggedOut={setShowLoggedOut} />
-              <DarkModeButton />
             </>
           )}
+          <DarkModeButton />
           {/* <NavLink to="/users" exact={true} activeclassname="active">
           <FaUsers className='navbar-icon' />
         </NavLink> */}

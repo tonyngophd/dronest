@@ -326,10 +326,10 @@ li {
   border-radius: 10px;
 }
 .about_this_project_icon{
-  margin-left: 10px;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 15px;
+  margin-left: 0px;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 20px;
   color: #056da1;
 }
 /* .about_this_project_icon:hover{

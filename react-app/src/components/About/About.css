@@ -8,6 +8,12 @@
   object-fit: contain;
   margin: auto 5px;
 }
+.social-icon{
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin: auto 5px;
+}
 .technology-and-author{
   display: flex;
   justify-content: space-evenly;

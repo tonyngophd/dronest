@@ -52,14 +52,14 @@ export function About() {
           <div>
             <div>
               Package
-          </div>
+            </div>
             <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png' className='technology-icon' />
             <img src='https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png' className='technology-icon' />
             <img src='https://cdn.iconscout.com/icon/free/png-512/postgresql-11-1175122.png' className='technology-icon' />
             <img src='https://cdn.worldvectorlogo.com/logos/heroku.svg' className='technology-icon' />
             <div>
               Frontend
-          </div>
+            </div>
             <img src={require('../../pictures/javascript.svg')} className='technology-icon' />
             <img src={require('../../pictures/iconfinder_React.js_logo_1174949.svg')} className='technology-icon' />
             <img src={require('../../pictures/iconfinder_redux_4691205.svg')} className='technology-icon' />
@@ -69,23 +69,27 @@ export function About() {
           <div>
             <div>
               Backend
-          </div>
+            </div>
             <div>
               Main Server
-          </div>
+            </div>
             <img src={require('../../pictures/python.png')} className='technology-icon' />
             <img src={'https://miro.medium.com/max/800/1*Q5EUk28Xc3iCDoMSkrd1_w.png'} className='technology-icon' />
             <img src={'https://flask-sqlalchemy.palletsprojects.com/en/2.x/_static/flask-sqlalchemy-logo.png'} className='technology-icon' />
             <div>
               Instant Messaging Server
-          </div>
+            </div>
             <img src={require('../../pictures/nodejs.svg')} className='technology-icon' />
             <img src={'https://www.logolynx.com/images/logolynx/5b/5bf98b408fb57fec23637f44edd79138.jpeg'} className='technology-icon' />
           </div>
         </div>
         <div>
+          <div>
+            <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' />
+            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+            <img src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Youtube_icon.svg/768px-Youtube_icon.svg.png'} className='social-icon' />
+          </div>
           {author && <MiniProfile user={author} hover={true} className='miniprofile-container-div static' />}
-          <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='technology-icon' />
         </div>
       </div>
       <div id='markdown'></div>
