@@ -14,6 +14,7 @@ import ChangePasswordForm from '../auth/ChangePasswordForm';
 import { UpdateProfileModal } from '../auth/SignUpForm';
 import { AddAPostForm } from '../Post';
 import { PostModal } from '../AAAMainComponents/SingleCard';
+import { EquipmentDiv } from "./Equipment";
 
 export const notFollowedYet = (userId, myself) => {
   if (userId === myself.id) return false; //I'm not going to follow myself!
@@ -33,6 +34,9 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
+  const [numberOfLikeds, setNumberOfLikeds] = useState(0);
+  const [numberOfVieweds, setNumberOfVieweds] = useState(0);
+  const [numberOfDrones, setNumberOfDrones] = useState(0);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
@@ -60,15 +64,20 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     }
     if (profile.user.ownPosts && Array.isArray(profile.user.ownPosts)) {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
+      setNumberOfLikeds(profile.user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current, 0));
+      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current, 0));
+    }
+    if (profile.user.equipmentList && Array.isArray(profile.user.equipmentList)) {
+      setNumberOfDrones(profile.user.equipmentList.length);
     }
   }, [profile]);
 
   useEffect(() => {
     if (showPostModal !== false) {
       const post = profile.user.ownPosts.find(p => p.id === showPostModal);
-      if(post) setModalPost(post);
-      else 
-        if(singlePost.images) setModalPost(singlePost);
+      if (post) setModalPost(post);
+      else
+        if (singlePost.images) setModalPost(singlePost);
     } else {
       setModalPost(null);
     }
@@ -133,10 +142,11 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     e.preventDefault();
     setShowUpdateProfileModal(true);
   }
+  // <div className='profile-cover-photo-filter'>              
+  // </div>
 
   return (
     <div className="profile-page-container" >
-      {/* <DarkModeButton /> */}
       {profile.user && (
         <>
           {/* <div className="profile-info-cover">
@@ -144,94 +154,107 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
               className='profile-cover-photo'
               src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE'
             />
-            <div className='profile-cover-photo-filter'>              
-            </div>
           </div> */}
-          <div className="profile-info">
-            <img
-              draggable="false"
-              src={`${profile.user.profilePicUrl}`}
-              className="profile-pic"
-            />
-            <div className="profile-text">
-              <div className="profile-username-and-button">
-                <span className="profile-username">{profile.user.username}</span>
-                {notFollowedYet(profile.user.id, myself) ? (
-                  <button
-                    className="profile-follow-button"
-                    onClick={(e) =>
-                      handleFollowClick(
-                        e,
-                        profile.user.id,
-                        profile.user.id,
-                        true,
-                        dispatch
-                      )
-                    }
+          <div className='profile-info-and-right-div'>
+            <div className="profile-info">
+              <img
+                draggable="false"
+                src={`${profile.user.profilePicUrl}`}
+                className="profile-pic"
+              />
+              <div className="profile-text">
+                <div className="profile-username-and-button">
+                  <span className="profile-username">{profile.user.username}</span>
+                  {notFollowedYet(profile.user.id, myself) ? (
+                    <button
+                      className="profile-follow-button"
+                      onClick={(e) =>
+                        handleFollowClick(
+                          e,
+                          profile.user.id,
+                          profile.user.id,
+                          true,
+                          dispatch
+                        )
+                      }
+                    >
+                      Follow
+                    </button>
+                  ) : myself.id === profile.user.id ? (
+                    <>
+                      <button className="profile-edit-button"
+                        onClick={handleEditProfile}
+                      >Edit Profile</button>
+                      <button className="profile-edit-button"
+                        style={{ fontSize: '10px' }}
+                        onClick={handelChangePassword}
+                      >Change <br />Password</button>
+                    </>
+                  ) : (
+                        <>
+                          <button className="profile-edit-button"
+                            onClick={e => history.push(`/messages/${profile.user.id}`)}
+                          >Message</button>
+                          <button
+                            className="profile-following-button"
+                            onClick={(e) =>
+                              handleFollowClick(
+                                e,
+                                profile.user.id,
+                                profile.user.id,
+                                false,
+                                dispatch
+                              )
+                            }
+                          >
+                            Unfollow
+                          </button>
+                        </>
+                      )}
+                </div>
+                <div className="profile-numbers">
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfOwnPosts}</span>
+                    <span className="profile-number-text"> posts</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfLikeds}</span>
+                    <span className="profile-number-text"> liked</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfVieweds}</span>
+                    <span className="profile-number-text"> viewed</span>
+                  </div>
+                  <div
+                    className="profile-follower-numbers"
+                    onClick={handleFollowersClick}
                   >
-                    Follow
-                  </button>
-                ) : myself.id === profile.user.id ? (
-                  <>
-                    <button className="profile-edit-button"
-                      onClick={handleEditProfile}
-                    >Edit Profile</button>
-                    <button className="profile-edit-button"
-                      style={{ fontSize: '10px' }}
-                      onClick={handelChangePassword}
-                    >Change <br />Password</button>
-                  </>
-                ) : (
-                      <>
-                        <button className="profile-edit-button"
-                          onClick={e => history.push(`/messages/${profile.user.id}`)}
-                        >Message</button>
-                        <button
-                          className="profile-following-button"
-                          onClick={(e) =>
-                            handleFollowClick(
-                              e,
-                              profile.user.id,
-                              profile.user.id,
-                              false,
-                              dispatch
-                            )
-                          }
-                        >
-                          Unfollow
-                  </button>
-                      </>
-                    )}
-              </div>
-              <div className="profile-numbers">
-                <div className="profile-posts-numbers">
-                  <span className="profile-number">{numberOfOwnPosts}</span>
-                  <span className="profile-number-text"> posts</span>
+                    <span className="profile-number">{numberOfFollowers}</span>
+                    <span className="profile-number-text"> followers</span>
+                  </div>
+                  <div
+                    className="profile-follower-numbers"
+                    onClick={handleFollowingClick}
+                  >
+                    <span className="profile-number">{numberOfFollowing}</span>
+                    <span className="profile-number-text"> following</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfDrones}</span>
+                    <span className="profile-number-text"> drones</span>
+                  </div>
                 </div>
-                <div
-                  className="profile-follower-numbers"
-                  onClick={handleFollowersClick}
+                <div className="profile-display-name">{profile.user.name}</div>
+                <div className="profile-bio">{profile.user.bio}</div>
+                <a
+                  className="profile-website-url"
+                  href={`${profile.user.websiteUrl}`}
                 >
-                  <span className="profile-number">{numberOfFollowers}</span>
-                  <span className="profile-number-text"> followers</span>
-                </div>
-                <div
-                  className="profile-follower-numbers"
-                  onClick={handleFollowingClick}
-                >
-                  <span className="profile-number">{numberOfFollowing}</span>
-                  <span className="profile-number-text"> following</span>
-                </div>
+                  {profile.user.websiteUrl}
+                </a>
               </div>
-              <div className="profile-display-name">{profile.user.name}</div>
-              <div className="profile-bio">{profile.user.bio}</div>
-              <a
-                className="profile-website-url"
-                href={`${profile.user.websiteUrl}`}
-              >
-                {profile.user.websiteUrl}
-              </a>
             </div>
+            <EquipmentDiv equipmentList={profile.user.equipmentList} />
           </div>
         </>
       )}

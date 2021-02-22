@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Table, Column, Integer, ForeignKey, or_
 from .directmessage import DirectMessage
+from .userequipment import UserEquipment
+from .equipment import Equipment
 from sqlalchemy.orm import validates
 
 
@@ -35,6 +37,8 @@ class User(db.Model, UserMixin):
   followers = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.followerId')
   following = [] #db.relationship('User', secondary='userfollowers', foreign_keys='UserFollower.userId')
   allMessages = []
+  # equipmentList = []
+  equipmentList = db.relationship('Equipment', secondary="UserEquipments")
 
 
   # @validates('username', 'email')
@@ -96,6 +100,7 @@ class User(db.Model, UserMixin):
       "followers": [user.to_dict() for user in self.followers],
       "following": [user.to_dict() for user in self.following],
       "ownPosts": [post.to_dict() for post in self.ownPosts],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],      
     }
 
   def to_dict_with_posts(self):
@@ -169,6 +174,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],
     }
 
   def to_dict_as_generic_profile(self):
@@ -195,6 +201,7 @@ class User(db.Model, UserMixin):
       "following": [user.to_dict() for user in self.following],
       "likedComments": [comment.to_dict() for comment in self.likedComments],
       "taggedInComments": [comment.to_dict() for comment in self.taggedInComments],
+      "equipmentList": [equipment.to_dict() for equipment in self.equipmentList],
     }
 
 

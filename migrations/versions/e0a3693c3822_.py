@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4bded51ed1a2
+Revision ID: e0a3693c3822
 Revises: 
-Create Date: 2021-02-10 22:32:47.785070
+Create Date: 2021-02-21 17:51:29.664912
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4bded51ed1a2'
+revision = 'e0a3693c3822'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +30,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('level', sa.Integer(), nullable=False),
+    sa.Column('mediaUrl', sa.Text(), nullable=False),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
@@ -97,6 +98,16 @@ def upgrade():
     sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['receiverId'], ['Users.id'], ),
     sa.ForeignKeyConstraint(['senderId'], ['Users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('UserEquipments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('equipmentId', sa.Integer(), nullable=False),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.ForeignKeyConstraint(['equipmentId'], ['Equipment.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('userfollowers',
@@ -238,6 +249,7 @@ def downgrade():
     op.drop_table('posts')
     op.drop_table('messagetaggedusers')
     op.drop_table('userfollowers')
+    op.drop_table('UserEquipments')
     op.drop_table('DirectMessages')
     op.drop_table('Albums')
     op.drop_table('locations')

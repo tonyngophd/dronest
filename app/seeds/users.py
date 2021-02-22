@@ -10,8 +10,8 @@ fake = Faker()
 def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
-                name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1541119370235-6c11470cfb1e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDN8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
+                password='password', bio='Professional dronist/artist', websiteUrl="www.dronest.com",
+                name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1578146024300-a8f9df2224ef?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDV8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo)
 
     demo2 = User(username='Demo2', email='demo2@aa.io',
@@ -19,8 +19,8 @@ def seed_users():
                 name="Michelle Sanders",profilePicUrl="https://images.unsplash.com/photo-1520155707862-5b32817388d6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjU0fHx3b21hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo2)
 
-    tony = User(username='TonyRox', email='tony@gmail.com',
-                password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
+    tony = User(username='TonySE', email='tony@gmail.com',
+                password='password', bio='Full Stack software developer, React/Redux/Javascript/Python/Sequelize. Also a hobby dronist', websiteUrl="www.tonyngo.us",
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
     db.session.add(tony)
 

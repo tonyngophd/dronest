@@ -6,7 +6,7 @@ from .locations import seed_locations, undo_locations
 from .media import seed_media, undo_media
 from .category import seed_categories, undo_categories
 from .album import seed_albums, undo_albums
-from .equipment import seed_equipment, undo_equipment
+from .equipment import seed_equipment, undo_equipment, seed_userequipment, undo_userequipment
 from .likedposts import seed_likedposts, undo_likedposts
 from .savedposts import seed_savedposts, undo_savedposts
 # from .testcode import seed_test
@@ -20,10 +20,11 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     seed_categories()
+    seed_equipment()
     seed_users()
+    seed_userequipment()
     seed_locations()
     seed_albums()
-    seed_equipment()
     seed_posts()
     seed_media()
     seed_followers()
@@ -45,6 +46,7 @@ def undo():
     undo_media()
     undo_categories
     undo_equipment()
+    undo_userequipment()
     # Add other undo functions here
 
 # @seed_commands.command('test')

@@ -1,14 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 
+.message-page-story-messaged-div{
+  margin-top: 55px;
+}
 .message-page-main-div {
   width: 70vw;
   max-width: 1000px;
-  height: 80vh;
-  margin: 70px 0px 50px;
+  height: 75vh;
+  margin: 10px 0px 50px;
   display: flex;
   /* border: 2px solid black; */
-  margin-top: 100px;
+  margin-top: 10px;
   /* color: black; */
 }
 

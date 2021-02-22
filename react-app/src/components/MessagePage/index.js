@@ -18,6 +18,7 @@ import "./MessagePage.css";
 import { nanoid } from "nanoid";
 import { GrUp } from "react-icons/gr";
 import CommentInput from "../CommentInput";
+import { StoryTopBox } from '../Story';
 
 import { fetchNotifications } from "../../store/notifications";
 
@@ -174,7 +175,7 @@ function MessagePage() {
 
       // console.log(`Sending message ${message}...`);
 
-      if(ws.readyState === 1) ws.send(message);
+      if (ws.readyState === 1) ws.send(message);
     };
 
     webSocket.current = {
@@ -272,56 +273,58 @@ function MessagePage() {
   };
 
   return (
-    <div className="message-page-main-div">
-      <div className="message-page-left-panel durp">
-        <div className="top-left-div">
-          {/* <div className="user-name">{myself.username}</div> */}
-          <UserRow
-            user={myself}
-            myId={myself.id}
-            showFollowButtonOrText={false}
-            gotoUserPage={false}
-            miniProfileEnabled={true}
-          />
-        </div>
+    <div className='message-page-story-messaged-div'>
+      <StoryTopBox />
+      <div className="message-page-main-div">
+        <div className="message-page-left-panel durp">
+          <div className="top-left-div">
+            {/* <div className="user-name">{myself.username}</div> */}
+            <UserRow
+              user={myself}
+              myId={myself.id}
+              showFollowButtonOrText={false}
+              gotoUserPage={false}
+              miniProfileEnabled={true}
+            />
+          </div>
 
-        <div className="main-left-div">
-          {allUniqueReceivers.map((u) => (
-            <div key={nanoid()} id={`${u.id}-receiver`} onClick={receiverClick}>
-              <UserRow
-                user={u}
-                myId={myself.id}
-                showFollowButtonOrText={false}
-                gotoUserPage={false}
-                miniProfileEnabled={false}
-                online={listOfOnlineUsers.find(ou => ou.id === u.id)}
-              />
-            </div>
-          ))}
+          <div className="main-left-div">
+            {allUniqueReceivers.map((u) => (
+              <div key={nanoid()} id={`${u.id}-receiver`} onClick={receiverClick}>
+                <UserRow
+                  user={u}
+                  myId={myself.id}
+                  showFollowButtonOrText={false}
+                  gotoUserPage={false}
+                  miniProfileEnabled={false}
+                  online={listOfOnlineUsers.find(ou => ou.id === u.id)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="message-page-right-panel">
-        {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
-        {currentReceiver ? (
-          <>
-            <div className="top-right-div">
-              <UserRow
-                user={currentReceiver}
-                myId={myself.id}
-                showFollowButtonOrText={false}
-                gotoUserPage={false}
-              />
-            </div>
-            <div className="main-right-div">
-              <div className="message-pannel-div">
-                <div className="messages-div">
-                  {currentGroupedMsgs.map((msg) => (
-                    <MessageBubble key={nanoid()} msg={msg} />
-                  ))}
-                  <div ref={chatboxRef} />
-                </div>
-                <div className="message-typing-box-div">
-                  {/* <form className='message-input-form'>
+        <div className="message-page-right-panel">
+          {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
+          {currentReceiver ? (
+            <>
+              <div className="top-right-div">
+                <UserRow
+                  user={currentReceiver}
+                  myId={myself.id}
+                  showFollowButtonOrText={false}
+                  gotoUserPage={false}
+                />
+              </div>
+              <div className="main-right-div">
+                <div className="message-pannel-div">
+                  <div className="messages-div">
+                    {currentGroupedMsgs.map((msg) => (
+                      <MessageBubble key={nanoid()} msg={msg} />
+                    ))}
+                    <div ref={chatboxRef} />
+                  </div>
+                  <div className="message-typing-box-div">
+                    {/* <form className='message-input-form'>
                     <input
                       type='text'
                       className='message-input-box'
@@ -331,33 +334,34 @@ function MessagePage() {
                     />
                     <button type='submit' onClick={msgClick}>Send</button>
                   </form> */}
-                  <CommentInput
-                    className="message-input-box-draftjs"
-                    insideCN="inner-message-input-box-draftjs"
-                    action="Send"
-                    placeHolder="Type your message"
-                    receiverId={currentReceiver.id}
-                    receiverName={currentReceiver.username}
-                    sendChat={sendChat}
-                  />
+                    <CommentInput
+                      className="message-input-box-draftjs"
+                      insideCN="inner-message-input-box-draftjs"
+                      action="Send"
+                      placeHolder="Type your message"
+                      receiverId={currentReceiver.id}
+                      receiverName={currentReceiver.username}
+                      sendChat={sendChat}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        ) : (
-            <div className="empty-message-box-div durp">
-              <div>
-                <BiChat fontSize={"120px"} />
-              </div>
-              <div className="title-and-button-message-box-div">
-                <span className="title-message-box-div">Your Messages</span>
-                <span className="subtitle-message-box-div">
-                  Send private photos and messages to a friend or group.
+            </>
+          ) : (
+              <div className="empty-message-box-div durp">
+                <div>
+                  <BiChat fontSize={"120px"} />
+                </div>
+                <div className="title-and-button-message-box-div">
+                  <span className="title-message-box-div">Your Messages</span>
+                  <span className="subtitle-message-box-div">
+                    Send private photos and messages to a friend or group.
               </span>
-                <button className="button-message-box-div">Send Messages</button>
+                  <button className="button-message-box-div">Send Messages</button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+        </div>
       </div>
     </div>
   );
