@@ -10,7 +10,7 @@ fake = Faker()
 def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password', bio='Seeder files are my favorite to make!', websiteUrl="www.google.com",
+                password='password', bio='Professional dronist/artist', websiteUrl="www.dronest.com",
                 name="Klark Kent",profilePicUrl="https://images.unsplash.com/photo-1578146024300-a8f9df2224ef?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDV8fG1hbiUyMHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
     db.session.add(demo)
 
@@ -20,7 +20,7 @@ def seed_users():
     db.session.add(demo2)
 
     tony = User(username='TonySE', email='tony@gmail.com',
-                password='password', bio='Tony is my name and coding is my game!', websiteUrl="www.google.com",
+                password='password', bio='Full Stack software developer, React/Redux/Javascript/Python/Sequelize. Also a hobby dronist', websiteUrl="www.tonyngo.us",
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
     db.session.add(tony)
 
