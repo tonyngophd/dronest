@@ -14,7 +14,25 @@
   object-fit: contain;
   margin: auto 5px;
 }
+.social-icon:hover{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  transition: 0.2s ease-in-out;
+}
 .technology-and-author{
   display: flex;
   justify-content: space-evenly;
+}
+.social-links{
+  display: flex;
+  /* width: 300px; */
+  height: 70px;
+  justify-content: space-between;
+}
+.social-icon-and-text{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
 }

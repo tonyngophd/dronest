@@ -84,10 +84,55 @@ export function About() {
           </div>
         </div>
         <div>
-          <div>
-            <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' />
-            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
-            <img src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Youtube_icon.svg/768px-Youtube_icon.svg.png'} className='social-icon' />
+          <div className='social-links'>
+            <div className='social-icon-and-text'>
+              <a href='https://github.com/suasllc/dronest' target='_blank'>
+                <img src={'https://git-scm.com/images/logos/downloads/Git-Icon-Black.png'} className='social-icon' />
+              </a>
+              <div>
+                Git Repo
+              </div>
+            </div>
+            <div className='social-icon-and-text'>
+              <a href='https://github.com/suasllc' target='_blank'>
+                <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' />
+              </a>
+              <div>
+                GitHub
+              </div>
+            </div>
+            <div className='social-icon-and-text'>
+              <a href='https://www.linkedin.com/in/tony-ngo-suas/' target='_blank'>
+                <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+              </a>
+              <div>
+                LinkedIn
+              </div>
+            </div>
+            <div className='social-icon-and-text'>
+              <a href='https://angel.co/u/tony-ngo-11' target='_blank'>
+                <img src={'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/angellist-512.png'} className='social-icon' />
+              </a>
+              <div>
+                Angellist
+              </div>
+            </div>
+            <div className='social-icon-and-text'>
+              <a href='https://www.youtube.com/c/sUAScom/videos' target='_blank'>
+                <img src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Youtube_icon.svg/768px-Youtube_icon.svg.png'} className='social-icon' />
+              </a>
+              <div>
+                YouTube
+              </div>
+            </div>
+            <div className='social-icon-and-text'>
+              <a href='https://www.tonyngo.us' target='_blank'>
+                <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
+              </a>
+              <div>
+                My site
+              </div>
+            </div>
           </div>
           {author && <MiniProfile user={author} hover={true} className='miniprofile-container-div static' />}
         </div>
