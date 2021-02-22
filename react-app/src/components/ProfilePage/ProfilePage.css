@@ -287,8 +287,20 @@
 }
 
 .equipment-img{
-  height: 150px;
-  width: 200px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);  
+}
+.equipment-img:hover{
+  position: absolute;
+  z-index: 1;
+  height: 150%;
+  width: 150%;  
+  transition: 0.5s ease-in-out;
+  box-shadow: 10px 10px 12px 10px rgba(0, 0, 0, 0.2), 20px 12px 40px 20px rgba(0, 0, 0, 0.19);  
 }
 .equipment_name_div{
   position: absolute;
@@ -302,13 +314,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* width: 600px; */
-  margin-left: -50px;
+  margin-left: -100px;
   background-color: white;
-  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);  
+  /* box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);   */
 }
+/* .equipment_card_div:hover{
+  height: 210px !important;
+  width: 280 !important;
+  margin-left: -140px;
+} */
 .equipment_list_container{
   display: flex;
+  flex-direction: row-reverse;
   width: 600px;
 }
