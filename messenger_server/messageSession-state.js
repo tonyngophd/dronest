@@ -82,7 +82,7 @@ class MessageSession {
     });
 
     // const person = await JSON.parse(p1);
-    console.log("person 1", p1.toJSON().sent);
+    // console.log("person 1", p1.toJSON().sent);
   }
 }
 

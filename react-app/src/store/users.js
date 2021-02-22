@@ -29,7 +29,7 @@ export const updateAUsersPostPOJO = (post) => ({
 export const fetchAUsersPostView = (postId, mediaId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/posts/${postId}/addaview/${mediaId}`);
-    console.log(`/api/posts/${postId}/addaview/${mediaId}`);
+    // console.log(`/api/posts/${postId}/addaview/${mediaId}`);
     if (res.ok) {
       const data = await res.json();
       dispatch(updateAUsersPostViewPOJO(data.post));
