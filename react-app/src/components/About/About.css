@@ -3,8 +3,12 @@
   margin-top: 100px;
 }
 .technology-icon{
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
+  margin: auto 5px;
 }
-
+.technology-and-author{
+  display: flex;
+  justify-content: space-evenly;
+}
