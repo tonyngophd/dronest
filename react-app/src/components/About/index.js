@@ -66,7 +66,7 @@ export function About() {
               <h5>Frontend - react/redux server</h5>
             </div>
             <img src={'https://images.squarespace-cdn.com/content/v1/5df7d8d44b9a7a49b2e475ac/1576526689110-QJM10YTHVZYU7Z7D2YLE/ke17ZwdGBToddI8pDm48kDmvgM2_GYudIur22MWWiLdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIvFa2r33EMaMk7hlBJBei4G1FTiqzsF6lpp3EXtW1YCk/js-logo.png'} className='technology-icon' />
-            <img src={'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064fc70f-5df3-4333-b9d4-f6abe2f946de/react-wp-app8.png'} className='technology-icon' />
+            <img src={'https://www.yaya.today/img/referral/Technologies/tech_react.png'} className='technology-icon' />
             <img src={'https://miro.medium.com/max/819/1*SRL22ADht1NU4LXUeU4YVg.png'} className='technology-icon' />
             <img src={'https://www.logolynx.com/images/logolynx/7e/7eed17a45f24e41077eb7cad1d031492.png'} className='technology-icon' />
             <img src={require('../../pictures/html5.png')} className='technology-icon' />
@@ -80,8 +80,8 @@ export function About() {
               Main Server
             </div>
             <img src='https://library.kissclipart.com/20181208/pwe/kissclipart-python-programming-a-beginners-guide-to-learn-py-c106bf0c27f1f5a5.jpg' className='technology-icon' />
-            <img src={'https://miro.medium.com/max/800/1*Q5EUk28Xc3iCDoMSkrd1_w.png'} className='technology-icon' />
-            <img src={'https://flask-sqlalchemy.palletsprojects.com/en/2.x/_static/flask-sqlalchemy-logo.png'} className='technology-icon' />
+            <img src={'https://miro.medium.com/max/800/1*Q5EUk28Xc3iCDoMSkrd1_w.png'} className='technology-icon graybackground' />
+            <img src={'https://flask-sqlalchemy.palletsprojects.com/en/2.x/_static/flask-sqlalchemy-logo.png'} className='technology-icon graybackground' />
             <img src='https://cdn.iconscout.com/icon/free/png-512/postgresql-11-1175122.png' className='technology-icon' />
             <div>
               Instant Messaging Server
