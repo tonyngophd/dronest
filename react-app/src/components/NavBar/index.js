@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { FcHome } from "react-icons/fc";
-import { AiOutlineHome } from "react-icons/ai";
+import { FcHome, FcAbout } from "react-icons/fc";
+import { AiOutlineHome, AiOutlineInfoCircle } from "react-icons/ai";
 import { IoPaperPlaneOutline, IoImagesOutline, } from "react-icons/io5";
 import { FaWpexplorer, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -32,19 +32,26 @@ const NavBar = () => {
   return (
     <div className='top-navbar-container' >
       <nav className="top-navbar">
-        <NavLink
-          to="/"
-          exact={true}
-          className="nav-title-logo"
-        >
-          <img
-            className="hvr-grow hvr-pulse"
-            src={require("../../pictures/dronestlogo3.png")}
-            style={{ width: '140px', objectFit: 'cover' }}
-          />
-          {/* <p className="nav-title navbar-content hvr-grow ">Dronest</p> */}
-          {/* <p className="nav-title navbar-content hvr-grow login-form_header"><img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png" /></p> */}
-        </NavLink>
+        <div>
+          <NavLink
+            to="/"
+            exact={true}
+            className="nav-title-logo"
+          >
+            <img
+              className="hvr-grow hvr-pulse"
+              src={require("../../pictures/dronestlogo3.png")}
+              style={{ width: '140px', objectFit: 'cover' }}
+            />
+            {/* <p className="nav-title navbar-content hvr-grow ">Dronest</p> */}
+            {/* <p className="nav-title navbar-content hvr-grow login-form_header"><img src="https://instavibes.s3.amazonaws.com/images/InstaVibes2.png" /></p> */}
+          </NavLink>
+          <NavLink to="/about" exact={true} activeclassname="active">
+            <AiOutlineInfoCircle
+              className="navbar-icon hvr-shrink about_this_project_icon"
+            />
+          </NavLink>
+        </div>
         {/* {user && <MainSearchBar />} */}
         <MainSearchBar />
         {/* <input

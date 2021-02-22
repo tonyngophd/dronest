@@ -18,6 +18,7 @@ import MessagePage from "./components/MessagePage";
 import SinglePostPage from "./components/SinglePostPage";
 import { StoryTopBox, StoriesFullPage } from "./components/Story";
 import { Bands } from './components/AAAMainComponents/Bands';
+import { About } from './components/About';
 
 
 function App() {
@@ -97,6 +98,9 @@ function App() {
         <ProtectedRoute path="/stories/:username">
           <StoriesFullPage />
         </ProtectedRoute>
+        <Route path='/about' exact={true} >
+          <About />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
