@@ -84,18 +84,26 @@ const NavBar = () => {
                 to="/login"
                 exact={true}
                 activeclassname="active"
-                className="navbar-icon logged-out login-button"
+                className="navbar-icon logged-out login-button navbar-text"
               >
                 Login
-            </NavLink>
+              </NavLink>
               <NavLink
                 to="/sign-up"
                 exact={true}
                 activeclassname="active"
-                className="navbar-icon logged-out login-button"
+                className="navbar-icon logged-out login-button navbar-text"
               >
                 Sign Up
-            </NavLink>
+              </NavLink>
+              <NavLink
+                to="/about"
+                exact={true}
+                activeclassname="active"
+                className="navbar-icon logged-out login-button navbar-text"
+              >
+                About
+              </NavLink>
             </>
           )}
           {user && (

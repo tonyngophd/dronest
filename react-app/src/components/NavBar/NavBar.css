@@ -142,12 +142,22 @@ li {
 }
 
 .navbar-icon.logged-out {
-  width: 80px;
+  /* min-width: fit-content; */
+  min-width: 60px;
   text-decoration: none;
 }
 
 .login-button {
   margin-bottom: 5px;
+}
+.navbar-text{
+  padding-top: 5px;
+  margin: auto 0px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-icon:hover {
