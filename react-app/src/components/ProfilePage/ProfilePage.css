@@ -79,7 +79,8 @@
 }
 
 .profile-text{
-  width: 300px;
+  max-width: 350px;
+  padding-right: 8px;
 }
 
 .profile-pic {
@@ -105,7 +106,7 @@
 
 .profile-follow-button,
 .profile-following-button {
-  margin-left: 30px;
+  margin-left: 10px;
   border: none;
   border-radius: 3px;
   padding: 0px 10px;
@@ -124,10 +125,10 @@
 }
 
 .profile-edit-button {
-  margin-left: 20px;
+  margin-left: 10px;
   border: 1px solid rgb(219, 219, 219);
   border-radius: 5px;
-  padding: 0px 8px;
+  padding: 0px 5px;
   color: rgb(38, 38, 38);
   cursor: pointer;
   font-size: 14px;
@@ -150,8 +151,8 @@
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  margin: auto 3px;
-  font-size: 15px;
+  margin: auto 2px;
+  font-size: 14px;
 }
 .profile-follower-numbers {
   text-decoration: none;
@@ -324,7 +325,7 @@
   box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);  
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   z-index: 0;
 }
 .equipment_card_innver_div:hover{
@@ -357,11 +358,11 @@
   background-color: white;
   /* box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2), 10px 6px 20px 10px rgba(0, 0, 0, 0.19);   */
 }
-/* .equipment_card_div:hover{
-  height: 210px !important;
-  width: 280 !important;
-  margin-left: -140px;
-} */
+.equipment_card_div:hover{
+  /* height: 210px !important;
+  width: 280 !important; */
+  /* margin-left: 0px; */
+}
 .equipment_list_container{
   display: flex;
   flex-direction: row-reverse;
