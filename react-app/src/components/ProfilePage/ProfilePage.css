@@ -73,6 +73,10 @@
   /* background-color: rgb(255, 255, 255); */
 }
 
+.profile-text{
+  width: 300px;
+}
+
 .profile-pic {
   border-radius: 50%;
   width: 150px;
@@ -132,11 +136,22 @@
   font-size: 16px;
   margin-bottom: 20px;
 }
-
+.profile-posts-numbers,
+.profile-follower-numbers {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  margin: auto 3px;
+  font-size: 15px;
+}
 .profile-follower-numbers {
   text-decoration: none;
   color: rgb(38, 38, 38);
+}
+.profile-follower-numbers:hover{
   cursor: pointer;
+  color: #00aeef;
 }
 
 .profile-number {

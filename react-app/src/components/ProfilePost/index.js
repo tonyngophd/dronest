@@ -21,6 +21,7 @@ import {
 import { MediaDisplayer } from '../utils';
 import { deleteAPost } from '../../store/posts';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FiEye } from 'react-icons/fi';
 
 const ProfilePost = ({ post, setShowPostModal }) => {
   const [hover, setHover] = useState(false);
@@ -76,11 +77,15 @@ const ProfilePost = ({ post, setShowPostModal }) => {
             {likes}
           </div>
           <div className="profile-post-pic-overlay-inner">
+            <i className="fas fa-eye"></i>
+            {post.views}
+          </div>
+          <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-comment"></i>
             {numComments}
           </div>
         </div>
-      </div>     
+      </div>
     </>
   );
 };

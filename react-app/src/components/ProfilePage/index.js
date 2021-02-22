@@ -34,6 +34,8 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [numberOfFollowing, setNumberOfFollowing] = useState(0);
   const [numberOfOwnPosts, setNumberOfOwnPosts] = useState(0);
+  const [numberOfLikeds, setNumberOfLikeds] = useState(0);
+  const [numberOfVieweds, setNumberOfVieweds] = useState(0);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
@@ -61,6 +63,8 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
     }
     if (profile.user.ownPosts && Array.isArray(profile.user.ownPosts)) {
       setNumberOfOwnPosts(profile.user.ownPosts.length);
+      setNumberOfLikeds(profile.user.ownPosts.map(p => p.likes).reduce((acum, current) => acum + current));
+      setNumberOfVieweds(profile.user.ownPosts.map(p => p.views).reduce((acum, current) => acum + current));      
     }
   }, [profile]);
 
@@ -208,6 +212,14 @@ const ProfilePage = ({ tagged, liked, saved, create }) => {
                   <div className="profile-posts-numbers">
                     <span className="profile-number">{numberOfOwnPosts}</span>
                     <span className="profile-number-text"> posts</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfLikeds}</span>
+                    <span className="profile-number-text"> liked</span>
+                  </div>
+                  <div className="profile-posts-numbers">
+                    <span className="profile-number">{numberOfVieweds}</span>
+                    <span className="profile-number-text"> viewed</span>
                   </div>
                   <div
                     className="profile-follower-numbers"
