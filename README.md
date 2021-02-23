@@ -14,7 +14,7 @@
   <h2 align="center">Dronest</h2>
 
   <p align="center">
-    A Full-Stack Web Application (Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+    A Full-Stack Web Application for users to host and share their drone arts (pics/vids) and get socialized on the platform.
     <br />
     <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
@@ -54,10 +54,10 @@
             <li><a href="#contact">Contact</a></li>
             <li><a href="#acknowledgements">Acknowledgements</a></li>
          </ol>
-         <div style="display: flex; flex-direction: column">
+         <!-- <div style="display: flex; flex-direction: column">
             <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
             <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
-         <div>
+         <div> -->
       </div>
       </details>
    </div>
