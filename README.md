@@ -1,3 +1,4 @@
+<!--ReactSkipperStart -->
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -52,7 +53,7 @@
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
-
+<!--ReactSkipperEnd -->
 
 
 ## About The Project

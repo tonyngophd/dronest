@@ -160,8 +160,7 @@ export function About() {
     const res = await fetch(url);
     if (res.ok) {
       const res2 = await res.json()
-      let markdown = new Buffer.from(res2.content, 'base64').toString('ascii')
-        .split('</details>')[1];//.replace('[![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)','');
+      let markdown = new Buffer.from(res2.content, 'base64').toString('ascii');        
       markdown = reactSkipperRemoved(markdown);
       setGetContents(true);
       render(<ReactMarkdown children={markdown}></ReactMarkdown>, document.getElementById('markdown'));
