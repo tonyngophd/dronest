@@ -69,9 +69,20 @@
       <img src="./resources/screenshots/profilepage.png" width="33%" height="30%" style="margin: 5px"/>
    <div>
 </details>
+<details open="open">
+   <summary>Code snippets</summary>
+   <div style="display: flex">
+      <img src="./resources/screenshots/codesnippet1.png" width="24%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet2.png" width="24%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet3.png" width="24%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet4.png" width="24%" height="24%" style="margin: 5px"/>
+   <div>
+</details>
 
 
 ### Technologies
+- List of Technologies used for this project
+
 | A. Package  	| B. FrontEnd  	| C. Backend  	| (cont.) |
 |---	|---	|---	|---  |
 |  |  |  Main server |  Websocket Server  |

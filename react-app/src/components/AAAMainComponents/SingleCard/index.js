@@ -52,9 +52,7 @@ import PicModalCaption from "../../PicModalCaption";
 import { MapWithMarkerClusterer } from '../../GoogleMaps';
 import { GrMultiple } from 'react-icons/gr';
 
-
-import timeStamp, { MediaDisplayer, Plugins } from '../../utils';
-
+import timeStamp, { MediaDisplayer } from '../../utils';
 
 import './SingleCard.css';
 
@@ -310,10 +308,6 @@ export function PostModal({ setShowModal, user, posts }) {
                       {
                         post.images.map((m, i) =>
                           <div key={nanoid()}>
-                            {/* <img src={m.mediaUrl} alt=''
-                              className={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
-                              onClick={e => setMediaIndex(i)}
-                            /> */}
                             <MediaDisplayer
                               mediaUrl={m.mediaUrl}
                               imgClassname={i === mediaIndex ? 'post-modal-img-preview-current' : 'post-modal-img-preview'}
