@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/suasllc/dronest">
-    <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: cover">
+    <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: contain">
   </a>
 
   <h3 align="center">Dronest</h3>
