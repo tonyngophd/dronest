@@ -113,7 +113,7 @@ Install npm on your local computer
 
 3. [Further steps here](https://github.com/suasllc/dronest/wiki/Installation-Details)
 
-
+<!--ReactSkipperStart -->
 ## More Screenshots
 
    <details open="open">
@@ -126,14 +126,14 @@ Install npm on your local computer
    <details open="open">
       <summary><h3 style="display: inline-block">Message, Stories and Upload</h3></summary>   
       <div style="display: flex">
-         <div style='display: flex; flex-direction: column'>
-            <img src="./resources/screenshots/instantmessage.png" width="40%" height="40%" style="margin: 5px"/>
-            <img src="./resources/screenshots/stories.png" width="40%" height="40%" style="margin: 5px"/>
-         </div>
-         <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>
+         <!-- <div style='display: flex; flex-direction: column; width="40%"'> -->
+            <img src="./resources/screenshots/instantmessage.png" width="30%" height="30%" style="margin: 5px"/>
+         <img src="./resources/screenshots/newpost.png" width="30%" height="30%"  style="margin: 5px"/>
+            <img src="./resources/screenshots/stories.png" width="30%" height="30%" style="margin: 5px"/>
+         <!-- </div> -->
       <div>
    </details>
-
+<!--ReactSkipperEnd -->
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
