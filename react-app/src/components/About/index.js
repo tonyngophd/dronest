@@ -142,7 +142,6 @@ export function About() {
       const res2 = await res.json()
       const markdown = new Buffer.from(res2.content, 'base64').toString('ascii')
         .split('</details>')[1].replace('[![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)','');
-      console.log(markdown);
       setGetContents(true);
       render(<ReactMarkdown children={markdown}></ReactMarkdown>, document.getElementById('markdown'));
     }
@@ -160,7 +159,7 @@ export function About() {
           <div className='about-project-title'>
             <h3>About The Project</h3>
           </div>
-          <h4>Technologies</h4>
+          <h4>Technologies used</h4>
           <div>
             <div>
               <h5>Package</h5>
@@ -191,6 +190,7 @@ export function About() {
             <img src={'https://miro.medium.com/max/800/1*Q5EUk28Xc3iCDoMSkrd1_w.png'} className='technology-icon graybackground' />
             <img src={'https://flask-sqlalchemy.palletsprojects.com/en/2.x/_static/flask-sqlalchemy-logo.png'} className='technology-icon graybackground' />
             <img src='https://cdn.iconscout.com/icon/free/png-512/postgresql-11-1175122.png' className='technology-icon' />
+            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/AWS_Simple_Icons_AWS_Cloud.svg/1024px-AWS_Simple_Icons_AWS_Cloud.svg.png' className='technology-icon' />
             <div>
               Instant Messaging Server
             </div>
