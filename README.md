@@ -66,8 +66,8 @@
    <details open="open">
       <summary><h3 style="display: inline-block">Home page</h3></summary>
       <div style="display: flex">
-         <img src="./resources/screenshots/home.png" width="50%" height="50%" style="margin: 5px"/>
-         <img src="./resources/screenshots/home-darkmode.png" width="50%" height="50%"  style="margin: 5px"/>
+         <img src="./resources/screenshots/home.png" width="40%" height="40%" style="margin: 5px"/>
+         <img src="./resources/screenshots/home-darkmode.png" width="40%" height="40%"  style="margin: 5px"/>
       <div>
    </details>
 </details>
@@ -119,7 +119,7 @@ Install npm on your local computer
    <details open="open">
       <summary><h3 style="display: inline-block">Profile Page</h3></summary>   
       <div style="display: flex">
-         <img src="./resources/screenshots/profilepage.png" width="50%" height="50%" style="margin: 5px"/>
+         <img src="./resources/screenshots/profilepage.png" width="40%" height="40%" style="margin: 5px"/>
          <img src="./resources/screenshots/follower-following.png" width="50%" height="50%"  style="margin: 5px"/>
       <div>
    </details>
@@ -127,10 +127,10 @@ Install npm on your local computer
       <summary><h3 style="display: inline-block">Message, Stories and Upload</h3></summary>   
       <div style="display: flex">
          <div style='display: flex; flex-direction: column'>
-            <img src="./resources/screenshots/instantmessage.png" width="100%" height="100%" style="margin: 5px"/>
-            <img src="./resources/screenshots/stories.png" width="100%" height="100%" style="margin: 5px"/>
+            <img src="./resources/screenshots/instantmessage.png" width="40%" height="40%" style="margin: 5px"/>
+            <img src="./resources/screenshots/stories.png" width="40%" height="40%" style="margin: 5px"/>
          </div>
-         <img src="./resources/screenshots/newpost.png" width="50%" height="50%"  style="margin: 5px"/>
+         <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>
       <div>
    </details>
 
