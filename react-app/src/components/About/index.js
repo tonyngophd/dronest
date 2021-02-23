@@ -141,6 +141,8 @@ export function About() {
     if (res.ok) {
       const res2 = await res.json()
       const markdown = new Buffer.from(res2.content, 'base64').toString('ascii')
+        .split('</details>')[1].replace('[![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)','');
+      console.log(markdown);
       setGetContents(true);
       render(<ReactMarkdown children={markdown}></ReactMarkdown>, document.getElementById('markdown'));
     }
