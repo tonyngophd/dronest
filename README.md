@@ -64,9 +64,9 @@
 <details open="open">
    <summary>Screenshots: Homepage & Profile page</summary>
    <div style="display: flex">
-      <img src="./resources/screenshots/home.png" width="30%" height="30%" style="margin: 5px"/>
-      <img src="./resources/screenshots/home-darkmode.png" width="30%" height="30%"  style="margin: 5px"/>
-      <img src="./resources/screenshots/profilepage.png" width="30%" height="30%" style="margin: 5px"/>
+      <img src="./resources/screenshots/home.png" width="33%" height="30%" style="margin: 5px"/>
+      <img src="./resources/screenshots/home-darkmode.png" width="33%" height="30%"  style="margin: 5px"/>
+      <img src="./resources/screenshots/profilepage.png" width="33%" height="30%" style="margin: 5px"/>
    <div>
 </details>
 
