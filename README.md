@@ -27,13 +27,13 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
+#https://github.com/suasllc/dronest/blob/master/react-app/src/pictures/dronestlogo3.png
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/suasllc/dronest">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: cover">
   </a>
 
   <h3 align="center">Dronest</h3>
