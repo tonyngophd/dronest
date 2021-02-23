@@ -31,13 +31,13 @@
 
 <details open="open">
    <summary>Table of Contents</summary>
-   <div style='display: flex; justify-content: space-between'>
+   <div style='display: flex; flex-direction: row;'>
       <div>
-         <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
+         <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px;"/>
       </div>
       <div >
-         <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
-         <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
+         <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px;"/>
+         <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px;"/>
       <div>
    </div>
 </details>
