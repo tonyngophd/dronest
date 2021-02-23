@@ -72,10 +72,8 @@
 <details open="open">
    <summary>Code snippets</summary>
    <div style="display: flex">
-      <img src="./resources/screenshots/codesnippet1.png" width="24%" height="24%" style="margin: 5px"/>
-      <img src="./resources/screenshots/codesnippet2.png" width="24%" height="24%" style="margin: 5px"/>
-      <img src="./resources/screenshots/codesnippet3.png" width="24%" height="24%" style="margin: 5px"/>
-      <img src="./resources/screenshots/codesnippet4.png" width="24%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet1.png" width="40%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet3.png" width="40%" height="24%" style="margin: 5px"/>
    <div>
 </details>
 
@@ -125,22 +123,31 @@ Install npm on your local computer
 <!--ReactSkipperStart -->
 ## More Screenshots
 
-   <details open="open">
-      <summary>Profile Page</summary>   
-      <div style="display: flex">
-         <img src="./resources/screenshots/follower-following.png" width="40%" height="40%"  style="margin: 5px"/>
-         <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>         
-      <div>
-   </details>
-   <details open="open">
-      <summary>Message, Stories and Upload</summary>   
-      <div style="display: flex">
-         <!-- <div style='display: flex; flex-direction: column; width="40%"'> -->
-            <img src="./resources/screenshots/instantmessage.png" width="32%" height="30%" style="margin: 5px"/>
-            <img src="./resources/screenshots/stories.png" width="43%" height="30%" style="margin: 5px"/>
-         <!-- </div> -->
-      <div>
-   </details>
+<details open="open">
+   <summary>Profile Page</summary>   
+   <div style="display: flex">
+      <img src="./resources/screenshots/follower-following.png" width="40%" height="40%"  style="margin: 5px"/>
+      <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>         
+   <div>
+</details>
+<details open="open">
+   <summary>Message, Stories and Upload</summary>   
+   <div style="display: flex">
+      <!-- <div style='display: flex; flex-direction: column; width="40%"'> -->
+         <img src="./resources/screenshots/instantmessage.png" width="32%" height="30%" style="margin: 5px"/>
+         <img src="./resources/screenshots/stories.png" width="43%" height="30%" style="margin: 5px"/>
+      <!-- </div> -->
+   <div>
+</details>
+
+<details open="open">
+   <summary>Code snippets</summary>
+   <div style="display: flex">
+      <img src="./resources/screenshots/codesnippet2.png" width="35%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet4.png" width="35%" height="24%" style="margin: 5px"/>
+   <div>
+</details>
+
 <!--ReactSkipperEnd -->
 ## Usage
 
