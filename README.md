@@ -6,15 +6,13 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <!--ReactSkipperStart -->
 <br />
-<p align="center">
+<p align="center"  style='margin-top: -40px; margin-bottom: -10px;'>
   <a href="https://github.com/suasllc/dronest">
     <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: contain">
   </a>
 
-  <h2 align="center">Dronest</h2>
-
   <p align="center">
-    A Full-Stack Web Application for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+    <b>Dronest</b> - A Full-Stack Web Application for users to host and share their drone arts (pics/vids) and get socialized on the platform.
     <br />
     <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
