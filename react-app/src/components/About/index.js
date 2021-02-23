@@ -10,7 +10,7 @@ import { fetchAllUsers } from '../../store/users';
 
 import './About.css';
 
-function SocialLinks({className, innerClassName='social-links'}) {
+function SocialLinks({ className, innerClassName = 'social-links' }) {
 
   return (
     <div className={className}>
@@ -82,7 +82,9 @@ export function SideInfoNav() {
 
   return (
     <div className='sideinfo-nav-container'>
-      <SocialLinks className='social-links-sidenav' innerClassName='social-links column'/>
+      <div className='sideinfo-nav-div'>
+        <SocialLinks className='social-links-sidenav' innerClassName='social-links column' />
+      </div>
     </div>
   );
 }
