@@ -57,6 +57,7 @@
 
 ## About The Project
 
+<!--ReactSkipperStart -->
 [![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)
 
 
@@ -70,8 +71,7 @@
 | [Pipenv](https://pypi.org/project/pipenv/)	| [CSS3](https://www.w3.org/Style/CSS/) 	|  [PostgreSQL](https://www.postgresql.org/) 	|  |
 | [Heroku](https://heroku.com) 	| [Redux](https://github.com/reduxjs/redux) 	|  [SqlAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) 	| [Sequelize](https://sequelize.org/) |
 | 	| [HTML5](https://en.wikipedia.org/wiki/HTML5)	|  [AWS S3](https://aws.amazon.com/) 	|  |
-
-
+<!--ReactSkipperEnd -->
 
 ## Getting Started
 
