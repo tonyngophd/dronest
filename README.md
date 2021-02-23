@@ -11,12 +11,15 @@
     <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: contain">
   </a>
 
-  <h3 align="center">Dronest</h3>
+  <h2 align="center">Dronest</h2>
 
   <p align="center">
-    project_description
+    A Full-Stack Web Application (Social Network, Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+    This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
     <br />
-    <a href="https://github.com/suasllc/dronest"><strong>Explore the docs »</strong></a>
+    This is meant to be a capstone graduation project from <a href='www.appacademy.io' target='_blank'>App Academy</a>.
+    <br />
+    <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://dronest.herokuapp.com/">View Demo/Live</a>
