@@ -140,9 +140,10 @@ Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dr
 
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [App Academy](https://www.appacademy.io/)
+* [D. Miller](https://github.com/dbmille2)
+* [Unsplash](https://unsplash.com/)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 
 
