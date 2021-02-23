@@ -34,7 +34,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
         }
         {showInfo && <div className='moreinfo-tooltip'>
           <span>Click for</span> <span>more info</span>
-          </div>
+        </div>
         }
 
         <div className='social-icon-and-text'>
@@ -117,19 +117,19 @@ export function SideInfoNav() {
   );
 }
 
-function reactSkipperRemoved(string){
+function reactSkipperRemoved(string) {
 
   const arr = string.split('\n');
   let skip = false;
   const filteredArr = [];
-  for(let i = 0; i < arr.length; i++){
-    if(arr[i] === '<!--ReactSkipperStart -->'){
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === '<!--ReactSkipperStart -->') {
       skip = true;
-    } else if(arr[i] === '<!--ReactSkipperEnd -->') {
+    } else if (arr[i] === '<!--ReactSkipperEnd -->') {
       skip = false;
     }
-    if(!skip){
-      if(arr[i] !== '<!--ReactSkipperEnd -->'){
+    if (!skip) {
+      if (arr[i] !== '<!--ReactSkipperEnd -->') {
         filteredArr.push(arr[i]);
       }
     }
@@ -160,7 +160,7 @@ export function About() {
     const res = await fetch(url);
     if (res.ok) {
       const res2 = await res.json()
-      let markdown = new Buffer.from(res2.content, 'base64').toString('ascii');        
+      let markdown = new Buffer.from(res2.content, 'base64').toString('ascii');
       markdown = reactSkipperRemoved(markdown);
       setGetContents(true);
       render(<ReactMarkdown children={markdown}></ReactMarkdown>, document.getElementById('markdown'));
@@ -178,6 +178,15 @@ export function About() {
         <div>
           <div className='about-project-title'>
             <h3>About The Project</h3>
+            <div>
+              A Full-Stack Web Application (Social Network, Instagram/FaceBook/Skypixel-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+              This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
+              <br />
+              This is my 
+              <a href='www.appacademy.io' target='_blank'>
+                <img src='https://miro.medium.com/max/1838/1*KN9GphVB-0MCPvH1_MNn6Q.png' className='appacademy-icon'/>
+              </a> capstone graduation project
+            </div>
           </div>
           <h4>Technologies used</h4>
           <div>
@@ -227,7 +236,7 @@ export function About() {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 style={{marginBottom: '-10px'}}>More Information</h1>
+        <h1 style={{ marginBottom: '-10px' }}>More Information</h1>
         <h3>(GitHub README excerpts)</h3>
       </div>
       <div id='markdown' className='readme-markdown'></div>

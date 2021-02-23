@@ -17,7 +17,7 @@
     A Full-Stack Web Application (Social Network, Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
     This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
     <br />
-    This is meant to be a capstone graduation project from <a href='www.appacademy.io' target='_blank'>App Academy</a>.
+    This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone graduation project
     <br />
     <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
@@ -56,10 +56,9 @@
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
-<!--ReactSkipperEnd -->
-
 
 ## About The Project
+<!--ReactSkipperEnd -->
 
 <!--ReactSkipperStart -->
 [![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)
