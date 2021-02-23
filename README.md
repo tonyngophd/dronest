@@ -32,6 +32,8 @@
 <details open="open">
    <summary>Table of Contents</summary>
    <div style='display: flex; justify-content: space-between; flex-direction: row;'>
+      <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
+      <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>   
       <ol style='margin: 0px 30px 0px 0px'>
          <li>
             <a href="#about-the-project">About The Project</a>
@@ -53,8 +55,6 @@
          <li><a href="#contact">Contact</a></li>
          <li><a href="#acknowledgements">Acknowledgements</a></li>
       </ol>
-      <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
-      <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
    </div>
 </details>
 
