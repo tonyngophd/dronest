@@ -226,8 +226,9 @@ export function About() {
           {author && <MiniProfile user={author} hover={true} className='miniprofile-container-div static' />}
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h1>More Information</h1>
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+        <h1 style={{marginBottom: '-10px'}}>More Information</h1>
+        <h3>(GitHub README excerpts)</h3>
       </div>
       <div id='markdown' className='readme-markdown'></div>
     </div>
