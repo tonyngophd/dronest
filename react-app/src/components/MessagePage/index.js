@@ -113,14 +113,8 @@ function MessagePage() {
       return;
     }
 
-    // const REACT_APP_WS_URL = "wss://dronestms.herokuapp.com";
-    // const REACT_APP_WS_URL = "wss://dronest.herokuapp.com";
     const REACT_APP_WS_URL = process.env.REACT_APP_WS_URL;
-    // const ws = new WebSocket(process.env.REACT_APP_WS_URL);
     const ws = new WebSocket(REACT_APP_WS_URL);
-    console.log('process.env.REACT_APP_WS_URL', process.env.REACT_APP_WS_URL);
-    // console.log('REACT_APP_WS_URL', REACT_APP_WS_URL);
-    //TODO: specify how to use this URL on heroku
 
     ws.onopen = () => {
       sendMessage('add-new-person', { userId, username });
