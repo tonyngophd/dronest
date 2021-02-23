@@ -1,35 +1,9 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** suasllc, dronest, twitter_handle, email, Dronest, project_description
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-<!-- [![Contributors][contributors-shield]][contributors-url] -->
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-#https://github.com/suasllc/dronest/blob/master/react-app/src/pictures/dronestlogo3.png
-
-<!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/suasllc/dronest">
@@ -44,7 +18,7 @@
     <a href="https://github.com/suasllc/dronest"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/suasllc/dronest">View Demo</a>
+    <a href="https://dronest.herokuapp.com/">View Demo/Live</a>
     ·
     <a href="https://github.com/suasllc/dronest/issues">Report Bug</a>
     ·
@@ -54,7 +28,6 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
@@ -82,32 +55,26 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`suasllc`, `dronest`, `twitter_handle`, `email`, `Dronest`, `project_description`
 
-
-### Built With
-
-* []()
+### Technologies
+#### FrontEnd
+* [React]()
 * []()
 * []()
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Install npm on your local computer
 * npm
   ```sh
   npm install npm@latest -g
@@ -118,7 +85,7 @@ This is an example of how to list things you need to use the software and how to
 1. Clone this repository (only this branch)
 
    ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
+   git clone https://github.com/suasllc/dronest.git
    ```
 
 2. Install dependencies
@@ -211,23 +178,20 @@ This is an example of how to list things you need to use the software and how to
 
 
 
-<!-- USAGE EXAMPLES -->
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://github.com/suasllc/dronest/wiki)_
 
 
 
-<!-- ROADMAP -->
 ## Roadmap
 
 See the [open issues](https://github.com/suasllc/dronest/issues) for a list of proposed features (and known issues).
 
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -240,23 +204,20 @@ Contributions are what make the open source community such an amazing place to b
 
 
 
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-<!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Tony Ngo [@suas_com](https://twitter.com/suas_com) - website: https://tonyngo.us
 
 Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dronest)
 
 
 
-<!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
 * []()
@@ -265,10 +226,6 @@ Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dr
 
 
 
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/suasllc/dronest.svg?style=for-the-badge
 [contributors-url]: https://github.com/suasllc/dronest/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/suasllc/dronest.svg?style=for-the-badge
