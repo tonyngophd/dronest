@@ -14,20 +14,29 @@ import { fetchAllUsers } from '../../store/users';
 import './About.css';
 
 function SocialLinks({ className, innerClassName = 'social-links', sidebar = false }) {
+  const [showInfo, setShowInfo] = useState(false);
 
   return (
     <div className={className}>
       <div className={innerClassName}>
         {
-          sidebar && <div className='social-icon-and-text'>
+          sidebar && <div className='social-icon-and-text'
+            onMouseEnter={() => setTimeout(() => setShowInfo(true), 600)}
+            onMouseLeave={() => setTimeout(() => setShowInfo(false), 200)}
+          >
             <Link to='/about'>
               <FcAbout className='social-icon' />
             </Link>
             <div>
-              About
+              Info
               </div>
           </div>
         }
+        {showInfo && <div className='moreinfo-tooltip'>
+          <span>Click for</span> <span>more info</span>
+          </div>
+        }
+
         <div className='social-icon-and-text'>
           <a href='https://github.com/suasllc/dronest' target='_blank'>
             <img src={'https://git-scm.com/images/logos/downloads/Git-Icon-Black.png'} className='social-icon' />
@@ -98,9 +107,9 @@ export function SideInfoNav() {
   return (
     <div className='sideinfo-nav-container'>
       <div className='sideinfo-nav-div'>
-        <SocialLinks 
-          className='social-links-sidenav' 
-          innerClassName='social-links column' 
+        <SocialLinks
+          className='social-links-sidenav'
+          innerClassName='social-links column'
           sidebar={true}
         />
       </div>
