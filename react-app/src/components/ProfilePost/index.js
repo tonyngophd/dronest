@@ -22,6 +22,7 @@ import { MediaDisplayer } from '../utils';
 import { deleteAPost } from '../../store/posts';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FiEye } from 'react-icons/fi';
+import { GrMultiple } from 'react-icons/gr';
 
 const ProfilePost = ({ post, setShowPostModal }) => {
   const [hover, setHover] = useState(false);
@@ -71,6 +72,9 @@ const ProfilePost = ({ post, setShowPostModal }) => {
             (myself.id === post.user.id) && <RiDeleteBin6Line className='profile-post-overlay-delete'
               onClick={e => deleteHandler(e, post.id)}
             />
+          }
+          {post.images.length > 1 && 
+            <GrMultiple className='profile-post-overlay-multiple' />
           }
           <div className="profile-post-pic-overlay-inner">
             <i className="fas fa-heart"></i>

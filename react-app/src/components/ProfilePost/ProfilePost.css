@@ -50,3 +50,9 @@
   top: 100px;
   right: 20px;
 }
+.profile-post-overlay-multiple{
+  position: absolute;
+  bottom: 100px;
+  right: 20px;
+  color: white;
+}

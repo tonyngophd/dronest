@@ -65,7 +65,7 @@
 
 
 ### Technologies
-| A. Package  	| B. FrontEnd  	| C. Backend  	|  |
+| A. Package  	| B. FrontEnd  	| C. Backend  	| (cont.) |
 |---	|---	|---	|---  |
 |  |  |  Main server |  Websocket Server  |
 | [npm](https://www.npmjs.com/)   	| [JavaScript](https://www.javascript.com/)  	|  [Python](https://www.python.org/) 	| [Websocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) |
@@ -78,7 +78,7 @@
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running follow these steps.
 
 ### Prerequisites
 

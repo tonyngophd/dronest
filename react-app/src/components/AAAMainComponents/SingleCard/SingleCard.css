@@ -25,6 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .single-card-top-image-div-catloc{
   width: 100%;
@@ -35,6 +36,7 @@
   display: flex;
   justify-content: center;
   align-items: center;  
+  position: relative;
 }
 
 .single-card-main-img{
@@ -311,5 +313,11 @@
 .post-modal-user-row-div{
   max-width: 350px;
   width: fit-content;
+}
+.single-card-multiple-indicator{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  /* z-index: 2; */
 }
 

@@ -50,6 +50,8 @@ import CommentInput from "../../CommentInput";
 import Comment from "../../Comment";
 import PicModalCaption from "../../PicModalCaption";
 import { MapWithMarkerClusterer } from '../../GoogleMaps';
+import { GrMultiple } from 'react-icons/gr';
+
 
 import timeStamp, { MediaDisplayer, Plugins } from '../../utils';
 
@@ -264,8 +266,8 @@ export function PostModal({ setShowModal, user, posts }) {
       <Modal setShowModal={setShowModal}
         dronestLogo={false} needsEscapeInput={true}
         closeXOutSide={true} noTopDiv={true}
-        width='1100px' 
-        // height='900px'
+        width='1100px'
+      // height='900px'
       >
         <div style={{
           display: 'flex',
@@ -464,6 +466,9 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           imgHandleClick={handleClick}
           vidHandleClick={handleClick}
         />
+        {user.ownPosts.length > 1 &&
+          <GrMultiple className='single-card-multiple-indicator'/>
+        }
       </div>
       {category &&
         <div className='single-card-info-div'>
@@ -488,6 +493,12 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
               <FiEye />
               <span>{views}</span>
             </div>
+            {user.ownPosts.length > 1 &&
+              <div>
+                <GrMultiple />
+                <span>{user.ownPosts.length}</span>
+              </div>
+            }
           </div>
         </div>
       }
