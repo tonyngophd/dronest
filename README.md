@@ -35,7 +35,8 @@
       <li>
          <a href="#about-the-project">About The Project</a>
          <ul>
-         <li><a href="#technologies">Technologies</a></li>
+            <li><a href="#what-is-the-project">What is the project</a></li>
+            <li><a href="#technologies">Technologies</a></li>
          </ul>
       </li>
       <li>
@@ -45,6 +46,7 @@
          <li><a href="#installation">Installation</a></li>
          </ul>
       </li>
+      <li><a href="#more-screenshots">More Screenshots</a></li>
       <li><a href="#usage">Usage</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#contributing">Contributing</a></li>
@@ -111,7 +113,6 @@ Install npm on your local computer
   ```
 
 ### Installation
-#### Getting started
 1. Clone this repository (only this branch)
 
    ```bash
