@@ -28,40 +28,38 @@
 </p>
 
 
-<div style='display: flex; align-items: center; justify-content: space-between '>
-   <div>
-      <details open="open">
-         <summary>Table of Contents</summary>
-         <div style='display: flex; justify-content: space-between'>
-            <ol style='margin: 0px 30px 0px 0px'>
-               <li>
-                  <a href="#about-the-project">About The Project</a>
-                  <ul>
-                  <li><a href="#technologies">Technologies</a></li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="#getting-started">Getting Started</a>
-                  <ul>
-                  <li><a href="#prerequisites">Prerequisites</a></li>
-                  <li><a href="#installation">Installation</a></li>
-                  </ul>
-               </li>
-               <li><a href="#usage">Usage</a></li>
-               <li><a href="#roadmap">Roadmap</a></li>
-               <li><a href="#contributing">Contributing</a></li>
-               <li><a href="#license">License</a></li>
-               <li><a href="#contact">Contact</a></li>
-               <li><a href="#acknowledgements">Acknowledgements</a></li>
-            </ol>
-            <div style="display: flex; flex-direction: column">
-               <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
-               <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
-            <div>
-         </div>
-      </details>
+
+<details open="open">
+   <summary>Table of Contents</summary>
+   <div style='display: flex; justify-content: space-between'>
+      <ol style='margin: 0px 30px 0px 0px'>
+         <li>
+            <a href="#about-the-project">About The Project</a>
+            <ul>
+            <li><a href="#technologies">Technologies</a></li>
+            </ul>
+         </li>
+         <li>
+            <a href="#getting-started">Getting Started</a>
+            <ul>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#installation">Installation</a></li>
+            </ul>
+         </li>
+         <li><a href="#usage">Usage</a></li>
+         <li><a href="#roadmap">Roadmap</a></li>
+         <li><a href="#contributing">Contributing</a></li>
+         <li><a href="#license">License</a></li>
+         <li><a href="#contact">Contact</a></li>
+         <li><a href="#acknowledgements">Acknowledgements</a></li>
+      </ol>
+      <div style="display: flex; flex-direction: column">
+         <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
+         <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
+      <div>
    </div>
-</div>
+</details>
+
 
 ## About The Project
 ### What is the project
