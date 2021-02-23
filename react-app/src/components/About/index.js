@@ -182,15 +182,15 @@ export function About() {
               A Full-Stack Web Application (Social Network, Instagram/FaceBook/Skypixel-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
               This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
               <br />
-              This is my 
-              <a href='www.appacademy.io' target='_blank'>
-                <img src='https://miro.medium.com/max/1838/1*KN9GphVB-0MCPvH1_MNn6Q.png' className='appacademy-icon'/>
+              This is my
+              <a href='www.appacademy.io' target='_blank' className='appacademy-a-link'>
+                <img src='https://miro.medium.com/max/1838/1*KN9GphVB-0MCPvH1_MNn6Q.png' className='appacademy-icon' />
               </a> capstone graduation project
             </div>
           </div>
           <h4>Technologies used</h4>
           <div>
-            <div>
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h5>Package</h5>
             </div>
             <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png' className='technology-icon' />
@@ -198,7 +198,7 @@ export function About() {
             <img src='https://cdn.worldvectorlogo.com/logos/heroku.svg' className='technology-icon' />
             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzSXTzu-_Vxa4Bw2U1vfH8QLHsAXv1KAGZKQ&usqp=CAU' className='technology-icon' />
             <hr />
-            <div>
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h5>Frontend - react/redux server</h5>
             </div>
             <img src={'https://images.squarespace-cdn.com/content/v1/5df7d8d44b9a7a49b2e475ac/1576526689110-QJM10YTHVZYU7Z7D2YLE/ke17ZwdGBToddI8pDm48kDmvgM2_GYudIur22MWWiLdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIvFa2r33EMaMk7hlBJBei4G1FTiqzsF6lpp3EXtW1YCk/js-logo.png'} className='technology-icon' />
@@ -209,25 +209,24 @@ export function About() {
           </div>
           <hr />
           <div>
-            <div>
+          <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h5>Backend - 2 servers</h5>
             </div>
-            <div>
-              Main Server
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
+              <h6>Main Server</h6>
             </div>
             <img src='https://library.kissclipart.com/20181208/pwe/kissclipart-python-programming-a-beginners-guide-to-learn-py-c106bf0c27f1f5a5.jpg' className='technology-icon' />
             <img src={'https://miro.medium.com/max/800/1*Q5EUk28Xc3iCDoMSkrd1_w.png'} className='technology-icon graybackground' />
             <img src={'https://flask-sqlalchemy.palletsprojects.com/en/2.x/_static/flask-sqlalchemy-logo.png'} className='technology-icon graybackground' />
             <img src='https://cdn.iconscout.com/icon/free/png-512/postgresql-11-1175122.png' className='technology-icon' />
             <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/AWS_Simple_Icons_AWS_Cloud.svg/1024px-AWS_Simple_Icons_AWS_Cloud.svg.png' className='technology-icon' />
-            <div>
-              Instant Messaging Server
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
+              <h6>Instant Messaging Server</h6>
             </div>
             <img src={require('../../pictures/nodejs.svg')} className='technology-icon' />
             <img src={'https://www.logolynx.com/images/logolynx/5b/5bf98b408fb57fec23637f44edd79138.jpeg'} className='technology-icon' />
             <img src={'https://jasonpallone.com/Sequelize-icon.png'} className='technology-icon' />
           </div>
-          <hr />
         </div>
         <div className='about-author-div'>
           <h3>About The Author</h3>
@@ -235,7 +234,7 @@ export function About() {
           {author && <MiniProfile user={author} hover={true} className='miniprofile-container-div static' />}
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '-40px' }}>
         <h1 style={{ marginBottom: '-10px' }}>More Information</h1>
         <h3>(GitHub README excerpts)</h3>
       </div>

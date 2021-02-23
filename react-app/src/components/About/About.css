@@ -1,10 +1,10 @@
 .about_page_container{
   max-width: 1000px;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .technology-icon{
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   margin: auto 5px;
 }
@@ -149,7 +149,12 @@
   overflow: hidden;
 }
 .appacademy-icon{
-  height: 30px;
+  height: 25px;
   object-fit: contain;
-  padding: 2px 10px;
+  padding: 0px 10px;
+}
+.appacademy-a-link{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
