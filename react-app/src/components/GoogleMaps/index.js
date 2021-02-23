@@ -90,7 +90,6 @@ export const MapWithMarkerClusterer = ({
   const onSelect = spot => {
     setSelected({ spot });
   }
-  console.log('googleMapsApiKey', googleMapsApiKey);
   return (
     <LoadScript
       googleMapsApiKey={googleMapsApiKey}
