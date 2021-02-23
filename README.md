@@ -32,7 +32,7 @@
 
 
 
-<details open="open">
+<details >
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
     <li>
@@ -61,7 +61,16 @@
 <!--ReactSkipperEnd -->
 
 <!--ReactSkipperStart -->
-[![Product Name Screen Shot][product-screenshot]](https://dronest.herokuapp.com)
+<details open="open">
+   <summary><h3 style="display: inline-block">Screenshots</h3></summary>
+   <details open="open">
+      <summary><h3 style="display: inline-block">Home page</h3></summary>
+      <div style="display: flex">
+         <img src="./resources/screenshots/home.png" width="50%" height="50%" style="margin: 5px"/>
+         <img src="./resources/screenshots/home-darkmode.png" width="50%" height="50%"  style="margin: 5px"/>
+      <div>
+   </details>
+</details>
 
 
 ### Technologies
@@ -105,6 +114,25 @@ Install npm on your local computer
 3. [Further steps here](https://github.com/suasllc/dronest/wiki/Installation-Details)
 
 
+## More Screenshots
+
+   <details open="open">
+      <summary><h3 style="display: inline-block">Profile Page</h3></summary>   
+      <div style="display: flex">
+         <img src="./resources/screenshots/profilepage.png" width="50%" height="50%" style="margin: 5px"/>
+         <img src="./resources/screenshots/follower-following.png" width="50%" height="50%"  style="margin: 5px"/>
+      <div>
+   </details>
+   <details open="open">
+      <summary><h3 style="display: inline-block">Message, Stories and Upload</h3></summary>   
+      <div style="display: flex">
+         <div style='display: flex; flex-direction: column'>
+            <img src="./resources/screenshots/instantmessage.png" width="100%" height="100%" style="margin: 5px"/>
+            <img src="./resources/screenshots/stories.png" width="100%" height="100%" style="margin: 5px"/>
+         </div>
+         <img src="./resources/screenshots/newpost.png" width="50%" height="50%"  style="margin: 5px"/>
+      <div>
+   </details>
 
 ## Usage
 
