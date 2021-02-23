@@ -8,7 +8,7 @@
 <br />
 <p align="center"  style='margin-top: -40px; margin-bottom: -10px;'>
   <a href="https://github.com/suasllc/dronest">
-    <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="80" style="object-fit: contain">
+    <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="200" height="60" style="object-fit: contain">
   </a>
 
   <p align="center">
