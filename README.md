@@ -33,7 +33,7 @@
 
 
 <details >
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -62,9 +62,9 @@
 
 <!--ReactSkipperStart -->
 <details open="open">
-   <summary><h3 style="display: inline-block">Screenshots</h3></summary>
+   <summary>Screenshots</summary>
    <details open="open">
-      <summary><h3 style="display: inline-block">Home page</h3></summary>
+      <summary>Home page</summary>
       <div style="display: flex">
          <img src="./resources/screenshots/home.png" width="40%" height="40%" style="margin: 5px"/>
          <img src="./resources/screenshots/home-darkmode.png" width="40%" height="40%"  style="margin: 5px"/>
