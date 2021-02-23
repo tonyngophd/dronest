@@ -61,7 +61,7 @@
 ## About The Project
 ### What is the project
 
-This is a Full-Stack Web Application (Social Network, Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+This is a Full-Stack Web Application (Social Network, similar to Instagram/FaceBook/Skypixel) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
 
 This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
 
