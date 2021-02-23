@@ -14,10 +14,7 @@
   <h2 align="center">Dronest</h2>
 
   <p align="center">
-    A Full-Stack Web Application (Social Network, Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
-    This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
-    <br />
-    This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone graduation project
+    A Full-Stack Web Application (Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
     <br />
     <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
@@ -38,7 +35,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#technologies">Technologies</a></li>
       </ul>
     </li>
     <li>
@@ -58,6 +55,13 @@
 </details>
 
 ## About The Project
+### What is the project
+
+This is a Full-Stack Web Application (Social Network, Instagram/FaceBook-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+
+This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
+
+This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone graduation project
 <!--ReactSkipperEnd -->
 
 <!--ReactSkipperStart -->
