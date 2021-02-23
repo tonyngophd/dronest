@@ -118,8 +118,8 @@ export const AllPosts = () => {
                     )
                     .filter((p, i) => (i % columns) === index)
                     .map(post =>
-                      <div onClick={e => setModalPost(post)}>
-                        <ProfilePost post={post} key={nanoid()}
+                      <div onClick={e => setModalPost(post)} key={nanoid()}>
+                        <ProfilePost post={post}
                           setShowPostModal={setModalPost}
                         />
                       </div>

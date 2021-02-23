@@ -154,6 +154,7 @@ export function getRandomIntInclusive(min, max) {
 }
 
 export const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+export const isIOS = () => /iPhone|iPad|iPod|iOS/i.test(navigator.userAgent);
 
 const defaultOptions = {
   // bottom: '800px', // default: '32px'

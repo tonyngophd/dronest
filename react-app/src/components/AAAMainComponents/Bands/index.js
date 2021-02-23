@@ -52,7 +52,7 @@ export function NextOrPrevious({ next = true, onClick }) {
 
 export function MainBanner() {
   const [currentPic, setCurrentPic] = useState(0);
-  let next = currentPic;
+  let next = 0;
   const pictureSrc = [
     'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE',
     'https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148320108_10160467443344338_6638501313697117140_o.jpg?_nc_cat=100&ccb=3&_nc_sid=b9115d&_nc_ohc=GrZHWBY-Bm0AX8TQGeH&_nc_oc=AQmp5SXuP8M8mGZgJwUvclNQvxl61p-X8t241HbM2_rA-4Vx-fRK-o7Oh-Kr38aTFW0&_nc_ht=scontent-iad3-1.xx&oh=40b1cbc8637db1fa8907029fc48b3e0d&oe=604EB68E',

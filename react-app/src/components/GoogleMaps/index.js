@@ -29,6 +29,8 @@ let containerStyle = {
   height: '500px',
 };
 
+const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
+
 function MapComponent({ center = defaultCenter, zoom = 10 }) {
   const [map, setMap] = React.useState(null)
 
@@ -48,7 +50,7 @@ function MapComponent({ center = defaultCenter, zoom = 10 }) {
 
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyAkH92G4PO4QrcdQ1GjsX5ThHe7tWNyQog"
+      googleMapsApiKey={googleMapsApiKey}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -82,7 +84,7 @@ export const MapWithMarkerClusterer = ({
         height: `${window.innerHeight.toFixed(0)}px`
       };
       setContStyle(containerStyle);
-    }  
+    }
   }, [window.innerWidth, window.innerHeight]);
 
   const onSelect = spot => {
@@ -90,7 +92,7 @@ export const MapWithMarkerClusterer = ({
   }
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyAkH92G4PO4QrcdQ1GjsX5ThHe7tWNyQog"
+      googleMapsApiKey={googleMapsApiKey}
     >
       <GoogleMap id='marker-example' mapContainerStyle={contStyle} zoom={zoom} center={center}>
         <MarkerClusterer options={options}>
