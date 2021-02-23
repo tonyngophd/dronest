@@ -1,23 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import Iframe from 'react-iframe';
 import ReactMarkdown from 'react-markdown';
 import { render } from 'react-dom';
 import MiniProfile from '../MiniProfile';
+import { FcAbout } from 'react-icons/fc';
+import { AiOutlineGithub } from 'react-icons/ai';
 
 import { fetchAllUsers } from '../../store/users';
 
 
 import './About.css';
 
-function SocialLinks({ className, innerClassName = 'social-links' }) {
+function SocialLinks({ className, innerClassName = 'social-links', sidebar = false }) {
 
   return (
     <div className={className}>
       <div className={innerClassName}>
+        {
+          sidebar && <div className='social-icon-and-text'>
+            <Link to='/about'>
+              <FcAbout className='social-icon' />
+            </Link>
+            <div>
+              About
+              </div>
+          </div>
+        }
         <div className='social-icon-and-text'>
           <a href='https://github.com/suasllc/dronest' target='_blank'>
             <img src={'https://git-scm.com/images/logos/downloads/Git-Icon-Black.png'} className='social-icon' />
+            {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
           <div>
             Git Repo
@@ -25,7 +39,8 @@ function SocialLinks({ className, innerClassName = 'social-links' }) {
         </div>
         <div className='social-icon-and-text'>
           <a href='https://github.com/suasllc' target='_blank'>
-            <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' />
+            {/* <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' /> */}
+            <AiOutlineGithub className='social-icon' />
           </a>
           <div>
             GitHub
@@ -83,7 +98,11 @@ export function SideInfoNav() {
   return (
     <div className='sideinfo-nav-container'>
       <div className='sideinfo-nav-div'>
-        <SocialLinks className='social-links-sidenav' innerClassName='social-links column' />
+        <SocialLinks 
+          className='social-links-sidenav' 
+          innerClassName='social-links column' 
+          sidebar={true}
+        />
       </div>
     </div>
   );
