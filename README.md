@@ -55,7 +55,7 @@
             <li><a href="#acknowledgements">Acknowledgements</a></li>
          </ol>
       </div>
-      <div style="display: flex; flex-direction: column">
+      <div >
          <img src="./resources/screenshots/home.png" width="25%" height="25%" style="margin: 5px"/>
          <img src="./resources/screenshots/profilepage.png" width="25%" height="25%" style="margin: 5px"/>
       <div>
