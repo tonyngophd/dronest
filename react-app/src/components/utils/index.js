@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import createMentionPlugin from "@draft-js-plugins/mention";
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import Darkmode from 'darkmode-js';
 import { loadDarkModePOJO } from '../../store/darkmode';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';

@@ -159,9 +159,9 @@ export function Bands() {
   // const myself = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users.allUsers);
   const dispatch = useDispatch();
-  const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
-  const [categorizedUserPosts, updateCategorizedUserPosts] = useState([]);
-  const [categorizedUsers, updateCategorizedUsers] = useState([]);
+  const [locatedUserPosts, updateLocatedUserPosts] = useState(new Array(6).fill());
+  const [categorizedUserPosts, updateCategorizedUserPosts] = useState(new Array(4).fill());
+  const [categorizedUsers, updateCategorizedUsers] = useState(new Array(6).fill());
   const [showLoginForm, setShowLoginForm] = useState(false);
   const location = useLocation();
 
