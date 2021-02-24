@@ -12,7 +12,7 @@
   </a>
 
   <p align="center">
-    <b>Dronest</b> - A Full-Stack Web Application for users to host and share their drone arts (pics/vids) and get socialized on the platform.
+    <b>Dronest</b> - A Full-Stack Web Application for users to host and share their drone arts and get socialized on the platform.
     <br />
     <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
