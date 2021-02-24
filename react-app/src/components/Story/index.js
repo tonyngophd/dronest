@@ -47,27 +47,29 @@ export function StoryTopBox() {
 
 
   return (
+    <UserListRow users={usersWithRecentPosts} title='Stories' />
+  );
+}
+
+export function UserListRow({ users, title }) {
+
+  return (
     <div className='feed_post-container  story-topbox-container'>
       {
         // openStory && stories.length && <StoriesFullPageComponent stories={stories}/>
         // openStory && stories.length && <StoriesFullPage stories={stories} />
       }
       <div className='stories-title-div'>
-        Stories
+        {title}
       </div>
       <div
-        // className='feed_post-container feed_post-info story-topbox-main-div'
         className='feed_post-container story-topbox-main-div'
       >
         {
-          usersWithRecentPosts && usersWithRecentPosts.map(user =>
+          users && users.map(user =>
             <div key={nanoid()}>
               <Link to={`/stories/${user.username}`}>
                 <div className="feed_post-header story-topbox-user-div">
-                  {/* <img src={user.profilePicUrl} alt="user-icon" className="story-profile-image"
-                    style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                  // onClick={e => setOpenStory(true)}
-                  /> */}
                   <MediaDisplayer mediaUrl={user.profilePicUrl}
                     imgClassname="story-profile-image"
                     vidClassname="story-profile-image"

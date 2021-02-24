@@ -96,7 +96,7 @@
   /* color: rgb(38, 38, 38); */
   /* border-bottom: 1px solid rgb(219, 219, 219); */
   /* padding-bottom: 50px; */
-  height: 360px;
+  height: 280px;
   position: relative;
   width: 100vw;
   left: 0px;
@@ -109,7 +109,9 @@
 
 .profile-cover-photo{
   opacity: 0.8;
+  filter: brightness(60%);
   width: 100%;
+  min-width: 1100px;
   height: 100%;
   object-fit: cover;
   /* z-index: -1; */

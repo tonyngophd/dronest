@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app.models import (
   db, Post, Media, TaggedUser, Hashtag, 
-  HashtagPost, User, LikedPost, CommentLike, SavedPost,
+  HashtagPost, User, LikedPost, CommentLike, SavedPost, Category
 )
 from ..helpers import *
 from ..config import Config
@@ -133,6 +133,17 @@ def allFeedInfinite(page):
 
   feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
   return {'posts': {post.id: post.to_dict() for post in feed}}  
+
+@post_routes.route("/feed/<int:page>/<string:cfilter>")
+def allFeedInfiniteWithFilter(page, cfilter):
+  category = Category.query.filter(Category.name == cfilter).first()
+  print('filter', cfilter, category.name, category.id)
+  if category:
+    feed = Post.query.filter(Post.categoryId == category.id).order_by(Post.createdAt.desc()).offset(page*24).limit(24)
+  else:
+    feed = Post.query.order_by(Post.createdAt.desc()).offset(page*24).limit(24)
+  return {'posts': {post.id: post.to_dict() for post in feed}}  
+
 
 @post_routes.route("/tag/<string:hashtag>/<int:page>")
 def hashtagFeed(hashtag, page):

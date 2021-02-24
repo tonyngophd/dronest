@@ -12,6 +12,7 @@ import Loader from "react-loader-spinner";
 import { PostModal } from '../AAAMainComponents/SingleCard';
 import { MediaDisplayer } from '../utils';
 import ProfilePost from "../ProfilePost";
+import { UserListRow } from '../Story';
 
 
 const Feed = () => {
@@ -78,18 +79,20 @@ export const AllPosts = () => {
   const [modalPost, setModalPost] = useState(null);
   const params = useParams();
   const { filter } = params;
+  const [users, setUsers] = useState(Object.values(feed).map(p => p.user));
 
 
   // useEffect(() => {
   //   dispatch(fetchNotifications());
   // }, []);
-  useEffect(() => {
-    console.log('filter', filter, params);
-  }, [filter]);
-  useEffect(() => {
-    dispatch(fetchAllPosts(page));
-  }, [dispatch, page]);
 
+  useEffect(() => {
+    dispatch(fetchAllPosts(page, filter));
+  }, [dispatch, page]);
+  useEffect(() => {
+    setUsers(Object.values(feed).map(p => p.user));
+  }, [feed]);
+  
   const handleClick = (e, post) => {
     setPostToPop(post);
     setShowPostModal(true);
@@ -99,15 +102,21 @@ export const AllPosts = () => {
   const columns = 3;
   return (
     <div className="feed_grid_container explore-page">
+
       <div className="profile-info-cover">
         <img
           className='profile-cover-photo'
           src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE'
         />
-        <div className='allposts-page-title'>
-          {titleCase(filter)}
-        </div>
+        {
+          filter && <div className='allposts-page-title'>
+            {titleCase(filter)}
+          </div>
+        }
       </div>
+      {
+        users.length > 0 && <UserListRow users={users} title='Top Contributors' />
+      }      
       {feed && (
         <InfiniteScroll
           className="feed_grid_container"
@@ -158,7 +167,7 @@ export const AllPosts = () => {
 function titleCase(str) {
   str = str.toLowerCase().split(' ');
   for (var i = 0; i < str.length; i++) {
-    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
   }
   return str.join(' ');
 }

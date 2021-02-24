@@ -133,8 +133,10 @@ export const fetchHomeFeed = (userId, page) => async (dispatch) => {
   feed = feed["posts"];
   dispatch(loadHomeFeed(feed));
 };
-export const fetchAllPosts = (page) => async (dispatch) => {
-  const res = await fetch(`/api/posts/feed/${page}`);
+export const fetchAllPosts = (page, cfilter) => async (dispatch) => {
+  let link = `/api/posts/feed/${page}`;
+  if(cfilter) link += `/${cfilter}`;
+  const res = await fetch(link);
   let feed = await res.json();
   feed = feed["posts"];
   dispatch(loadAllFeedPOJO(feed));
