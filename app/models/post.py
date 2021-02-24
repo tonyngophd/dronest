@@ -24,12 +24,12 @@ class Post(db.Model):
 
  
     # Model name is title case and singular
-    user = db.relationship('User', foreign_keys=userId)  #owner of the post
-    taggedUsers = db.relationship('User', secondary='taggedusers')
+    user = db.relationship('User', foreign_keys=userId, lazy='select')  #owner of the post
+    taggedUsers = db.relationship('User', secondary='taggedusers', lazy='select')
     comments = db.relationship('Comment', foreign_keys='Comment.parentPostId')
     images = db.relationship('Media', foreign_keys='Media.postId')
-    likingUsers = db.relationship('User', secondary='likedposts')
-    userSaves = db.relationship('User', secondary='savedposts')
+    likingUsers = db.relationship('User', secondary='likedposts', lazy='select')
+    userSaves = db.relationship('User', secondary='savedposts', lazy='select')
     category = db.relationship('Category', foreign_keys=categoryId)
     album = db.relationship('Album', foreign_keys=albumId)
     equipment = db.relationship('Equipment', foreign_keys=equipmentId)
