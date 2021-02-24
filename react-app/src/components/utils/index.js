@@ -31,6 +31,9 @@ export function MediaDisplayer({
     return <div className={imgClassname}>Unsupported media type</div>;
   }
 
+  // overriding light setting when media is a facebook video
+  if(mediaUrl.toLowerCase().includes('facebook')) light = true;
+
   return (
     <>{
       mediatType === 'image' ?
