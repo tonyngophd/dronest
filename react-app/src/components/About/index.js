@@ -226,6 +226,7 @@ export function About() {
             <img src={require('../../pictures/nodejs.svg')} className='technology-icon' />
             <img src={'https://www.logolynx.com/images/logolynx/5b/5bf98b408fb57fec23637f44edd79138.jpeg'} className='technology-icon' />
             <img src={'https://jasonpallone.com/Sequelize-icon.png'} className='technology-icon' />
+            <img src={'https://miro.medium.com/max/250/1*3ABPMVLRjEvRWJejNY5YOw.png'} className='technology-icon' />
           </div>
         </div>
         <div className='about-author-div'>
