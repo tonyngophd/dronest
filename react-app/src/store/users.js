@@ -1,4 +1,5 @@
-const ADD_ALL_USERS = "users/ADD_ALL_USERS";
+const LOAD_ALL_USERS = "users/LOAD_ALL_USERS";
+const LOAD_MORE_USERS = "users/LOAD_MORE_USERS";
 const UPDATE_A_USER = "users/UPDATE_A_USER";
 const UPDATE_A_USER_POST = "users/UPDATE_A_USER_POST";
 const UPDATE_A_USER_POST_VIEW = "users/UPDATE_A_USER_POST_VIEW";
@@ -6,9 +7,14 @@ const UPDATE_A_USER_POST_VIEW = "users/UPDATE_A_USER_POST_VIEW";
 
 //TODO: work on an algorithm to suggest a small list of people only
 
-export const addAllUsersPOJO = (allUsers) => ({
-  type: ADD_ALL_USERS,
+export const loadAllUsersPOJO = (allUsers) => ({
+  type: LOAD_ALL_USERS,
   payload: allUsers,
+});
+
+export const loadMoreUsersPOJO = (users) => ({
+  type: LOAD_MORE_USERS,
+  payload: users,
 });
 
 export const updateAUserPOJO = (user) => ({
@@ -46,7 +52,7 @@ export const fetchAllUsers = () => async (dispatch) => {
     const res = await fetch("/api/users");
     if (res.ok) {
       const data = await res.json();
-      dispatch(addAllUsersPOJO(data.users));
+      dispatch(loadAllUsersPOJO(data.users));
     }
   } catch (e) {
 
@@ -64,7 +70,7 @@ export const fetchANumberOfUsers = (startNum, unum) => async (dispatch) => {
     });
     if (res.ok) {
       const data = await res.json();
-      dispatch(addAllUsersPOJO(data.users));
+      dispatch(loadMoreUsersPOJO(data.users));
     }
   } catch (e) {
 
@@ -91,9 +97,13 @@ const reducer = (state = initialState, action) => {
   let newState;
   let user;
   switch (action.type) {
-    case ADD_ALL_USERS:
+    case LOAD_ALL_USERS:
       newState = Object.assign({}, state);
       newState.allUsers = action.payload;
+      return newState;
+    case LOAD_MORE_USERS:
+      newState = Object.assign({}, state);
+      newState.allUsers = [...newState.allUsers, ...action.payload];
       return newState;
     case UPDATE_A_USER:
       newState = Object.assign({}, state);

@@ -321,3 +321,23 @@
   /* z-index: 2; */
 }
 
+/*https://bytutorial.com/blogs/css3/how-to-create-blinking-background-color-and-text-using-css3-animation*/
+.blink-bg{
+  width: 100%;
+  min-height: 160px;
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  animation: blinkingBackground 2s infinite;
+}
+@keyframes blinkingBackground{
+  0%		{ background-color: #346d36;}
+  50%		{ background-color: #532d31;}
+  100%	{ background-color: #2d515e;}  
+  /* 0%		{ background-color: #10c018;}
+  25%		{ background-color: #1056c0;}
+  50%		{ background-color: #ef0a1a;}
+  75%		{ background-color: #254878;}
+  100%	{ background-color: #04a1d5;} */
+}

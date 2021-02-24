@@ -445,7 +445,14 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
     album = user.ownPosts[0].album.name;
     equipment = user.ownPosts[0].equipment.name;
   } else {
-    return <></>;
+    return (
+      <div className={category || location ? 'single-card-outer-container-catloc' : 'single-card-outer-container'}>
+        <div className={category || location ? 'single-card-top-image-div-catloc' : 'single-card-top-image-div'}>
+          <div className='blink-bg'>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const handleClick = e => {
@@ -461,7 +468,7 @@ export default function SingleCard({ user, moreInfo = true, category = false, lo
           vidHandleClick={handleClick}
         />
         {user.ownPosts.length > 1 &&
-          <GrMultiple className='single-card-multiple-indicator'/>
+          <GrMultiple className='single-card-multiple-indicator' />
         }
       </div>
       {category &&

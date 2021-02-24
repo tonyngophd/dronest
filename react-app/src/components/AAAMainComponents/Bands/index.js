@@ -191,9 +191,11 @@ export function Bands() {
     // if (myself && !allUsers.length) dispatch(fetchAllUsers());
     // if (!allUsers.length) dispatch(fetchAllUsers());
     if (!allUsers.length) {
+      const firstLimit = 6;
+      const nextStart = firstLimit;
       // dispatch(fetchAllUsers());
-      dispatch(fetchANumberOfUsers(0, 6));
-      setTimeout(() => dispatch(fetchAllUsers()), 1000);
+      dispatch(fetchANumberOfUsers(0, firstLimit));
+      setTimeout(() => dispatch(fetchANumberOfUsers(nextStart, 1000)), 2000);
     }
   }, [dispatch]);
 
