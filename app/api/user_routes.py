@@ -18,7 +18,8 @@ def users():
     # right now, there is no distinction yet because the info is kind of NOT too sensitive
     users = User.query.all()
     # return {"users": [user.to_dict() for user in users]}
-    return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
+    # return {"users": [user.to_dict_with_posts_and_follows() for user in users]}
+    return {"users": [user.to_dict_with_posts_fast() for user in users]}
 
 @user_routes.route('', methods = ["POST"])
 # @login_required
