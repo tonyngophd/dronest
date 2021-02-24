@@ -31,7 +31,7 @@ export function MediaDisplayer({
     return <div className={imgClassname}>Unsupported media type</div>;
   }
 
-  // overriding light setting when media is a facebook video
+  // overriding light setting when media is a facebook video to load faster
   if(mediaUrl.toLowerCase().includes('facebook')) light = true;
 
   return (

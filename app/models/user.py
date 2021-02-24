@@ -116,7 +116,7 @@ class User(db.Model, UserMixin):
     }
 
   def to_dict_with_posts_fast(self):
-    return {
+    user_as_dict_basic = {
       "id": self.id,
       "name": self.name,
       "username": self.username,
@@ -124,8 +124,12 @@ class User(db.Model, UserMixin):
       "bio": self.bio,
       "websiteUrl": self.websiteUrl,
       "profilePicUrl": self.profilePicUrl,
-      "ownPosts": [post.to_dict_fast() for post in self.ownPosts],
     }
+
+    user_as_dict = user_as_dict_basic
+    user_as_dict["ownPosts"] = [post.to_dict_fast_own_user(user_as_dict_basic) for post in self.ownPosts]
+    return user_as_dict
+      # "ownPosts": [post.to_dict_fast() for post in self.ownPosts],
 
   def to_dict_feed(self):
     self.get_following()

@@ -107,6 +107,24 @@ class Post(db.Model):
             "likes": self.get_likes(),
         }
 
+    def to_dict_fast_own_user(self, user_as_dict):       
+        return {
+            "id": self.id,
+            "userId": self.userId,
+            "locationId": self.locationId,
+            "location": self.location.to_dict(),
+            "createdAt": self.createdAt,
+            "categoryId": self.categoryId,
+            "category": self.category.to_dict(),
+            "albumId": self.albumId,
+            "album": self.album.to_dict(),
+            "equipment": self.equipment.to_dict(),
+            "user": user_as_dict,   #no posts so if a post has this user, there is no infinite circular references
+            "views": self.get_views(),
+            "images": [image.to_dict() for image in self.images],
+            "likes": self.get_likes(),
+        }
+
     def to_dict_for_self(self):       
         return {
             "id": self.id,
