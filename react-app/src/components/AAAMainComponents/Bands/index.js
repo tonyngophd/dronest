@@ -156,7 +156,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
 }
 
 export function Bands() {
-  const myself = useSelector((state) => state.session.user);
+  // const myself = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users.allUsers);
   const dispatch = useDispatch();
   const [locatedUserPosts, updateLocatedUserPosts] = useState([]);
@@ -191,9 +191,9 @@ export function Bands() {
     // if (myself && !allUsers.length) dispatch(fetchAllUsers());
     // if (!allUsers.length) dispatch(fetchAllUsers());
     if (!allUsers.length) {
-      dispatch(fetchAllUsers());
-      // dispatch(fetchANumberOfUsers(0, 10));
-      // setTimeout(() => dispatch(fetchAllUsers()), 1000);
+      // dispatch(fetchAllUsers());
+      dispatch(fetchANumberOfUsers(0, 6));
+      setTimeout(() => dispatch(fetchAllUsers()), 1000);
     }
   }, [dispatch]);
 
