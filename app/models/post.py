@@ -60,6 +60,11 @@ class Post(db.Model):
             views += image.views
         return views
 
+    def get_likes(self):
+        likedposts = LikedPost.query.filter(LikedPost.postId == self.id).all()
+        return len(likedposts)
+
+
     # to_dict method to convert a dataframe into a dictionary of series or list like data type depending on orient parameter
     def to_dict(self):       
         return {
@@ -99,6 +104,7 @@ class Post(db.Model):
             "user": self.user.to_dict_no_posts(),   #no posts so if a post has this user, there is no infinite circular references
             "views": self.get_views(),
             "images": [image.to_dict() for image in self.images],
+            "likes": self.get_likes(),
         }
 
     def to_dict_for_self(self):       
