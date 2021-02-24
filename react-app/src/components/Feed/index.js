@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./feed.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
+
 import { fetchHomeFeed, fetchAllPosts } from "../../store/posts";
 import Post, { BarePost } from "../Post";
 import { nanoid } from "nanoid";
@@ -74,11 +76,16 @@ export const AllPosts = () => {
   const [postToPop, setPostToPop] = useState(undefined);
   const [showPostModal, setShowPostModal] = useState(false);
   const [modalPost, setModalPost] = useState(null);
+  const params = useParams();
+  const { filter } = params;
 
 
   // useEffect(() => {
   //   dispatch(fetchNotifications());
   // }, []);
+  useEffect(() => {
+    console.log('filter', filter, params);
+  }, [filter]);
   useEffect(() => {
     dispatch(fetchAllPosts(page));
   }, [dispatch, page]);
@@ -87,10 +94,20 @@ export const AllPosts = () => {
     setPostToPop(post);
     setShowPostModal(true);
   }
-
+  // <div className='profile-cover-photo-filter'>              
+  // </div>
   const columns = 3;
   return (
     <div className="feed_grid_container explore-page">
+      <div className="profile-info-cover">
+        <img
+          className='profile-cover-photo'
+          src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/148906718_10214572140055495_8986972067349990422_o.jpg?_nc_cat=105&ccb=3&_nc_sid=825194&_nc_ohc=8ATHVIkHewgAX-SHrps&_nc_ht=scontent-iad3-1.xx&oh=c536a1a48839127ed191a648ad1d0d44&oe=605152CE'
+        />
+        <div className='allposts-page-title'>
+          {titleCase(filter)}
+        </div>
+      </div>
       {feed && (
         <InfiniteScroll
           className="feed_grid_container"
@@ -131,10 +148,19 @@ export const AllPosts = () => {
       )}
       {
         modalPost &&
-          <PostModal user={modalPost.user} posts={[modalPost]} setShowModal={setModalPost} />
+        <PostModal user={modalPost.user} posts={[modalPost]} setShowModal={setModalPost} />
       }
     </div>
   );
 };
+
+//https://www.freecodecamp.org/news/three-ways-to-title-case-a-sentence-in-javascript-676a9175eb27/
+function titleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+  }
+  return str.join(' ');
+}
 
 export default Feed;

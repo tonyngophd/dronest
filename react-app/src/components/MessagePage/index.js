@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, userParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import "draft-js/dist/Draft.css";
 import { Link } from "react-router-dom";

@@ -120,7 +120,7 @@ export default function Band({ objects, numberOfCards = 4, moreInfo = true, cate
   };
 
   if (title) {
-    link = `/${title.replaceAll(' ', '')}`;
+    link = `/allposts/categories/${title.replaceAll(' ', '')}`;
   }
 
   return (

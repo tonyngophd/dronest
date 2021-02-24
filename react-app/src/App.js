@@ -63,7 +63,10 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/allposts'>
+        <ProtectedRoute path='/allposts' exact={true}>
+          <AllPosts />
+        </ProtectedRoute>
+        <ProtectedRoute path='/allposts/categories/:filter(\w+)'>
           <AllPosts />
         </ProtectedRoute>
         <Route path="/users" exact={true}>
