@@ -196,9 +196,7 @@ def create_message():
 @login_required
 def record_conversation():
     senderId = request.form["senderId"]
-    print('\n\nsenderId', senderId)
     receiverIds = request.form["receiverIds"]
-    print('\n\nreceiverIds', receiverIds)
     rawData = request.form["rawData"]
     mentioned_users = request.form["mentionedUsers"]
     mentioned_users = json.loads(mentioned_users)

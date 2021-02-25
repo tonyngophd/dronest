@@ -329,7 +329,7 @@ function MessagePage() {
                       insideCN="inner-message-input-box-draftjs"
                       action="Send"
                       placeHolder="Type your message"
-                      receiverId={currentReceiver.id}
+                      receiverIds={[currentReceiver.id]}
                       receiverName={currentReceiver.username}
                       sendInstantChat={sendInstantChat}
                     />

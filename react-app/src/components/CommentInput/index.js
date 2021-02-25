@@ -74,7 +74,7 @@ const CommentInput = ({
   insideCN = "",
   action = "Post",
   placeHolder = "Add a comment...",
-  receiverId,
+  receiverIds,
   receiverName,
   sendInstantChat = null,
   hasBorder = false,
@@ -210,21 +210,21 @@ const CommentInput = ({
       );
       modal && dispatch(fetchSinglePost(post.id));
     } else {
-      // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
+      // await sendAMessage(user.id, receiverIds[0], rawData.message, dispatch);
       if (sendInstantChat) {
-        //sendInstantChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
-        sendInstantChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
+        //sendInstantChat = (senderId, senderName, receiverIds[0], receiverName, msg, convoId)
+        sendInstantChat(user.id, user.username, receiverIds[0], receiverName, rawData, "convoId-reserved");
       }
       // await uploadMessage(
       //   user.id,
-      //   receiverId,
+      //   receiverIds[0],
       //   mentionedUsers,
       //   rawData,
       //   dispatch
       // );
       await uploadConvoMessage(
         user.id,
-        [receiverId],
+        receiverIds,
         mentionedUsers,
         rawData,
         dispatch
