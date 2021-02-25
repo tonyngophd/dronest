@@ -19,6 +19,8 @@ import { nanoid } from "nanoid";
 import { GrUp } from "react-icons/gr";
 import CommentInput from "../CommentInput";
 import { StoryTopBox } from '../Story';
+import { TiTimesOutline } from 'react-icons/ti';
+import { IoAddOutline } from 'react-icons/io5';
 
 import { fetchNotifications } from "../../store/notifications";
 
@@ -44,6 +46,7 @@ function MessagePage() {
   const [instantMessage, setInstantMessage] = useState({});
   const chatboxRef = useRef(null);
   const replaceText = 'Re9$L^$%';
+  const darkModeIsSet = useSelector(state => state.darkMode.isSet);
 
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
@@ -225,6 +228,11 @@ function MessagePage() {
     // addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
   }
 
+  const removeAUserFromAConvoClick = (e, receiverId) => {
+    e.preventDefault();
+    setCurrentReceivers(currentReceivers.filter(r => r.id !== receiverId));
+  }
+
   useEffect(() => {
     console.log('currentReceivers', currentReceivers);
   }, [currentReceivers]);
@@ -307,7 +315,7 @@ function MessagePage() {
                   />
                 </div>
                 <div>
-                  <button onClick={e => addAUserToAConvoClick(e, u.id)}>+</button>
+                  <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)}/>
                 </div>
               </div>
             ))}
@@ -317,13 +325,23 @@ function MessagePage() {
           {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
           {currentReceiver ? (
             <>
-              <div className="top-right-div">
-                <UserRow
-                  user={currentReceiver}
-                  myId={myself.id}
-                  showFollowButtonOrText={false}
-                  gotoUserPage={false}
-                />
+              <div className='users-div-top-right'>
+                {currentReceivers.map((user, i) =>
+                  <div className={
+                    darkModeIsSet ? "indiv-user-top-right-div dark_background" 
+                    : "indiv-user-top-right-div light_background"}
+                    style={{ left: `${400 / currentReceivers.length * i}px` }}
+                    key={nanoid()}>
+                    <UserRow
+                      user={user}
+                      myId={myself.id}
+                      showFollowButtonOrText={false}
+                      gotoUserPage={false}
+                    />
+                    <TiTimesOutline className='remove-this-user'
+                      onClick={e => removeAUserFromAConvoClick(e, user.id)}
+                    />
+                  </div>)}
               </div>
               <div className="main-right-div">
                 <div className="message-pannel-div">
