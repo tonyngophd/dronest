@@ -285,7 +285,7 @@ export function PostModal({ setShowModal, user, posts }) {
             {/* <div className="custom-modal-top-div">
 
             </div> */}
-            <div className={post.images.length > 1 ? "single-card-modal-images-div with-prevs" : 'single-card-modal-images-div'}>
+            <div className='single-card-modal-images-div'>
               <div className='post-modal-img-div'>
                 <MediaDisplayer
                   mediaUrl={post.images[mediaIndex].mediaUrl}
