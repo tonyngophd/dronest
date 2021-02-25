@@ -157,8 +157,10 @@
   background-color: rgba(255, 255, 255, 0.856);
   z-index: 200;
 }
+
 .post-modal-img-div{
   max-height: 900px;
+  /* height: fit-content; */
   min-width: 650px;
   max-width: 730px;
   overflow-x: scroll;
@@ -170,14 +172,21 @@
    /* IE and Edge */
   scrollbar-width: none;  
   /* Firefox */  
-  /* object-fit: contain; */
+  object-fit: contain;
   margin-right: 5px;
+  position: relative;
 }
 .post-modal-img-div::-webkit-scrollbar {
   display: none;
 }
+.with-prevs{
+  height: 950px;
+  /* overflow-y: visible; */
+  /* overflow-x: visible; */
+}
 .post-modal-img{
   max-height: 750px; 
+  max-width: 650px;
   object-fit: contain;
   border-radius: 5px;
 }
@@ -208,7 +217,9 @@
 .post-modal-img-preview-div{
   display: flex;
   justify-content: space-evenly;
-  max-width: 90%;   
+  max-width: 90%;
+  position: absolute;
+  bottom: 10px;
 }
 
 .post-modal-img-preview-inner{
