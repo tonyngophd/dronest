@@ -75,7 +75,7 @@ const CommentInput = ({
   action = "Post",
   placeHolder = "Add a comment...",
   receiverIds,
-  receiverName,
+  receiverNames,
   sendInstantChat = null,
   hasBorder = false,
 }) => {
@@ -212,8 +212,8 @@ const CommentInput = ({
     } else {
       // await sendAMessage(user.id, receiverIds[0], rawData.message, dispatch);
       if (sendInstantChat) {
-        //sendInstantChat = (senderId, senderName, receiverIds[0], receiverName, msg, convoId)
-        sendInstantChat(user.id, user.username, receiverIds[0], receiverName, rawData, "convoId-reserved");
+        //sendInstantChat = (senderId, senderName, receiverIds[0], receiverNames[0], msg, convoId)
+        sendInstantChat(user.id, user.username, receiverIds, receiverNames, rawData, "convoId-reserved");
       }
       // await uploadMessage(
       //   user.id,

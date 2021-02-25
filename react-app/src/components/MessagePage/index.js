@@ -189,10 +189,12 @@ function MessagePage() {
     };
   }, [username, userId]);
 
-  const sendInstantChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
+  const sendInstantChat = (senderId, senderName, receiverIds, receiverNames, message, convoId) => {
     if (webSocket.current)
       webSocket.current.sendMessage('chat-message', {
-        senderId, senderName, receiverId, receiverName, convoId, message,
+        senderId, senderName, 
+        receiverId: receiverIds[0], 
+        receiverName: receiverNames[0], convoId, message,
         createdAt: new Date(),
         updatedAt: new Date()
       });
@@ -367,8 +369,8 @@ function MessagePage() {
                       insideCN="inner-message-input-box-draftjs"
                       action="Send"
                       placeHolder="Type your message"
-                      receiverIds={[currentReceiver.id]}
-                      receiverName={currentReceiver.username}
+                      receiverIds={currentReceivers.map(u => u.id)}
+                      receiverNames={currentReceivers.map(u => u.username)}
                       sendInstantChat={sendInstantChat}
                     />
                   </div>
