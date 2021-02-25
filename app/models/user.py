@@ -6,6 +6,8 @@ from sqlalchemy import Table, Column, Integer, ForeignKey, or_
 from .directmessage import DirectMessage
 from .userequipment import UserEquipment
 from .equipment import Equipment
+from .message import Message
+from .messagereceiver import MessageReceiver
 from sqlalchemy.orm import validates
 
 
@@ -73,6 +75,12 @@ class User(db.Model, UserMixin):
       .filter(or_(DirectMessage.senderId == self.id, \
         DirectMessage.receiverId == self.id)).order_by(DirectMessage.id).all()
     self.allMessages = msgs
+
+  def get_conversations(self):
+    convos = MessageReceiver.query\
+      .filter(or_(MessageReceiver.senderId == self.id, \
+        MessageReceiver.receiverId == self.id)).order_by(MessageReceiver.id).all()
+    self.allMessages = convos
 
 
   def to_dict(self):
@@ -159,7 +167,8 @@ class User(db.Model, UserMixin):
   def to_dict_for_self(self):
     self.get_followers()
     self.get_following()
-    self.get_messages()
+    # self.get_messages()
+    self.get_conversations()
     return {
       "id": self.id,
       "username": self.username,

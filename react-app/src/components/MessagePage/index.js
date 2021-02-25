@@ -198,13 +198,11 @@ function MessagePage() {
       webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
   };
 
-  const receiverClick = (e) => {
+  const receiverClick = (e, receiverId) => {
     e.preventDefault();
-    const receiverId = Number(e.target.id.split("-")[0]);
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceiver(recver);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
-    // console.log('receiverId', receiverId, allUniqueReceivers.filter(u => u.id === receiverId)[0]);
   };
 
   // const msgClick = (e) => {
@@ -282,7 +280,7 @@ function MessagePage() {
 
           <div className="main-left-div">
             {allUniqueReceivers.map((u) => (
-              <div key={nanoid()} id={`${u.id}-receiver`} onClick={receiverClick}>
+              <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
                 <UserRow
                   user={u}
                   myId={myself.id}
