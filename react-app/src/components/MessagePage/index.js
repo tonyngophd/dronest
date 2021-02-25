@@ -233,7 +233,6 @@ function MessagePage() {
             <div className={divClass2}>
               {msg.message.map((m) => (
                 <div key={nanoid()}>
-                  {/* {m} */}
                   <Comment inputMessage={m} replaceText={replaceText} />
                 </div>
               ))}
@@ -255,7 +254,6 @@ function MessagePage() {
               <div className={divClass2}>
                 {msg.message.map((m) => (
                   <div key={nanoid()}>
-                    {/* {m} */}
                     <Comment inputMessage={m} replaceText={replaceText} />
                   </div>
                 ))}

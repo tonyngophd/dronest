@@ -62,7 +62,7 @@
 
 This is a Full-Stack Web Application (Social Network, similar to Instagram/FaceBook/Skypixel) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
 
-This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
+This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instant messaging.
 
 This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone graduation project
 <!--ReactSkipperEnd -->
@@ -95,7 +95,6 @@ This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone 
 | [Docker](https://www.docker.com/)  	| [React](https://github.com/facebook/react)  	|  [Flask](https://flask.palletsprojects.com/en/1.1.x/) 	| [NodeJS](https://nodejs.org/en/) |
 | [Heroku](https://heroku.com) 	| [Redux](https://github.com/reduxjs/redux) 	|  [SqlAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) 	| [Sequelize](https://sequelize.org/) |
 | [Pipenv](https://pypi.org/project/pipenv/)	| [CSS3](https://www.w3.org/Style/CSS/) 	|  [PostgreSQL](https://www.postgresql.org/) 	| [Express](https://expressjs.com/) |
-| [Heroku](https://heroku.com) 	| [Redux](https://github.com/reduxjs/redux) 	|  [SqlAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) 	|  |
 | 	| [HTML5](https://en.wikipedia.org/wiki/HTML5)	|  [AWS S3](https://aws.amazon.com/) 	|  |
 <!--ReactSkipperEnd -->
 
