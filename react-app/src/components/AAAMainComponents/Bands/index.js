@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { GrPrevious, GrNext } from 'react-icons/gr';
@@ -164,6 +164,7 @@ export function Bands() {
   const [categorizedUsers, updateCategorizedUsers] = useState(new Array(6).fill());
   const [showLoginForm, setShowLoginForm] = useState(false);
   const location = useLocation();
+  const [bandsClassName, setBandsClassName] = useState("homepage-bands-container-invisible");
 
   const categories = ['Seatle', 'New York',
     'Grand Canyon', 'Monument Valley', 'Four Corners', 'Arches National Park',
@@ -184,6 +185,11 @@ export function Bands() {
       setShowLoginForm(true);
     } else {
       setShowLoginForm(false);
+    }
+    if(location.pathname === '/' || location.pathname === '/login'){
+      setBandsClassName('homepage-bands-container-visible')
+    } else {
+      setBandsClassName('homepage-bands-container-invisible')
     }
   }, [location]);
 
@@ -262,11 +268,12 @@ export function Bands() {
         updateCategorizedUsers(catdUsers);
       }
     }
+    console.log('this length recalculation! I hate it');
   }, [allUsers])
 
 
   return (
-    <div className="homepage-bands-container">
+    <div className={bandsClassName}>
       {
         showLoginForm && <LoginForm setShowModal={setShowLoginForm} />
       }

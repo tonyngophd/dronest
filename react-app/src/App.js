@@ -45,9 +45,10 @@ function App() {
       {/* {user &&
           <NewPostTab />
         } */}
+      <Bands />
       <Switch>
         <Route path={["/", '/login']} exact={true}>
-          <Bands />
+
           {/* <div className="main_body">
               <div className="body_container">
                 <div className="stories-and-bands-div">

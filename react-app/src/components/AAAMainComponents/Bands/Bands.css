@@ -1,5 +1,11 @@
-.homepage-bands-container{
+.homepage-bands-container-invisible{
   margin-top: 80px;
+  display: none;
+}
+
+.homepage-bands-container-visible{
+  margin-top: 80px;
+  display: block;
 }
 
 .main-band-container{
