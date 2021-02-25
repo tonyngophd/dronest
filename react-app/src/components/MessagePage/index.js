@@ -192,8 +192,8 @@ function MessagePage() {
   const sendInstantChat = (senderId, senderName, receiverIds, receiverNames, message, convoId) => {
     if (webSocket.current)
       webSocket.current.sendMessage('chat-message', {
-        senderId, senderName, 
-        receiverId: receiverIds[0], 
+        senderId, senderName,
+        receiverId: receiverIds[0],
         receiverName: receiverNames[0], convoId, message,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -302,8 +302,25 @@ function MessagePage() {
               miniProfileEnabled={true}
             />
           </div>
-
-          <div className="main-left-div">
+          <div className="main-left-div" onClick={e => console.log(e.target)}>
+            {currentReceivers.length > 1 && <div className='users-div-row-left'>
+              {currentReceivers.map((user, i) =>
+                <div className={
+                  darkModeIsSet ? "indiv-user-row-left-div"
+                    : "indiv-user-row-left-div"}
+                  style={{ left: `${35 * i + 5}px` }}
+                  key={nanoid()}>
+                  <UserRow
+                    user={user}
+                    myId={myself.id}
+                    showFollowButtonOrText={false}
+                    gotoUserPage={false}
+                    miniProfileEnabled={false}
+                    short={true}
+                    nameFieldWidth={null}
+                  />
+                </div>)}
+            </div>}
             {allUniqueReceivers.map((u) => (
               <div className='user-row-div'>
                 <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
@@ -317,7 +334,7 @@ function MessagePage() {
                   />
                 </div>
                 <div>
-                  <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)}/>
+                  <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)} />
                 </div>
               </div>
             ))}
@@ -330,8 +347,8 @@ function MessagePage() {
               <div className='users-div-top-right'>
                 {currentReceivers.map((user, i) =>
                   <div className={
-                    darkModeIsSet ? "indiv-user-top-right-div dark_background" 
-                    : "indiv-user-top-right-div light_background"}
+                    darkModeIsSet ? "indiv-user-top-right-div dark_background"
+                      : "indiv-user-top-right-div light_background"}
                     style={{ left: `${400 / currentReceivers.length * i}px` }}
                     key={nanoid()}>
                     <UserRow
