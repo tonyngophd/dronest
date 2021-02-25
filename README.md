@@ -45,8 +45,11 @@
          <li><a href="#installation">Installation</a></li>
          </ul>
       </li>
-      <li><a href="#more-screenshots">More Screenshots</a></li>
-      <li><a href="#usage">Usage</a></li>
+      <li><a href="#usage">Usage</a>
+         <ul>
+            <li><a href="#more-screenshots">More Screenshots</a></li>
+         </ul>
+      </li>
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#contributing">Contributing</a></li>
       <li><a href="#license">License</a></li>
@@ -125,8 +128,9 @@ Install npm on your local computer
 
 3. [Further steps here](https://github.com/suasllc/dronest/wiki/Installation-Details)
 
+## Usage
 <!--ReactSkipperStart -->
-## More Screenshots
+### More Screenshots
 
 <details open="open">
    <summary>Profile Page and Post Upload</summary>   
@@ -154,9 +158,6 @@ Install npm on your local computer
 </details>
 
 <!--ReactSkipperEnd -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://github.com/suasllc/dronest/wiki)_
 
