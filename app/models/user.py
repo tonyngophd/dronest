@@ -126,7 +126,7 @@ class User(db.Model, UserMixin):
       "profilePicUrl": self.profilePicUrl,
     }
 
-    user_as_dict = user_as_dict_basic
+    user_as_dict = user_as_dict_basic.copy()
     user_as_dict["ownPosts"] = [post.to_dict_fast_own_user(user_as_dict_basic) for post in self.ownPosts]
     return user_as_dict
       # "ownPosts": [post.to_dict_fast() for post in self.ownPosts],

@@ -149,10 +149,10 @@ export function About() {
     if (!users.length) {
       dispatch(fetchAllUsers());
     }
-    if (users.length >= 3) setAuthor(users[2]);
+    if (users.length >= 5) setAuthor(users.find(u => u.username === 'TonySE'));
   }, [dispatch]);
   useEffect(() => {
-    if (!author && users.length >= 3) setAuthor(users[2]);
+    if (!author && users.length >= 5) setAuthor(users.find(u => u.username === 'TonySE'));
   }, [users]);
 
 
