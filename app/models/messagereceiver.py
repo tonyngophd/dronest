@@ -23,9 +23,11 @@ class MessageReceiver(db.Model):
         return {
           "id": self.id,
           "senderId": self.senderId,
-          "message": self.message.to_dict(),
           "receiverId": self.receiverId,
+          "message": self.message.rawData,
           "viewStatus": self.viewStatus,
+          "totalReceivers": self.message.totalReceivers,
+          "receiverIdList": self.message.receiverIdList,          
           'createdAt': self.createdAt,
           'updatedAt': self.updatedAt,
         }

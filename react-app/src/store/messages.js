@@ -51,4 +51,34 @@ export const uploadMessage = async (
   }
 };
 
+export const uploadConvoMessage = async (
+  senderId,
+  receiverIds,
+  mentionedUsers,
+  rawData,
+  dispatch
+) => {
+  mentionedUsers = mentionedUsers.map((user) => {
+    return user.id;
+  });
+  const form = new FormData();
+  form.append("senderId", senderId);
+  form.append("receiverIds", receiverIds);
+  form.append("mentionedUsers", JSON.stringify(mentionedUsers));
+  form.append("rawData", JSON.stringify(rawData));
+  const res1 = await fetch("/api/users/conversations", {
+    method: "POST",
+    body: form,
+  });
+  
+  const res2 = await res1.json();
+
+  if(!res2.errors){
+    // console.log("\n\n\nres2", res2);
+    dispatch(setUserPOJO(res2.user));
+    // if(receiverId === profilePersonId)
+    //   dispatch(loadProfileBasicInfoPOJO(res2.followee))
+  }
+};
+
 export default sendAMessage;

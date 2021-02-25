@@ -184,7 +184,7 @@ function MessagePage() {
     };
   }, [username, userId]);
 
-  const sendChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
+  const sendInstantChat = (senderId, senderName, receiverId, receiverName, message, convoId) => {
     if (webSocket.current)
       webSocket.current.sendMessage('chat-message', {
         senderId, senderName, receiverId, receiverName, convoId, message,
@@ -209,7 +209,7 @@ function MessagePage() {
   //   e.preventDefault();
   //   // console.log(myself.id, currentReceiver.id, currentMsg);
   //   sendAMessage(myself.id, currentReceiver.id, currentMsg, dispatch);
-  //   sendChat(currentMsg, username);
+  //   sendInstantChat(currentMsg, username);
   //   setCurrentMsg("");
   // };
 
@@ -331,7 +331,7 @@ function MessagePage() {
                       placeHolder="Type your message"
                       receiverId={currentReceiver.id}
                       receiverName={currentReceiver.username}
-                      sendChat={sendChat}
+                      sendInstantChat={sendInstantChat}
                     />
                   </div>
                 </div>

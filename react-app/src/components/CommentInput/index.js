@@ -18,7 +18,7 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
-import sendAMessage, { uploadMessage } from "../../store/messages";
+import { uploadMessage, uploadConvoMessage } from "../../store/messages";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -76,7 +76,7 @@ const CommentInput = ({
   placeHolder = "Add a comment...",
   receiverId,
   receiverName,
-  sendChat = null,
+  sendInstantChat = null,
   hasBorder = false,
 }) => {
   const user = useSelector((state) => state.session.user);
@@ -211,14 +211,20 @@ const CommentInput = ({
       modal && dispatch(fetchSinglePost(post.id));
     } else {
       // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
-      if (sendChat) {
-        //sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
-        sendChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
+      if (sendInstantChat) {
+        //sendInstantChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
+        sendInstantChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
       }
-      // console.log("\n\n\n\n\nRawdata", JSON.stringify(rawData));
-      await uploadMessage(
+      // await uploadMessage(
+      //   user.id,
+      //   receiverId,
+      //   mentionedUsers,
+      //   rawData,
+      //   dispatch
+      // );
+      await uploadConvoMessage(
         user.id,
-        receiverId,
+        [receiverId],
         mentionedUsers,
         rawData,
         dispatch
