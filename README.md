@@ -129,14 +129,14 @@ Install npm on your local computer
 ## More Screenshots
 
 <details open="open">
-   <summary>Profile Page</summary>   
+   <summary>Profile Page and Post Upload</summary>   
    <div style="display: flex">
       <img src="./resources/screenshots/follower-following.png" width="40%" height="40%"  style="margin: 5px"/>
       <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>         
    <div>
 </details>
 <details open="open">
-   <summary>Message, Stories and Upload</summary>   
+   <summary>Message and Stories</summary>   
    <div style="display: flex">
       <!-- <div style='display: flex; flex-direction: column; width="40%"'> -->
          <img src="./resources/screenshots/instantmessage.png" width="32%" height="30%" style="margin: 5px"/>
