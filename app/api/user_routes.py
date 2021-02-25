@@ -197,6 +197,7 @@ def create_message():
 def record_conversation():
     senderId = request.form["senderId"]
     receiverIds = request.form["receiverIds"]
+    receiverIds=[int(el) for el in receiverIds.split(',')]
     rawData = request.form["rawData"]
     mentioned_users = request.form["mentionedUsers"]
     mentioned_users = json.loads(mentioned_users)
