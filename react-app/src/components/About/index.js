@@ -39,11 +39,19 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
 
         <div className='social-icon-and-text'>
           <a href='https://github.com/suasllc/dronest' target='_blank'>
-            <img src={'https://git-scm.com/images/logos/downloads/Git-Icon-Black.png'} className='social-icon' />
+            <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
             {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
           <div>
             Git Repo
+              </div>
+        </div>
+        <div className='social-icon-and-text'>
+          <a href='https://www.linkedin.com/in/tony-ngo-suas/' target='_blank'>
+            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+          </a>
+          <div>
+            LinkedIn
               </div>
         </div>
         <div className='social-icon-and-text'>
@@ -56,23 +64,23 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://www.linkedin.com/in/tony-ngo-suas/' target='_blank'>
-            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+          <a href='https://www.tonyngo.us' target='_blank'>
+            <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
           </a>
           <div>
-            LinkedIn
+            My site
               </div>
         </div>
+      </div>
+      <div className={innerClassName}>
         <div className='social-icon-and-text'>
           <a href='https://angel.co/u/tony-ngo-11' target='_blank'>
-            <img src={'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/angellist-512.png'} className='social-icon' />
+            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwQ-b2UyYRrlUUE-l3m-BUtBJSXHU2aRXC1w&usqp=CAU'} className='social-icon' />
           </a>
           <div>
             Angellist
               </div>
         </div>
-      </div>
-      <div className={innerClassName}>
         <div className='social-icon-and-text'>
           <a href='https://www.youtube.com/c/sUAScom/videos' target='_blank'>
             <img src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Youtube_icon.svg/768px-Youtube_icon.svg.png'} className='social-icon' />
@@ -90,11 +98,12 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://www.tonyngo.us' target='_blank'>
-            <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
+          <a href='https://github.com/suasllc/dronestms' target='_blank'>
+            <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
+            {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
           <div>
-            My site
+            GitRepo2
               </div>
         </div>
       </div>
@@ -209,7 +218,7 @@ export function About() {
           </div>
           <hr />
           <div>
-          <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h5>Backend - 2 servers</h5>
             </div>
             <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
