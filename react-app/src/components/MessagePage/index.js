@@ -26,6 +26,7 @@ function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceiver, setCurrentReceiver] = useState(null);
+  const [currentReceivers, setCurrentReceivers] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
   const [allReceiverIds, setAllReceiverIds] = useState(
@@ -97,6 +98,7 @@ function MessagePage() {
     const id = Number(params.userId);
     if (id) {
       setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
+      setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
     }
   }, [params.userId, allUniqueReceivers])
 
@@ -202,6 +204,7 @@ function MessagePage() {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceiver(recver);
+    setCurrentReceivers([recver]);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
   };
 
@@ -212,6 +215,19 @@ function MessagePage() {
   //   sendInstantChat(currentMsg, username);
   //   setCurrentMsg("");
   // };
+
+  const addAUserToAConvoClick = (e, receiverId) => {
+    e.preventDefault();
+    const recver = allUniqueReceivers.find((u) => u.id === receiverId);
+    if (!currentReceivers.includes(recver)) {
+      setCurrentReceivers([...currentReceivers, recver]);
+    }
+    // addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
+  }
+
+  useEffect(() => {
+    console.log('currentReceivers', currentReceivers);
+  }, [currentReceivers]);
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -268,7 +284,6 @@ function MessagePage() {
       <div className="message-page-main-div">
         <div className="message-page-left-panel durp">
           <div className="top-left-div">
-            {/* <div className="user-name">{myself.username}</div> */}
             <UserRow
               user={myself}
               myId={myself.id}
@@ -280,15 +295,20 @@ function MessagePage() {
 
           <div className="main-left-div">
             {allUniqueReceivers.map((u) => (
-              <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
-                <UserRow
-                  user={u}
-                  myId={myself.id}
-                  showFollowButtonOrText={false}
-                  gotoUserPage={false}
-                  miniProfileEnabled={false}
-                  online={listOfOnlineUsers.find(ou => ou.id === u.id)}
-                />
+              <div className='user-row-div'>
+                <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
+                  <UserRow
+                    user={u}
+                    myId={myself.id}
+                    showFollowButtonOrText={false}
+                    gotoUserPage={false}
+                    miniProfileEnabled={false}
+                    online={listOfOnlineUsers.find(ou => ou.id === u.id)}
+                  />
+                </div>
+                <div>
+                  <button onClick={e => addAUserToAConvoClick(e, u.id)}>+</button>
+                </div>
               </div>
             ))}
           </div>
@@ -347,7 +367,7 @@ function MessagePage() {
                   <span className="subtitle-message-box-div">
                     Send private photos and messages to a friend or group.
               </span>
-                  <button className="button-message-box-div">Send Messages</button>
+                  <button className="button-message-box-div profile-follow-button">Send Messages</button>
                 </div>
               </div>
             )}

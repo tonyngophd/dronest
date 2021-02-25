@@ -167,6 +167,8 @@
   font-weight: bold;
   font-size: 16px;
   margin: 5px;
+  padding: 10px 10px;
+  border-radius: 5px;
 }
 
 .message-bubble-container-me-right {
@@ -211,6 +213,11 @@
   background: linear-gradient(to bottom right, #ffffff, #9dc9c6);
 }
 
+.user-row-div{
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+}
 
 /*
     "draft-js": "^0.11.7",
