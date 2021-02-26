@@ -27,7 +27,7 @@ import { fetchNotifications } from "../../store/notifications";
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
-  const [currentReceiver, setCurrentReceiver] = useState(null);
+  // const [currentReceiver, setCurrentReceiver] = useState(null);
   const [currentReceivers, setCurrentReceivers] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ function MessagePage() {
   useEffect(() => {
     const id = Number(params.userId);
     if (id) {
-      setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
+      // setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
       setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
     }
   }, [params.userId, allUniqueReceivers])
@@ -80,6 +80,7 @@ function MessagePage() {
       const msgs = myself.messages.filter(
         (msg) =>
         {
+          if(!msg.receiverIdList) return false;
           const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
           recIdList.push(msg.senderId);
           recIdList.sort();
@@ -120,7 +121,7 @@ function MessagePage() {
     }
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
-  }, [myself, currentReceiver, instantMessage]);
+  }, [myself, currentReceivers, instantMessage]);
 
   useEffect(() => {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
@@ -222,7 +223,7 @@ function MessagePage() {
   const receiverClick = (e, receiverId) => {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
-    setCurrentReceiver(recver);
+    // setCurrentReceiver(recver);
     setCurrentReceivers([recver]);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
   };
@@ -359,7 +360,7 @@ function MessagePage() {
         </div>
         <div className="message-page-right-panel">
           {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
-          {currentReceiver ? (
+          {currentReceivers.length > 0 ? (
             <>
               <div className='users-div-top-right'>
                 {currentReceivers.map((user, i) =>
