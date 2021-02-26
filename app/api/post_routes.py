@@ -67,6 +67,7 @@ def create_post():
     for image in images:
       image.filename = f'images/{secure_filename(image.filename)}'
       mediaUrl = upload_file_to_s3(image, Config.S3_BUCKET)
+      mediaUrl = mediaUrl.replace('http', 'https')
       new_image = Media(
         postId = post.id,
         mediaUrl=mediaUrl,
