@@ -49,6 +49,30 @@ function MessagePage() {
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
 
   useEffect(() => {
+    const all = myself.followers.concat(myself.following);
+    setAllUniqueReceivers(
+      allReceiverIds.map((id) => all.find((u) => u.id === id))
+    );
+  }, [allReceiverIds]);
+
+
+  useEffect(() => {
+    const id = Number(params.userId);
+    if (id) {
+      setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
+      setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
+    }
+  }, [params.userId, allUniqueReceivers])
+
+
+  useEffect(() => {
+    if (myself) {
+      setUserName(myself.username);
+      setUserId(myself.id);
+    }
+  }, [myself]);
+    
+  useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
     // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
@@ -89,29 +113,6 @@ function MessagePage() {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
   }, [currentGroupedMsgs]);
 
-  useEffect(() => {
-    const all = myself.followers.concat(myself.following);
-    setAllUniqueReceivers(
-      allReceiverIds.map((id) => all.find((u) => u.id === id))
-    );
-  }, [allReceiverIds]);
-
-
-  useEffect(() => {
-    const id = Number(params.userId);
-    if (id) {
-      setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
-      setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
-    }
-  }, [params.userId, allUniqueReceivers])
-
-
-  useEffect(() => {
-    if (myself) {
-      setUserName(myself.username);
-      setUserId(myself.id);
-    }
-  }, [myself]);
 
   useEffect(() => {
     if (!username || !userId) {
@@ -241,6 +242,7 @@ function MessagePage() {
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
+    let theOtherSender;
     if (msg.senderId === myself.id) {
       divClass1 = "message-bubble-container-me-right";
       divClass2 = "message-bubble-me-right";
@@ -249,6 +251,8 @@ function MessagePage() {
       divClass1 = "message-bubble-container-them-left";
       divClass2 = "message-bubble-them-left";
       divClass3 = 'message-and-profileimg-bubble-them-left';
+      theOtherSender = allUniqueReceivers.find(u => u.id === msg.senderId);
+      if(!theOtherSender) return <></>;
     }
     return (
       <div className={divClass1}>
@@ -271,8 +275,8 @@ function MessagePage() {
             <div className={divClass3}>
               <img
                 className="user-row-profile-img"
-                src={currentReceiver.profilePicUrl}
-                alt={currentReceiver.profilePicUrl}
+                src={theOtherSender.profilePicUrl}
+                alt='profilePicUrl'
                 style={{ marginRight: "0px" }}
               />
               <div className={divClass2}>
