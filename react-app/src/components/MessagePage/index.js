@@ -47,6 +47,7 @@ function MessagePage() {
   const replaceText = 'Re9$L^$%';
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
   const [conversations, setConversations] = useState({});
+  const [currentRcsInTheList, setCurrentRcsInTheList] = useState(false);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -83,7 +84,7 @@ function MessagePage() {
         const obj = {};
         obj[newList.join('_')] = listUfUsers;
         setConversations({ ...conversations, ...obj });
-        console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
+        // console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
       })
     }
   }, [myself, allUniqueReceivers]);
@@ -263,9 +264,22 @@ function MessagePage() {
     setCurrentReceivers(currentReceivers.filter(r => r.id !== receiverId));
   }
 
-  useEffect(() => {
-    console.log('currentReceivers', currentReceivers);
-  }, [currentReceivers]);
+  // useEffect(() => {
+  //   console.log('currentReceivers', currentReceivers);
+  // }, [currentReceivers]);
+
+  const currentRvsInConvosList = () => {
+    const currList = currentReceivers.map(u => u.id);
+    currList.sort();
+    const str = currList.join('_');
+    for (let key in conversations) {
+      if (key === str) {
+        // console.log("\n\n\nkey, currlist", key, currList)
+        return true;
+      }
+    }
+    return false;
+  }
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -333,8 +347,10 @@ function MessagePage() {
               miniProfileEnabled={true}
             />
           </div>
-          <div className="main-left-div" onClick={e => console.log(e.target)}>
-            {currentReceivers.length > 1 && <div className='users-div-row-left'>
+          <div className="main-left-div">
+            {currentReceivers.length > 1 && !currentRvsInConvosList() && <div className='users-div-row-left'>
+              <div className='users-div-row-left'>
+              </div>
               {currentReceivers.map((user, i) =>
                 <div className={
                   darkModeIsSet ? "indiv-user-row-left-div"
@@ -353,10 +369,14 @@ function MessagePage() {
                 </div>)}
             </div>}
             {
-              Object.values(conversations).map(listOfUsers => 
+              Object.values(conversations).map(listOfUsers =>
                 <div className='users-div-row-left'
-                  onClick={e => setCurrentReceivers(listOfUsers)}
+                  onClick={e => {
+                    setCurrentReceivers(listOfUsers);
+                  }}
                 >
+                  <div className='users-div-row-left'>
+                  </div>
                   {listOfUsers.map((user, i) =>
                     <div className={
                       darkModeIsSet ? "indiv-user-row-left-div"
@@ -378,7 +398,10 @@ function MessagePage() {
             }
             {allUniqueReceivers.map((u) => (
               <div className='user-row-div'>
-                <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
+                <div className='user-row-clickable-div'
+                  key={nanoid()} id={`${u.id}-receiver`}
+                  onClick={e => receiverClick(e, u.id)}
+                >
                   <UserRow
                     user={u}
                     myId={myself.id}
