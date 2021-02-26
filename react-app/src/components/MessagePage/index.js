@@ -71,16 +71,20 @@ function MessagePage() {
       setUserId(myself.id);
     }
   }, [myself]);
-    
+
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
     // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
-    if (currentReceiver) {
+    if (currentReceivers.length) {
       const msgs = myself.messages.filter(
         (msg) =>
-          msg.receiverId === currentReceiver.id ||
-          msg.senderId === currentReceiver.id
+        {
+          const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
+          return recIdList.includes(msg.receiverId) || recIdList.includes(msg.senderId);
+        }
+          // msg.receiverId === currentReceiver.id ||
+          // msg.senderId === currentReceiver.id
       );
       // if (Object.keys(instantMessage).length) {
       if (instantMessage.receiverId === myself.id)
