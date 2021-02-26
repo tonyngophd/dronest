@@ -88,7 +88,7 @@ function MessagePage() {
         }
         newList.sort();
         obj[newList.join('_')] = listOfUsers;
-        console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
+        // console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
       })
       setConversations({ ...conversations, ...obj });
     }
@@ -138,6 +138,7 @@ function MessagePage() {
           }
         }
       }
+      // console.log('\n\n\n\ngroupedMsgs', groupedMsgs, 'msgs', msgs);
     }
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);

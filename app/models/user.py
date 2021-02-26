@@ -80,7 +80,19 @@ class User(db.Model, UserMixin):
     convos = MessageReceiver.query\
       .filter(or_(MessageReceiver.senderId == self.id, \
         MessageReceiver.receiverId == self.id)).order_by(MessageReceiver.id).all()
-    self.allMessages = convos
+    uniqueConvos = []
+    if len(convos):
+      messageIdSet = set()
+      for convo in convos:
+        if convo.senderId != self.id:
+          uniqueConvos.append(convo)
+        else:
+          if convo.messageId not in messageIdSet:
+            uniqueConvos.append(convo)
+            messageIdSet.add(convo.messageId)
+
+
+    self.allMessages = uniqueConvos
 
 
   def to_dict(self):

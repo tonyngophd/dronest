@@ -25,6 +25,7 @@ class MessageReceiver(db.Model):
           "senderId": self.senderId,
           "receiverId": self.receiverId,
           "message": self.message.rawData,
+          "messageId": self.message.id,
           "viewStatus": self.viewStatus,
           "totalReceivers": self.message.totalReceivers,
           "receiverIdList": self.message.receiverIdList,          
