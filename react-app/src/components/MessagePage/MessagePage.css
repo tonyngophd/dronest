@@ -233,7 +233,9 @@
   align-items: center;
   justify-content: center;
   height: 120px;
-  margin-top: 5px;
+  width: 350px;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 .indiv-user-top-right-div{
   display: flex;

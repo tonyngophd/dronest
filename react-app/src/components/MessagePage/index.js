@@ -27,7 +27,6 @@ import { fetchNotifications } from "../../store/notifications";
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const [currentMsg, setCurrentMsg] = useState("");
-  // const [currentReceiver, setCurrentReceiver] = useState(null);
   const [currentReceivers, setCurrentReceivers] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
@@ -47,6 +46,7 @@ function MessagePage() {
   const chatboxRef = useRef(null);
   const replaceText = 'Re9$L^$%';
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
+  const [conversations, setConversations] = useState({});
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -59,7 +59,6 @@ function MessagePage() {
   useEffect(() => {
     const id = Number(params.userId);
     if (id) {
-      // setCurrentReceiver(allUniqueReceivers.find((u) => u.id === id));
       setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
     }
   }, [params.userId, allUniqueReceivers])
@@ -71,30 +70,45 @@ function MessagePage() {
       setUserId(myself.id);
     }
   }, [myself]);
+  useEffect(() => {
+    if (myself && allUniqueReceivers.length) {
+      myself.messages.forEach(msg => {
+        if (!msg.receiverIdList) return;
+        const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
+        recIdList.push(msg.senderId);
+        const newList = recIdList.filter(id => id !== myself.id);
+        if (newList.length < 2) return;
+        const listUfUsers = newList.map(id => allUniqueReceivers.find(u => u.id === id));
+        newList.sort();
+        const obj = {};
+        obj[newList.join('_')] = listUfUsers;
+        setConversations({ ...conversations, ...obj });
+        console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
+      })
+    }
+  }, [myself, allUniqueReceivers]);
 
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
     // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceivers.length) {
-      const msgs = myself.messages.filter(
-        (msg) =>
-        {
-          if(!msg.receiverIdList) return false;
-          const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
-          recIdList.push(msg.senderId);
-          recIdList.sort();
-          const currIds = currentReceivers.map(r => r.id)
-          currIds.push(myself.id);
-          currIds.sort();
-          if(recIdList.length !== currIds.length) return false;
-          for(let i = 0; i < recIdList.length; i++){
-            if(recIdList[i] !== currIds[i]) return false;
-          }
-          return true;
+      const msgs = myself.messages.filter(msg => {
+        if (!msg.receiverIdList) return false;
+        const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
+        recIdList.push(msg.senderId);
+        recIdList.sort();
+        const currIds = currentReceivers.map(r => r.id)
+        currIds.push(myself.id);
+        currIds.sort();
+        if (recIdList.length !== currIds.length) return false;
+        for (let i = 0; i < recIdList.length; i++) {
+          if (recIdList[i] !== currIds[i]) return false;
         }
-          // msg.receiverId === currentReceiver.id ||
-          // msg.senderId === currentReceiver.id
+        return true;
+      }
+        // msg.receiverId === currentReceiver.id ||
+        // msg.senderId === currentReceiver.id
       );
       // if (Object.keys(instantMessage).length) {
       if (instantMessage.receiverId === myself.id)
@@ -223,7 +237,6 @@ function MessagePage() {
   const receiverClick = (e, receiverId) => {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
-    // setCurrentReceiver(recver);
     setCurrentReceivers([recver]);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
   };
@@ -266,7 +279,7 @@ function MessagePage() {
       divClass2 = "message-bubble-them-left";
       divClass3 = 'message-and-profileimg-bubble-them-left';
       theOtherSender = allUniqueReceivers.find(u => u.id === msg.senderId);
-      if(!theOtherSender) return <></>;
+      if (!theOtherSender) return <></>;
     }
     return (
       <div className={divClass1}>
@@ -339,6 +352,30 @@ function MessagePage() {
                   />
                 </div>)}
             </div>}
+            {
+              Object.values(conversations).map(listOfUsers => 
+                <div className='users-div-row-left'
+                  onClick={e => setCurrentReceivers(listOfUsers)}
+                >
+                  {listOfUsers.map((user, i) =>
+                    <div className={
+                      darkModeIsSet ? "indiv-user-row-left-div"
+                        : "indiv-user-row-left-div"}
+                      style={{ left: `${35 * i + 5}px` }}
+                      key={nanoid()}>
+                      <UserRow
+                        user={user}
+                        myId={myself.id}
+                        showFollowButtonOrText={false}
+                        gotoUserPage={false}
+                        miniProfileEnabled={false}
+                        short={true}
+                        nameFieldWidth={null}
+                      />
+                    </div>)}
+                </div>
+              )
+            }
             {allUniqueReceivers.map((u) => (
               <div className='user-row-div'>
                 <div key={nanoid()} id={`${u.id}-receiver`} onClick={e => receiverClick(e, u.id)}>
