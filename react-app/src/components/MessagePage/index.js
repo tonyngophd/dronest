@@ -47,7 +47,6 @@ function MessagePage() {
   const replaceText = 'Re9$L^$%';
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
   const [conversations, setConversations] = useState({});
-  const [currentRcsInTheList, setCurrentRcsInTheList] = useState(false);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -73,19 +72,25 @@ function MessagePage() {
   }, [myself]);
   useEffect(() => {
     if (myself && allUniqueReceivers.length) {
+      const obj = {};
       myself.messages.forEach(msg => {
         if (!msg.receiverIdList) return;
         const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
         recIdList.push(msg.senderId);
         const newList = recIdList.filter(id => id !== myself.id);
         if (newList.length < 2) return;
-        const listUfUsers = newList.map(id => allUniqueReceivers.find(u => u.id === id));
+        const listOfUsers = newList.map(id => allUniqueReceivers.find(u => u.id === id));
+        for (let i = 0; i < listOfUsers.length; i++) {
+          if (!listOfUsers[i]) {
+            // Users not a follower or following yet ==> TODO: need to check if true
+            return;
+          }
+        }
         newList.sort();
-        const obj = {};
-        obj[newList.join('_')] = listUfUsers;
-        setConversations({ ...conversations, ...obj });
-        // console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
+        obj[newList.join('_')] = listOfUsers;
+        console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
       })
+      setConversations({ ...conversations, ...obj });
     }
   }, [myself, allUniqueReceivers]);
 
