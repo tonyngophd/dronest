@@ -81,7 +81,16 @@ function MessagePage() {
         (msg) =>
         {
           const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
-          return recIdList.includes(msg.receiverId) || recIdList.includes(msg.senderId);
+          recIdList.push(msg.senderId);
+          recIdList.sort();
+          const currIds = currentReceivers.map(r => r.id)
+          currIds.push(myself.id);
+          currIds.sort();
+          if(recIdList.length !== currIds.length) return false;
+          for(let i = 0; i < recIdList.length; i++){
+            if(recIdList[i] !== currIds[i]) return false;
+          }
+          return true;
         }
           // msg.receiverId === currentReceiver.id ||
           // msg.senderId === currentReceiver.id
