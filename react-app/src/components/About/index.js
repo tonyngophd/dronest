@@ -189,7 +189,7 @@ export function About() {
             <h3>About The Project</h3>
             <div>
               A Full-Stack Web Application (Social Network, Instagram/FaceBook/Skypixel-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
-              This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
+              This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instant messaging.
               <br />
               This is my
               <a href='www.appacademy.io' target='_blank' className='appacademy-a-link'>
