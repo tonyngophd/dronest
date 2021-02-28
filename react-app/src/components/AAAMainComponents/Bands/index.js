@@ -268,7 +268,7 @@ export function Bands() {
         updateCategorizedUsers(catdUsers);
       }
     }
-    console.log('this length recalculation! I hate it');
+    // console.log('this lengthy recalculation! I hate it');
   }, [allUsers])
 
 

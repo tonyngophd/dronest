@@ -39,11 +39,19 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
 
         <div className='social-icon-and-text'>
           <a href='https://github.com/suasllc/dronest' target='_blank'>
-            <img src={'https://git-scm.com/images/logos/downloads/Git-Icon-Black.png'} className='social-icon' />
+            <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
             {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
           <div>
             Git Repo
+              </div>
+        </div>
+        <div className='social-icon-and-text'>
+          <a href='https://www.linkedin.com/in/tony-ngo-suas/' target='_blank'>
+            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+          </a>
+          <div>
+            LinkedIn
               </div>
         </div>
         <div className='social-icon-and-text'>
@@ -56,23 +64,23 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://www.linkedin.com/in/tony-ngo-suas/' target='_blank'>
-            <img src={'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-linkedin-circle-512.png'} className='social-icon' />
+          <a href='https://www.tonyngo.us' target='_blank'>
+            <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
           </a>
           <div>
-            LinkedIn
+            My site
               </div>
         </div>
+      </div>
+      <div className={innerClassName}>
         <div className='social-icon-and-text'>
           <a href='https://angel.co/u/tony-ngo-11' target='_blank'>
-            <img src={'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/angellist-512.png'} className='social-icon' />
+            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwQ-b2UyYRrlUUE-l3m-BUtBJSXHU2aRXC1w&usqp=CAU'} className='social-icon' />
           </a>
           <div>
             Angellist
               </div>
         </div>
-      </div>
-      <div className={innerClassName}>
         <div className='social-icon-and-text'>
           <a href='https://www.youtube.com/c/sUAScom/videos' target='_blank'>
             <img src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Youtube_icon.svg/768px-Youtube_icon.svg.png'} className='social-icon' />
@@ -90,11 +98,12 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://www.tonyngo.us' target='_blank'>
-            <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
+          <a href='https://github.com/suasllc/dronestms' target='_blank'>
+            <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
+            {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
           <div>
-            My site
+            GitRepo2
               </div>
         </div>
       </div>
@@ -180,7 +189,7 @@ export function About() {
             <h3>About The Project</h3>
             <div>
               A Full-Stack Web Application (Social Network, Instagram/FaceBook/Skypixel-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
-              This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instantmessaging.
+              This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instant messaging.
               <br />
               This is my
               <a href='www.appacademy.io' target='_blank' className='appacademy-a-link'>
@@ -209,7 +218,7 @@ export function About() {
           </div>
           <hr />
           <div>
-          <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
+            <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h5>Backend - 2 servers</h5>
             </div>
             <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
@@ -223,7 +232,7 @@ export function About() {
             <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
               <h6>Instant Messaging Server</h6>
             </div>
-            <img src={require('../../pictures/nodejs.svg')} className='technology-icon' />
+            <img src={'https://icon-library.com/images/node-js-icon/node-js-icon-8.jpg'} className='technology-icon' />
             <img src={'https://www.logolynx.com/images/logolynx/5b/5bf98b408fb57fec23637f44edd79138.jpeg'} className='technology-icon' />
             <img src={'https://jasonpallone.com/Sequelize-icon.png'} className='technology-icon' />
             <img src={'https://miro.medium.com/max/250/1*3ABPMVLRjEvRWJejNY5YOw.png'} className='technology-icon' />
