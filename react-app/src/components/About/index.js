@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { render } from 'react-dom';
 import MiniProfile from '../MiniProfile';
-import { FcAbout } from 'react-icons/fc';
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { AiOutlineGithub } from 'react-icons/ai';
 
 import { fetchAllUsers } from '../../store/users';
@@ -25,7 +25,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
             onMouseLeave={() => setTimeout(() => setShowInfo(false), 200)}
           >
             <Link to='/about'>
-              <FcAbout className='social-icon' />
+              <AiOutlineInfoCircle className='social-icon' />
             </Link>
             <div>
               Info
