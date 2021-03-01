@@ -189,7 +189,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Tony Ngo [@suas_com](https://twitter.com/suas_com) - website: https://tonyngo.us
+Tony Ngo [@suas_com](https://twitter.com/suas_com) - website: https://tonyngo.me
 
 Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dronest)
 

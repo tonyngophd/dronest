@@ -20,7 +20,7 @@ def seed_users():
     db.session.add(demo2)
 
     tony = User(username='TonySE', email='tony@gmail.com',
-                password='password', bio='Full Stack software developer, React/Redux/Javascript/Python/Sequelize. Also a hobby dronist', websiteUrl="www.tonyngo.us",
+                password='password', bio='Full Stack software developer, React/Redux/Javascript/Python/Sequelize. Also a hobby dronist', websiteUrl="www.tonyngo.me",
                 name="Tony ",profilePicUrl="https://avatars.githubusercontent.com/u/52084654?s=460&u=825259c3a4c199a04970faadbbc929bdd1c5c4e9&v=4")
     db.session.add(tony)
 

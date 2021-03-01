@@ -64,7 +64,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://www.tonyngo.us' target='_blank'>
+          <a href='https://www.tonyngo.me' target='_blank'>
             <img src={'https://cdn0.iconfinder.com/data/icons/web-design-21/50/44-512.png'} className='social-icon' />
           </a>
           <div>
