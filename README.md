@@ -82,7 +82,7 @@ This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone 
 <details open="open">
    <summary>Code snippets</summary>
    <div style="display: flex">
-      <img src="./resources/screenshots/codesnippet1.png" width="40%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet1.png" width="39%" height="24%" style="margin: 5px"/>
       <img src="./resources/screenshots/codesnippet3.png" width="40%" height="24%" style="margin: 5px"/>
    <div>
 </details>
@@ -135,8 +135,8 @@ Install npm on your local computer
 <details open="open">
    <summary>Profile Page and Post Upload</summary>   
    <div style="display: flex">
-      <img src="./resources/screenshots/follower-following.png" width="40%" height="40%"  style="margin: 5px"/>
-      <img src="./resources/screenshots/newpost.png" width="40%" height="40%"  style="margin: 5px"/>         
+      <img src="./resources/screenshots/follower-following.png" width="45%" height="40%"  style="margin: 5px"/>
+      <img src="./resources/screenshots/newpost.png" width="38%" height="40%"  style="margin: 5px"/>         
    <div>
 </details>
 <details open="open">
@@ -152,7 +152,7 @@ Install npm on your local computer
 <details open="open">
    <summary>Code snippets</summary>
    <div style="display: flex">
-      <img src="./resources/screenshots/codesnippet2.png" width="35%" height="24%" style="margin: 5px"/>
+      <img src="./resources/screenshots/codesnippet2.png" width="38%" height="24%" style="margin: 5px"/>
       <img src="./resources/screenshots/codesnippet4.png" width="35%" height="24%" style="margin: 5px"/>
    <div>
 </details>
