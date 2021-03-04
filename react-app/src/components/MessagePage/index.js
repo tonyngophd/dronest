@@ -3,30 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 
 import "draft-js/dist/Draft.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
 
-import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
-import { uploadPost } from "../../store/posts";
+// import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
+// import { uploadPost } from "../../store/posts";
 import { fetchAllMessages, addAMessagePOJO } from "../../store/messages";
 import UserRow from "../ProfilePage/UserRow";
 import Comment from "../Comment";
+import { convoKeyFromUserArray, userArrayFromConvoKey } from '../utils';
 
 
 import "./MessagePage.css";
 import { nanoid } from "nanoid";
-import { GrUp } from "react-icons/gr";
+// import { GrUp } from "react-icons/gr";
 import CommentInput from "../CommentInput";
 import { StoryTopBox } from '../Story';
 import { TiTimesOutline } from 'react-icons/ti';
 import { IoAddOutline } from 'react-icons/io5';
 
-import { fetchNotifications } from "../../store/notifications";
+// import { fetchNotifications } from "../../store/notifications";
 
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
   const myMessages = useSelector((state) => state.messages.all);
-  const [currentMsg, setCurrentMsg] = useState("");
+  // const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceivers, setCurrentReceivers] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
@@ -208,7 +209,8 @@ function MessagePage() {
             const test2 = msg.replaceAll(':', replaceText);
             // console.log("test2", `${test2}`, typeof(test2))
             const goodReactMsg = { ...lastMessage, message: test2 };
-            setInstantMessage(goodReactMsg);
+            if(lastMessage.senderId !== myself.id)
+              setInstantMessage(goodReactMsg);
             // dispatch(setUserAddAMessagePOJO(goodReactMsg));
             if(lastMessage.receiverId === myself.id)
               dispatch(addAMessagePOJO(goodReactMsg));
@@ -277,6 +279,7 @@ function MessagePage() {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceivers([recver]);
+    // const convoKey
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", new Set());
   };
 
@@ -318,6 +321,10 @@ function MessagePage() {
     }
     return false;
   }
+
+  useEffect(() => {
+    console.log('myMessages', myMessages);
+  }, [myMessages]);
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -506,6 +513,7 @@ function MessagePage() {
                       receiverIds={currentReceivers.map(u => u.id)}
                       receiverNames={currentReceivers.map(u => u.username)}
                       sendInstantChat={sendInstantChat}
+                      setInstantMessage={setInstantMessage}
                     />
                   </div>
                 </div>

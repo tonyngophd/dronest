@@ -78,6 +78,7 @@ const CommentInput = ({
   receiverNames,
   sendInstantChat = null,
   hasBorder = false,
+  setInstantMessage,
 }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
@@ -99,7 +100,7 @@ const CommentInput = ({
   }, []);
 
   const setfocus = () => {
-    if(ref.current) ref.current.focus();
+    if (ref.current) ref.current.focus();
     setFocused(true);
   };
 
@@ -229,12 +230,17 @@ const CommentInput = ({
       //   rawData,
       //   dispatch
       // );
-      await dispatch(uploadConvoMessage2(
-        user.id,
-        receiverIds,
-        mentionedUsers,
-        rawData,
-      ));
+      try {
+        const instantMsg = await dispatch(uploadConvoMessage2(
+          user.id,
+          receiverIds,
+          mentionedUsers,
+          rawData,
+        ));
+        setInstantMessage(instantMsg);
+      } catch(e){
+
+      }
     }
   };
 
@@ -250,7 +256,7 @@ const CommentInput = ({
         }
         onBlur={() => setFocused(false)}
         onFocus={setfocus}
-        style={{border: hasBorder?'1px solid gray':'none', borderRadius: '5px'}}
+        style={{ border: hasBorder ? '1px solid gray' : 'none', borderRadius: '5px' }}
       >
         <Editor
           allowUndo={true}

@@ -4,6 +4,16 @@ import { setUserPOJO } from './session';
 const ADD_A_MESSAGE = "messages/ADD_A_MESSAGE";
 const LOAD_ALL_MESSAGES = "messages/LOAD_ALL_MESSAGES";
 
+export const addAMessagePOJO = (message) => ({
+  type: ADD_A_MESSAGE,
+  message,
+});
+export const addAllMessagesPOJO = (messages) => ({
+  type: LOAD_ALL_MESSAGES,
+  messages,
+});
+
+
 export const sendAMessage = async (senderId, receiverId, messageBody, dispatch) => {
   const res1 = await fetch(`/api/users/messages/receivers/${receiverId}`, {
     method: 'POST',
@@ -103,17 +113,9 @@ export const uploadConvoMessage2 = (
 
   if (!res2.errors) {
     dispatch(addAMessagePOJO(res2.message));
+    return res2.message;
   }
 };
-
-export const addAMessagePOJO = (message) => ({
-  type: ADD_A_MESSAGE,
-  message,
-});
-export const addAllMessagesPOJO = (messages) => ({
-  type: LOAD_ALL_MESSAGES,
-  messages,
-});
 
 export const fetchAllMessages = () => async (dispatch) => {
   try {
