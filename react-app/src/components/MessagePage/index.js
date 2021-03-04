@@ -157,9 +157,7 @@ function MessagePage() {
   useEffect(() => {
     // if (instantMessage.receiverId === myself.id) {
     const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
-    if (lastMsg && (lastMsg.receiverId === instantMessage.receiverId ||
-      lastMsg.senderId === instantMessage.senderId)
-    ) {
+    if (lastMsg && lastMsg.senderId === instantMessage.senderId) {
       lastMsg.message.push(instantMessage.message);
       const msgs = [...currentGroupedMsgs];
       msgs.pop();
@@ -319,26 +317,18 @@ function MessagePage() {
     setCurrentReceivers(currentReceivers.filter(r => r.id !== receiverId));
   }
 
-  // useEffect(() => {
-  //   console.log('currentReceivers', currentReceivers);
-  // }, [currentReceivers]);
-
   const currentRvsInConvosList = () => {
     const currList = currentReceivers.map(u => u.id);
     currList.sort();
     const str = currList.join('_');
     for (let key in conversations) {
       if (key === str) {
-        // console.log("\n\n\nkey, currlist", key, currList)
         return true;
       }
     }
     return false;
   }
 
-  useEffect(() => {
-    console.log('myMessages', myMessages);
-  }, [myMessages]);
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
