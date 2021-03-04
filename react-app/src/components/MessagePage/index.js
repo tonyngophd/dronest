@@ -69,7 +69,7 @@ function MessagePage() {
 
   useEffect(() => {
     if (myself) {
-      if(!myMessages.length)
+      if (!myMessages.length)
         dispatch(fetchAllMessages());
       setUserName(myself.username);
       setUserId(myself.id);
@@ -156,19 +156,19 @@ function MessagePage() {
   */
   useEffect(() => {
     // if (instantMessage.receiverId === myself.id) {
-      const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
-      if (lastMsg && (lastMsg.receiverId === instantMessage.receiverId ||
-        lastMsg.senderId === instantMessage.senderId)
-      ) {
-        lastMsg.message.push(instantMessage.message);
-        const msgs = [...currentGroupedMsgs];
-        msgs.pop();
-        msgs.push(lastMsg);
-        setCurrentGroupedMsgs(msgs);
-      } else {
-        const insM = { ...instantMessage, message: [instantMessage.message] };
-        setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
-      }
+    const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
+    if (lastMsg && (lastMsg.receiverId === instantMessage.receiverId ||
+      lastMsg.senderId === instantMessage.senderId)
+    ) {
+      lastMsg.message.push(instantMessage.message);
+      const msgs = [...currentGroupedMsgs];
+      msgs.pop();
+      msgs.push(lastMsg);
+      setCurrentGroupedMsgs(msgs);
+    } else {
+      const insM = { ...instantMessage, message: [instantMessage.message] };
+      setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
+    }
     // }
     console.log('rerendering this 172', instantMessage);
   }, [instantMessage]);
@@ -209,10 +209,10 @@ function MessagePage() {
             const test2 = msg.replaceAll(':', replaceText);
             // console.log("test2", `${test2}`, typeof(test2))
             const goodReactMsg = { ...lastMessage, message: test2 };
-            if(lastMessage.senderId !== myself.id)
+            if (lastMessage.senderId !== myself.id)
               setInstantMessage(goodReactMsg);
             // dispatch(setUserAddAMessagePOJO(goodReactMsg));
-            if(lastMessage.receiverId === myself.id)
+            if (lastMessage.receiverId === myself.id)
               dispatch(addAMessagePOJO(goodReactMsg));
           }
           break;
@@ -279,8 +279,10 @@ function MessagePage() {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceivers([recver]);
-    // const convoKey
-    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", new Set());
+    const convoKey = convoKeyFromUserArray([
+      { site: window.location.host },
+    ]);
+    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", convoKey);
   };
 
   // const msgClick = (e) => {
@@ -297,7 +299,13 @@ function MessagePage() {
     if (!currentReceivers.includes(recver)) {
       setCurrentReceivers([...currentReceivers, recver]);
     }
-    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
+    const convoKey = convoKeyFromUserArray([
+      { site: window.location.host },
+      { id: myself.id, username: myself.username },
+      ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
+    ]);
+    console.log('301 convoKey', convoKey);
+    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", convoKey);
   }
 
   const removeAUserFromAConvoClick = (e, receiverId) => {

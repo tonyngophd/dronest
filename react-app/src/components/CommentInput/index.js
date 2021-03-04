@@ -237,7 +237,8 @@ const CommentInput = ({
           mentionedUsers,
           rawData,
         ));
-        setInstantMessage(instantMsg);
+        if(instantMsg && instantMsg.senderId)
+          setInstantMessage(instantMsg);
       } catch(e){
 
       }
