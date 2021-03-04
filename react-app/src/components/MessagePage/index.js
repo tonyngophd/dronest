@@ -54,7 +54,6 @@ function MessagePage() {
     setAllUniqueReceivers(
       allReceiverIds.map((id) => all.find((u) => u.id === id))
     );
-    console.log('rerendering this 56', allReceiverIds);
   }, [allReceiverIds]);
 
 
@@ -63,7 +62,6 @@ function MessagePage() {
     if (id) {
       setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
     }
-    console.log('rerendering this 65', allUniqueReceivers);
   }, [params.userId, allUniqueReceivers])
 
 
@@ -74,7 +72,6 @@ function MessagePage() {
       setUserName(myself.username);
       setUserId(myself.id);
     }
-    console.log('rerendering this 74', myself);
   }, [myself]);
   useEffect(() => {
     if (myself && allUniqueReceivers.length) {
@@ -94,16 +91,12 @@ function MessagePage() {
         }
         newList.sort();
         obj[newList.join('_')] = listOfUsers;
-        // console.log('\n\n\n\n{...conversations, ...obj}', { ...conversations, ...obj });
       })
       setConversations({ ...conversations, ...obj });
     }
-    console.log('rerendering this 98', allUniqueReceivers);
   }, [myself, allUniqueReceivers, myMessages]);
 
   useEffect(() => {
-    // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
-    // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceivers.length) {
       const msgs = myMessages.filter(msg => {
@@ -142,25 +135,17 @@ function MessagePage() {
           }
         }
       }
-      // console.log('\n\n\n\ngroupedMsgs', groupedMsgs, 'msgs', msgs);
     }
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
-    console.log('rerendering this 146', groupedMsgs);
   }, [myself, currentReceivers, myMessages]);
 
-  /*
-        if (instantMessage.receiverId === myself.id)
-        msgs.push(instantMessage);
-        && instantMessage.receiverId !== instantMessage.senderId
-  */
   useEffect(() => {
     if (instantMessage) {
       const totalReceivers = currentReceivers.length;
       if (instantMessage.totalReceivers !== totalReceivers) return;
       const receiverIdList = [myself.id, ...currentReceivers.map(el => el.id)].sort().join('_');
       const instIdList = [instantMessage.senderId, ...instantMessage.receiverIdList.split('_')].sort().join('_');
-      console.log('162', instIdList, receiverIdList);
       if (instIdList !== receiverIdList) return;
     }
     const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
@@ -174,13 +159,11 @@ function MessagePage() {
       const insM = { ...instantMessage, message: [instantMessage.message] };
       setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
     }
-    // }
-    console.log('rerendering this 172', instantMessage);
+    // }    
   }, [instantMessage]);
 
   useEffect(() => {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
-    console.log('rerendering this 177 scrollIntoView');
   }, [currentGroupedMsgs]);
 
 
@@ -256,7 +239,6 @@ function MessagePage() {
       sendMessage,
     };
 
-    console.log('rerendering this 250', username);
     return function cleanup() {
       if (webSocket.current !== null) {
         webSocket.current.ws.close();
@@ -326,7 +308,6 @@ function MessagePage() {
       { id: myself.id, username: myself.username },
       ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
     ]);
-    console.log('301 convoKey', convoKey);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", convoKey);
   }
 
