@@ -53,6 +53,7 @@ function MessagePage() {
     setAllUniqueReceivers(
       allReceiverIds.map((id) => all.find((u) => u.id === id))
     );
+    console.log('rerendering this 56', allReceiverIds);
   }, [allReceiverIds]);
 
 
@@ -61,6 +62,7 @@ function MessagePage() {
     if (id) {
       setCurrentReceivers([allUniqueReceivers.find((u) => u.id === id)]);
     }
+    console.log('rerendering this 65', allUniqueReceivers);
   }, [params.userId, allUniqueReceivers])
 
 
@@ -69,6 +71,7 @@ function MessagePage() {
       setUserName(myself.username);
       setUserId(myself.id);
     }
+    console.log('rerendering this 74', myself);
   }, [myself]);
   useEffect(() => {
     if (myself && allUniqueReceivers.length) {
@@ -92,6 +95,7 @@ function MessagePage() {
       })
       setConversations({ ...conversations, ...obj });
     }
+    console.log('rerendering this 98', allUniqueReceivers);
   }, [myself, allUniqueReceivers]);
 
   useEffect(() => {
@@ -139,6 +143,7 @@ function MessagePage() {
     }
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
+    console.log('rerendering this 146', groupedMsgs);
   }, [myself, currentReceivers]);
 
   /*
@@ -148,7 +153,8 @@ function MessagePage() {
   useEffect(() => {
     if (instantMessage.receiverId === myself.id) {
       const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
-      if (lastMsg && lastMsg.receiverId === myself.id) {
+      if (lastMsg && lastMsg.receiverId === instantMessage.receiverId 
+        && instantMessage.receiverId !== instantMessage.senderId) {
         lastMsg.message.push(instantMessage.message);
         const msgs = [...currentGroupedMsgs];
         msgs.pop();
@@ -159,10 +165,12 @@ function MessagePage() {
         setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
       }
     }
+    console.log('rerendering this 167', instantMessage);
   }, [instantMessage]);
 
   useEffect(() => {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
+    console.log('rerendering this 172', currentGroupedMsgs);
   }, [currentGroupedMsgs]);
 
 
@@ -234,7 +242,8 @@ function MessagePage() {
       ws,
       sendMessage,
     };
-
+    
+    console.log('rerendering this 250', username);
     return function cleanup() {
       if (webSocket.current !== null) {
         webSocket.current.ws.close();
@@ -397,6 +406,7 @@ function MessagePage() {
                   onClick={e => {
                     setCurrentReceivers(listOfUsers);
                   }}
+                  key={nanoid()}
                 >
                   <div className='users-div-row-left'>
                   </div>
@@ -420,7 +430,7 @@ function MessagePage() {
               )
             }
             {allUniqueReceivers.map((u) => (
-              <div className='user-row-div'>
+              <div className='user-row-div' key={nanoid()}>
                 <div className='user-row-clickable-div'
                   key={nanoid()} id={`${u.id}-receiver`}
                   onClick={e => receiverClick(e, u.id)}
