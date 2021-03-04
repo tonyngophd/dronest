@@ -18,7 +18,7 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
-import sendAMessage, { uploadMessage } from "../../store/messages";
+import { uploadMessage, uploadConvoMessage, uploadConvoMessage2 } from "../../store/messages";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -74,10 +74,12 @@ const CommentInput = ({
   insideCN = "",
   action = "Post",
   placeHolder = "Add a comment...",
-  receiverId,
-  receiverName,
-  sendChat = null,
+  receiverIds,
+  receiverNames,
+  sendInstantChat = null,
+  convoKey,
   hasBorder = false,
+  setInstantMessage,
 }) => {
   const user = useSelector((state) => state.session.user);
   const userMentions = useSelector((state) => state.mentions.usersComments);
@@ -99,7 +101,7 @@ const CommentInput = ({
   }, []);
 
   const setfocus = () => {
-    if(ref.current) ref.current.focus();
+    if (ref.current) ref.current.focus();
     setFocused(true);
   };
 
@@ -210,19 +212,21 @@ const CommentInput = ({
       );
       modal && dispatch(fetchSinglePost(post.id));
     } else {
-      // await sendAMessage(user.id, receiverId, rawData.message, dispatch);
-      if (sendChat) {
-        //sendChat = (senderId, senderName, receiverId, receiverName, msg, convoId)
-        sendChat(user.id, user.username, receiverId, receiverName, rawData, "convoId-reserved");
+      if (sendInstantChat) {
+        sendInstantChat(user.id, user.username, receiverIds, receiverNames, rawData, convoKey);
       }
-      // console.log("\n\n\n\n\nRawdata", JSON.stringify(rawData));
-      await uploadMessage(
-        user.id,
-        receiverId,
-        mentionedUsers,
-        rawData,
-        dispatch
-      );
+      try {
+        const instantMsg = await dispatch(uploadConvoMessage2(
+          user.id,
+          receiverIds,
+          mentionedUsers,
+          rawData,
+        ));
+        if(instantMsg && instantMsg.senderId)
+          setInstantMessage(instantMsg);
+      } catch(e){
+
+      }
     }
   };
 
@@ -238,7 +242,7 @@ const CommentInput = ({
         }
         onBlur={() => setFocused(false)}
         onFocus={setfocus}
-        style={{border: hasBorder?'1px solid gray':'none', borderRadius: '5px'}}
+        style={{ border: hasBorder ? '1px solid gray' : 'none', borderRadius: '5px' }}
       >
         <Editor
           allowUndo={true}

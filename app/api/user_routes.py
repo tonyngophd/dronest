@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import (db, User, UserFollower, DirectMessage, 
     TaggedUser, CommentTaggedUser,
-    MessageTaggedUser
+    MessageTaggedUser, Message, MessageReceiver
 )
 import json
 user_routes = Blueprint('users', __name__)
@@ -192,14 +192,53 @@ def create_message():
     myself = User.query.get(senderId) 
     return {"user": myself.to_dict_for_self()}
 
-        
+@user_routes.route('/conversations', methods=['POST'])
+@login_required
+def record_conversation():
+    senderId = request.form["senderId"]
+    receiverIds = request.form["receiverIds"]
+    receiverIds=[int(el) for el in receiverIds.split(',')]
+    rawData = request.form["rawData"]
+    mentioned_users = request.form["mentionedUsers"]
+    mentioned_users = json.loads(mentioned_users)
 
+    msg = Message(
+        rawData=rawData,
+        totalReceivers=len(receiverIds),
+        receiverIdList='_'.join(map(str,receiverIds))
+    )
+    db.session.add(msg)
+    # db.session.flush()
+    db.session.commit()
 
-    
+    for id in receiverIds:
+        mr = MessageReceiver(
+            senderId=senderId,
+            messageId=msg.id,
+            receiverId=id,
+            viewStatus=False,
+        )
+        db.session.add(mr)
 
+    # for i in range(len(mentioned_users)):
+    #     user_mention = MessageTaggedUser(
+    #         messageId = dm.id,
+    #         userId = int(mentioned_users[i]),
+    #         viewStatus = False
+    #     )
+    #     db.session.add(user_mention)
 
-
-
-
-
-
+    db.session.commit()
+#   return message.to_dict()
+    # myself = User.query.get(senderId)
+    myself = current_user
+    myself.get_last_conversation()
+    message = myself.allMessages[-1]
+    # return {"user": myself.to_dict_for_self()}
+    return {"message": message.to_dict()}
+@user_routes.route('/conversations')
+@login_required
+def get_all_conversations():
+    current_user.get_conversations()
+    # return {"user": myself.to_dict_for_self()}
+    return {"messages": [message.to_dict() for message in current_user.allMessages]}

@@ -94,10 +94,11 @@ function UserRow({
           {miniProfileEnabled && !followlist && (
             <MiniProfile hover={hover} user={user} />
           )}
+          {nameFieldWidth &&
           <div className="user-row-info-div" style={{ fontSize: fontSize, width: nameFieldWidth }}>
             <div className="user-row-username">{user.username}</div>
             <div className="user-row-display-name">{short ? user.name.slice(0, 16) : user.name}</div>
-          </div>
+          </div>}
         </div>
         {showFollowButtonOrText &&
           (notFollowed ? (

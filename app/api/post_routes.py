@@ -229,7 +229,7 @@ def unlike_comment(commentId):
 @post_routes.route("/<int:postId>/addaview/<int:mediaId>")
 def add_a_view(postId, mediaId):
   media = Media.query.get(mediaId)
-  if media: 
+  if media:   
     media.views += 1
     db.session.commit()
   post = Post.query.get(postId)

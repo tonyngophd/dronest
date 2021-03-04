@@ -2,7 +2,6 @@ import { login, logout, authenticate, signup, updateProfile } from "../services/
 import { loadProfileBasicInfoPOJO } from './profile';
 
 const SET_USER = "session/SET_USER";
-const ADD_A_MESSAGE = "session/ADD_A_MESSAGE";
 const REMOVE_USER = "session/REMOVE_USER";
 const ADD_USER_LIKE = "session/ADD_USER_LIKE";
 const REMOVE_USER_LIKE = "session/REMOVE_USER_LIKE";
@@ -20,10 +19,6 @@ export const updateAFollowingPOJO = (followee, add = true) => ({
   type: UPDATE_A_FOLLOWING,
   followee,
   add,
-});
-export const setUserAddAMessagePOJO = (message) => ({
-  type: ADD_A_MESSAGE,
-  message,
 });
 
 export const removeAPostOfSessionUserPOJO = (postId) => ({
@@ -106,10 +101,6 @@ const reducer = (state = initialState, action) => {
     case REMOVE_USER:
       newState = Object.assign({}, state);
       newState.user = null;
-      return newState;
-    case ADD_A_MESSAGE:
-      newState = Object.assign({}, state);
-      newState.user.messages.push(action.message);
       return newState;
     case ADD_USER_LIKE:
       newState = Object.assign({}, state);
