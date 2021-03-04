@@ -74,7 +74,6 @@ export const uploadConvoMessage = async (
   const res2 = await res1.json();
 
   if(!res2.errors){
-    console.log('res2.message', res2.message);
     dispatch(setUserAddAMessagePOJO(res2.message));
   }
 };
