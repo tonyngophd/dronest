@@ -278,6 +278,17 @@ function MessagePage() {
     if (webSocket.current)
       webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoKey });
   };
+  const startAGroupConvo = (receivers) => {
+    if (webSocket.current){
+      const simplifiedReceivers = receivers.map(el => ({ id: el.id, username: el.username }));
+      const convoKey = convoKeyFromUserArray([
+        { site: window.location.host },
+        { id: myself.id, username: myself.username },
+        ...simplifiedReceivers
+      ]);     
+      webSocket.current.sendMessage('start-a-group-convo', { myId: myself.id, myUsername: myself.username, convoKey });
+    }
+  };
 
   const receiverClick = (e, receiverId) => {
     e.preventDefault();
@@ -422,6 +433,7 @@ function MessagePage() {
                 <div className='users-div-row-left'
                   onClick={e => {
                     setCurrentReceivers(listOfUsers);
+                    startAGroupConvo(listOfUsers);
                   }}
                   key={nanoid()}
                 >
