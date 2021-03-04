@@ -16,6 +16,13 @@
   padding-right: 40px;
   margin-bottom: 4px;
 }
+
+.message-div {
+  display: flex;
+  padding-right: 1px;
+  padding-left: 1px;
+  /* margin-bottom: 1px; */
+}
 .comment-heart {
   position: absolute;
   right: 15px;

@@ -32,7 +32,7 @@ function Comment({
 
   useEffect(() => {
     if (!message) {
-      if(user) setLiked(comment.likingUsers[user.id]);
+      if (user) setLiked(comment.likingUsers[user.id]);
       setLikes(Object.values(comment.likingUsers).length);
     }
   }, []);
@@ -68,10 +68,10 @@ function Comment({
     <div className={insideCN ?
       insideCN : (home ? "comment-wrapper" : "comment-modal-wrapper")}
     >
-      <div className="comment">
+      <div className={message ? "message-div" : "comment"}>
         {!message && comment && (
           <Link to={`/${comment.commenter}`}>
-            <div className="comment-user" style={{fontSize: nameFontSize}}>{comment.commenter}</div>
+            <div className="comment-user" style={{ fontSize: nameFontSize }}>{comment.commenter}</div>
             {!home && !message && <div className="comment-timestamp"
               style={{ fontWeight: 'normal', fontSize: nameFontSize }}>{timestamp}</div>}
           </Link>
@@ -79,13 +79,13 @@ function Comment({
         {messageIsPlainText ? (
           <>{data}</>
         ) : (
-            <Editor
-              editorState={editorState}
-              readOnly={true}
-              plugins={plugins}
-              onChange={(editorState) => setEditorState(editorState)}
-            />
-          )}
+          <Editor
+            editorState={editorState}
+            readOnly={true}
+            plugins={plugins}
+            onChange={(editorState) => setEditorState(editorState)}
+          />
+        )}
       </div>
       {/* {!home && !message && (
         <div className="time-and-likes-comment">
