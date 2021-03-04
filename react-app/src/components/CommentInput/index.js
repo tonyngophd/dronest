@@ -18,7 +18,7 @@ import {
   fetchSinglePost,
 } from "../../store/posts";
 
-import { uploadMessage, uploadConvoMessage } from "../../store/messages";
+import { uploadMessage, uploadConvoMessage, uploadConvoMessage2 } from "../../store/messages";
 
 const UserTag = (props) => {
   const { mention, theme, searchValue, isFocused, ...parentProps } = props;
@@ -222,13 +222,19 @@ const CommentInput = ({
       //   rawData,
       //   dispatch
       // );
-      await uploadConvoMessage(
+      // await uploadConvoMessage(
+      //   user.id,
+      //   receiverIds,
+      //   mentionedUsers,
+      //   rawData,
+      //   dispatch
+      // );
+      await dispatch(uploadConvoMessage2(
         user.id,
         receiverIds,
         mentionedUsers,
         rawData,
-        dispatch
-      );
+      ));
     }
   };
 

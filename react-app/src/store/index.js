@@ -3,6 +3,7 @@ import session from "./session.js";
 import profile from "./profile.js";
 import mentions from "./mentions.js";
 import users from "./users";
+import messages from "./messages";
 import posts from "./posts.js";
 import notifications from "./notifications.js";
 import searchReducer from './search';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   profile,
   mentions,
   users,
+  messages,
   posts,
   notifications,
   search: searchReducer,

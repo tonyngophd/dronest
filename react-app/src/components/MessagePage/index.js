@@ -8,11 +8,10 @@ import { BiChat } from "react-icons/bi";
 
 import { fetchUserMentions, fetchHashtagMentions } from "../../store/mentions";
 import { uploadPost } from "../../store/posts";
+import { fetchAllMessages, addAMessagePOJO } from "../../store/messages";
 import UserRow from "../ProfilePage/UserRow";
 import Comment from "../Comment";
 
-import sendAMessage from "../../store/messages";
-import { setUserAddAMessagePOJO } from '../../store/session';
 
 import "./MessagePage.css";
 import { nanoid } from "nanoid";
@@ -26,6 +25,7 @@ import { fetchNotifications } from "../../store/notifications";
 
 function MessagePage() {
   const myself = useSelector((state) => state.session.user);
+  const myMessages = useSelector((state) => state.messages.all);
   const [currentMsg, setCurrentMsg] = useState("");
   const [currentReceivers, setCurrentReceivers] = useState([]);
   const params = useParams();
@@ -68,6 +68,8 @@ function MessagePage() {
 
   useEffect(() => {
     if (myself) {
+      if(!myMessages.length)
+        dispatch(fetchAllMessages());
       setUserName(myself.username);
       setUserId(myself.id);
     }
@@ -76,7 +78,7 @@ function MessagePage() {
   useEffect(() => {
     if (myself && allUniqueReceivers.length) {
       const obj = {};
-      myself.messages.forEach(msg => {
+      myMessages.forEach(msg => {
         if (!msg.receiverIdList) return;
         const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
         recIdList.push(msg.senderId);
@@ -96,14 +98,14 @@ function MessagePage() {
       setConversations({ ...conversations, ...obj });
     }
     console.log('rerendering this 98', allUniqueReceivers);
-  }, [myself, allUniqueReceivers]);
+  }, [myself, allUniqueReceivers, myMessages]);
 
   useEffect(() => {
     // console.log("\n\n\n\n\n 48 instantMessage", instantMessage, 
     // Object.keys(instantMessage).length, instantMessage.senderId);
     const groupedMsgs = [];
     if (currentReceivers.length) {
-      const msgs = myself.messages.filter(msg => {
+      const msgs = myMessages.filter(msg => {
         if (!msg.receiverIdList) return false;
         const recIdList = msg.receiverIdList.split('_').map(id => Number(id));
         recIdList.push(msg.senderId);
@@ -144,7 +146,7 @@ function MessagePage() {
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
     console.log('rerendering this 146', groupedMsgs);
-  }, [myself, currentReceivers]);
+  }, [myself, currentReceivers, myMessages]);
 
   /*
         if (instantMessage.receiverId === myself.id)
@@ -161,12 +163,10 @@ function MessagePage() {
         const msgs = [...currentGroupedMsgs];
         msgs.pop();
         msgs.push(lastMsg);
-        console.log('164', msgs);
         setCurrentGroupedMsgs(msgs);
       } else {
         const insM = { ...instantMessage, message: [instantMessage.message] };
         setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
-        console.log('169', insM);
       }
     // }
     console.log('rerendering this 172', instantMessage);
@@ -174,7 +174,7 @@ function MessagePage() {
 
   useEffect(() => {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
-    console.log('rerendering this 172', currentGroupedMsgs);
+    console.log('rerendering this 177 scrollIntoView');
   }, [currentGroupedMsgs]);
 
 
@@ -209,7 +209,9 @@ function MessagePage() {
             // console.log("test2", `${test2}`, typeof(test2))
             const goodReactMsg = { ...lastMessage, message: test2 };
             setInstantMessage(goodReactMsg);
-            dispatch(setUserAddAMessagePOJO(goodReactMsg));
+            // dispatch(setUserAddAMessagePOJO(goodReactMsg));
+            if(lastMessage.receiverId === myself.id)
+              dispatch(addAMessagePOJO(goodReactMsg));
           }
           break;
         case 'update-online-user-list':

@@ -236,3 +236,9 @@ def record_conversation():
     message = myself.allMessages[-1]
     # return {"user": myself.to_dict_for_self()}
     return {"message": message.to_dict()}
+@user_routes.route('/conversations')
+@login_required
+def get_all_conversations():
+    current_user.get_conversations()
+    # return {"user": myself.to_dict_for_self()}
+    return {"messages": [message.to_dict() for message in current_user.allMessages]}
