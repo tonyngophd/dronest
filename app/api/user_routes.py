@@ -230,5 +230,8 @@ def record_conversation():
 
     db.session.commit()
 #   return message.to_dict()
-    myself = User.query.get(senderId) 
-    return {"user": myself.to_dict_for_self()}
+    myself = User.query.get(senderId)
+    myself.get_conversations()
+    message = myself.allMessages[-1]
+    # return {"user": myself.to_dict_for_self()}
+    return {"message": message.to_dict()}

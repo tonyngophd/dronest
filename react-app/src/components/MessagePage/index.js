@@ -149,23 +149,27 @@ function MessagePage() {
   /*
         if (instantMessage.receiverId === myself.id)
         msgs.push(instantMessage);
+        && instantMessage.receiverId !== instantMessage.senderId
   */
   useEffect(() => {
-    if (instantMessage.receiverId === myself.id) {
+    // if (instantMessage.receiverId === myself.id) {
       const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
-      if (lastMsg && lastMsg.receiverId === instantMessage.receiverId 
-        && instantMessage.receiverId !== instantMessage.senderId) {
+      if (lastMsg && (lastMsg.receiverId === instantMessage.receiverId ||
+        lastMsg.senderId === instantMessage.senderId)
+      ) {
         lastMsg.message.push(instantMessage.message);
         const msgs = [...currentGroupedMsgs];
         msgs.pop();
         msgs.push(lastMsg);
+        console.log('164', msgs);
         setCurrentGroupedMsgs(msgs);
       } else {
-        const insM = {...instantMessage, message: [instantMessage.message]};
+        const insM = { ...instantMessage, message: [instantMessage.message] };
         setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
+        console.log('169', insM);
       }
-    }
-    console.log('rerendering this 167', instantMessage);
+    // }
+    console.log('rerendering this 172', instantMessage);
   }, [instantMessage]);
 
   useEffect(() => {
@@ -198,7 +202,7 @@ function MessagePage() {
           break;
         case 'update-message-session':
           const messages = message.data.messages;
-          if (messages && messages.length && message.receiverId !== message.senderId) {
+          if (messages && messages.length) { //&& message.receiverId !== message.senderId
             const lastMessage = messages.pop();
             let msg = JSON.stringify(lastMessage.message);
             const test2 = msg.replaceAll(':', replaceText);
@@ -242,7 +246,7 @@ function MessagePage() {
       ws,
       sendMessage,
     };
-    
+
     console.log('rerendering this 250', username);
     return function cleanup() {
       if (webSocket.current !== null) {
