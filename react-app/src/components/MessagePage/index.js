@@ -155,7 +155,14 @@ function MessagePage() {
         && instantMessage.receiverId !== instantMessage.senderId
   */
   useEffect(() => {
-    // if (instantMessage.receiverId === myself.id) {
+    if (instantMessage) {
+      const totalReceivers = currentReceivers.length;
+      if (instantMessage.totalReceivers !== totalReceivers) return;
+      const receiverIdList = [myself.id, ...currentReceivers.map(el => el.id)].sort().join('_');
+      const instIdList = [instantMessage.senderId, ...instantMessage.receiverIdList.split('_')].sort().join('_');
+      console.log('162', instIdList, receiverIdList);
+      if (instIdList !== receiverIdList) return;
+    }
     const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
     if (lastMsg && lastMsg.senderId === instantMessage.senderId) {
       lastMsg.message.push(instantMessage.message);
@@ -279,13 +286,13 @@ function MessagePage() {
       webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoKey });
   };
   const startAGroupConvo = (receivers) => {
-    if (webSocket.current){
+    if (webSocket.current) {
       const simplifiedReceivers = receivers.map(el => ({ id: el.id, username: el.username }));
       const convoKey = convoKeyFromUserArray([
         { site: window.location.host },
         { id: myself.id, username: myself.username },
         ...simplifiedReceivers
-      ]);     
+      ]);
       webSocket.current.sendMessage('start-a-group-convo', { myId: myself.id, myUsername: myself.username, convoKey });
     }
   };

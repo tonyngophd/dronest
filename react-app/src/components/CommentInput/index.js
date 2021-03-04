@@ -212,24 +212,9 @@ const CommentInput = ({
       );
       modal && dispatch(fetchSinglePost(post.id));
     } else {
-      // await sendAMessage(user.id, receiverIds[0], rawData.message, dispatch);
       if (sendInstantChat) {
         sendInstantChat(user.id, user.username, receiverIds, receiverNames, rawData, convoKey);
       }
-      // await uploadMessage(
-      //   user.id,
-      //   receiverIds[0],
-      //   mentionedUsers,
-      //   rawData,
-      //   dispatch
-      // );
-      // await uploadConvoMessage(
-      //   user.id,
-      //   receiverIds,
-      //   mentionedUsers,
-      //   rawData,
-      //   dispatch
-      // );
       try {
         const instantMsg = await dispatch(uploadConvoMessage2(
           user.id,
