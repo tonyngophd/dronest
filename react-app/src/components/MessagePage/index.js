@@ -259,12 +259,18 @@ function MessagePage() {
     };
   }, [username, userId]);
 
+  /*
+          totalReceivers=len(receiverIds),
+        receiverIdList='_'.join(map(str,receiverIds))
+  */
   const sendInstantChat = (senderId, senderName, receiverIds, receiverNames, message, convoKey) => {
     if (webSocket.current)
       webSocket.current.sendMessage('chat-message', {
         senderId, senderName,
         receiverIds,
         receiverNames, convoKey, message,
+        totalReceivers: receiverIds.length,
+        receiverIdList: receiverIds.join('_'),
         createdAt: new Date(),
         updatedAt: new Date()
       });
@@ -521,6 +527,11 @@ function MessagePage() {
                       receiverIds={currentReceivers.map(u => u.id)}
                       receiverNames={currentReceivers.map(u => u.username)}
                       sendInstantChat={sendInstantChat}
+                      convoKey={convoKeyFromUserArray([
+                        { site: window.location.host },
+                        { id: myself.id, username: myself.username },
+                        ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
+                      ])}
                       setInstantMessage={setInstantMessage}
                     />
                   </div>

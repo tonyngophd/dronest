@@ -77,6 +77,7 @@ const CommentInput = ({
   receiverIds,
   receiverNames,
   sendInstantChat = null,
+  convoKey,
   hasBorder = false,
   setInstantMessage,
 }) => {
@@ -213,8 +214,7 @@ const CommentInput = ({
     } else {
       // await sendAMessage(user.id, receiverIds[0], rawData.message, dispatch);
       if (sendInstantChat) {
-        //sendInstantChat = (senderId, senderName, receiverIds[0], receiverNames[0], msg, convoId)
-        sendInstantChat(user.id, user.username, receiverIds, receiverNames, rawData, "convoId-reserved");
+        sendInstantChat(user.id, user.username, receiverIds, receiverNames, rawData, convoKey);
       }
       // await uploadMessage(
       //   user.id,
