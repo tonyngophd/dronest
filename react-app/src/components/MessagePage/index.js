@@ -198,7 +198,7 @@ function MessagePage() {
           break;
         case 'update-message-session':
           const messages = message.data.messages;
-          if (messages && messages.length) {
+          if (messages && messages.length && message.receiverId !== message.senderId) {
             const lastMessage = messages.pop();
             let msg = JSON.stringify(lastMessage.message);
             const test2 = msg.replaceAll(':', replaceText);
