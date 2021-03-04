@@ -94,6 +94,12 @@ class User(db.Model, UserMixin):
 
     self.allMessages = uniqueConvos
 
+  def get_last_conversation(self):
+    convo = MessageReceiver.query\
+      .filter(or_(MessageReceiver.senderId == self.id, \
+        MessageReceiver.receiverId == self.id)).order_by(-MessageReceiver.id).first()
+    self.allMessages = [convo]
+
 
   def to_dict(self):
     return {

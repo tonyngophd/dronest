@@ -232,7 +232,7 @@ def record_conversation():
 #   return message.to_dict()
     # myself = User.query.get(senderId)
     myself = current_user
-    myself.get_conversations()
+    myself.get_last_conversation()
     message = myself.allMessages[-1]
     # return {"user": myself.to_dict_for_self()}
     return {"message": message.to_dict()}
