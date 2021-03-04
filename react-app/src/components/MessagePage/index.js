@@ -117,9 +117,6 @@ function MessagePage() {
         // msg.senderId === currentReceiver.id
       );
       // if (Object.keys(instantMessage).length) {
-      if (instantMessage.receiverId === myself.id)
-        msgs.push(instantMessage);
-      // }
       if (msgs.length) {
         let currentSenderId = msgs[0].senderId;
         let j = 0;
@@ -142,7 +139,27 @@ function MessagePage() {
     }
     // dispatch(fetchNotifications());
     setCurrentGroupedMsgs(groupedMsgs);
-  }, [myself, currentReceivers, instantMessage]);
+  }, [myself, currentReceivers]);
+
+  /*
+        if (instantMessage.receiverId === myself.id)
+        msgs.push(instantMessage);
+  */
+  useEffect(() => {
+    if (instantMessage.receiverId === myself.id) {
+      const lastMsg = currentGroupedMsgs[currentGroupedMsgs.length - 1];
+      if (lastMsg && lastMsg.receiverId === myself.id) {
+        lastMsg.message.push(instantMessage.message);
+        const msgs = [...currentGroupedMsgs];
+        msgs.pop();
+        msgs.push(lastMsg);
+        setCurrentGroupedMsgs(msgs);
+      } else {
+        const insM = {...instantMessage, message: [instantMessage.message]};
+        setCurrentGroupedMsgs([...currentGroupedMsgs, insM]);
+      }
+    }
+  }, [instantMessage]);
 
   useEffect(() => {
     if (chatboxRef.current) chatboxRef.current.scrollIntoView(false, { behavior: "smooth" });
@@ -225,27 +242,27 @@ function MessagePage() {
     };
   }, [username, userId]);
 
-  const sendInstantChat = (senderId, senderName, receiverIds, receiverNames, message, convoId) => {
+  const sendInstantChat = (senderId, senderName, receiverIds, receiverNames, message, convoKey) => {
     if (webSocket.current)
       webSocket.current.sendMessage('chat-message', {
         senderId, senderName,
-        receiverId: receiverIds[0],
-        receiverName: receiverNames[0], convoId, message,
+        receiverIds,
+        receiverNames, convoKey, message,
         createdAt: new Date(),
         updatedAt: new Date()
       });
   };
 
-  const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoId) => {
+  const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoKey) => {
     if (webSocket.current)
-      webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoId });
+      webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoKey });
   };
 
   const receiverClick = (e, receiverId) => {
     e.preventDefault();
     const recver = allUniqueReceivers.find((u) => u.id === receiverId);
     setCurrentReceivers([recver]);
-    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
+    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", new Set());
   };
 
   // const msgClick = (e) => {
@@ -262,7 +279,7 @@ function MessagePage() {
     if (!currentReceivers.includes(recver)) {
       setCurrentReceivers([...currentReceivers, recver]);
     }
-    // addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
+    addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", 'newConvo');
   }
 
   const removeAUserFromAConvoClick = (e, receiverId) => {
