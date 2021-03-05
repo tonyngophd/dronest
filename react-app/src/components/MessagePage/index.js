@@ -180,7 +180,8 @@ function MessagePage() {
     const ws = new WebSocket(REACT_APP_WS_URL);
 
     ws.onopen = () => {
-      sendMessage('add-new-person', { userId, username });
+      sendMessage('add-new-person', { userId, username, site: window.location.host });
+      setInterval(() => sendMessage('heart-beat', { userId, username, site: window.location.host }), 5000);
     };
 
     ws.onmessage = (e) => {
@@ -212,7 +213,8 @@ function MessagePage() {
           updateListOfOnlineUsers(message.data);
           break;
         default:
-          throw new Error(`Unknown message type: ${message.type}`);
+          console.log(`Unknown message type: ${message.type}`);
+          break;
       }
     };
 
@@ -511,7 +513,6 @@ function MessagePage() {
             e.preventDefault();
           }}
           onDrop={e => {
-            console.log('Right pandel drag DROPPED');
             addAUserToAConvoClick(e, draggedUserId);
             setDraggedUserId(null);
           }}
