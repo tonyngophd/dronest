@@ -225,6 +225,7 @@
   cursor: grab;
 }
 .user-row-clickable-div{
+  display: flex;
   cursor: pointer;
   width: 80%;
 }

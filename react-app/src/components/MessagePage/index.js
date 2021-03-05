@@ -49,6 +49,8 @@ function MessagePage() {
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
   const [conversations, setConversations] = useState({});
   const [currentCovoIndex, setCurrentConvoIndex] = useState(0);
+  const [messageNoticeObject, setMessageNoticeObject] = useState({});
+  const [_, makeReactUpdateMessageNotice] = useState(null);
   const groupConvoStartIndex = 10;
   const indivConvoStartIndex = 1000;
   const [draggedUserId, setDraggedUserId] = useState(null);
@@ -205,8 +207,16 @@ function MessagePage() {
             if (lastMessage.senderId !== myself.id)
               setInstantMessage(goodReactMsg);
             // dispatch(setUserAddAMessagePOJO(goodReactMsg));
-            if (lastMessage.receiverId === myself.id)
+            if (lastMessage.receiverId === myself.id) {
               dispatch(addAMessagePOJO(goodReactMsg));
+              const object = {};
+              const string = lastMessage.receiverIdList + `_${lastMessage.senderId}`;
+              const arr = string.split('_').map(id => Number(id)).filter(id => id !== myself.id).sort();
+              object[arr.join('_')] = test2;
+              console.log('213', object);
+              setMessageNoticeObject({ ...messageNoticeObject, ...object });
+              makeReactUpdateMessageNotice(Math.random());
+            }
           }
           break;
         case 'update-online-user-list':
@@ -438,6 +448,7 @@ function MessagePage() {
                     setCurrentReceivers(listOfUsers);
                     startAGroupConvo(listOfUsers);
                     setCurrentConvoIndex(index + groupConvoStartIndex);
+                    delete messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`];
                   }}
                   key={nanoid()}
                 >
@@ -460,6 +471,11 @@ function MessagePage() {
                           nameFieldWidth={null}
                         />
                       </div>)}
+                    {
+                      messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`] &&
+                      currentCovoIndex !== index + groupConvoStartIndex && 
+                      <Comment inputMessage={messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`]} replaceText={replaceText} />
+                    }
                   </div>
                 </div>
               )
@@ -484,6 +500,7 @@ function MessagePage() {
                   onClick={e => {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
+                    delete  messageNoticeObject[`${u.id}`];
                   }}
                 >
                   <UserRow
@@ -494,6 +511,10 @@ function MessagePage() {
                     miniProfileEnabled={false}
                     online={listOfOnlineUsers.find(ou => ou.id === u.id)}
                   />
+                  {
+                    messageNoticeObject[`${u.id}`] && (currentCovoIndex !== index + indivConvoStartIndex) &&
+                    <Comment inputMessage={messageNoticeObject[`${u.id}`] } replaceText={replaceText} />
+                  }
                 </div>
                 <div>
                   {userNOTInCurrentReceiverList(u.id) &&
