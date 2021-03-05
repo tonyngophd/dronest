@@ -333,6 +333,10 @@ function MessagePage() {
     return false;
   }
 
+  const userNOTInCurrentReceiverList = receiverId => {
+    return !currentReceivers.map(u => u.id).includes(receiverId);
+  }
+
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -459,10 +463,12 @@ function MessagePage() {
             }
             {allUniqueReceivers.map((u, index) => (
               <div className={currentCovoIndex === index + indivConvoStartIndex ? 'user-row-div selected' : 'user-row-div'}
+                draggable={true}
                 key={nanoid()}
               >
                 <div className='user-row-clickable-div'
                   key={nanoid()} id={`${u.id}-receiver`}
+                  onDoubleClick={e => addAUserToAConvoClick(e, u.id)}
                   onClick={e => {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
@@ -478,7 +484,9 @@ function MessagePage() {
                   />
                 </div>
                 <div>
-                  <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)} />
+                  {userNOTInCurrentReceiverList(u.id) &&
+                    <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)} />
+                  }
                 </div>
               </div>
             ))}

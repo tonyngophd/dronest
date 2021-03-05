@@ -219,9 +219,11 @@
   width: 98%;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0);
+  cursor: move;
 }
 .user-row-clickable-div{
   cursor: pointer;
+  /* width: 90%; */
 }
 .users-div-top-right{
   display: flex;
