@@ -217,6 +217,7 @@
   display: flex;
   justify-content: space-between;
   width: 98%;
+  border-radius: 5px;
 }
 .user-row-clickable-div{
   cursor: pointer;
@@ -232,6 +233,30 @@
 .users-div-row-left{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 98%;
+  /* margin-top: 25px;
+  margin-bottom: 20px; */
+  padding: 0px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/* .user-row-div:active,
+.users-div-row-left:active{
+  border: 1px dashed rgb(127, 204, 230);
+} */
+.user-row-div:hover,
+.users-div-row-left:hover{
+  background-color: rgb(127, 204, 230);
+}
+.selected{
+  border: 1px solid gray;
+}
+.users-div-row-left-inner{
+  display: flex;
+  flex-direction: row;
   position: relative;
   align-items: center;
   justify-content: center;
@@ -242,6 +267,7 @@
   padding: 0px;
   cursor: pointer;
 }
+
 .indiv-user-top-right-div{
   display: flex;
   justify-content: flex-start;

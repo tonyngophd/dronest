@@ -48,6 +48,9 @@ function MessagePage() {
   const replaceText = 'Re9$L^$%';
   const darkModeIsSet = useSelector(state => state.darkMode.isSet);
   const [conversations, setConversations] = useState({});
+  const [currentCovoIndex, setCurrentConvoIndex] = useState(0);
+  const groupConvoStartIndex = 10;
+  const indivConvoStartIndex = 1000;
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -309,6 +312,7 @@ function MessagePage() {
       ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
     ]);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", convoKey);
+    setCurrentConvoIndex(0);
   }
 
   const removeAUserFromAConvoClick = (e, receiverId) => {
@@ -325,6 +329,7 @@ function MessagePage() {
         return true;
       }
     }
+    // setCurrentConvoIndex(0);
     return false;
   }
 
@@ -361,22 +366,22 @@ function MessagePage() {
             />
           </div>
         ) : (
-            <div className={divClass3}>
-              <img
-                className="user-row-profile-img"
-                src={theOtherSender.profilePicUrl}
-                alt='profilePicUrl'
-                style={{ marginRight: "0px" }}
-              />
-              <div className={divClass2}>
-                {msg.message.map((m) => (
-                  <div key={nanoid()}>
-                    <Comment inputMessage={m} replaceText={replaceText} />
-                  </div>
-                ))}
-              </div>
+          <div className={divClass3}>
+            <img
+              className="user-row-profile-img"
+              src={theOtherSender.profilePicUrl}
+              alt='profilePicUrl'
+              style={{ marginRight: "0px" }}
+            />
+            <div className={divClass2}>
+              {msg.message.map((m) => (
+                <div key={nanoid()}>
+                  <Comment inputMessage={m} replaceText={replaceText} />
+                </div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   };
@@ -396,38 +401,12 @@ function MessagePage() {
             />
           </div>
           <div className="main-left-div">
-            {currentReceivers.length > 1 && !currentRvsInConvosList() && <div className='users-div-row-left'>
-              <div className='users-div-row-left'>
-              </div>
-              {currentReceivers.map((user, i) =>
-                <div className={
-                  darkModeIsSet ? "indiv-user-row-left-div"
-                    : "indiv-user-row-left-div"}
-                  style={{ left: `${35 * i + 5}px` }}
-                  key={nanoid()}>
-                  <UserRow
-                    user={user}
-                    myId={myself.id}
-                    showFollowButtonOrText={false}
-                    gotoUserPage={false}
-                    miniProfileEnabled={false}
-                    short={true}
-                    nameFieldWidth={null}
-                  />
-                </div>)}
-            </div>}
-            {
-              Object.values(conversations).map(listOfUsers =>
-                <div className='users-div-row-left'
-                  onClick={e => {
-                    setCurrentReceivers(listOfUsers);
-                    startAGroupConvo(listOfUsers);
-                  }}
-                  key={nanoid()}
-                >
-                  <div className='users-div-row-left'>
+            {currentReceivers.length > 1 && !currentRvsInConvosList() &&
+              <div className={currentCovoIndex === 0 ? 'users-div-row-left selected' : 'users-div-row-left'}>
+                <div className='users-div-row-left-inner'>
+                  <div className='users-div-row-left-inner'>
                   </div>
-                  {listOfUsers.map((user, i) =>
+                  {currentReceivers.map((user, i) =>
                     <div className={
                       darkModeIsSet ? "indiv-user-row-left-div"
                         : "indiv-user-row-left-div"}
@@ -444,13 +423,50 @@ function MessagePage() {
                       />
                     </div>)}
                 </div>
+              </div>}
+            {
+              Object.values(conversations).map((listOfUsers, index) =>
+                <div className={currentCovoIndex === index + groupConvoStartIndex ? 'users-div-row-left selected' : 'users-div-row-left'}
+                  onClick={e => {
+                    setCurrentReceivers(listOfUsers);
+                    startAGroupConvo(listOfUsers);
+                    setCurrentConvoIndex(index + groupConvoStartIndex);
+                  }}
+                  key={nanoid()}
+                >
+                  <div className='users-div-row-left-inner'>
+                    <div className='users-div-row-left-inner'>
+                    </div>
+                    {listOfUsers.map((user, i) =>
+                      <div className={
+                        darkModeIsSet ? "indiv-user-row-left-div"
+                          : "indiv-user-row-left-div"}
+                        style={{ left: `${35 * i + 5}px` }}
+                        key={nanoid()}>
+                        <UserRow
+                          user={user}
+                          myId={myself.id}
+                          showFollowButtonOrText={false}
+                          gotoUserPage={false}
+                          miniProfileEnabled={false}
+                          short={true}
+                          nameFieldWidth={null}
+                        />
+                      </div>)}
+                  </div>
+                </div>
               )
             }
-            {allUniqueReceivers.map((u) => (
-              <div className='user-row-div' key={nanoid()}>
+            {allUniqueReceivers.map((u, index) => (
+              <div className={currentCovoIndex === index + indivConvoStartIndex ? 'user-row-div selected' : 'user-row-div'}
+                key={nanoid()}
+              >
                 <div className='user-row-clickable-div'
                   key={nanoid()} id={`${u.id}-receiver`}
-                  onClick={e => receiverClick(e, u.id)}
+                  onClick={e => {
+                    receiverClick(e, u.id);
+                    setCurrentConvoIndex(index + indivConvoStartIndex);
+                  }}
                 >
                   <UserRow
                     user={u}
@@ -529,19 +545,19 @@ function MessagePage() {
               </div>
             </>
           ) : (
-              <div className="empty-message-box-div durp">
-                <div>
-                  <BiChat fontSize={"120px"} />
-                </div>
-                <div className="title-and-button-message-box-div">
-                  <span className="title-message-box-div">Your Messages</span>
-                  <span className="subtitle-message-box-div">
-                    Send private photos and messages to a friend or group.
-              </span>
-                  <button className="button-message-box-div profile-follow-button">Send Messages</button>
-                </div>
+            <div className="empty-message-box-div durp">
+              <div>
+                <BiChat fontSize={"120px"} />
               </div>
-            )}
+              <div className="title-and-button-message-box-div">
+                <span className="title-message-box-div">Your Messages</span>
+                <span className="subtitle-message-box-div">
+                  Send private photos and messages to a friend or group.
+              </span>
+                <button className="button-message-box-div profile-follow-button">Send Messages</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
