@@ -51,6 +51,7 @@ function MessagePage() {
   const [currentCovoIndex, setCurrentConvoIndex] = useState(0);
   const groupConvoStartIndex = 10;
   const indivConvoStartIndex = 1000;
+  const [draggedUserId, setDraggedUserId] = useState(null);
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -333,6 +334,10 @@ function MessagePage() {
     return false;
   }
 
+  const userNOTInCurrentReceiverList = receiverId => {
+    return !currentReceivers.map(u => u.id).includes(receiverId);
+  }
+
 
   const MessageBubble = ({ msg }) => {
     let divClass1, divClass2, divClass3;
@@ -458,11 +463,22 @@ function MessagePage() {
               )
             }
             {allUniqueReceivers.map((u, index) => (
-              <div className={currentCovoIndex === index + indivConvoStartIndex ? 'user-row-div selected' : 'user-row-div'}
+              <div className={currentCovoIndex === index + indivConvoStartIndex ?
+                (userNOTInCurrentReceiverList(u.id) ? 'user-row-div selected grabbable' : 'user-row-div selected')
+                :
+                (userNOTInCurrentReceiverList(u.id) ? 'user-row-div grabbable' : 'user-row-div')}
+                draggable={userNOTInCurrentReceiverList(u.id) ? true : false}
                 key={nanoid()}
+                onDragCapture={e => {
+                  setDraggedUserId(u.id);
+                }}
+                onDragEnd={e => {
+                  setDraggedUserId(null);
+                }}
               >
                 <div className='user-row-clickable-div'
                   key={nanoid()} id={`${u.id}-receiver`}
+                  // onDoubleClick={e => addAUserToAConvoClick(e, u.id)}
                   onClick={e => {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
@@ -478,13 +494,28 @@ function MessagePage() {
                   />
                 </div>
                 <div>
-                  <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)} />
+                  {userNOTInCurrentReceiverList(u.id) &&
+                    <IoAddOutline className='add-this-user' onClick={e => addAUserToAConvoClick(e, u.id)} />
+                  }
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="message-page-right-panel">
+        <div className="message-page-right-panel"
+          // onDragEnterCapture={e => {
+          //   console.log("Dragged user entered right pannel with id", draggedUserId);
+          //   addAUserToAConvoClick(e, draggedUserId);
+          // }}
+          onDragOver={e => {
+            e.preventDefault();
+          }}
+          onDrop={e => {
+            console.log('Right pandel drag DROPPED');
+            addAUserToAConvoClick(e, draggedUserId);
+            setDraggedUserId(null);
+          }}
+        >
           {/* <h3 className="top-right hvr-wobble-bottom">Inbox</h3> */}
           {currentReceivers.length > 0 ? (
             <>

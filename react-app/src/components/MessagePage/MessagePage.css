@@ -38,6 +38,7 @@
   justify-content: space-between;
   border: 1px solid black;
   /* overflow-y: scroll; */
+  cursor: inherit;
 }
 
 .top-left-div,
@@ -218,9 +219,14 @@
   justify-content: space-between;
   width: 98%;
   border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.grabbable{
+  cursor: grab;
 }
 .user-row-clickable-div{
   cursor: pointer;
+  width: 80%;
 }
 .users-div-top-right{
   display: flex;
@@ -252,7 +258,9 @@
   background-color: rgb(127, 204, 230);
 }
 .selected{
-  border: 1px solid gray;
+  /* border: 1px dashed gray; */
+  background-color: rgba(130, 207, 233, 0.644);
+  /* box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2), 2px 2px 4px 2px rgba(0, 0, 0, 0.19);   */
 }
 .users-div-row-left-inner{
   display: flex;

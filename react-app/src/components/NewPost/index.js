@@ -254,31 +254,23 @@ const NewPost = ({ onPost }) => {
     setMedia(images.filter((_, i) => i !== index));
   }
 
-  const [currentDraggedIndex, setCurrentDraggedIndex] = useState(null);
-  const handleSingleImageDrag = (e, index) => {
-    setCurrentDraggedIndex(index);
-  }
-  const handleSingleImageDragEnd = (e, index) => {
-    setCurrentDraggedIndex(null);
-  }
+  const [_, makeReactRerenderTheImageSwap] = useState(null);
+  let currentDI = null;
 
   const handleSingleImageDrop = (e, droppedIndex) => {
-    if (currentDraggedIndex !== null) {
+    if (currentDI !== null) {
       const srcs = mediaSrcs;
-      const draggedSrc = srcs[currentDraggedIndex];
-      srcs[currentDraggedIndex] = srcs[droppedIndex];
+      const draggedSrc = srcs[currentDI];
+      srcs[currentDI] = srcs[droppedIndex];
       srcs[droppedIndex] = draggedSrc;
       setMediaSrcs(srcs);
       const imgs = images;
-      const draggedImg = imgs[currentDraggedIndex];
-      imgs[currentDraggedIndex] = imgs[droppedIndex];
+      const draggedImg = imgs[currentDI];
+      imgs[currentDI] = imgs[droppedIndex];
       imgs[droppedIndex] = draggedImg;
       setMedia(imgs);
     }
-    // e.preventDefault();    
-  }
-  const handleSingleImageOverCapture = (e, index) => {
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   return (
@@ -317,21 +309,28 @@ const NewPost = ({ onPost }) => {
       <div className='new-post-img-previews' >
         {mediaSrcs.map((src, index) =>
           <div className='image-preview-container' key={nanoid()} draggable={true}
-            onDragStart={e => handleSingleImageDrag(e, index)}
-            onDragEnd={e => handleSingleImageDragEnd(e, index)}
-            onDrop={e => handleSingleImageDrop(e, index)}
-            onDragOverCapture={e => handleSingleImageOverCapture(e, index)}
+            onDragStartCapture={e => {
+              currentDI = index;
+            }}
+            onDrop={e => {
+              makeReactRerenderTheImageSwap(Math.random());
+              handleSingleImageDrop(e, index);
+              currentDI = null;
+            }}
+            onDragOver={e => {
+              e.preventDefault();
+            }}
           >
             <MediaDisplayer mediaUrl={src} imgClassname="image-preview"
               vidClassname="image-preview"
               fileType={images[index].type}
-              // light={true}
+            // light={true}
             />
             <RiDeleteBin6Line className='img-prev-delete-button'
               onClick={e => handleDeleteClick(e, index)}
             />
             <div className='img-prev-number'>
-              {index}
+              {`${index + 1}/${mediaSrcs.length}`}
             </div>
           </div>
         )}
