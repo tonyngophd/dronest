@@ -271,14 +271,14 @@ function MessagePage() {
 
   const addAChatFriend = (myId, myUsername, friendId, friendUsername, convoKey) => {
     if (webSocket.current)
-      webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoKey });
+      webSocket.current.sendMessage('add-chat-friend', { myId, myUsername, friendId, friendUsername, convoKey, site: window.location.host });
   };
   const startAGroupConvo = (receivers) => {
     if (webSocket.current) {
-      const simplifiedReceivers = receivers.map(el => ({ id: el.id, username: el.username }));
+      const simplifiedReceivers = receivers.map(el => ({ id: el.id, username: el.username, site: window.location.host }));
       const convoKey = convoKeyFromUserArray([
         { site: window.location.host },
-        { id: myself.id, username: myself.username },
+        { id: myself.id, username: myself.username, site: window.location.host },
         ...simplifiedReceivers
       ]);
       webSocket.current.sendMessage('start-a-group-convo', { myId: myself.id, myUsername: myself.username, convoKey });
@@ -311,8 +311,8 @@ function MessagePage() {
     }
     const convoKey = convoKeyFromUserArray([
       { site: window.location.host },
-      { id: myself.id, username: myself.username },
-      ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
+      { id: myself.id, username: myself.username, site: window.location.host },
+      ...currentReceivers.map(el => ({ id: el.id, username: el.username, site: window.location.host }))
     ]);
     addAChatFriend(myself.id, myself.username, receiverId, recver ? recver.username : "username", convoKey);
     setCurrentConvoIndex(0);
@@ -567,8 +567,8 @@ function MessagePage() {
                       sendInstantChat={sendInstantChat}
                       convoKey={convoKeyFromUserArray([
                         { site: window.location.host },
-                        { id: myself.id, username: myself.username },
-                        ...currentReceivers.map(el => ({ id: el.id, username: el.username }))
+                        { id: myself.id, username: myself.username, site: window.location.host },
+                        ...currentReceivers.map(el => ({ id: el.id, username: el.username, site: window.location.host }))
                       ])}
                       setInstantMessage={setInstantMessage}
                     />
