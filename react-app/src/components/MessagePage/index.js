@@ -468,7 +468,7 @@ function MessagePage() {
               >
                 <div className='user-row-clickable-div'
                   key={nanoid()} id={`${u.id}-receiver`}
-                  onDoubleClick={e => addAUserToAConvoClick(e, u.id)}
+                  // onDoubleClick={e => addAUserToAConvoClick(e, u.id)}
                   onClick={e => {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
