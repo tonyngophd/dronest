@@ -181,7 +181,7 @@ function MessagePage() {
 
     ws.onopen = () => {
       sendMessage('add-new-person', { userId, username, site: window.location.host });
-      setInterval(() => sendMessage('heart-beat', { userId, username, site: window.location.host }), 5000);
+      setInterval(() => sendMessage('heart-beat', { userId, username, site: window.location.host }), 15000);
     };
 
     ws.onmessage = (e) => {
@@ -281,7 +281,7 @@ function MessagePage() {
         { id: myself.id, username: myself.username, site: window.location.host },
         ...simplifiedReceivers
       ]);
-      webSocket.current.sendMessage('start-a-group-convo', { myId: myself.id, myUsername: myself.username, convoKey });
+      webSocket.current.sendMessage('start-a-group-convo', { myId: myself.id, myUsername: myself.username, site: window.location.host, convoKey });
     }
   };
 
