@@ -346,13 +346,13 @@
   overflow: auto;
 }
 .unread-notice-icon{
-  /* font-size: 20px; */
+  font-size: 20px;
   /* position: absolute; */
   /* top: 0px; */
   /* right: 0px; */
   /* opacity: 0.5; */
   color: rgb(0, 0, 0);
-  width: 80px;
+  /* width: 80px; */
   /* z-index: -1; */
 }
 

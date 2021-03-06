@@ -50,10 +50,15 @@ function MessagePage() {
   const [conversations, setConversations] = useState({});
   const [currentCovoIndex, setCurrentConvoIndex] = useState(0);
   const [messageNoticeObject, setMessageNoticeObject] = useState({});
+  let cumulMessageNoticeObject = {};
   const [_, makeReactUpdateMessageNotice] = useState(null);
   const groupConvoStartIndex = 10;
   const indivConvoStartIndex = 1000;
   const [draggedUserId, setDraggedUserId] = useState(null);
+
+  const setCumulMessageNoticeObject = obj => {
+    cumulMessageNoticeObject = {...cumulMessageNoticeObject, ...obj};
+  }
 
   useEffect(() => {
     const all = myself.followers.concat(myself.following);
@@ -213,8 +218,9 @@ function MessagePage() {
               const string = lastMessage.receiverIdList + `_${lastMessage.senderId}`;
               const arr = string.split('_').map(id => Number(id)).filter(id => id !== myself.id).sort();
               object[arr.join('_')] = test2;
-              console.log('213', object, messageNoticeObject);
-              setMessageNoticeObject({ ...messageNoticeObject, ...object });
+              console.log('213', object, cumulMessageNoticeObject);
+              setCumulMessageNoticeObject( object );
+              setMessageNoticeObject({ ...cumulMessageNoticeObject });
               makeReactUpdateMessageNotice(Math.random());
             }
           }
@@ -458,6 +464,7 @@ function MessagePage() {
                     startAGroupConvo(listOfUsers);
                     setCurrentConvoIndex(index + groupConvoStartIndex);
                     delete messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`];
+                    delete cumulMessageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`];
                   }}
                   key={nanoid()}
                 >
@@ -513,6 +520,7 @@ function MessagePage() {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
                     delete messageNoticeObject[`${u.id}`];
+                    delete cumulMessageNoticeObject[`${u.id}`];
                   }}
                 >
                   <UserRow
