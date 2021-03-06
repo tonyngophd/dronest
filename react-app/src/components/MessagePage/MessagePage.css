@@ -227,7 +227,10 @@
 .user-row-clickable-div{
   display: flex;
   cursor: pointer;
-  width: 80%;
+  width: 85%;
+  height: 53px;
+  overflow-y: hidden;
+  /* position: relative; */
 }
 .users-div-top-right{
   display: flex;
@@ -326,6 +329,33 @@
   color: gray;
   /* visibility: visible; */
 }
+.unread-message-notice-div{
+  display: inline-flex;
+  flex-direction: row;
+  color: rgb(62, 119, 138);
+  border: 1px solid rgba(66, 66, 66, 0.411);
+  border-radius: 5px;
+  height: 50px;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45%;
+  /* position: relative; */
+  font-weight: bold;
+}
+.unread-message-notice-div:hover{
+  overflow: auto;
+}
+.unread-notice-icon{
+  /* font-size: 20px; */
+  /* position: absolute; */
+  /* top: 0px; */
+  /* right: 0px; */
+  /* opacity: 0.5; */
+  color: rgb(0, 0, 0);
+  width: 80px;
+  /* z-index: -1; */
+}
+
 /*
     "draft-js": "^0.11.7",
     "draft-js-mention-plugin": "^3.1.5",

@@ -20,7 +20,7 @@ import { nanoid } from "nanoid";
 import CommentInput from "../CommentInput";
 import { StoryTopBox } from '../Story';
 import { TiTimesOutline } from 'react-icons/ti';
-import { IoAddOutline } from 'react-icons/io5';
+import { IoAddOutline, IoMailUnreadOutline } from 'react-icons/io5';
 
 // import { fetchNotifications } from "../../store/notifications";
 
@@ -213,7 +213,7 @@ function MessagePage() {
               const string = lastMessage.receiverIdList + `_${lastMessage.senderId}`;
               const arr = string.split('_').map(id => Number(id)).filter(id => id !== myself.id).sort();
               object[arr.join('_')] = test2;
-              console.log('213', object);
+              console.log('213', object, messageNoticeObject);
               setMessageNoticeObject({ ...messageNoticeObject, ...object });
               makeReactUpdateMessageNotice(Math.random());
             }
@@ -438,7 +438,16 @@ function MessagePage() {
                         short={true}
                         nameFieldWidth={null}
                       />
-                    </div>)}
+                    </div>
+                  )}
+                  {
+                    messageNoticeObject[`${currentReceivers.map(u => u.id).sort().join('_')}`] &&
+                    currentCovoIndex !== 0 &&
+                    <div className='unread-message-notice-div'>
+                      <IoMailUnreadOutline className='unread-notice-icon' />
+                      <Comment inputMessage={messageNoticeObject[`${currentReceivers.map(u => u.id).sort().join('_')}`]} replaceText={replaceText} />
+                    </div>
+                  }
                 </div>
               </div>}
             {
@@ -473,8 +482,11 @@ function MessagePage() {
                       </div>)}
                     {
                       messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`] &&
-                      currentCovoIndex !== index + groupConvoStartIndex && 
-                      <Comment inputMessage={messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`]} replaceText={replaceText} />
+                      currentCovoIndex !== index + groupConvoStartIndex &&
+                      <div className='unread-message-notice-div'>
+                        <IoMailUnreadOutline className='unread-notice-icon' />
+                        <Comment inputMessage={messageNoticeObject[`${listOfUsers.map(u => u.id).sort().join('_')}`]} replaceText={replaceText} />
+                      </div>
                     }
                   </div>
                 </div>
@@ -500,7 +512,7 @@ function MessagePage() {
                   onClick={e => {
                     receiverClick(e, u.id);
                     setCurrentConvoIndex(index + indivConvoStartIndex);
-                    delete  messageNoticeObject[`${u.id}`];
+                    delete messageNoticeObject[`${u.id}`];
                   }}
                 >
                   <UserRow
@@ -513,7 +525,10 @@ function MessagePage() {
                   />
                   {
                     messageNoticeObject[`${u.id}`] && (currentCovoIndex !== index + indivConvoStartIndex) &&
-                    <Comment inputMessage={messageNoticeObject[`${u.id}`] } replaceText={replaceText} />
+                    <div className='unread-message-notice-div'>
+                      <IoMailUnreadOutline className='unread-notice-icon' />
+                      <Comment inputMessage={messageNoticeObject[`${u.id}`]} replaceText={replaceText} />
+                    </div>
                   }
                 </div>
                 <div>
