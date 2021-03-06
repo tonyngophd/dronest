@@ -549,10 +549,6 @@ function MessagePage() {
           </div>
         </div>
         <div className="message-page-right-panel"
-          // onDragEnterCapture={e => {
-          //   console.log("Dragged user entered right pannel with id", draggedUserId);
-          //   addAUserToAConvoClick(e, draggedUserId);
-          // }}
           onDragOver={e => {
             e.preventDefault();
           }}
