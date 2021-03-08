@@ -47,9 +47,10 @@ def upload_file_to_s3(file, bucket_name=Config.S3_BUCKET, acl="public-read"):
 
 def delete_file_from_s3(filename, bucket_name=Config.S3_BUCKET):
     try:
-        #http://fantsy-app.s3.amazonaws.com/phone2.png
         # bucket_name = filename[filename.index('//') + 2:filename.index('.s3')]
         filename_on_s3 = filename[filename.index('.com/') + len('.com/'):]
+        if 's3.amazonaws.com' not in filename_on_s3:
+            return {'status': 'file not hosted on AWS S3'}
         response = s3.delete_object(Bucket=bucket_name, Key=filename_on_s3)
     except Exception as e:
         prrint('Could not delete file from s3', e)
