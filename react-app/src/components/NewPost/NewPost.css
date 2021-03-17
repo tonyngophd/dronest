@@ -274,15 +274,5 @@
   margin-top: 5px;
   margin-bottom: -5px;
   filter: rgb(76, 76, 190) !important;
-}
-/* #dropicon path{
-  fill: rgb(76, 76, 190);
-} */
-.cls-1{
-  color: rgb(76, 76, 190) !important;
   fill: rgb(76, 76, 190) !important;  
-  background-color: rgb(76, 76, 190) !important; 
-  /* background-color: rgb(76, 76, 190);
-  -webkit-mask: url(logo.svg) no-repeat center;
-  mask: url(logo.svg) no-repeat center;   */
 }
