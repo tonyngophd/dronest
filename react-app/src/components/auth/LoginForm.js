@@ -84,7 +84,7 @@ const LoginForm = ({ setShowModal, redirect = true }) => {
         </div>
         <div className="buttons">
           <button type="submit" id="login-button" onClick={handleClick}>Log in</button>
-          <button onClick={demoUser} id="demo-login-button">Demo</button>
+          <button onClick={demoUser} id="demo-login-button" className="demo-login-button">Demo User</button>
         </div>
         <p className="OR">OR</p>
         <div className="login-form-footer">

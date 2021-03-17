@@ -288,9 +288,10 @@ const NewPost = ({ onPost }) => {
         onDrop={handleDrop}
       >
         <label htmlFor={"image-input"} className="image-upload">
-          <RiDragDropLine className="las la-plus-square image-upload-plus" />
-          <i className="las la-plus-square image-upload-plus"></i>
-          <GrDropbox className="las la-plus-square image-upload-plus" />
+          {/* <RiDragDropLine className="las la-plus-square image-upload-plus" /> */}
+          {/* <i className="las la-plus-square image-upload-plus"></i> */}
+          {/* <GrDropbox className="las la-plus-square image-upload-plus" /> */}
+          <img className="las la-plus-square image-upload-plus dropicon" src={require('./dropicon.svg')} />
         </label>
         <input
           className="image-placeholder"
