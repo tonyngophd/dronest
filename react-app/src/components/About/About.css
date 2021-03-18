@@ -61,6 +61,7 @@
   border-radius: 10px;
   margin-bottom: 30px;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+  overflow: hidden;
 }
 .sideinfo-nav-container{
   position: fixed;
@@ -157,4 +158,12 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+.github_readme_excerpt_header{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -40px;
+  overflow: hidden;
 }
