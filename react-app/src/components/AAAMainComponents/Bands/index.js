@@ -76,10 +76,10 @@ export function MainBanner() {
   const nextOrPrevClick = (e, next = true, currentPic) => {
     e.preventDefault();
     let current = currentPic;
-    if(next) current++;
+    if (next) current++;
     else current--;
-    if(current > 3 ) current = 0;
-    if(current < 0) current = 3;
+    if (current > 3) current = 0;
+    if (current < 0) current = 3;
     setCurrentPic(current);
   }
 
@@ -87,7 +87,7 @@ export function MainBanner() {
   return (
     <div className='main-banner-container'>
       <div className='banner-container'>
-        <NextOrPrevious next={false} onClick={e => nextOrPrevClick(e, false, currentPic)}/>
+        <NextOrPrevious next={false} onClick={e => nextOrPrevClick(e, false, currentPic)} />
         <div className='banner-img-container'>
           {
             new Array(maxPicNumber).fill(true).map((el, i) =>
@@ -103,7 +103,7 @@ export function MainBanner() {
             )
           }
         </div>
-        <NextOrPrevious  onClick={e => nextOrPrevClick(e, true, currentPic)}/>
+        <NextOrPrevious onClick={e => nextOrPrevClick(e, true, currentPic)} />
       </div>
       <div className='banner-squares'>
         <Squares repeat={4} onClick={setCurrentPic} numberOfCards={1} currentActiveSquare={currentPic} />
@@ -190,7 +190,7 @@ export function Bands() {
     } else {
       setShowLoginForm(false);
     }
-    if(location.pathname === '/' || location.pathname === '/login'){
+    if (location.pathname === '/' || location.pathname === '/login') {
       setBandsClassName('homepage-bands-container-visible')
     } else {
       setBandsClassName('homepage-bands-container-invisible')
