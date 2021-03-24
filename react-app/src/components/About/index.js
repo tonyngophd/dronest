@@ -191,10 +191,7 @@ export function About() {
               A Full-Stack Web Application (Social Network, Instagram/FaceBook/Skypixel-like) for users to host and share their drone arts (pics/vids) and get socialized on the platform.
               This application features one React/Redux frontend and two backend servers, one main server serving all database and api routes, and one extra websocket server for instant messaging.
               <br />
-              This is my
-              <a href='www.appacademy.io' target='_blank' className='appacademy-a-link'>
-                <img src='https://miro.medium.com/max/1838/1*KN9GphVB-0MCPvH1_MNn6Q.png' className='appacademy-icon' />
-              </a> capstone graduation project
+              This is an experimental project.
             </div>
           </div>
           <h4>Technologies used</h4>
