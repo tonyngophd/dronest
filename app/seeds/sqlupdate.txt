@@ -421,9 +421,10 @@ where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s640x640/1474193
 update media
 set "mediaUrl"='https://images.unsplash.com/photo-1533551131698-c87deddfa2d6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80'
 where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/p526x296/148558027_10225586526516673_5159435534353524470_n.jpg?_nc_cat=107&ccb=3&_nc_sid=825194&_nc_ohc=JrrWI4XX2R0AX9BFwd1&_nc_ht=scontent-iad3-1.xx&tp=6&oh=a5639831fa2075f8b25498b60541d9c6&oe=6049FC32';
+
 update media
 set "mediaUrl"='https://images.unsplash.com/photo-1519133788675-93a5fe073e1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80'
-where "mediaUrl"='https://images.unsplash.com/photo-1524482131769-b23c0f633d7c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80';
+where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/s960x960/147400797_10158727734280638_7892746091767291037_o.jpg?_nc_cat=110&ccb=3&_nc_sid=825194&_nc_ohc=LCnCsdmrbT4AX9EttE9&_nc_ht=scontent-iad3-1.xx&tp=7&oh=0b33f019bcf47dcbdde0b4b5814adcc3&oe=60487381';
 
 update media
 set "mediaUrl"='https://images.unsplash.com/photo-1530044883105-5c13bbd3429b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
@@ -595,8 +596,24 @@ set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal6.jpg'
 where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s640x640/126378499_3273382876099864_8470024439652065271_o.jpg?_nc_cat=102&ccb=2&_nc_sid=825194&_nc_ohc=LvSI6OmrAN0AX_Cdype&_nc_ht=scontent-iad3-1.xx&tp=7&oh=d8831c723b68e60bddea3f2dcf590b7f&oe=6046A2D4';
 
 update media
-set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal6.jpg'
-where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/s640x640/126378499_3273382876099864_8470024439652065271_o.jpg?_nc_cat=102&ccb=2&_nc_sid=825194&_nc_ohc=LvSI6OmrAN0AX_Cdype&_nc_ht=scontent-iad3-1.xx&tp=7&oh=d8831c723b68e60bddea3f2dcf590b7f&oe=6046A2D4';
+set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal7.jpg'
+where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/24129629_1095330667275212_7220477219033481929_n.jpg?_nc_cat=101&ccb=3&_nc_sid=825194&_nc_ohc=XrRR6EfvOMMAX8BDhsT&_nc_ht=scontent-iad3-1.xx&oh=3fc696d2fb579e6ff1df1b50319ca8f9&oe=60471014';
+
+update media
+set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal8.jpg'
+where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/72465869_517053305532971_1421889326098153472_o.jpg?_nc_cat=107&ccb=3&_nc_sid=8bfeb9&_nc_ohc=sq-HTqtiAWkAX9Pc6VE&_nc_ht=scontent-iad3-1.xx&oh=cd87d52d98fa311e9fdff19717b1e2d4&oe=6047C6A3';
+
+update media
+set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal8.jpg'
+where "mediaUrl"='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/72465869_517053305532971_1421889326098153472_o.jpg?_nc_cat=107&ccb=3&_nc_sid=8bfeb9&_nc_ohc=sq-HTqtiAWkAX9Pc6VE&_nc_ht=scontent-iad3-1.xx&oh=cd87d52d98fa311e9fdff19717b1e2d4&oe=6047C6A3';
+
+update media
+set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal9.jpg'
+where "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal2.jpg';
+
+update media
+set "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal9.jpg'
+where "mediaUrl"='https://dronest.s3.amazonaws.com/images/thermal2.jpg';
 
 
 

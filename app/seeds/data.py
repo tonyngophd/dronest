@@ -275,10 +275,10 @@ mediadata = [
   #   "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/p180x540/146052569_1074522606387097_288060169047200584_o.jpg?_nc_cat=108&ccb=2&_nc_sid=825194&_nc_ohc=TY2ib0DUXrUAX8Wa2mj&_nc_ht=scontent-iad3-1.xx&tp=6&oh=594d49fcc43a3482d8fb994de192dd3e&oe=604542DD",
   #   "catid": "11"
   # },
-  {
-    "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/p180x540/146109597_3446398468804104_5932228915108679644_o.jpg?_nc_cat=108&ccb=2&_nc_sid=825194&_nc_ohc=1apPSd3A__kAX_Mzuu3&_nc_ht=scontent-iad3-1.xx&tp=6&oh=2ee863d896466bc472392808b2de51bf&oe=60460571",
-    "catid": "1"
-  },
+  # {
+  #   "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/p180x540/146109597_3446398468804104_5932228915108679644_o.jpg?_nc_cat=108&ccb=2&_nc_sid=825194&_nc_ohc=1apPSd3A__kAX_Mzuu3&_nc_ht=scontent-iad3-1.xx&tp=6&oh=2ee863d896466bc472392808b2de51bf&oe=60460571",
+  #   "catid": "1"
+  # },
   {
     # "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/p180x540/146826116_3726719610717949_675416905461434179_o.jpg?_nc_cat=104&ccb=2&_nc_sid=825194&_nc_ohc=Jal19AXf9MoAX9x-_pZ&_nc_ht=scontent-iad3-1.xx&tp=6&oh=e95f80745f99ccb62fe0dc3f43da6999&oe=60444994",
     "url": "https://images.unsplash.com/photo-1596211603392-01c13ad48f70?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjEwfHxkcm9uZSUyMHZpZXclMjBuYXR1cmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
@@ -798,15 +798,18 @@ mediadata = [
   },
   {
     # "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/117626437_2075238455951090_4642097124794706527_o.jpg?_nc_cat=107&ccb=3&_nc_sid=825194&_nc_ohc=LL3Gv65k3-8AX86lEXe&_nc_ht=scontent-iad3-1.xx&oh=f3538acd7ebdd4afc5bc2288f8151ef6&oe=60481CBC",
-    "url": "https://dronest.s3.amazonaws.com/images/thermal2.jpg",
+    # "url": "https://dronest.s3.amazonaws.com/images/thermal2.jpg",
+    "url": "https://dronest.s3.amazonaws.com/images/thermal9.jpg",
     "catid": "3"
   },
   {
-    "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/24129629_1095330667275212_7220477219033481929_n.jpg?_nc_cat=101&ccb=3&_nc_sid=825194&_nc_ohc=XrRR6EfvOMMAX8BDhsT&_nc_ht=scontent-iad3-1.xx&oh=3fc696d2fb579e6ff1df1b50319ca8f9&oe=60471014",
+    # "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/24129629_1095330667275212_7220477219033481929_n.jpg?_nc_cat=101&ccb=3&_nc_sid=825194&_nc_ohc=XrRR6EfvOMMAX8BDhsT&_nc_ht=scontent-iad3-1.xx&oh=3fc696d2fb579e6ff1df1b50319ca8f9&oe=60471014",
+    "url": "https://dronest.s3.amazonaws.com/images/thermal7.jpg",
     "catid": "3"
   },
   {
-    "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/72465869_517053305532971_1421889326098153472_o.jpg?_nc_cat=107&ccb=3&_nc_sid=8bfeb9&_nc_ohc=sq-HTqtiAWkAX9Pc6VE&_nc_ht=scontent-iad3-1.xx&oh=cd87d52d98fa311e9fdff19717b1e2d4&oe=6047C6A3",
+    # "url": "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/72465869_517053305532971_1421889326098153472_o.jpg?_nc_cat=107&ccb=3&_nc_sid=8bfeb9&_nc_ohc=sq-HTqtiAWkAX9Pc6VE&_nc_ht=scontent-iad3-1.xx&oh=cd87d52d98fa311e9fdff19717b1e2d4&oe=6047C6A3",
+    "url": "https://dronest.s3.amazonaws.com/images/thermal8.jpg",
     "catid": "3"
   },
 ]
