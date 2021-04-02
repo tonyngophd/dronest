@@ -75,7 +75,7 @@ This is my <a href='www.appacademy.io' target='_blank'>App Academy</a> capstone 
    <summary>Screenshots: Homepage & Profile page</summary>
    <div style="display: flex">
       <img src="./resources/screenshots/home.png" width="31%" height="30%" style="margin: 5px"/>
-      <img src="./resources/screenshots/home-darkmode.png" width="31%" height="30%"  style="margin: 5px"/>
+      <img src="https://tonyngo.me/images/dronest4_small.gif" width="31%" height="30%"  style="margin: 5px"/>
       <img src="./resources/screenshots/profilepage.png" width="31%" height="30%" style="margin: 5px"/>
    <div>
 </details>
