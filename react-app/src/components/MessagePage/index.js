@@ -218,7 +218,7 @@ function MessagePage() {
               const string = lastMessage.receiverIdList + `_${lastMessage.senderId}`;
               const arr = string.split('_').map(id => Number(id)).filter(id => id !== myself.id).sort();
               object[arr.join('_')] = test2;
-              console.log('213', object, cumulMessageNoticeObject);
+              // console.log('213', object, cumulMessageNoticeObject);
               setCumulMessageNoticeObject( object );
               setMessageNoticeObject({ ...cumulMessageNoticeObject });
               makeReactUpdateMessageNotice(Math.random());

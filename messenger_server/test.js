@@ -16,9 +16,9 @@ class User{
 
 const joe = new User('joe');
 
-console.log(joe.userName, joe.username); //Output: joe joe
+// console.log(joe.userName, joe.username); //Output: joe joe
 joe.userName = 'jesse';
-console.log(joe.userName, joe.username); //Output: jesse jesse
+// console.log(joe.userName, joe.username); //Output: jesse jesse
 
 class TestPrivate{
   #p = 3; //private object property (not class property)
