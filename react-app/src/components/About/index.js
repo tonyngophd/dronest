@@ -201,7 +201,7 @@ export function About() {
             </div>
             <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png' className='technology-icon' />
             <img src='https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png' className='technology-icon' />
-            <img src='https://cdn.worldvectorlogo.com/logos/heroku.svg' className='technology-icon' />
+            <img src='https://github.com/tonyngophd/tonyngophd.github.io/blob/master/images/heroku.svg' className='technology-icon' />
             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzSXTzu-_Vxa4Bw2U1vfH8QLHsAXv1KAGZKQ&usqp=CAU' className='technology-icon' />
             <hr />
             <div style={{ marginTop: '-10px', marginBottom: '-10px' }}>
