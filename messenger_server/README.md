@@ -8,7 +8,7 @@
 ## Instructions:
 - This repo contains a Server side and a Client side
 - First clone the repo
-  `git clone https://github.com/suasllc/minium-instant-messaging-with-websocket-JS-react`
+  `git clone https://github.com/tonyngophd/minium-instant-messaging-with-websocket-JS-react`
 - Then
   ```
   cd minium-instant-messaging-with-websocket-JS-react

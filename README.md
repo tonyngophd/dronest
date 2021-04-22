@@ -7,7 +7,7 @@
 <!--ReactSkipperStart -->
 <br />
 <p align="center"  style='margin-top: -40px; margin-bottom: -10px;'>
-  <a href="https://github.com/suasllc/dronest">
+  <a href="https://github.com/tonyngophd/dronest">
     <img src="react-app/src/pictures/dronestlogo3.png" alt="Logo" width="160" height="60" style="object-fit: contain">
   </a>
 
@@ -15,14 +15,14 @@
     <b>Dronest</b> - A Full-Stack Web Application for users to host and share their drone arts and get socialized on the platform.
     <br />
     <br />
-    <a href="https://github.com/suasllc/dronest/wiki"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/tonyngophd/dronest/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://dronest.herokuapp.com/">View Demo/Live</a>
     ·
-    <a href="https://github.com/suasllc/dronest/issues">Report Bug</a>
+    <a href="https://github.com/tonyngophd/dronest/issues">Report Bug</a>
     ·
-    <a href="https://github.com/suasllc/dronest/issues">Request Feature</a>
+    <a href="https://github.com/tonyngophd/dronest/issues">Request Feature</a>
   </p>
 </p>
 
@@ -117,7 +117,7 @@ Install npm on your local computer
 1. Clone this repository (only this branch)
 
    ```bash
-   git clone https://github.com/suasllc/dronest.git
+   git clone https://github.com/tonyngophd/dronest.git
    ```
 
 2. Install dependencies
@@ -126,7 +126,7 @@ Install npm on your local computer
       pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
       ```
 
-3. [Further steps here](https://github.com/suasllc/dronest/wiki/Installation-Details)
+3. [Further steps here](https://github.com/tonyngophd/dronest/wiki/Installation-Details)
 
 ## Usage
 <!--ReactSkipperStart -->
@@ -159,13 +159,13 @@ Install npm on your local computer
 
 <!--ReactSkipperEnd -->
 
-_For more examples, please refer to the [Documentation](https://github.com/suasllc/dronest/wiki)_
+_For more examples, please refer to the [Documentation](https://github.com/tonyngophd/dronest/wiki)_
 
 
 
 ## Roadmap
 
-See the [open issues](https://github.com/suasllc/dronest/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/tonyngophd/dronest/issues) for a list of proposed features (and known issues).
 
 
 
@@ -191,7 +191,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Tony Ngo [@suas_com](https://twitter.com/suas_com) - website: https://tonyngo.me
 
-Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dronest)
+Project Link: [https://github.com/tonyngophd/dronest](https://github.com/tonyngophd/dronest)
 
 
 
@@ -205,15 +205,15 @@ Project Link: [https://github.com/suasllc/dronest](https://github.com/suasllc/dr
 
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/suasllc/dronest.svg?style=for-the-badge
-[contributors-url]: https://github.com/suasllc/dronest/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/suasllc/dronest.svg?style=for-the-badge
-[forks-url]: https://github.com/suasllc/dronest/network/members
-[stars-shield]: https://img.shields.io/github/stars/suasllc/dronest.svg?style=for-the-badge
-[stars-url]: https://github.com/suasllc/dronest/stargazers
-[issues-shield]: https://img.shields.io/github/issues/suasllc/dronest.svg?style=for-the-badge
-[issues-url]: https://github.com/suasllc/dronest/issues
-[license-shield]: https://img.shields.io/github/license/suasllc/dronest.svg?style=for-the-badge
-[license-url]: https://github.com/suasllc/dronest/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/tonyngophd/dronest.svg?style=for-the-badge
+[contributors-url]: https://github.com/tonyngophd/dronest/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/tonyngophd/dronest.svg?style=for-the-badge
+[forks-url]: https://github.com/tonyngophd/dronest/network/members
+[stars-shield]: https://img.shields.io/github/stars/tonyngophd/dronest.svg?style=for-the-badge
+[stars-url]: https://github.com/tonyngophd/dronest/stargazers
+[issues-shield]: https://img.shields.io/github/issues/tonyngophd/dronest.svg?style=for-the-badge
+[issues-url]: https://github.com/tonyngophd/dronest/issues
+[license-shield]: https://img.shields.io/github/license/tonyngophd/dronest.svg?style=for-the-badge
+[license-url]: https://github.com/tonyngophd/dronest/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/tony-ngo-suas/

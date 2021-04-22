@@ -38,7 +38,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
         }
 
         <div className='social-icon-and-text'>
-          <a href='https://github.com/suasllc/dronest' target='_blank'>
+          <a href='https://github.com/tonyngophd/dronest' target='_blank'>
             <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
             {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
@@ -55,7 +55,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://github.com/suasllc' target='_blank'>
+          <a href='https://github.com/tonyngophd' target='_blank'>
             {/* <img src={'https://image.flaticon.com/icons/png/512/25/25231.png'} className='social-icon' /> */}
             <AiOutlineGithub className='social-icon' />
           </a>
@@ -98,7 +98,7 @@ function SocialLinks({ className, innerClassName = 'social-links', sidebar = fal
               </div>
         </div>
         <div className='social-icon-and-text'>
-          <a href='https://github.com/suasllc/dronestms' target='_blank'>
+          <a href='https://github.com/tonyngophd/dronestms' target='_blank'>
             <img src={'https://o.dlf.pt/dfpng/smallpng/159-1596784_git-logo-png-transparent-background-icon-logo-git.png'} className='social-icon' />
             {/* <img src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg'} className='social-icon' />             */}
           </a>
@@ -148,7 +148,7 @@ function reactSkipperRemoved(string) {
 
 export function About() {
   const users = useSelector(state => state.users.allUsers);
-  const url = 'https://api.github.com/repos/suasllc/dronest/contents/README.md';
+  const url = 'https://api.github.com/repos/tonyngophd/dronest/contents/README.md';
   let [gotContents, setGetContents] = useState(false)
   const dispatch = useDispatch();
   const [author, setAuthor] = useState(null);
